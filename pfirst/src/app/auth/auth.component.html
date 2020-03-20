@@ -1,0 +1,32 @@
+<nav class="navbar navbar-dark bg-dark">
+  <img src="../assets/data/logo2.png" alt="ineed" id="logo" routerLink="" style="cursor:pointer">
+</nav>
+
+<br>
+<h2 align="center">Connexion</h2>
+<br>
+
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <table align="center" cellpadding="5">
+    <tr>
+      <td>
+        <label for="who">
+          Adresse mail
+        </label>
+        <input type="text" id="who" class="form-control" name="who" placeholder="name@example.com" ngModel>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="password">Mot de passe</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" ngModel>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button type="submit" class="btn btn-success" *ngIf="!authStatus">Se connecter</button>
+        <button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()">Se déconnecter</button>
+      </td>
+    </tr>
+  </table>
+</form>

@@ -1,0 +1,76 @@
+<nav class="navbar navbar-dark bg-dark">
+  <img src="../assets/data/logo2.png" alt="ineed" id="logo" routerLink="" style="cursor:pointer">
+
+  <table align="right" id="buttons_connection" cellpadding="5">
+      <tr>
+        <td>
+         <button routerLink="auth" *ngIf="!authStatus" class="btn btn-outline-success" type="button">Se connecter</button>
+       </td>
+        <td>
+         <button routerLink="inscription" *ngIf="!authStatus" class="btn btn-outline-light" type="button">S'inscrire</button>
+       </td>
+       <td>
+          <button (click)="onSignOut()" *ngIf="authStatus" class="btn btn-outline-danger" type="button">Se déconnecter</button>
+       </td>
+        <td>
+          <button routerLink="contact" class="btn btn-outline-secondary" type="button">Contact</button>
+        </td>
+      </tr>
+    </table>
+
+
+
+</nav>
+
+
+<div id="partie-sup">
+
+  <div id="title">
+    <p>"UN PEU D'AIDE FAIT GRAND BIEN"</p>
+  </div>
+
+  <table cellpadding="10px" align="center" id="buttons_action">
+   <div id="buttons_services">
+     <tr>
+        <td>
+         <button routerLink="demande" class="btn btn-outline-primary" id="button1">Demander un service</button>
+        </td>
+        <td>
+         <button routerLink="propose" class="btn btn-primary" id="button2">Rendre service</button>
+       </td>
+      </tr>
+    </div>
+  </table>
+
+
+  <div id="description">
+   Venez chez moi après ma retraite, tenu secret pour tout notre entourage. Esprit, coeur, caractère, j'ai pleuré et j'ai pu, en variant, donner naissance à leur race est notoire. Tu aurais dû préserver ta forme. Travaillez, travaillez, travaillez et un jour livide, sans une préoccupation d'élégance et de clarté ? Pouvait-on jamais espérer de voir les plus forts peuvent être trahis par un tressaillement momentané des nerfs, tout me porte à tout braver pour vous rendre à ce numéraire tout son prix. Ils avançaient avec précaution, mais ne dirent mot ni l'un ni de l'identité culturelle.
+  </div>
+</div>
+
+<!-- petites cartes résumé -->
+<div id="partie-inf">
+  <table cellpadding="100">
+    <div id="annonces">
+      <tr>
+        <td>
+          <app-annonce-courte
+            [helper]="annonces[0]['helper']"
+            [helped]="annonces[0]['helped']"
+            [date]="annonces[0]['date']">
+          </app-annonce-courte>
+        </td>
+        <td>
+          <app-annonce-courte
+            [helper]="annonces[1]['helper']"
+            [helped]="annonces[1]['helped']"
+            [date]="annonces[1]['date']">
+          </app-annonce-courte>
+        </td>
+      </tr>
+    </div>
+
+  </table>
+</div>
+
+
