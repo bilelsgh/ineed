@@ -20,10 +20,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AnnonceCourteComponent } from './annonce-courte/annonce-courte.component';
 import { FooterComponent } from './footer/footer.component';
 import { MyfooterComponent } from './myfooter/myfooter.component';
+import { FormerServiceComponent } from './former-service/former-service.component';
+import { NiveauComponent } from './niveau/niveau.component';
+import { ProfilComponent } from './profil/profil.component';
+import { ServicesExperienceComponent } from './services-experience/services-experience.component';
+import {UserService} from "./services/users.service";
 
 const appRoutes : Routes = [ //Racine de toutes les routes de l'applications
   {path: 'propose', component: ProposeComponent},
   {path: 'auth', component: AuthComponent},
+  {path:'profil', component: ProfilComponent},
   {path: 'demande', canActivate:[AuthGuard], component: DemandeComponent},
   {path:'not-found', component: FourOhFourComponent},
   {path:'contact', component: ContactComponent},
@@ -46,7 +52,11 @@ const appRoutes : Routes = [ //Racine de toutes les routes de l'applications
     ContactComponent,
     AnnonceCourteComponent,
     FooterComponent,
-    MyfooterComponent
+    MyfooterComponent,
+    FormerServiceComponent,
+    NiveauComponent,
+    ProfilComponent,
+    ServicesExperienceComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +68,8 @@ const appRoutes : Routes = [ //Racine de toutes les routes de l'applications
   providers: [ //on ajoute ici tous les services
     AuthService,
     AuthGuard,
-    InscriptionService
+    InscriptionService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

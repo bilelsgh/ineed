@@ -1,0 +1,13 @@
+.flecheDown
+{
+  width: 40px;
+  height: auto;
+  border:  1px #8f2812 dotted;
+}
+
+.flecheUp
+{
+  width: 40px;
+  height: auto;
+  border: 1px #8f2812 dotted;
+}

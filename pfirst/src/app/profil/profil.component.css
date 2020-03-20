@@ -1,0 +1,35 @@
+#myProfilEssentials
+{
+  margin-left: 3%;
+  text-align: top left;
+}
+
+#myProfilPic
+{
+  width: 150px;
+  border: 5px #8f2812 solid;
+}
+
+.user_identifier
+{
+  font-size: 30px;
+  line-height: 300px;
+  background-color:white;
+  text-align: top right;
+}
+
+#aPropos
+{
+  text-align: top right;
+}
+
+app-services-experience
+{
+  text-align: left;
+}
+
+#nivTitle
+{
+  text-align: center;
+}
+

@@ -1,0 +1,18 @@
+<div id="profilMain">
+  <div id="myProfilEssentials">
+    <p class="user_identifier">
+      <img src="../../assets/data/pdp-test.jpg" id="myProfilPic">
+      Gilbert ANGENIEUX
+    </p>
+  </div>
+  <div id="aPropos" style="width:100%">
+    <h3>À propos</h3>
+    <p>{{bio}}</p>
+  </div>
+  <h4 id="nivTitle">Progression</h4>
+  <app-niveau></app-niveau>
+  <app-services-experience></app-services-experience>
+  <button class="btn btn-success" (click)="onSave()">Enregistrer</button>
+  <button class="btn btn-success" (click)="onLoad()">Charger</button>
+
+</div>

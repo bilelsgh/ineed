@@ -1,0 +1,8 @@
+<p id="niv-intro">Niveau : {{niveauLabels[niveau]}}</p>
+<div id="myBar">
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': percentage+'%'}" [attr.aria-valuenow]="percentage" aria-valuemin="0" aria-valuemax="100">
+      {{doneBeforeNext}}/5
+    </div>
+  </div>
+</div>

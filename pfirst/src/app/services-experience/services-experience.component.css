@@ -1,0 +1,37 @@
+.star
+{
+  max-height: 50px;
+  width: auto;
+}
+
+#history
+{
+  align: right bottom;
+}
+
+#history-serv
+{
+  text-align: left;
+  font-family: Arial;
+  width: 500px;
+  height: auto;
+
+}
+
+#history-title
+{
+  font-family: italic;
+}
+
+.history-serv:hover
+{
+  background-color: grey;
+}
+
+.all-com-button
+{
+  font-size: small;
+  width: 80px;
+  height: auto;
+  margin-left: 230px;
+}
