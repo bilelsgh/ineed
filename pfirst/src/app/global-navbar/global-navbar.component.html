@@ -1,0 +1,29 @@
+<nav class="navbar navbar-dark bg-dark" id="globalNavbar">
+  <table align="left" id="buttons_connection" cellpadding="5">
+    <img src="../assets/data/logo2.png" alt="ineed" id="logo" routerLink="" style="cursor:pointer">
+
+    <td>
+      <button routerLink="profil" class="btn btn-outline-light" type="button">Profil</button>
+    </td>
+  </table>
+  <table align="right" id="buttons_connection" cellpadding="5">
+    <tr>
+
+      <td>
+        <button routerLink="auth" *ngIf="!authStatus" class="btn btn-outline-success" type="button">Se connecter
+        </button>
+      </td>
+      <td>
+        <button routerLink="inscription" *ngIf="!authStatus" class="btn btn-outline-light" type="button">S'inscrire
+        </button>
+      </td>
+      <td>
+        <button (click)="onSignOut()" *ngIf="authStatus" class="btn btn-outline-danger" type="button">Se déconnecter
+        </button>
+      </td>
+      <td>
+        <button routerLink="contact" class="btn btn-outline-secondary" type="button">Contact</button>
+      </td>
+    </tr>
+  </table>
+</nav>

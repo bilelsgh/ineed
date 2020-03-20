@@ -25,6 +25,7 @@ import { NiveauComponent } from './niveau/niveau.component';
 import { ProfilComponent } from './profil/profil.component';
 import { ServicesExperienceComponent } from './services-experience/services-experience.component';
 import {UserService} from "./services/users.service";
+import { GlobalNavbarComponent } from './global-navbar/global-navbar.component';
 
 const appRoutes : Routes = [ //Racine de toutes les routes de l'applications
   {path: 'propose', component: ProposeComponent},
@@ -56,7 +57,8 @@ const appRoutes : Routes = [ //Racine de toutes les routes de l'applications
     FormerServiceComponent,
     NiveauComponent,
     ProfilComponent,
-    ServicesExperienceComponent
+    ServicesExperienceComponent,
+    GlobalNavbarComponent
   ],
   imports: [
     BrowserModule,
