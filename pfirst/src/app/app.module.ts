@@ -27,18 +27,6 @@ import { ServicesExperienceComponent } from './services-experience/services-expe
 import {UserService} from "./services/users.service";
 import { GlobalNavbarComponent } from './global-navbar/global-navbar.component';
 
-const appRoutes : Routes = [ //Racine de toutes les routes de l'applications
-  {path: 'propose', component: ProposeComponent},
-  {path: 'auth', component: AuthComponent},
-  {path:'profil', component: ProfilComponent},
-  {path: 'demande', canActivate:[AuthGuard], component: DemandeComponent},
-  {path:'not-found', component: FourOhFourComponent},
-  {path:'contact', component: ContactComponent},
-  {path:'inscription', component: InscriptionComponent},
-  {path: '', component: AppViewComponent}, //indique la page "d'accueil"
-  {path: '**', redirectTo:'/not-found'} //renvoie vers la page d'erreur si la route n'existe pas, à mettre à la fin
-
-];
 
 @NgModule({
   declarations: [
@@ -63,7 +51,6 @@ const appRoutes : Routes = [ //Racine de toutes les routes de l'applications
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
     FormsModule,
     HttpClientModule
   ],

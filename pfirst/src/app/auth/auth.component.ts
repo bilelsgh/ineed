@@ -10,28 +10,20 @@ import {NgForm} from '@angular/forms';
 })
 export class AuthComponent implements OnInit {
 
-  authStatus: boolean;
-  who: string;
+  userEmail : String;
+  userPassword : String;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
-  ngOnInit(){
-    this.authStatus = this.authService.isAuth;
-    this.who = this.authService.who;
-  }
+  ngOnInit(){}
 
   onSignIn(){
-    this.authService.signIn().then(//car méthode asynchrone
-      () => {
-        this.authStatus = this.authService.isAuth;
-        this.router.navigate( ['']) //redirection après la connection
-      }
-    );
-  }
+    this.authService.validate(this.userEmail, this.userPassword)
+      .then((response) => {
+        this.authService.setUserInfo({'user' : response['user']});
+        this.router.navigate(['']);
 
-  onSignOut(){
-    this.authService.signOut(); //méthode synchrone ...
-    this.authStatus = this.authService.isAuth; //..on met directement à jour le bool
+      })
   }
 
   onSubmit(form: NgForm){

@@ -10,15 +10,15 @@
     <tr>
 
       <td>
-        <button routerLink="auth" *ngIf="!authStatus" class="btn btn-outline-success" type="button">Se connecter
+        <button routerLink="auth" *ngIf="!this.authService.isAuthenticated()" class="btn btn-outline-success" type="button">Se connecter
         </button>
       </td>
       <td>
-        <button routerLink="inscription" *ngIf="!authStatus" class="btn btn-outline-light" type="button">S'inscrire
+        <button routerLink="inscription" *ngIf="!this.authService.isAuthenticated()" class="btn btn-outline-light" type="button">S'inscrire
         </button>
       </td>
       <td>
-        <button (click)="onSignOut()" *ngIf="authStatus" class="btn btn-outline-danger" type="button">Se déconnecter
+        <button (click)="this.authService.removeUserInfo()" *ngIf="this.authService.isAuthenticated()" class="btn btn-outline-danger" type="button">Se déconnecter
         </button>
       </td>
       <td>

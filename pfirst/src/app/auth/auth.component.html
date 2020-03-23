@@ -24,8 +24,9 @@
     </tr>
     <tr>
       <td>
-        <button type="submit" class="btn btn-success" *ngIf="!authStatus">Se connecter</button>
-        <button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()">Se déconnecter</button>
+        <button type="submit" class="btn btn-success" *ngIf="!this.authService.isAuthenticated()">Se connecter</button>
+        <button class="btn btn-danger" *ngIf="this.authService.isAuthenticated()"
+                (click)="this.authService.removeUserInfo()">Se déconnecter</button>
       </td>
     </tr>
   </table>

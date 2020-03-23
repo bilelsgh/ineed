@@ -14,12 +14,8 @@ export class AppViewComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(){
-    this.authStatus = this.authService.isAuth;
   }
 
-  onSignOut(){
-    this.authService.signOut(); //méthode synchrone ...
-    this.authStatus = this.authService.isAuth; //..on met directement à jour le bool
-  }
+
 
 }

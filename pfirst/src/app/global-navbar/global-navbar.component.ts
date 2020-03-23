@@ -8,15 +8,9 @@ import {AuthService} from "../services/auth.service";
 })
 export class GlobalNavbarComponent implements OnInit {
 
-  authStatus: boolean;
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(){
-    this.authStatus = this.authService.isAuth;
   }
 
-  onSignOut(){
-    this.authService.signOut(); //méthode synchrone ...
-    this.authStatus = this.authService.isAuth; //..on met directement à jour le bool
-  }
 }

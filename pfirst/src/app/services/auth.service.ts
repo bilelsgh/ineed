@@ -1,37 +1,34 @@
-import {NgForm} from '@angular/forms';
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {Router} from '@angular/router';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
 
-export class AuthService{
+  loggedInUserInfo : {};
+  constructor(private http : HttpClient, private router : Router) { }
 
-  constructor(private httpClient: HttpClient) {
+
+  public isAuthenticated() : Boolean {
+    let userData = localStorage.getItem('userInfo')
+    if(userData && JSON.parse(userData)){
+      return true;
+    }
+    return false;
   }
 
-  isAuth = false;
-  who: string;
-
-
-  signIn(){
-
-    return new Promise(
-      (resolve,reject) => {
-        setTimeout(
-          () => {
-            this.isAuth = true;
-            resolve(true);
-
-          }, 2000
-        );
-      }
-    );
+  public removeUserInfo(){
+    localStorage.removeItem('userInfo');
   }
 
-  signOut(){
-    this.isAuth = false;
+  public setUserInfo(user){
+    localStorage.setItem('userInfo', JSON.stringify(user));
   }
 
-
+  public validate(email, password) {
+    return this.http.post('https://ineed-1ce51.firebaseio.com/users.json', {'username' : email, 'password' : password}).toPromise()
+  }
 }
