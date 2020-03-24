@@ -17,8 +17,8 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(){}
 
-  onSignIn(){
-    this.authService.validate(this.userEmail, this.userPassword)
+  onSignIn(mail: string, password : string){
+    this.authService.validate(mail, password)
       .then((response) => {
         this.authService.setUserInfo({'user' : response['user']});
         this.router.navigate(['']);
@@ -27,7 +27,7 @@ export class AuthComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    this.onSignIn();
+    this.onSignIn(form.value['mail'], form.value['password']);
     /**console.log("RES : " + this.authService.submit(form));
     if (this.authService.submit(form)){
       this.onSignIn();
