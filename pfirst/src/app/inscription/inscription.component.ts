@@ -11,6 +11,8 @@ import {AuthService} from '../services/auth.service';
 })
 export class InscriptionComponent implements OnInit {
 
+  same_password = true;
+
   constructor(private subService: InscriptionService, private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
@@ -19,20 +21,32 @@ export class InscriptionComponent implements OnInit {
 
 
   onSubmit(form: NgForm){
-    console.log("ok");
-    const name = form.value['name'];
-    const prenom = form.value['prenom'];
-    const sexe = form.value['sexe'];
-    const mail = form.value['mail'];
-    const password = form.value['password'];
-    this.subService.addUser(name,prenom,sexe,mail,password);
+    if (this.checkSamePassword(form)) {
+      this.same_password = true;
+      console.log("inscription ok");
+      const name = form.value['name'];
+      const prenom = form.value['prenom'];
+      const sexe = form.value['sexe'];
+      const mail = form.value['mail'];
+      const password = form.value['password'];
+      this.subService.addUser(name, prenom, sexe, mail, password);
 
-    //this.auth.isAuth = true;
-    this.router.navigate(['']);
+      //this.auth.isAuth = true;
+      this.router.navigate(['']);
+    }else{
+      form.reset();
+      this.same_password = false;
+      alert("Les mots de passe entrés ne sont pas identiques.");
 
+    }
   }
 
   onSave(){
     this.subService.saveUsersToServers();
   }
+
+  checkSamePassword(form: NgForm){
+    return form.value['password'] === form.value['confirm_password'];
+  }
+
 }

@@ -37,6 +37,11 @@
           <label for="password">Mot de passe</label>
           <input class="form-control" type="password" id="password" name="password" ngModel required>
         </div>
+        <div class="form-group">
+          <label for="confirm_password" *ngIf="same_password">Confirmez votre mot de passe</label>
+          <label for="confirm_password" *ngIf="!same_password" style="color:red">Confirmez votre mot de passe</label>
+          <input class="form-control" type="password" id="confirm_password" name="confirm_password" ngModel required>
+        </div>
         <div class="form-check">
           <input type="checkbox" class="form-check-input" id="CGU" name="cgu" ngModel required>
           <label for="CGU" class="form-check-label">J'accepte les <a routerLink="contact">Conditions Générales d'Utilisation.</a> </label>
