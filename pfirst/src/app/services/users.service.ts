@@ -7,7 +7,9 @@ export class UserService{
 
   constructor(private httpClient: HttpClient){}
 
-  bio: string = "Salut a tous du coup moi c'est gilbert aka le toat."
+  bio: string = "Salut a tous du coup moi c'est gilbert aka le toat.";
+  fname: string = "Gilbert";
+  lname: string = "Angénieux";
 
   services_history = [
     {
@@ -29,6 +31,12 @@ export class UserService{
       showComment: false
     }
   ];
+
+  //services_history: any[];
+
+  ngOnInit(){
+    this.getUserInfosFromServer();
+  }
 
   idx = 0;
 
@@ -65,4 +73,5 @@ export class UserService{
         }
       );
   }
+
 }

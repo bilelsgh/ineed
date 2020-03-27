@@ -58,7 +58,8 @@ import { GlobalNavbarComponent } from './global-navbar/global-navbar.component';
     AuthService,
     AuthGuard,
     InscriptionService,
-    UserService
+    UserService,
+    Location // necessaire ?
   ],
   bootstrap: [AppComponent]
 })

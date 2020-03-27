@@ -1,42 +1,30 @@
 <div id="profilMain">
 
-  <table cellpadding="50">
-    <tr>
-      <table cellpadding="50">
+  <table cellpadding="50" id="profilHead">
 
-        <tr>
-          <td>
-          <div id="myProfilEssentials">
-            <p class="user_identifier">
-              <img src="../../assets/data/pdp-test.jpg" id="myProfilPic">
-              Gilbert ANGENIEUX
-            </p>
-          </div>
-          </td>
+    <tr style="width: 300px">
+      <td>
+        <div id="picAndName">
+          <p class="user_identifier">
+            {{this.fname}} {{this.lname}}<br>
+            <img src="../../assets/data/pdp-test.jpg" id="myProfilPic">
 
-
-        <td>
-          <div id="aPropos" style="width:100%">
-            <h3>À propos</h3>
-            <p>{{bio}}</p>
-          </div>
-        </td>
-        </tr>
-      </table>
-    </tr>
-    <tr>
-      <table>
-        <tr>
-          <td>
-            <h4 id="nivTitle">Progression</h4>
-            <app-niveau></app-niveau>
-          </td>
-          <td>
-            <app-services-experience></app-services-experience>
-          </td>
-        </tr>
-      </table>
+            <span>À propos </span>
+            <span>{{bio}}</span>
+          </p>
+        </div>
+      </td>
     </tr>
   </table>
-
+  <table>
+    <tr>
+      <td>
+        <h4 id="nivTitle">Progression</h4>
+        <app-niveau></app-niveau>
+      </td>
+      <td>
+        <app-services-experience></app-services-experience>
+      </td>
+    </tr>
+  </table>
 </div>

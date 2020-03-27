@@ -14,7 +14,7 @@ import {AppViewComponent} from './app-view/app-view.component';
 const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path: 'propose', component: ProposeComponent},
   {path: 'auth', component: AuthComponent},
-  {path:'profil', component: ProfilComponent},
+  {path:'profil',  canActivate:[AuthGuard], component: ProfilComponent},
   {path: 'demande', canActivate:[AuthGuard], component: DemandeComponent},
   {path:'not-found', component: FourOhFourComponent},
   {path:'contact', component: ContactComponent},

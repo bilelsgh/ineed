@@ -9,10 +9,15 @@ import {UserService} from '../services/users.service';
 export class ProfilComponent implements OnInit {
 
   bio : string;
+  lname: string;
+  fname: string;
+
   constructor(private userService : UserService) { }
 
   ngOnInit(): void {
     this.bio=this.userService.bio;
+    this.fname = this.userService.fname;
+    this.lname = this.userService.lname;
   }
 
   onSave(){

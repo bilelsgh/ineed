@@ -22,10 +22,10 @@ export class FormerServiceComponent implements OnInit {
   }
 
   getDescript() {
-    let res = 'Date : ' + this.datepipe.transform(this.date, 'yyyy/MM/dd');
+    let date = 'Date : ' + this.datepipe.transform(this.date, 'yyyy/MM/dd');
     let note = ' Note : ' + this.note;
     let comment = 'Commentaire : '+ this.commentaire;
-    return [res,note,comment];
+    return [date,note,comment];
   }
 
   setComment(){
