@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {NgForm, NgModel} from '@angular/forms';
 import {InscriptionService} from '../services/inscription.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-inscription',
@@ -11,16 +12,26 @@ import {AuthService} from '../services/auth.service';
 })
 export class InscriptionComponent implements OnInit {
 
+  picture_profil_file = null;
+  small_password: boolean;
+  strong_password: boolean;
+  bad_password: boolean;
+  medium_password: boolean;
+  badRegex = new RegExp("^[a-zA-Z]{7,}$");
+  mediumRegex = new RegExp("^[a-zA-Z0-9]{8,}$");
+  strongRegex = new RegExp("^.{9,}$");
   same_password = true;
 
-  constructor(private subService: InscriptionService, private router: Router, private auth: AuthService) { }
+
+  constructor(private subService: InscriptionService, private router: Router, private auth: AuthService,
+              private http: HttpClient) {
+  }
 
   ngOnInit(): void {
   }
 
 
-
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     if (this.checkSamePassword(form)) {
       this.same_password = true;
       console.log("inscription ok");
@@ -33,7 +44,10 @@ export class InscriptionComponent implements OnInit {
 
       //this.auth.isAuth = true;
       this.router.navigate(['']);
-    }else{
+    } else if (form.value['password'].length < 6) {
+      form.reset();
+      alert("Le mot de passe doit faire au moins 6 caractères.")
+    } else {
       form.reset();
       this.same_password = false;
       alert("Les mots de passe entrés ne sont pas identiques.");
@@ -41,12 +55,67 @@ export class InscriptionComponent implements OnInit {
     }
   }
 
-  onSave(){
+  onSave() {
     this.subService.saveUsersToServers();
   }
 
-  checkSamePassword(form: NgForm){
+  checkSamePassword(form: NgForm) {
     return form.value['password'] === form.value['confirm_password'];
   }
 
+  passwordComplexity(text: string) {
+
+    if(text.length < 6){
+      this.small_password = true;
+    }else if( this.badRegex.test(text) ){
+      this.small_password = false;
+      this.bad_password = true;
+      this.medium_password = false;
+      this.strong_password = false;
+
+    }else if( this.mediumRegex.test(text) ){
+      this.small_password = false;
+      this.medium_password = true;
+      this.strong_password = false;
+      this.bad_password = false;
+    }else if ( this.strongRegex.test(text) ){
+      this.small_password = false;
+      this.strong_password = true;
+      this.bad_password = false;
+      this.medium_password = false;
+    }
+
+    /*if (text.length < 6) {
+      this.small_password = true;
+      this.medium_password = false;
+      this.strong_password = false;
+      this.bad_password = false;
+    } else if (this.badRegex.test(text) == true) {
+      this.bad_password = true;
+      this.medium_password = false;
+      this.strong_password = false;
+      this.small_password = false;
+      if (this.mediumRegex.test(text) == true) {
+        this.medium_password = true;
+        this.bad_password = false;
+        this.strong_password = false;
+        if (this.strongRegex.test(text) == true) {
+          this.strong_password = true;
+          this.medium_password = false
+          this.bad_password = false;
+
+        }
+      }
+
+    }*/
+
+  }
+
+  onFileSelected(event){
+    this.picture_profil_file = event.target.files[0];
+  }
+
+  onUpload(){
+    //this.http.
+  }
 }

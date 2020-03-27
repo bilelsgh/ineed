@@ -3,53 +3,73 @@
 <h2 align="center">Inscription</h2>
 
 <br>
+<body ng-app="inscriptionApp">
+  <table align="center">
+    <tr>
+      <div class="row">
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm"> <!-- #f passe une référence au formulaire (#x) -->
+          <div class="form-group">
+            <label for="name">
+              Nom
+            </label>
+            <input type="text" id="name" class="form-control" name="name" placeholder="ex: Dupont" ngModel required> <!-- ce champ est requis -->
+            <label for="prenom">
+              Prénom
+            </label>
+            <input type="text" id="prenom" class="form-control" name="prenom" placeholder="ex: Jean" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
+            <label for="mail">
+              Adresse mail
+            </label>
+            <input type="text" id="mail" class="form-control" name="mail" placeholder="example@example.com" ngModel required>
 
-<table align="center">
-  <tr>
-    <div class="row">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm"> <!-- #f passe une référence au formulaire (#x) -->
-        <div class="form-group">
-          <label for="name">
-            Nom
-          </label>
-          <input type="text" id="name" class="form-control" name="name" placeholder="ex: Dupont" ngModel required> <!-- ce champ est requis -->
-          <label for="prenom">
-            Prénom
-          </label>
-          <input type="text" id="prenom" class="form-control" name="prenom" placeholder="ex: Jean" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
-          <label for="mail">
-            Adresse mail
-          </label>
-          <input type="text" id="mail" class="form-control" name="mail" placeholder="example@example.com" ngModel required>
+          </div>
 
-        </div>
+          <div class="form-group">
+            <label for="sexe">
+              Sexe
+            </label>
+            <select id="sexe" class="custom-select custom-select-lg mb-3" name="sexe" ngModel required>
+              <option value="man">Homme</option>
+              <option value="woman">Femme</option>
+            </select>
+          </div>
 
-        <div class="form-group">
-          <label for="sexe">
-            Sexe
-          </label>
-          <select id="sexe" class="custom-select custom-select-lg mb-3" name="sexe" ngModel required>
-            <option value="man">Homme</option>
-            <option value="woman">Femme</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="password">Mot de passe</label>
-          <input class="form-control" type="password" id="password" name="password" ngModel required>
-        </div>
-        <div class="form-group">
-          <label for="confirm_password" *ngIf="same_password">Confirmez votre mot de passe</label>
-          <label for="confirm_password" *ngIf="!same_password" style="color:red">Confirmez votre mot de passe</label>
-          <input class="form-control" type="password" id="confirm_password" name="confirm_password" ngModel required>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="CGU" name="cgu" ngModel required>
-          <label for="CGU" class="form-check-label">J'accepte les <a routerLink="contact">Conditions Générales d'Utilisation.</a> </label>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary" [disabled]="f.invalid">C'est parti!</button>
-      </form>
-    </div>
-  </tr>
-</table>
+          <div class="form-group" ng-controller="passwordCtrl">
+            <label for="password">Mot de passe</label>
+            <input class="form-control" type="password" id="password" name="password" (change)="passwordComplexity(f.value['password'])"
+                   ngModel required>
+            <i><p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p></i>
+            <strong><p *ngIf="bad_password" style="color:red">Votre mot de passe est faible.</p></strong>
+            <strong><p *ngIf="medium_password" style="color:orange">Votre mot de passe est correct.</p></strong>
+            <strong><p *ngIf="strong_password" style="color:green">Votre mot de passe est fort.</p></strong>
+          </div>
 
+          <div class="form-group">
+            <label for="confirm_password" *ngIf="same_password">Confirmez votre mot de passe</label>
+            <label for="confirm_password" *ngIf="!same_password" style="color:red" >Confirmez votre mot de passe</label>
+            <input class="form-control" type="password" id="confirm_password" name="confirm_password" ngModel required>
+          </div>
+          <br>
+
+          <div class="form-group">
+            <p>Photo de profil</p>
+            <input type="file" name="profil_picture" id="profil_picture" (change)="onFileSelected($event)" ngModel>
+          </div>
+
+          <br><br>
+
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="CGU" name="cgu" ngModel required>
+            <label for="CGU" class="form-check-label">J'accepte les <a routerLink="contact">Conditions Générales d'Utilisation.</a> </label>
+          </div>
+
+          <br>
+          <br>
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">C'est parti!</button>
+        </form>
+      </div>
+    </tr>
+  </table>
+
+
+</body>
