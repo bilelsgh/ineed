@@ -13,11 +13,15 @@
               Nom <span style="color:red">*</span>
             </label>
             <input type="text" id="name" class="form-control" name="name" placeholder="ex: Dupont" ngModel required> <!-- ce champ est requis -->
+
+            <br>
             <label for="prenom">
               Prénom <span style="color:red">*</span>
             </label>
             <input type="text" id="prenom" class="form-control" name="prenom" placeholder="ex: Jean"
                    (change) = "updateSurname(f.value['prenom'])" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
+            <br>
+
             <label for="mail">
               Adresse mail <span style="color:red">*</span>
             </label>
