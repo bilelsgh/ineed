@@ -10,15 +10,15 @@
         <form (ngSubmit)="onSubmit(f)" #f="ngForm"> <!-- #f passe une référence au formulaire (#x) -->
           <div class="form-group">
             <label for="name">
-              Nom
+              Nom <span style="color:red">*</span>
             </label>
             <input type="text" id="name" class="form-control" name="name" placeholder="ex: Dupont" ngModel required> <!-- ce champ est requis -->
             <label for="prenom">
-              Prénom
+              Prénom <span style="color:red">*</span>
             </label>
             <input type="text" id="prenom" class="form-control" name="prenom" placeholder="ex: Jean" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
             <label for="mail">
-              Adresse mail
+              Adresse mail <span style="color:red">*</span>
             </label>
             <input type="text" id="mail" class="form-control" name="mail" placeholder="example@example.com" ngModel required>
 
@@ -26,7 +26,7 @@
 
           <div class="form-group">
             <label for="sexe">
-              Sexe
+              Sexe <span style="color:red">*</span>
             </label>
             <select id="sexe" class="custom-select custom-select-lg mb-3" name="sexe" ngModel required>
               <option value="man">Homme</option>
@@ -35,21 +35,20 @@
           </div>
 
           <div class="form-group" ng-controller="passwordCtrl">
-            <label for="password">Mot de passe</label>
+            <label for="password">Mot de passe <span style="color:red">*</span> </label>
             <input class="form-control" type="password" id="password" name="password" (change)="passwordComplexity(f.value['password'])"
                    ngModel required>
             <i><p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p></i>
-            <strong><p *ngIf="bad_password" style="color:red">Votre mot de passe est faible.</p></strong>
-            <strong><p *ngIf="medium_password" style="color:orange">Votre mot de passe est correct.</p></strong>
-            <strong><p *ngIf="strong_password" style="color:green">Votre mot de passe est fort.</p></strong>
+            <span *ngIf="bad_password"  class="badge badge-pill badge-danger">Votre mot de passe est faible.</span>
+            <span *ngIf="medium_password"  class="badge badge-pill badge-warning">Votre mot de passe est correct.</span>
+            <span *ngIf="strong_password"  class="badge badge-pill badge-success">Votre mot de passe est fort.</span>
           </div>
 
           <div class="form-group">
-            <label for="confirm_password" *ngIf="same_password">Confirmez votre mot de passe</label>
-            <label for="confirm_password" *ngIf="!same_password" style="color:red" >
-              Confirmez votre mot de passe <strong>(les mots de passe ne sont pas identiques)</strong></label>
+            <label for="confirm_password" >Confirmez votre mot de passe <span style="color:red">*</span></label>
             <input class="form-control" type="password" id="confirm_password" name="confirm_password"
                    (change)="quickCheckPassword(f)" ngModel required>
+            <i><strong><span *ngIf="!same_password" style="color:red">Les mots de passe ne sont pas identiques.</span></strong></i>
           </div>
           <br>
 
@@ -62,12 +61,14 @@
 
           <div class="form-check">
             <input type="checkbox" class="form-check-input" id="CGU" name="cgu" ngModel required>
-            <label for="CGU" class="form-check-label">J'accepte les <a routerLink="contact">Conditions Générales d'Utilisation.</a> </label>
+            <label for="CGU" class="form-check-label">J'accepte les <a routerLink="contact">Conditions Générales d'Utilisation.</a>
+              <span style="color:red"> *</span></label>
           </div>
 
           <br>
           <br>
           <button type="submit" class="btn btn-primary" [disabled]="f.invalid">C'est parti!</button>
+          <i><p *ngIf="!f.valid" style="color:gray">Veuillez remplir tout les champs <span style="color:red">*</span></p></i>
         </form>
       </div>
     </tr>
