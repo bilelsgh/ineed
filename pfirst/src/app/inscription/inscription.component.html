@@ -1,6 +1,6 @@
 <br>
 
-<h2 align="center">Inscription</h2>
+<h2 align="center">Oh ! Un nouveau parmi nous ?</h2>
 
 <br>
 <body ng-app="inscriptionApp">
@@ -16,7 +16,8 @@
             <label for="prenom">
               Prénom <span style="color:red">*</span>
             </label>
-            <input type="text" id="prenom" class="form-control" name="prenom" placeholder="ex: Jean" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
+            <input type="text" id="prenom" class="form-control" name="prenom" placeholder="ex: Jean"
+                   (change) = "updateSurname(f.value['prenom'])" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
             <label for="mail">
               Adresse mail <span style="color:red">*</span>
             </label>
@@ -67,7 +68,7 @@
 
           <br>
           <br>
-          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">C'est parti!</button>
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">C'est parti {{current_surname}} !</button>
           <i><p *ngIf="!f.valid" style="color:gray">Veuillez remplir tout les champs <span style="color:red">*</span></p></i>
         </form>
       </div>

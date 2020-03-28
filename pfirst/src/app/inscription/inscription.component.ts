@@ -12,6 +12,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class InscriptionComponent implements OnInit {
 
+  current_surname : string;
   picture_profil_file : File = null;
   small_password: boolean;
   strong_password: boolean;
@@ -92,30 +93,6 @@ export class InscriptionComponent implements OnInit {
       this.medium_password = false;
     }
 
-    /*if (text.length < 6) {
-      this.small_password = true;
-      this.medium_password = false;
-      this.strong_password = false;
-      this.bad_password = false;
-    } else if (this.badRegex.test(text) == true) {
-      this.bad_password = true;
-      this.medium_password = false;
-      this.strong_password = false;
-      this.small_password = false;
-      if (this.mediumRegex.test(text) == true) {
-        this.medium_password = true;
-        this.bad_password = false;
-        this.strong_password = false;
-        if (this.strongRegex.test(text) == true) {
-          this.strong_password = true;
-          this.medium_password = false
-          this.bad_password = false;
-
-        }
-      }
-
-    }*/
-
   }
 
   onFileSelected(event){
@@ -129,5 +106,9 @@ export class InscriptionComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
       });
+  }
+
+  updateSurname(text: string){
+    this.current_surname = text;
   }
 }
