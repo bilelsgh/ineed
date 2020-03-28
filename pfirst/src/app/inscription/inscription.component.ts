@@ -12,7 +12,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class InscriptionComponent implements OnInit {
 
-  picture_profil_file = null;
+  picture_profil_file : File = null;
   small_password: boolean;
   strong_password: boolean;
   bad_password: boolean;
@@ -61,6 +61,13 @@ export class InscriptionComponent implements OnInit {
 
   checkSamePassword(form: NgForm) {
     return form.value['password'] === form.value['confirm_password'];
+  }
+  quickCheckPassword(form: NgForm){
+    if(form.value['password'] != form.value['confirm_password']){
+      this.same_password = false;
+    }else{
+      this.same_password = true;
+    }
   }
 
   passwordComplexity(text: string) {
@@ -112,10 +119,15 @@ export class InscriptionComponent implements OnInit {
   }
 
   onFileSelected(event){
-    this.picture_profil_file = event.target.files[0];
+    this.picture_profil_file = <File>event.target.files[0];
   }
 
   onUpload(){
-    //this.http.
+    const fd = new FormData();
+    fd.append('image', this.picture_profil_file, this.picture_profil_file.name)
+    this.http.post('gs://ineed-1ce51.appspot.com/', fd)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 }

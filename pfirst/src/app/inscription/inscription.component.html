@@ -46,8 +46,10 @@
 
           <div class="form-group">
             <label for="confirm_password" *ngIf="same_password">Confirmez votre mot de passe</label>
-            <label for="confirm_password" *ngIf="!same_password" style="color:red" >Confirmez votre mot de passe</label>
-            <input class="form-control" type="password" id="confirm_password" name="confirm_password" ngModel required>
+            <label for="confirm_password" *ngIf="!same_password" style="color:red" >
+              Confirmez votre mot de passe <strong>(les mots de passe ne sont pas identiques)</strong></label>
+            <input class="form-control" type="password" id="confirm_password" name="confirm_password"
+                   (change)="quickCheckPassword(f)" ngModel required>
           </div>
           <br>
 
