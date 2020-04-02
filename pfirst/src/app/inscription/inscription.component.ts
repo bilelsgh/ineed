@@ -10,6 +10,7 @@ import {HttpClient} from '@angular/common/http';
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.css']
 })
+
 export class InscriptionComponent implements OnInit {
 
   current_surname: string;

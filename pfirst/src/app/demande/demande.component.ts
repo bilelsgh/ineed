@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./demande.component.css']
 })
 export class DemandeComponent implements OnInit {
+  accompagner : boolean = false;
+  cuisine : boolean = false;
+  menage : boolean = true;
 
   constructor() { }
 
