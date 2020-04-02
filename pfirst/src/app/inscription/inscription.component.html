@@ -41,8 +41,24 @@
 
           <div class="form-group" ng-controller="passwordCtrl">
             <label for="password">Mot de passe <span style="color:red">*</span> </label>
-            <input class="form-control" type="password" id="password" name="password" (change)="passwordComplexity(f.value['password'])"
-                   ngModel required>
+            <table>
+              <tr>
+                <td><input class="form-control" type="password" id="password" name="password" (change)="passwordComplexity(f.value['password'])"
+                           ngModel required>
+                </td>
+                <td><span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary" (click)="displayInfo()">
+                  <p id="text_info">?</p></span></td>
+              </tr>
+              <tr id="info_mdp" *ngIf="info_mdp">
+                Le mot de passe :
+                <ul>
+                  <li>doit contenir 6 caractères</li>
+                  <li>est correct s'il contient chiffres et majuscules</li>
+                  <li>est fort s'il contient, en plus, des caractères spéciaux</li>
+                </ul>
+              </tr>
+            </table>
+
             <i><p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p></i>
             <span *ngIf="bad_password"  class="badge badge-pill badge-danger">Votre mot de passe est faible.</span>
             <span *ngIf="medium_password"  class="badge badge-pill badge-warning">Votre mot de passe est correct.</span>
