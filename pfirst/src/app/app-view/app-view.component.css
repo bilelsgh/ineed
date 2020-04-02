@@ -7,6 +7,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.jumbotron{
+  background-image: url("../../assets/data/banniere.jpg");
+  background-size: cover;
+  min-height: 380px;
+  height: 400px;
+}
+
 #title{
   position: absolute;
   left : 150px;
@@ -20,18 +27,15 @@
   font-weight: bold;
 }
 
-
+#text_demander, #text_rendre{
+  font-size: 25px;
+}
 
 #button1, #button2{
-  width: 250px;
-  height: 50px;
+  width: 270px;
+  height: 70px;
 }
 
-#buttons_action{
-  position: absolute;
-  left: 150px;
-  top: 220px;
-}
 #description{
   font-weight: bold;
   font-size: 14px;
@@ -43,8 +47,3 @@
 }
 
 
-#annonces{
-  position: absolute;
-  left : 200px;
-  top : 500px;
-}

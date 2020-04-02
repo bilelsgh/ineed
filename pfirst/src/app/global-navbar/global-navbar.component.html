@@ -1,13 +1,16 @@
 <nav class="navbar navbar-dark bg-dark" id="globalNavbar">
-  <table align="left" id="buttons_connection" cellpadding="5">
-    <img src="../assets/data/logo2.png" alt="ineed" id="logo" routerLink="" style="cursor:pointer">
-
-    <td>
-      <button routerLink="profil" class="btn btn-outline-light" type="button">Profil</button>
-    </td>
-    <td>
-      <p style="color:white">route : {{path}} ; hasUrl : <span *ngIf="hasUrl">true</span> </p>
-    </td>
+  <table align="left" id="left_side" cellpadding="10">
+    <tr>
+      <td>
+        <img src="../assets/data/logo2.png" alt="ineed" id="logo" routerLink="" style="cursor:pointer">
+      </td>
+      <td>
+        <button routerLink="profil" class="btn btn-outline-light" type="button">Profil</button>
+      </td>
+      <td>
+        <p style="color:white">route : {{path}} ; hasUrl : <span *ngIf="hasUrl">true</span> </p>
+      </td>
+    </tr>
   </table>
   <table align="right" id="buttons_connection" cellpadding="5">
     <tr>
