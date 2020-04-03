@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppViewComponent } from './app-view/app-view.component';
@@ -67,7 +68,8 @@ import { NewCoursesComponent } from './new-courses/new-courses.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [ //on ajoute ici tous les services
     AuthService,
@@ -75,7 +77,8 @@ import { NewCoursesComponent } from './new-courses/new-courses.component';
     InscriptionService,
     UserService,
     ServiceService,
-    Location // necessaire ?
+    Location 
+     // necessaire ?
   ],
   bootstrap: [AppComponent]
 })

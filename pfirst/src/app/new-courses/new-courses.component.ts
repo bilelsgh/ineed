@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class NewCoursesComponent implements OnInit {
 
-  userForm: FormGroup;
+  coursesForm: FormGroup;
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router) { }
 
   ngOnInit(): void {
@@ -19,7 +19,7 @@ export class NewCoursesComponent implements OnInit {
   }
 
   initForm(){
-    this.userForm=this.formBuilder.group({
+    this.coursesForm=this.formBuilder.group({
       user: "", 
       description:"" ,
       liste:[], 
@@ -29,7 +29,7 @@ export class NewCoursesComponent implements OnInit {
     });}
 
     onSubmitForm() {
-      const formValue = this.userForm.value;
+      const formValue = this.coursesForm.value;
       const newCourses = new Courses(98, "../../assets/data/menage.png", "service1",'Faire les courses',
         formValue['user'], 
         formValue['description'],
