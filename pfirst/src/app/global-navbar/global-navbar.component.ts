@@ -3,6 +3,7 @@ import {AuthService} from "../services/auth.service";
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {Observable} from "rxjs";
 import {switchMap} from "rxjs/operators";
+import {UserService} from "../services/users.service";
 
 @Component({
   selector: 'app-global-navbar',
@@ -13,23 +14,45 @@ export class GlobalNavbarComponent implements OnInit {
 
 
   route: Observable<UrlSegment[]>;
-  path: string;
+  path: UrlSegment[];
   hasUrl: boolean;
+  showProfilMenu: boolean; // a sup si dropdown
 
-  constructor(public authService: AuthService, private actRoute: ActivatedRoute, router: Router) {
+  constructor(public authService: AuthService, private actRoute: ActivatedRoute, router: Router,public userService: UserService) {
   }
 
   ngOnInit() {
+    this.showProfilMenu=false;
 
-    this.route = this.actRoute.paramMap.pipe(
+    this.actRoute.url.subscribe(value => {
+      this.path = value;
+      console.log("oninit ext"+this.path);
+    });
+
+    /*
+    this.route = this.actRoute.url.pipe(
       switchMap((params) => {
-        this.path = params.get('url');
+        this.path = url.get();
         this.hasUrl=params.has('url');
         console.log(this.hasUrl);
         return this.actRoute.url;
       })
     );
-    console.log("oninit "+this.hasUrl);
-    //this.path = this.actRoute.snapshot.paramMap.get(('url'));
+    */
+
+    console.log("oninit ext"+this.path);
+    this.path = this.actRoute.snapshot.url;
+    console.log("oninit fin ", this.path);
+    const url: string = this.actRoute.snapshot.url.join('');
+    console.log("url ",url);
+  }
+
+  // a supprimer si solution optimale dropdown trouvée
+  switchMenu(){
+    if (this.showProfilMenu){
+      this.showProfilMenu=false;
+    }else{
+      this.showProfilMenu=true;
+    }
   }
 }

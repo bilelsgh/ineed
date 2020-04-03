@@ -73,5 +73,9 @@ export class UserService{
         }
       );
   }
-
+  public getInitials(){
+    let res: string = this.fname[0].toUpperCase()+this.lname[0].toUpperCase();
+    console.log(res);
+    return res;
+  }
 }
