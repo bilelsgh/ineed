@@ -13,7 +13,9 @@
   min-height: 380px;
   height: 400px;
 }
-
+#space{
+  height: 200px;
+}
 #title{
   position: absolute;
   left : 150px;
