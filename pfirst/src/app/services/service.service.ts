@@ -1,9 +1,18 @@
+import { Courses } from '../models/Courses.model';
+import { Subject } from 'rxjs';
+
 export class ServiceService{
-    service1=[];
-    service2=[];
-    service3=[];
-    service4=[];
-    types=[];
+
+    private courses:Courses[]= [];
+    coursesSubject = new Subject<Courses[]>();
+    emitCourses(){
+      this.coursesSubject.next(this.courses.slice());
+  }
+  addCourses(courses : Courses){
+      this.services.push(courses);
+      this.emitCourses();
+  }
+
 
     services=[
         {
@@ -57,29 +66,7 @@ export class ServiceService{
         }
       ];
 
-    constructor(){
-        for (var i=0; i<this.services.length;i++){
-            if (this.services[i].type =="service1"){
-                this.service1.push(this.services[i]);
-                this.services[i].image ="../../assets/data/menage.png";
-            }
-            else if(this.services[i].type =="service2"){
-                this.service2.push(this.services[i]);
-            }
-            else if(this.services[i].type =="service3"){
-                this.service3.push(this.services[i]);
-            }
-            else{
-                this.service4.push(this.services[i])
-            };
-
-    
-            
-        
-        this.types=[this.service1,this.service2,this.service3,this.service4];
-        
-        
-        };
+    constructor(){  
     }
 
     getServiceById(id: number) {

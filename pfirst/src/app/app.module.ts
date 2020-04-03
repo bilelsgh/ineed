@@ -33,6 +33,7 @@ import { CoursesSingleComponent } from './courses-single/courses-single.componen
 import { CuisineSingleComponent } from './cuisine-single/cuisine-single.component';
 import { AccompagnerSingleComponent } from './accompagner-single/accompagner-single.component';
 import { ServiceService } from './services/service.service';
+import { NewCoursesComponent } from './new-courses/new-courses.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { ServiceService } from './services/service.service';
     MenageSingleComponent,
     CoursesSingleComponent,
     CuisineSingleComponent,
-    AccompagnerSingleComponent
+    AccompagnerSingleComponent,
+    NewCoursesComponent
   ],
   imports: [
     BrowserModule,
