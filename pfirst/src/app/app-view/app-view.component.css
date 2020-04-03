@@ -13,9 +13,18 @@
   min-height: 380px;
   height: 400px;
 }
+
+.jumbotron:hover{
+  background-image: url("../../assets/data/banniere_flou.jpg");
+  background-size: cover;
+  min-height: 380px;
+  height: 400px;
+}
+
 #space{
   height: 200px;
 }
+
 #title{
   position: absolute;
   left : 150px;
@@ -47,5 +56,6 @@
   width: 540px;
 
 }
+
 
 

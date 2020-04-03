@@ -19,7 +19,7 @@ export class InscriptionComponent implements OnInit {
   strong_password: boolean;
   bad_password: boolean;
   medium_password: boolean;
-  badRegex = new RegExp('^[a-zA-Z]{7,}$');
+  badRegex = new RegExp('^[a-z]{6,}$');
   mediumRegex = new RegExp('^[a-zA-Z0-9]{8,}$');
   strongRegex = new RegExp('^.{9,}$');
   same_password = true;

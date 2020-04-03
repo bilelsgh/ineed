@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServiceViewComponent } from './service-view.component';
+import { AccompagnerSingleComponent } from './accompagner-single.component';
 
-describe('ServiceViewComponent', () => {
-  let component: ServiceViewComponent;
-  let fixture: ComponentFixture<ServiceViewComponent>;
+describe('AccompagnerSingleComponent', () => {
+  let component: AccompagnerSingleComponent;
+  let fixture: ComponentFixture<AccompagnerSingleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ServiceViewComponent ]
+      declarations: [ AccompagnerSingleComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ServiceViewComponent);
+    fixture = TestBed.createComponent(AccompagnerSingleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
