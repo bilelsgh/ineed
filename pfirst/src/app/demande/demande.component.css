@@ -1,28 +1,5 @@
-#logo{
+#logo {
   width: 150px;
-}
-#menage{
-  position: absolute;
-  left: 450px;
-  background-color: red;
-  height: 500px;
-  width: 1000px;
-}
-
-#accompagner{
-  position: absolute;
-  left: 450px;
-  background-color: yellow;
-  height: 500px;
-  width: 1000px;
-}
-
-#cuisine{
-  position: absolute;
-  left: 450px;
-  background-color: darkgreen;
-  height: 500px;
-  width: 1000px;
 }
 
 #accompagner_logo{
