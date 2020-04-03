@@ -1,7 +1,7 @@
 <div class="col-sm-8 col-sm-offset-2">
     <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
         <h2>Vous avez choisis de demander a quelqu'un de vous aider a faire les courses avec vous </h2>
-        
+
         <div class="form-group">
             <label for ="user" >Votre prenom</label>
             <input type="text" id="user" class="form-control" formControlName="user">
@@ -21,7 +21,7 @@
               </select>
         </div>
 
-        
+
 
         <div class="input-group mb-3">
             <label for="budget">Quel est le montant de votre budget ?</label>
@@ -41,5 +41,5 @@
 
         <button type="submit" class="btn btn-primary">Soumettre</button>
     </form>
-    
+
 </div>

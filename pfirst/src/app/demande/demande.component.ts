@@ -9,7 +9,7 @@ export class DemandeComponent implements OnInit {
   accompagner : boolean = false;
   cuisine : boolean = false;
   menage : boolean = true;
-  course: boolean = true;
+  course: boolean = false;
 
   constructor() { }
 

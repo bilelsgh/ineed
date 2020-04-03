@@ -10,6 +10,7 @@ import {ContactComponent} from './contact/contact.component';
 import {InscriptionComponent} from './inscription/inscription.component';
 import {AppViewComponent} from './app-view/app-view.component';
 import { SingleServiceComponent } from './single-service/single-service.component';
+import {NewCoursesComponent} from './new-courses/new-courses.component';
 
 
 const routes : Routes = [ //Racine de toutes les routes de l'applications
