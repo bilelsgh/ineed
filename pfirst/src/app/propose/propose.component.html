@@ -1,5 +1,15 @@
-<br>
-
-<h2 align="center">Rendre un service</h2>
-<p align="center">Nothing there for the moment, come back later!</p>
-<br>
+<div class="col-xs-12">
+    <div class="row">
+      <h2> Les services qui sont actuellement proposes</h2>
+      <ul class="list-group">
+          <app-service *ngFor ="let service of services,let i =index"
+          [serviceName]="service.name"
+          [serviceUser]="service.user"
+          [serviceDescription]="service.description"
+          [serviceImage]="service.image"
+          [index]="i"
+          [id]="service.id"></app-service>
+       
+      </ul>
+    </div>
+  </div>

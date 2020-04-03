@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppViewComponent } from './app-view/app-view.component';
 import { DemandeComponent } from './demande/demande.component';
-import { ProposeComponent } from './propose/propose.component';
+import { ServiceViewComponent } from './propose/propose.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthService} from './services/auth.service';
 import { AuthComponent } from './auth/auth.component';
@@ -26,6 +26,13 @@ import { ProfilComponent } from './profil/profil.component';
 import { ServicesExperienceComponent } from './services-experience/services-experience.component';
 import {UserService} from "./services/users.service";
 import { GlobalNavbarComponent } from './global-navbar/global-navbar.component';
+import { ServiceComponent } from './service/service.component';
+import { SingleServiceComponent } from './single-service/single-service.component';
+import { MenageSingleComponent } from './menage-single/menage-single.component';
+import { CoursesSingleComponent } from './courses-single/courses-single.component';
+import { CuisineSingleComponent } from './cuisine-single/cuisine-single.component';
+import { AccompagnerSingleComponent } from './accompagner-single/accompagner-single.component';
+import { ServiceService } from './services/service.service';
 
 
 @NgModule({
@@ -33,7 +40,7 @@ import { GlobalNavbarComponent } from './global-navbar/global-navbar.component';
     AppComponent,
     AppViewComponent,
     DemandeComponent,
-    ProposeComponent,
+    ServiceViewComponent,
     AuthComponent,
     FourOhFourComponent,
     InscriptionComponent,
@@ -46,7 +53,13 @@ import { GlobalNavbarComponent } from './global-navbar/global-navbar.component';
     NiveauComponent,
     ProfilComponent,
     ServicesExperienceComponent,
-    GlobalNavbarComponent
+    GlobalNavbarComponent,
+    ServiceComponent,
+    SingleServiceComponent,
+    MenageSingleComponent,
+    CoursesSingleComponent,
+    CuisineSingleComponent,
+    AccompagnerSingleComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +72,7 @@ import { GlobalNavbarComponent } from './global-navbar/global-navbar.component';
     AuthGuard,
     InscriptionService,
     UserService,
+    ServiceService,
     Location // necessaire ?
   ],
   bootstrap: [AppComponent]

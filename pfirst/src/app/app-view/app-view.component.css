@@ -15,7 +15,7 @@
 }
 
 .jumbotron:hover{
-  background-image: url("../../assets/data/banniere.jpg");
+  background-image: url("../../assets/data/banniere_flou.jpg");
   background-size: cover;
   min-height: 380px;
   height: 400px;
