@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ProposeComponent} from './propose/propose.component';
+import {ServiceViewComponent} from './propose/propose.component';
 import {AuthComponent} from './auth/auth.component';
 import {ProfilComponent} from './profil/profil.component';
 import {AuthGuard} from './services/auth-guard.Service';
@@ -9,10 +9,12 @@ import {FourOhFourComponent} from './four-oh-four/four-oh-four.component';
 import {ContactComponent} from './contact/contact.component';
 import {InscriptionComponent} from './inscription/inscription.component';
 import {AppViewComponent} from './app-view/app-view.component';
+import { SingleServiceComponent } from './single-service/single-service.component';
 
 
 const routes : Routes = [ //Racine de toutes les routes de l'applications
-  {path: 'propose', component: ProposeComponent},
+  {path: 'propose', component: ServiceViewComponent},
+  {path:'propose/:id', component :  SingleServiceComponent},
   {path: 'auth', component: AuthComponent},
   {path:'profil',  canActivate:[AuthGuard], component: ProfilComponent},
   {path: 'demande', canActivate:[AuthGuard], component: DemandeComponent},
