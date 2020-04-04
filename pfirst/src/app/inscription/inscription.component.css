@@ -2,6 +2,13 @@
   width: 150px;
 }
 
+.progress{
+  height: 20px;
+  width: 500px;
+  margin: 0 auto;
+
+}
+
 #info
 {
   width: 25px;
@@ -19,3 +26,6 @@
 {
   color: dimgray;
 }
+
+
+

@@ -1,4 +1,13 @@
 .imageservice{
-    width: 30px;
-	height: 30px;
+    width: 40px;
+	height: 40px;
+}
+
+#budget{
+  width: 60px;
+  height: 30px;
+}
+
+#prix{
+  font-size: 20px;
 }

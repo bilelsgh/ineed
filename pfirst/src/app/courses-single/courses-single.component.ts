@@ -30,4 +30,5 @@ export class CoursesSingleComponent implements OnInit {
     this.Dispo=this.serviceService.getServiceById(+id).dispo;
   }
 
+
 }
