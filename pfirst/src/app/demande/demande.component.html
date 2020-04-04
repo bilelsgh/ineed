@@ -7,9 +7,9 @@
       <div class="zoom">
         <div class="icone">
           <img *ngIf="menage" style="cursor:pointer" id="menage_logo" src="../assets/data/menage.png" alt=""
-               (click)="menage=true;accompagner=false;cuisine=false;">
+               (click)="menage=true;accompagner=false;cuisine=false;course=false;">
           <img *ngIf="!menage" style="cursor:pointer" id="menage_logo1" src="../assets/data/menage1.png" alt=""
-               (click)="menage=true;accompagner=false;cuisine=false;">
+               (click)="menage=true;accompagner=false;cuisine=false;course=false;">
         </div>
       </div>
     </td>
@@ -18,9 +18,9 @@
       <div class="zoom">
         <div class="icone">
           <img *ngIf="cuisine" style="cursor:pointer" id="cuisine_logo" src="../assets/data/cuisine.png" alt=""
-               (click)="menage=false;accompagner=false;cuisine=true;">
+               (click)="menage=false;accompagner=false;cuisine=true;course=false;">
           <img *ngIf="!cuisine" style="cursor:pointer" id="cuisine_logo1" src="../assets/data/cuisine1.png" alt=""
-               (click)="menage=false;accompagner=false;cuisine=true;">
+               (click)="menage=false;accompagner=false;cuisine=true;course=false;">
         </div>
       </div>
     </td>
@@ -29,12 +29,24 @@
       <div class="zoom">
         <div class="icone">
           <img *ngIf="accompagner" style="cursor:pointer" id="accompagner_logo" src="../assets/data/accompagner.png" alt=""
-               (click)="menage=false;accompagner=true;cuisine=false;">
+               (click)="menage=false;accompagner=true;cuisine=false;course=false;">
           <img *ngIf="!accompagner" style="cursor:pointer" id="accompagner_logo1" src="../assets/data/accompagner1.png" alt=""
-               (click)="menage=false;accompagner=true;cuisine=false;">
+               (click)="menage=false;accompagner=true;cuisine=false;course=false;">
         </div>
       </div>
     </td>
+
+    <td>
+      <div class="zoom">
+        <div class="icone">
+          <img *ngIf="course" style="cursor:pointer" id="accompagner_logo" src="../assets/data/accompagner.png" alt=""
+               (click)="menage=false;accompagner=false;cuisine=false;course=true;">
+          <img *ngIf="!course" style="cursor:pointer" id="accompagner_logo1" src="../assets/data/accompagner1.png" alt=""
+               (click)="menage=false;accompagner=false;course=true;cuisine=false;">
+        </div>
+      </div>
+    </td>
+
   </tr>
 </table>
 
@@ -52,6 +64,10 @@
 
 <div *ngIf="accompagner" id="accompagner">
 
+</div>
+
+<div *ngIf="course" id="course">
+  <app-new-courses></app-new-courses>
 </div>
 
 
