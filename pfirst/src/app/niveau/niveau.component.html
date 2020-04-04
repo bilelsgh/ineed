@@ -1,8 +1,18 @@
-<p id="niv-intro">Niveau : {{niveauLabels[niveau]}}</p>
-<div id="myBar">
-  <div class="progress">
-    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': percentage+'%'}" [attr.aria-valuenow]="percentage" aria-valuemin="0" aria-valuemax="100">
-      {{doneBeforeNext}}/5
-    </div>
-  </div>
-</div>
+<table cellpadding="5" align="center">
+  <tr>
+    <td>
+      <p id="niv-intro">Niveau : {{niveauLabels[niveau]}}</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div id="myBar">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [ngStyle]="{'width': percentage+'%'}" [attr.aria-valuenow]="percentage" aria-valuemin="0" aria-valuemax="100">
+            {{doneBeforeNext}}/5
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>

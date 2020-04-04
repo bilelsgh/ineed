@@ -4,24 +4,48 @@
 
     <tr style="width: 300px">
       <td>
-        <div id="picAndName">
-          <p class="user_identifier">
-            {{this.fname}} {{this.lname}}<br>
-            <img src="../../assets/data/pdp-test.jpg" id="myProfilPic">
+        <table>
+          <td rowspan="2">
+            <img src="../../assets/data/pdp-test.jpg" id="myProfilPic"><br>
+          </td>
+          <td>
+            <table>
+              <tr>
+                  <p class="user_identifier">
+                    {{this.fname}} {{this.lname}}
+                  </p>
+              </tr>
+              <tr>
+                <p>
+                  A propos : {{bio}}
+                </p>
+              </tr>
+            </table>
+          </td>
 
-            <span>À propos </span>
-            <span>{{bio}}</span>
-          </p>
-        </div>
+        </table>
+      </td>
+      <td width="70%">
+        <table align="center">
+          <tr>
+            <td width="30%">
+              <h4 id="nivTitle">Progression</h4>
+            </td>
+            <td align="center">
+              Novice
+            </td>
+          </tr>
+          <tr align="center">
+            <td align="center" colspan="2">
+              <app-niveau></app-niveau>
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
   </table>
   <table>
     <tr>
-      <td>
-        <h4 id="nivTitle">Progression</h4>
-        <app-niveau></app-niveau>
-      </td>
       <td>
         <app-services-experience></app-services-experience>
       </td>
