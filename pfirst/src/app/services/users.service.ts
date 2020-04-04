@@ -14,18 +14,27 @@ export class UserService{
 
   services_history_for = [
     {
+      pour: "Gilbert",
+      par: "Bibel",
+      categorie: "menage",
       note: 4.3,
       commentaire: 'Tres bon service pour vous',
       date: new Date(),
       showComment: false
     },
     {
+      pour: "Gilbert",
+      par: "Dhomas",
+      categorie: "cuisine",
       note: 4.7,
       commentaire: 'Au top',
       date: new Date(),
       showComment: false
     },
     {
+      pour: "Gilbert",
+      par: "Rafel",
+      categorie: "accompagnement",
       note: 4.5,
       commentaire: 'Super!',
       date: new Date(),
@@ -34,18 +43,27 @@ export class UserService{
   ];
   services_history_by = [
     {
+      pour: "Bibel",
+      par: "Gilbert",
+      categorie: "menage",
       note: 4.3,
       commentaire: 'Tres bon service par vous',
       date: new Date(),
       showComment: false
     },
     {
+      pour: "Domas",
+      par: "Gilbert",
+      categorie: "cuisine",
       note: 4.7,
       commentaire: 'Au top',
       date: new Date(),
       showComment: false
     },
     {
+      pour: "Rafel",
+      par: "Gilbert",
+      categorie: "accompagnement",
       note: 4.5,
       commentaire: 'Super!',
       date: new Date(),

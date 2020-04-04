@@ -11,9 +11,9 @@
           <td>
             <table>
               <tr>
-                  <p class="user_identifier">
-                    {{this.fname}} {{this.lname}}
-                  </p>
+                <p class="user_identifier">
+                  {{this.fname}} {{this.lname}}
+                </p>
               </tr>
               <tr>
                 <p>
@@ -44,11 +44,13 @@
       </td>
     </tr>
   </table>
-  <table>
-    <tr>
-      <td>
-        <app-services-experience></app-services-experience>
-      </td>
-    </tr>
-  </table>
+  <div id="experience-wrapper">
+    <table width="100%">
+      <tr align="center">
+        <td align="center">
+          <app-services-experience></app-services-experience>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

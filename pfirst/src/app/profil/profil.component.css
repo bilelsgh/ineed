@@ -36,3 +36,8 @@ app-services-experience
   width:100%;
 }
 
+#experience-wrapper
+{
+  margin-left: 37%;
+  margin-right: auto;
+}

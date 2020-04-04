@@ -1,11 +1,13 @@
-<div>
-  <p>
-    <span class="date">{{getDescript()[0]}}</span>
-    <span class="grade">{{getDescript()[1] }}</span><br>
-  </p>
-
-  <input type="image" src="../../assets/data/fleche.png" (click)="setComment()" [disabled]="showComment" *ngIf="!showComment" class="flecheDown" alt="buttonSetComment">
-  <!--<input type="image" src="../../assets/data/fleche_up.png" (click)="unsetComment()" [disabled]="!showComment" *ngIf="showComment" class="flecheUp" alt=""buttonSetComment></!-->
-</div>
-<p *ngIf="showComment">{{getDescript()[2]}}<br></p>
-<input type="image" src="../../assets/data/fleche_up.png" (click)="unsetComment()" [disabled]="!showComment" *ngIf="showComment" class="flecheUp" alt="buttonSetComment">
+<table cellpadding="5" border="solid red 3px" width="100%">
+  <tr>
+    <td>
+      <p> Le {{getDescript()[0]}}, {{par}} a aidé {{pour}} !</p>
+    </td>
+    <td align="right">
+      <img class="icone-cat" *ngIf="menage" src="../../assets/data/menage.png">
+      <img class="icone-cat" *ngIf="accompagnement" src="../../assets/data/accompagner.png">
+      <img class="icone-cat" *ngIf="cuisine" src="../../assets/data/cuisine.png">
+      <img class="icone-cat" *ngIf="course" src="../../assets/data/cuisine.png">
+    </td>
+  </tr>
+</table>

@@ -64,8 +64,8 @@ export class ServicesExperienceComponent implements OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-history-component";
-    dialogConfig.height = "350px";
-    dialogConfig.width = "600px";
+    dialogConfig.width = "60%";
+    dialogConfig.height = "60%";
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(ModalHistoryComponent, dialogConfig);
   }

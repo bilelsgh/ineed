@@ -1,19 +1,47 @@
 <div id="modal-hist-wrapper">
-  <header>
-    <button (click)="setFor()">Pour vous</button>
-    <button (click)="setBy()">Par vous</button>
+  <header id="modal-hist-header">
+    <table cellpadding="10">
+      <tr>
+        <td>
+    <button class="btn btn-primary" (click)="setFor()">Pour vous</button>
+        </td>
+        <td>
+    <button class="btn btn-primary" (click)="setBy()">Par vous</button>
+        </td>
+      </tr>
+    </table>
   </header>
 
   <section>
     <div id="for-wrapper" *ngIf="showFor">
-      <li class="list-group-item" id="history-serv" *ngFor ="let serv of history_for">
-        <app-former-service [note]="serv.note" [commentaire]="serv.commentaire" [date]="serv.date"></app-former-service>
-      </li>
+      <app-former-service [pour]="this.history_for[index_for].pour"
+                          [par]="this.history_for[index_for].par"
+                          [categorie]="this.history_for[index_for].categorie"
+                          [note]="this.history_for[index_for].note"
+                          [commentaire]="this.history_for[index_for].commentaire"
+                          [date]="this.history_for[index_for].date">
+      </app-former-service>
     </div>
     <div id="by-wrapper" *ngIf="showBy">
-      <li class="list-group-item" id="history-serv" *ngFor ="let serv of history_by">
-        <app-former-service [note]="serv.note" [commentaire]="serv.commentaire" [date]="serv.date"></app-former-service>
-      </li>
+        <app-former-service [pour]="this.history_by[index_by].pour"
+                            [par]="this.history_by[index_by].par"
+                            [categorie]="this.history_by[index_by].categorie"
+                            [note]="this.history_by[index_by].note"
+                            [commentaire]="this.history_by[index_by].commentaire"
+                            [date]="this.history_by[index_by].date">
+        </app-former-service>
     </div>
   </section>
+  <footer id="modal-hist-footer">
+    <table cellpadding="10">
+      <tr>
+        <td>
+          <button class="btn btn-primary" (click)="decIndex()">Précédent</button>
+        </td>
+        <td>
+          <button class="btn btn-primary" (click)="incIndex()">Suivant</button>
+        </td>
+      </tr>
+    </table>
+  </footer>
 </div>

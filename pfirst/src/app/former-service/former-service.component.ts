@@ -11,6 +11,15 @@ import {UserService} from '../services/users.service';
 export class FormerServiceComponent implements OnInit {
 
   showComment: boolean;
+
+  menage: boolean;
+  accompagnement: boolean;
+  cuisine: boolean;
+  course: boolean;
+
+  @Input() pour: string;
+  @Input() par: string;
+  @Input() categorie: string;
   @Input() note : any;
   @Input() date : any;
   @Input() commentaire : string;
@@ -19,12 +28,40 @@ export class FormerServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.showComment=this.usr_serv.showAllComments;
+    this.menage = (this.categorie === "menage");
+    this.accompagnement = (this.categorie === "accompagnement");
+    this.course = (this.categorie === "course");
+    this.cuisine = this.categorie === "cuisine";
+    // this.setBool();
   }
 
+  setBool(){
+    if (this.categorie === "menage") {
+      this.menage = true;
+      this.accompagnement = false;
+      this.cuisine = false;
+      this.course = false;
+    }else if (this.categorie === "cuisine") {
+      this.menage = false;
+      this.accompagnement = false;
+      this.cuisine = true;
+      this.course = false;
+    }else if (this.categorie === "course") {
+      this.menage = false;
+      this.accompagnement = false;
+      this.cuisine = false;
+      this.course = true;
+    }else if (this.categorie === "accompagnement"){
+      this.menage = false;
+      this.accompagnement = true;
+      this.cuisine = false;
+      this.course = false;
+    }
+  }
   getDescript() {
-    let date = 'Date : ' + this.datepipe.transform(this.date, 'yyyy/MM/dd');
-    let note = ' Note : ' + this.note;
-    let comment = 'Commentaire : '+ this.commentaire;
+    let date = '' + this.datepipe.transform(this.date, 'yyyy/MM/dd');
+    let note = '' + this.note;
+    let comment = this.commentaire;
     return [date,note,comment];
   }
 
