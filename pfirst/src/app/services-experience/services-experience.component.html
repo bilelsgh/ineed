@@ -1,10 +1,9 @@
-<p><img src="../../assets/data/star.png" class="star"> {{getAverageGrade()}}/5</p>
+<p>Rating : <img src="../../assets/data/star.png" class="star"> {{getAverageGrade()}}/5</p>
 <span id="history">
   <h3 id="history-title">Services :
-    <button *ngIf="!showAllComments" (click)="setAllComments()" class="all-com-button">Tout déplier</button>
-    <button *ngIf="showAllComments" (click)="resetAllComments()" class="all-com-button">Tout replier</button>
+        <button mat-raised-button id="history-button" (click)="openHistoryModal()">Voir plus</button>
   </h3>
 </span>
-<li class="list-group-item" id="history-serv" *ngFor ="let serv of history">
+<li class="list-group-item" id="history-serv" *ngFor ="let serv of history_for">
   <app-former-service [note]="serv.note" [commentaire]="serv.commentaire" [date]="serv.date"></app-former-service>
 </li>

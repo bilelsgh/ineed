@@ -1,0 +1,19 @@
+<div id="modal-hist-wrapper">
+  <header>
+    <button (click)="setFor()">Pour vous</button>
+    <button (click)="setBy()">Par vous</button>
+  </header>
+
+  <section>
+    <div id="for-wrapper" *ngIf="showFor">
+      <li class="list-group-item" id="history-serv" *ngFor ="let serv of history_for">
+        <app-former-service [note]="serv.note" [commentaire]="serv.commentaire" [date]="serv.date"></app-former-service>
+      </li>
+    </div>
+    <div id="by-wrapper" *ngIf="showBy">
+      <li class="list-group-item" id="history-serv" *ngFor ="let serv of history_by">
+        <app-former-service [note]="serv.note" [commentaire]="serv.commentaire" [date]="serv.date"></app-former-service>
+      </li>
+    </div>
+  </section>
+</div>

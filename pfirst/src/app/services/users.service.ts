@@ -10,11 +10,12 @@ export class UserService{
   bio: string = "Salut a tous du coup moi c'est gilbert aka le toat.";
   fname: string = "Gilbert";
   lname: string = "Angénieux";
+  rating: number = 4.5;
 
-  services_history = [
+  services_history_for = [
     {
       note: 4.3,
-      commentaire: 'Tres bon service',
+      commentaire: 'Tres bon service pour vous',
       date: new Date(),
       showComment: false
     },
@@ -31,7 +32,26 @@ export class UserService{
       showComment: false
     }
   ];
-
+  services_history_by = [
+    {
+      note: 4.3,
+      commentaire: 'Tres bon service par vous',
+      date: new Date(),
+      showComment: false
+    },
+    {
+      note: 4.7,
+      commentaire: 'Au top',
+      date: new Date(),
+      showComment: false
+    },
+    {
+      note: 4.5,
+      commentaire: 'Super!',
+      date: new Date(),
+      showComment: false
+    }
+  ];
   //services_history: any[];
 
   ngOnInit(){
@@ -53,11 +73,11 @@ export class UserService{
   }
 
   getNiveau(): number{
-    return (Math.floor(this.services_history.length/5) + 1);//pour le moment 5 services dans chaque niveau
+    return (Math.floor((this.services_history_for.length + this.services_history_by.length)/5) + 1);//pour le moment 5 services dans chaque niveau
   }
 
   saveUserInfosToServer(){
-    this.httpClient.put('https://httpclient-tuto.firebaseio.com/userInfos.json',this.services_history)
+    this.httpClient.put('https://httpclient-tuto.firebaseio.com/userInfos.json',this.services_history_for)
       .subscribe(()=>{console.log('save done');},(err)=>{console.log('Erreur de save '+err);});
 
   }
@@ -66,7 +86,7 @@ export class UserService{
     this.httpClient
       .get<any[]>('https://httpclient-tuto.firebaseio.com/')
       .subscribe((got)=>{
-          this.services_history=got;
+          this.services_history_for=got;
         },
         (err)=>{
           console.log("Erreur de récupération"+err);

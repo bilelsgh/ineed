@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {DatePipe} from '@angular/common';
 import { UserService} from '../services/users.service';
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {ModalHistoryComponent} from "../modal-history/modal-history.component";
 
 @Component({
   selector: 'app-services-experience',
@@ -10,15 +12,17 @@ import { UserService} from '../services/users.service';
 })
 export class ServicesExperienceComponent implements OnInit {
 
-  history: any[];
+  history_for: any[];
+  history_by: any[];
   idx: number;
   showAllComments: boolean;
 
-  constructor(private datepipe: DatePipe, private usr_service : UserService) {
+  constructor(private datepipe: DatePipe, private usr_service : UserService, public matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.history = this.usr_service.services_history;
+    this.history_for = this.usr_service.services_history_for;
+    this.history_by = this.usr_service.services_history_by;
     this.idx=this.usr_service.idx;
     this.showAllComments = this.usr_service.showAllComments;
   }
@@ -26,7 +30,10 @@ export class ServicesExperienceComponent implements OnInit {
   getAverageGrade() {
     let grades = 0;
     let sum = 0;
-    this.history.forEach(elt => {
+    this.history_for.forEach(elt => {
+      sum = sum + elt.note , grades = grades + 1;
+    });
+    this.history_by.forEach(elt => {
       sum = sum + elt.note , grades = grades + 1;
     });
     return (sum / grades);
@@ -50,6 +57,17 @@ export class ServicesExperienceComponent implements OnInit {
     this.usr_service.resetShowAllComments();
     this.showAllComments = false;
     console.log('servExp : showAll reset a false');
+  }
+
+  openHistoryModal(){
+    const dialogConfig = new MatDialogConfig();
+    // The user can't close the dialog by clicking outside its body
+    dialogConfig.disableClose = false;
+    dialogConfig.id = "modal-history-component";
+    dialogConfig.height = "350px";
+    dialogConfig.width = "600px";
+    // https://material.angular.io/components/dialog/overview
+    const modalDialog = this.matDialog.open(ModalHistoryComponent, dialogConfig);
   }
 
 }

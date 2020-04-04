@@ -35,7 +35,11 @@ import { CuisineSingleComponent } from './cuisine-single/cuisine-single.componen
 import { AccompagnerSingleComponent } from './accompagner-single/accompagner-single.component';
 import { ServiceService } from './services/service.service';
 import { NewCoursesComponent } from './new-courses/new-courses.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalHistoryComponent } from './modal-history/modal-history.component';
 
 @NgModule({
   declarations: [
@@ -62,14 +66,18 @@ import { NewCoursesComponent } from './new-courses/new-courses.component';
     CoursesSingleComponent,
     CuisineSingleComponent,
     AccompagnerSingleComponent,
-    NewCoursesComponent
+    NewCoursesComponent,
+    ModalHistoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [ //on ajoute ici tous les services
     AuthService,
@@ -77,9 +85,10 @@ import { NewCoursesComponent } from './new-courses/new-courses.component';
     InscriptionService,
     UserService,
     ServiceService,
-    Location 
+    Location
      // necessaire ?
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalHistoryComponent]
 })
 export class AppModule { }

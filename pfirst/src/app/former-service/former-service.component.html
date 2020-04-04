@@ -1,6 +1,9 @@
 <div>
-  <span class="date">{{getDescript()[0]}}</span>
-  <span class="grade">{{getDescript()[1] }}</span><br>
+  <p>
+    <span class="date">{{getDescript()[0]}}</span>
+    <span class="grade">{{getDescript()[1] }}</span><br>
+  </p>
+
   <input type="image" src="../../assets/data/fleche.png" (click)="setComment()" [disabled]="showComment" *ngIf="!showComment" class="flecheDown" alt="buttonSetComment">
   <!--<input type="image" src="../../assets/data/fleche_up.png" (click)="unsetComment()" [disabled]="!showComment" *ngIf="showComment" class="flecheUp" alt=""buttonSetComment></!-->
 </div>

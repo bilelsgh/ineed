@@ -20,7 +20,7 @@ export class NiveauComponent implements OnInit {
 
   ngOnInit(): void {
     this.niveau = this.userServ.getNiveau();
-    this.doneBeforeNext = (this.userServ.services_history.length % 5); // pour le moment 5 services pour passer d'un niv a l'autre
+    this.doneBeforeNext = ( (this.userServ.services_history_for.length + this.userServ.services_history_by.length) % 5); // pour le moment 5 services pour passer d'un niv a l'autre
     this.percentage = (this.doneBeforeNext / 5) * 100;
   }
 }
