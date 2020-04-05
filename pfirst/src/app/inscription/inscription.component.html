@@ -8,6 +8,8 @@
     <tr>
       <div class="row">
         <form (ngSubmit)="onSubmit(f)" #f="ngForm"> <!-- #f passe une référence au formulaire (#x) -->
+
+          <!--############NOM############-->
           <div class="form-group">
             <label for="name">
               Nom <span style="color:red">*</span>
@@ -15,6 +17,7 @@
             <input type="text" id="name" class="form-control" name="name" placeholder="ex: Dupont" ngModel required> <!-- ce champ est requis -->
 
             <br>
+            <!--############PRÉNOM############-->
             <label for="prenom">
               Prénom <span style="color:red">*</span>
             </label>
@@ -22,6 +25,7 @@
                    (change) = "updateSurname(f.value['prenom'])" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
             <br>
 
+            <!--############MAIL############-->
             <label for="mail">
               Adresse mail <span style="color:red">*</span>
             </label>
@@ -29,6 +33,7 @@
 
           </div>
 
+          <!--############SEXE############-->
           <div class="form-group">
             <label for="sexe">
               Sexe <span style="color:red">*</span>
@@ -39,6 +44,7 @@
             </select>
           </div>
 
+          <!--############PASSWORD############-->
           <div class="form-group" ng-controller="passwordCtrl">
             <label for="password">Mot de passe <span style="color:red">*</span> </label>
             <table>
@@ -65,6 +71,7 @@
             <span *ngIf="strong_password"  class="badge badge-pill badge-success">Votre mot de passe est fort.</span>
           </div>
 
+          <!--############CONFIRMATION PASSWORD############-->
           <div class="form-group">
             <label for="confirm_password" >Confirmez votre mot de passe <span style="color:red">*</span></label>
             <input class="form-control" type="password" id="confirm_password" name="confirm_password"
@@ -73,6 +80,7 @@
           </div>
           <br>
 
+          <!--############PHOTO DE PROFIL############-->
           <div class="form-group">
             <p>Photo de profil</p>
             <input type="file" name="profil_picture" id="profil_picture" (change)="onFileSelected($event)" ngModel>

@@ -12,7 +12,7 @@ export class CoursesSingleComponent implements OnInit {
   Name: string = 'Courses';
   User: string = 'Utilisateur';
   Description: string = 'Description';
-  Liste: any = [];
+  Liste = new Array<{produit: string, quantite: string}>();
   Accompagne : string = 'oui';
   Budget : number = 55;
   Dispo: string="coucou"
