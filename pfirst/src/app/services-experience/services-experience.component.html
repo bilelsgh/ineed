@@ -4,6 +4,35 @@
         <button mat-raised-button id="history-button" (click)="openHistoryModal()">Plus de services</button>
   </h3>
 </span>
-<li class="list-group-item" id="history-serv" *ngFor ="let serv of history_for">
-  <app-former-service [note]="serv.note" [commentaire]="serv.commentaire" [date]="serv.date"></app-former-service>
-</li>
+<table width="70%" cellpadding="30" border="5px solid">
+  <tr>
+    <td>
+      Pour vous
+    </td>
+    <td>
+      Par vous
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <app-former-service [helperLook]="false"
+                          [pour]="this.history_for[last_for].pour"
+                          [par]="this.history_for[last_for].par"
+                          [categorie]="this.history_for[last_for].categorie"
+                          [note]="this.history_for[last_for].note"
+                          [commentaire]="this.history_for[last_for].commentaire"
+                          [date]="this.history_for[last_for].date">
+      </app-former-service>
+    </td>
+    <td>
+      <app-former-service [helperLook]="true"
+                          [pour]="this.history_by[last_by].pour"
+                          [par]="this.history_by[last_by].par"
+                          [categorie]="this.history_by[last_by].categorie"
+                          [note]="this.history_by[last_by].note"
+                          [commentaire]="this.history_by[last_by].commentaire"
+                          [date]="this.history_by[last_by].date">
+      </app-former-service>
+    </td>
+  </tr>
+</table>
