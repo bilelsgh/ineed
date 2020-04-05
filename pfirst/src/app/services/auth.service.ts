@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 })
 export class AuthService {
 
+  db = "https://ineed-1ce51.firebaseio.com/";
   loggedInUserInfo : {};
   constructor(private http : HttpClient, private router : Router) { }
 
@@ -29,6 +30,6 @@ export class AuthService {
   }
 
   public validate(email, password) {
-    return this.http.post('https://ineed-1ce51.firebaseio.com/users.json', {'username' : email, 'password' : password}).toPromise()
+    return this.http.post(this.db+"users.json", {'username' : email, 'password' : password}).toPromise()
   }
 }

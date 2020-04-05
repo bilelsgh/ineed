@@ -49,10 +49,17 @@ export class InscriptionComponent implements OnInit {
       this.router.navigate(['']);
     } else if (form.value.password.length < 6) {
       form.reset();
+      this.strong_password = false;
+      this.medium_password = false;
+      this.bad_password = false;
+      this.same_password = true;
       alert('Le mot de passe doit faire au moins 6 caractères.');
     } else {
       form.reset();
-      this.same_password = false;
+      this.strong_password = false;
+      this.medium_password = false;
+      this.bad_password = false;
+      this.same_password = true;
       alert('Les mots de passe entrés ne sont pas identiques.');
 
     }

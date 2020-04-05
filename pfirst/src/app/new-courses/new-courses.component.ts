@@ -3,6 +3,8 @@ import {FormGroup, FormBuilder, NgForm} from '@angular/forms';
 import { Courses } from '../models/Courses.model';
 import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-new-courses',
@@ -13,7 +15,8 @@ export class NewCoursesComponent implements OnInit {
 
   liste_courses = new Array<{produit: string, quantite: string}>(); //A ENVOYER DANS LA DB
   coursesForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
+             private httpClient : HttpClient, private auth : AuthService) { }
 
   ngOnInit(): void {
     this.initForm();

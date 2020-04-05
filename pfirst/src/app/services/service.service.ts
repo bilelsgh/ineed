@@ -1,6 +1,10 @@
 import { Courses } from '../models/Courses.model';
 import { Subject } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from './auth.service';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class ServiceService{
 
     private courses:Courses[]= [];
@@ -11,6 +15,18 @@ export class ServiceService{
   addCourses(courses : Courses){
       this.services.push(courses);
       this.emitCourses();
+
+
+    this.httpClient
+      .post(this.auth.db+"services.json", courses) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
+      .subscribe( //                                            Cette méthode renvoie un Observable, elle ne fait pas appel à elle toute seule
+        () => { //                                       c'est en y souscrivant que l'appel est lancé ; put() écrase
+          console.log("Enregistrement ok!");
+        },                                         //subscribe() prévoie le cas où tout fonctionne t le cas où il y a des erreurs
+        (error) => {
+          console.log("Erreur : "+ error);
+        }
+      );
   }
 
 
@@ -27,7 +43,7 @@ export class ServiceService{
         budget: 98,
         dispo:"30/03/2002"
 
-        
+
         },
         {id:2,
         image:"../../assets/data/menage.png",
@@ -66,7 +82,7 @@ export class ServiceService{
         }
       ];
 
-    constructor(){  
+    constructor(private httpClient : HttpClient, private auth : AuthService){
     }
 
     getServiceById(id: number) {

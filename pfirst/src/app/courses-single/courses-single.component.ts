@@ -30,5 +30,8 @@ export class CoursesSingleComponent implements OnInit {
     this.Dispo=this.serviceService.getServiceById(+id).dispo;
   }
 
+  writeList(){
+    //envoyer au serveur et lui demander d'envoyer la liste.txt
+  }
 
 }

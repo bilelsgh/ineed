@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {AuthService} from './auth.service';
 
 @Injectable()
 
@@ -7,10 +8,10 @@ export class InscriptionService{
 
   users = new Array<{prenom: string, nom: string, sexe: string, mail: string, password: string}>();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private auth : AuthService) {}
 
 
-  addUser(nom: string, prenom: string, sexe: string, mail: string, password: string){
+  addUser(nom: string, prenom: string, sexe: string, mail: string, password: string, ){
       const newUser = {prenom: '', nom: '', sexe: '', mail:'', password:''};
       newUser.prenom = prenom;
       newUser.nom = nom;
@@ -25,7 +26,7 @@ export class InscriptionService{
 
   saveUsersToServers(){
     this.httpClient
-      .put('https://ineed-1ce51.firebaseio.com/users.json', this.users) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
+      .put(this.auth.db+"users.json", this.users) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
       .subscribe( //                                            Cette méthode renvoie un Observable, elle ne fait pas appel à elle toute seule
         () => { //                                       c'est en y souscrivant que l'appel est lancé ; put() écrase
           console.log("Enregistrement ok!");
@@ -38,7 +39,7 @@ export class InscriptionService{
 
   getFromServer(){
     this.httpClient
-      .get<any[]>('https://ineed-1ce51.firebaseio.com/')
+      .get<any[]>(this.auth.db+"users.json")
       .subscribe(
         (response) => {
           this.users = response;
