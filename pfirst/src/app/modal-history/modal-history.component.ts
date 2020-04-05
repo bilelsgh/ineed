@@ -47,11 +47,14 @@ export class ModalHistoryComponent implements OnInit {
       if (this.index_for < 0){
         this.index_for = this.history_for.length-1;
       }
+      console.log("categorie uodated : "+this.history_for[this.index_for].categorie);
+
     }else{
       this.index_by--;
       if (this.index_by < 0) {
         this.index_by = this.history_by.length-1;
       }
+      console.log("categorie uodated : "+this.history_by[this.index_by].categorie);
     }
   }
   setFor() {

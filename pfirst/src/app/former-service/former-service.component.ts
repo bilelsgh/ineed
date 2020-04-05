@@ -11,12 +11,20 @@ import {UserService} from '../services/users.service';
 export class FormerServiceComponent implements OnInit {
 
   showComment: boolean;
-
   menage: boolean;
   accompagnement: boolean;
   cuisine: boolean;
   course: boolean;
 
+  descriptCategorie =
+    {
+      "menage": "à faire le ménage",
+      "cuisine": "en lui préparant un bon petit plat",
+      "accompagnement": "en l'accompagnant",
+      "course": "à faire ses courses"
+    };
+
+  @Input() helperLook: boolean; // vrai si c'est celui qui aide visualise ce service
   @Input() pour: string;
   @Input() par: string;
   @Input() categorie: string;
