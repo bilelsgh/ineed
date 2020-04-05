@@ -17,24 +17,19 @@
       </tr>
       <tr>
         <td><h2>Liste des courses :</h2></td>
-      </tr>
-      <tr>
-        <ul class="list-group">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Céréales
-            <span class="badge badge-primary badge-pill">5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Papier toilettes
-            <span class="badge badge-primary badge-pill">2</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Bouteille d'eau
-            <span class="badge badge-primary badge-pill">1</span>
-          </li>
-        </ul>
-        <a href="../../assets/data/cuisine.png"
-           download>Télécharger la liste</a>
+        <td>
+          <ul class="list-group">
+            <div *ngFor="let element of this.Liste">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{element.produit}}
+                <span class="badge badge-primary">{{element.quantite}}</span>
+              </li>
+            </div>
+          </ul>
+
+          <a href="../../assets/data/cuisine.png"
+             download>Télécharger la liste</a>
+        </td>
       </tr>
       <tr>
         <td><h2>Budget</h2></td>
@@ -42,7 +37,6 @@
       </tr>
       <tr>
         <td><h2>Commentaire</h2>{{Description}}</td>
-
       </tr>
     </table>
 
