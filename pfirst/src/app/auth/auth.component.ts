@@ -22,7 +22,6 @@ export class AuthComponent implements OnInit {
       .then((response) => {
         this.authService.setUserInfo({user : response['user']});
         this.router.navigate(['']);
-
       });
   }
 

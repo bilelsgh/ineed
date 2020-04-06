@@ -11,6 +11,16 @@
         -->
       <td>
         <div id="roundProfilPic" routerLink="profil"></div>
+        <!--    A voir dropdown angular https://ng-bootstrap.github.io/#/components/dropdown/examples
+        <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+          <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Toggle dropdown</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button ngbDropdownItem>Action - 1</button>
+            <button ngbDropdownItem>Another Action</button>
+            <button ngbDropdownItem>Something else is here</button>
+          </div>
+        </div>
+        -->
         <ul *ngIf="this.showProfilMenu">
           <li>Mes infos</li>
           <li>Mes notifs</li>
