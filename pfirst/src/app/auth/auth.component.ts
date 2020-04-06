@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
     // PASSPORT
     this.authService.validate(mail, password)
       .then((response) => {
-        this.authService.setUserInfo({user : response.user});
+        this.authService.setUserInfo({user : response['user']});
         this.router.navigate(['']);
 
       });
@@ -31,8 +31,8 @@ export class AuthComponent implements OnInit {
 
     // CRÉATION D'UN USER À ENVOYER AU BACKEND
     let current_user =  new Array<{mail: string, password: string}>();
-    current_user.mail = form.value['mail'];
-    current_user.password = form.value['password'];
+    current_user['mail'] = form.value['mail'];
+    current_user['password'] = form.value['password'];
 
     // ENVOIE AU BACKEND LES INFOS DE CONNEXION
     this.httpClient
