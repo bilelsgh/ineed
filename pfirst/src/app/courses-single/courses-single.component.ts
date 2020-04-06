@@ -16,6 +16,8 @@ export class CoursesSingleComponent implements OnInit {
   Accompagne : string = 'oui';
   Budget : number = 55;
   Dispo: string="coucou"
+  liste_a_copier : string;
+
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router) { }
 
@@ -28,10 +30,57 @@ export class CoursesSingleComponent implements OnInit {
     this.Accompagne=this.serviceService.getServiceById(+id).accompagner;
     this.Budget=this.serviceService.getServiceById(+id).budget;
     this.Dispo=this.serviceService.getServiceById(+id).dispo;
+    this.writeList();
   }
 
   writeList(){
-    //envoyer au serveur et lui demander d'envoyer la liste.txt
+    let current : string;
+    for(let elt of this.liste_a_copier){
+      current = elt.produit + " -> " + elt.quantite + "\n";
+      this.liste_a_copier += current;
+
+    }
+  }
+
+  //###########COPIER LA LISTE##################""
+
+
+
+
+  function docopy() {
+
+    // Cible de l'élément qui doit être copié
+    var target = this.dataset.target;
+    var fromElement = document.querySelector(target);
+    if(!fromElement) return;
+
+    // Sélection des caractères concernés
+    var range = document.createRange();
+    var selection = window.getSelection();
+    range.selectNode(fromElement);
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    try {
+      // Exécution de la commande de copie
+      var result = document.execCommand('copy');
+      if (result) {
+        // La copie a réussi
+        alert('Copié !');
+      }
+    }
+    catch(err) {
+      // Une erreur est surevnue lors de la tentative de copie
+      alert(err);
+    }
+
+    // Fin de l'opération
+    selection = window.getSelection();
+    if (typeof selection.removeRange === 'function') {
+      selection.removeRange(range);
+    } else if (typeof selection.removeAllRanges === 'function') {
+      selection.removeAllRanges();
+    }
   }
 
 }

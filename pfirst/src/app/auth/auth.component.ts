@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -10,31 +11,41 @@ import {NgForm} from '@angular/forms';
 })
 export class AuthComponent implements OnInit {
 
-  userEmail : String;
-  userPassword : String;
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router, private httpClient: HttpClient) {}
 
-  ngOnInit(){}
+  ngOnInit() {}
 
-  onSignIn(mail: string, password : string){
+  onSignIn(mail: string, password: string) {
+    // PASSPORT
     this.authService.validate(mail, password)
       .then((response) => {
-        this.authService.setUserInfo({'user' : response['user']});
+        this.authService.setUserInfo({user : response.user});
         this.router.navigate(['']);
 
-      })
+      });
   }
 
-  onSubmit(form: NgForm){
-    this.onSignIn(form.value['mail'], form.value['password']);
-    /**console.log("RES : " + this.authService.submit(form));
-    if (this.authService.submit(form)){
-      this.onSignIn();
-      this.router.navigate(['']);
-    }else{
-      alert("Mot de passe ou adresse e-mail invalide.")
-    }**/
+  onSubmit(form: NgForm) {
+    this.onSignIn(form.value.mail, form.value.password); // PASSPORT
+
+    // CRÉATION D'UN USER À ENVOYER AU BACKEND
+    let current_user =  new Array<{mail: string, password: string}>();
+    current_user.mail = form.value['mail'];
+    current_user.password = form.value['password'];
+
+    // ENVOIE AU BACKEND LES INFOS DE CONNEXION
+    this.httpClient
+      .post(this.authService.backend + 'api/user/login', current_user)
+      .subscribe(
+        () => {
+          console.log('#DEBUG Envoie des infos de connexion : OK');
+        },
+        (error) => {
+          console.log('Erreur : ' + error);
+        }
+      );
+
 
 
 

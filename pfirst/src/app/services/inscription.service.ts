@@ -26,7 +26,7 @@ export class InscriptionService{
 
   saveUsersToServers(){
     this.httpClient
-      .put(this.auth.backend+"users.json", this.users) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
+      .post(this.auth.backend+"/api/user", this.users) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
       .subscribe( //                                            Cette méthode renvoie un Observable, elle ne fait pas appel à elle toute seule
         () => { //                                       c'est en y souscrivant que l'appel est lancé ; put() écrase
           console.log("Enregistrement ok!");

@@ -8,7 +8,8 @@ import {Router} from '@angular/router';
 })
 export class AuthService {
 
-  backend = "https://ineed-1ce51.firebaseio.com/";
+  backend = "https://rpicloud.ddns.net/";
+  backend_test = "https://ineed-1ce51.firebaseio.com/";
   loggedInUserInfo : {};
   constructor(private http : HttpClient, private router : Router) { }
 
@@ -30,6 +31,6 @@ export class AuthService {
   }
 
   public validate(email, password) {
-    return this.http.post(this.backend+"connected_user.json", {'username' : email, 'password' : password}).toPromise()
+    return this.http.post(this.backend+"api/user/login", {'mail' : email, 'password' : password}).toPromise();
   }
 }
