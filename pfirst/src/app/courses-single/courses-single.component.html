@@ -27,9 +27,10 @@
             </div>
           </ul>
 
-          <button class="button btn-secondary" value="Copier" class="js-copy" data-target=this.liste_a_copier>
+          <button class="btn btn-secondary" (click)="copyToClipboard(this.liste_a_copier)" >
             Copier la liste</button>
         </td>
+        <td *ngIf="copied"><i>Liste copiée.</i></td>
       </tr>
       <tr>
         <td><h2>Budget</h2></td>
