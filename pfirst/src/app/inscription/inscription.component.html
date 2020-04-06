@@ -11,18 +11,18 @@
 
           <!--############NOM############-->
           <div class="form-group">
-            <label for="name">
+            <label for="lastName">
               Nom <span style="color:red">*</span>
             </label>
-            <input type="text" id="name" class="form-control" name="name" placeholder="ex: Dupont" ngModel required> <!-- ce champ est requis -->
+            <input type="text" id="lastName" class="form-control" name="lastName" placeholder="ex: Dupont" ngModel required> <!-- ce champ est requis -->
 
             <br>
             <!--############PRÉNOM############-->
-            <label for="prenom">
+            <label for="firstName">
               Prénom <span style="color:red">*</span>
             </label>
-            <input type="text" id="prenom" class="form-control" name="prenom" placeholder="ex: Jean"
-                   (change) = "updateSurname(f.value['prenom'])" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
+            <input type="text" id="firstName" class="form-control" name="firstName" placeholder="ex: Jean"
+                   (change) = "updateSurname(f.value['firstName'])" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
             <br>
 
             <!--############MAIL############-->
@@ -35,12 +35,13 @@
 
           <!--############SEXE############-->
           <div class="form-group">
-            <label for="sexe">
+            <label for="sex">
               Sexe <span style="color:red">*</span>
             </label>
-            <select id="sexe" class="custom-select custom-select-lg mb-3" name="sexe" ngModel required>
+            <select id="sex" class="custom-select custom-select-lg mb-3" name="sex" ngModel required>
               <option value="man">Homme</option>
               <option value="woman">Femme</option>
+              <option value="other">Autres</option>
             </select>
           </div>
 
@@ -83,7 +84,7 @@
           <!--############PHOTO DE PROFIL############-->
           <div class="form-group">
             <p>Photo de profil</p>
-            <input type="file" name="profil_picture" id="profil_picture" (change)="onFileSelected($event)" ngModel>
+            <input type="file" name="photo" id="photo" (change)="onFileSelected($event)" ngModel>
           </div>
 
           <br><br>

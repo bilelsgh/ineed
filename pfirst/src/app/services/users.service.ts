@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import{HttpClient} from '@angular/common/http';
 import {subscribeOn} from 'rxjs/operators';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class UserService{
 
-  constructor(private httpClient: HttpClient){}
+  constructor(private httpClient: HttpClient, private auth : AuthService){}
 
   bio: string = "Salut a tous du coup moi c'est gilbert aka le toat.";
   fname: string = "Gilbert";
@@ -95,14 +96,14 @@ export class UserService{
   }
 
   saveUserInfosToServer(){
-    this.httpClient.put('https://httpclient-tuto.firebaseio.com/userInfos.json',this.services_history_for)
+    this.httpClient.put(this.auth.backend + 'userInfos.json',this.services_history_for)
       .subscribe(()=>{console.log('save done');},(err)=>{console.log('Erreur de save '+err);});
 
   }
 
   getUserInfosFromServer(){
     this.httpClient
-      .get<any[]>('https://httpclient-tuto.firebaseio.com/')
+      .get<any[]>(this.auth.backend)
       .subscribe((got)=>{
           this.services_history_for=got;
         },

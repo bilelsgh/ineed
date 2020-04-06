@@ -23,7 +23,7 @@ export class ServiceViewComponent implements OnInit {
     this.services=this.serviceService.services
 
     this.httpClient
-      .get<any[]>(this.auth.db+"services.json")
+      .get<any[]>(this.auth.backend+"services.json")
       .subscribe(
         (response) => {
           this.services_db = response;

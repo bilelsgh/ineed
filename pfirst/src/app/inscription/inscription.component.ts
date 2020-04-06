@@ -38,9 +38,9 @@ export class InscriptionComponent implements OnInit {
     if (this.checkSamePassword(form)) {
       this.same_password = true;
       console.log('inscription ok');
-      const name = form.value.name;
-      const prenom = form.value.prenom;
-      const sexe = form.value.sexe;
+      const name = form.value.lastName;
+      const prenom = form.value.firstName;
+      const sexe = form.value.sex;
       const mail = form.value.mail;
       const password = form.value.password;
       this.subService.addUser(name, prenom, sexe, mail, password);
