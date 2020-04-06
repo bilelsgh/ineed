@@ -30,6 +30,6 @@ export class AuthService {
   }
 
   public validate(email, password) {
-    return this.http.post(this.backend+"users.json", {'username' : email, 'password' : password}).toPromise()
+    return this.http.post(this.backend+"connected_user.json", {'username' : email, 'password' : password}).toPromise()
   }
 }
