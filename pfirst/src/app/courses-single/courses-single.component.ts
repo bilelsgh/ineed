@@ -17,6 +17,7 @@ export class CoursesSingleComponent implements OnInit {
   Budget : number = 55;
   Dispo: string="coucou"
   liste_a_copier : string;
+  copied = false;
 
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router) { }
@@ -31,12 +32,13 @@ export class CoursesSingleComponent implements OnInit {
     this.Budget=this.serviceService.getServiceById(+id).budget;
     this.Dispo=this.serviceService.getServiceById(+id).dispo;
     this.writeList();
+    this.copied = false;
   }
 
   writeList(){
     let current : string;
-    for(let elt of this.liste_a_copier){
-      current = elt.produit + " -> " + elt.quantite + "\n";
+    for(let elt of this.Liste){
+      current = '\n' + elt.produit + " -> " + elt.quantite;
       this.liste_a_copier += current;
 
     }
@@ -44,43 +46,22 @@ export class CoursesSingleComponent implements OnInit {
 
   //###########COPIER LA LISTE##################""
 
-
-
-
-  function docopy() {
-
-    // Cible de l'élément qui doit être copié
-    var target = this.dataset.target;
-    var fromElement = document.querySelector(target);
-    if(!fromElement) return;
-
-    // Sélection des caractères concernés
-    var range = document.createRange();
-    var selection = window.getSelection();
-    range.selectNode(fromElement);
-    selection.removeAllRanges();
-    selection.addRange(range);
-
-    try {
-      // Exécution de la commande de copie
-      var result = document.execCommand('copy');
-      if (result) {
-        // La copie a réussi
-        alert('Copié !');
-      }
-    }
-    catch(err) {
-      // Une erreur est surevnue lors de la tentative de copie
-      alert(err);
-    }
-
-    // Fin de l'opération
-    selection = window.getSelection();
-    if (typeof selection.removeRange === 'function') {
-      selection.removeRange(range);
-    } else if (typeof selection.removeAllRanges === 'function') {
-      selection.removeAllRanges();
-    }
+  copyToClipboard(val : string){
+    this.copied = true;
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
+
+
+
 
 }
