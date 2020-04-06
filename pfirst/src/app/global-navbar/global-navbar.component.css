@@ -2,3 +2,12 @@
 {
   width: 150px;
 }
+
+#roundProfilPic
+{
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-image: url("../../assets/data/pdp-test.jpg");
+  background-size: cover;
+}
