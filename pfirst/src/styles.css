@@ -18,6 +18,6 @@ mat-dialog-container#modal-history-component {
   background-color: #25232;
 }
 
-mat-dialog-container#modal-user{
-  background-color: #000000;
+mat-dialog-container#modal-user-component{
+  background-color: #343a40;
 }

@@ -64,7 +64,7 @@ export class GlobalNavbarComponent implements OnInit {
     dialogConfig.id = "modal-user-component";
     dialogConfig.width = "150px";
     dialogConfig.height = "auto";
-    dialogConfig.position = {top: '110px', left:'130px'};
+    dialogConfig.position = {top: '95px', left:'130px'};
     dialogConfig.hasBackdrop = false;
     const modalDialog = this.matDialog.open(ModalUserComponent, dialogConfig);
   }
