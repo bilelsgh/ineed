@@ -40,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalHistoryComponent } from './modal-history/modal-history.component';
+import { ModalUserComponent } from './modal-user/modal-user.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { ModalHistoryComponent } from './modal-history/modal-history.component';
     CuisineSingleComponent,
     AccompagnerSingleComponent,
     NewCoursesComponent,
-    ModalHistoryComponent
+    ModalHistoryComponent,
+    ModalUserComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +92,9 @@ import { ModalHistoryComponent } from './modal-history/modal-history.component';
      // necessaire ?
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ModalHistoryComponent]
+  entryComponents: [
+    ModalHistoryComponent,
+    ModalUserComponent
+  ]
 })
 export class AppModule { }

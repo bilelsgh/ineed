@@ -4,6 +4,8 @@ import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {Observable} from "rxjs";
 import {switchMap} from "rxjs/operators";
 import {UserService} from "../services/users.service";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {ModalUserComponent} from "../modal-user/modal-user.component";
 
 @Component({
   selector: 'app-global-navbar',
@@ -18,7 +20,7 @@ export class GlobalNavbarComponent implements OnInit {
   hasUrl: boolean;
   showProfilMenu: boolean; // a sup si dropdown
 
-  constructor(public authService: AuthService, private actRoute: ActivatedRoute, router: Router,public userService: UserService) {
+  constructor(public authService: AuthService, private actRoute: ActivatedRoute, router: Router,public userService: UserService, public matDialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -54,5 +56,16 @@ export class GlobalNavbarComponent implements OnInit {
     }else{
       this.showProfilMenu=true;
     }
+  }
+
+  openUserModal(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.id = "modal-user-component";
+    dialogConfig.width = "150px";
+    dialogConfig.height = "auto";
+    dialogConfig.position = {top: '110px', left:'130px'};
+    dialogConfig.hasBackdrop = false;
+    const modalDialog = this.matDialog.open(ModalUserComponent, dialogConfig);
   }
 }

@@ -17,3 +17,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 mat-dialog-container#modal-history-component {
   background-color: #25232;
 }
+
+mat-dialog-container#modal-user{
+  background-color: #000000;
+}

@@ -11,6 +11,9 @@
         -->
       <td>
         <div *ngIf="this.authService.isAuthenticated()" id="roundProfilPic" routerLink="profil" style="cursor:pointer"></div>
+        <div id="navbar-user-button-wrapper">
+          <button mat-raised-button id="navbar-user-button" (click)="openUserModal()">...</button>
+        </div>
         <!--    A voir dropdown angular https://ng-bootstrap.github.io/#/components/dropdown/examples
         <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
           <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Toggle dropdown</button>
