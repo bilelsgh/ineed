@@ -73,7 +73,7 @@ export class UserService{
   ];
   categ_to_icon = {
     "accompagnement": "../../assets/data/accompagner.png",
-    "course": "../../assets/data/accompagner.png",
+    "course": "../../assets/data/courses.png",
     "cuisine": "../../assets/data/cuisine.png",
     "menage":"../../assets/data/menage.png"
   };
