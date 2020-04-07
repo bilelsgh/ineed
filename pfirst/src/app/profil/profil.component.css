@@ -18,7 +18,7 @@
 
 #aPropos
 {
-  text-align: top right;
+  margin-top: 30px;
 }
 
 app-services-experience
@@ -38,6 +38,7 @@ app-services-experience
 
 #experience-wrapper
 {
-  margin-left: 0;
+  padding-top: 50px;
+  margin-left: 10%;
   margin-right: auto;
 }

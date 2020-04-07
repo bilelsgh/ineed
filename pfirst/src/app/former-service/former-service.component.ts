@@ -15,6 +15,7 @@ export class FormerServiceComponent implements OnInit {
   accompagnement: boolean;
   cuisine: boolean;
   course: boolean;
+  img_paths: any;
 
   descriptCategorie =
     {
@@ -35,7 +36,8 @@ export class FormerServiceComponent implements OnInit {
   constructor(private datepipe : DatePipe, private usr_serv: UserService) { }
 
   ngOnInit(): void {
-    this.showComment=this.usr_serv.showAllComments;
+    //this.showComment=this.usr_serv.showAllComments;
+    this.img_paths = this.usr_serv.categ_to_icon;
     this.menage = (this.categorie === "menage");
     this.accompagnement = (this.categorie === "accompagnement");
     this.course = (this.categorie === "course");

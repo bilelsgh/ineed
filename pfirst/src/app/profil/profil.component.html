@@ -1,38 +1,18 @@
 <div id="profilMain">
 
-  <table cellpadding="50" id="profilHead">
-
-    <tr style="width: 300px">
-      <td>
-        <table>
-          <td rowspan="2">
-            <img src="../../assets/data/pdp-test.jpg" id="myProfilPic"><br>
-          </td>
-          <td>
-            <table>
-              <tr>
-                <p class="user_identifier">
-                  {{this.fname}} {{this.lname}}
-                </p>
-              </tr>
-              <tr>
-                <p>
-                  A propos : {{bio}}
-                </p>
-              </tr>
-            </table>
-          </td>
-
-        </table>
+  <table cellpadding="10" border="5px solid">
+    <tr>
+      <td rowspan="2">
+        <img src="../../assets/data/pdp-test.jpg" id="myProfilPic">
       </td>
-      <td width="70%">
-        <table align="center">
+      <td>
+        <span class="user_identifier">{{this.fname}} {{this.lname}}</span>
+      </td>
+      <td width="70%" rowspan="2">
+        <table>
           <tr>
             <td width="30%">
-              <h4 id="nivTitle">Progression</h4>
-            </td>
-            <td align="center">
-              Novice
+              <h1 id="nivTitle">Progression</h1>
             </td>
           </tr>
           <tr align="center">
@@ -43,11 +23,19 @@
         </table>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span id="aPropos">
+          A propos : {{bio}}
+        </span>
+      </td>
+    </tr>
   </table>
+
   <div id="experience-wrapper">
-    <table width="100%">
-      <tr align="left">
-        <td align="left">
+    <table width="1500px">
+      <tr align="center">
+        <td width="100%">
           <app-services-experience></app-services-experience>
         </td>
       </tr>

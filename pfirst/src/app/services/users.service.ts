@@ -71,6 +71,13 @@ export class UserService{
       showComment: false
     }
   ];
+  categ_to_icon = {
+    "accompagnement": "../../assets/data/accompagner.png",
+    "course": "../../assets/data/accompagner.png",
+    "cuisine": "../../assets/data/cuisine.png",
+    "menage":"../../assets/data/menage.png"
+  };
+
   //services_history: any[];
 
   ngOnInit(){

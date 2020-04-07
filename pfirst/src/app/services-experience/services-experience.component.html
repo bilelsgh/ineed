@@ -1,15 +1,24 @@
-<p>Rating : <img src="../../assets/data/star.png" class="star"> {{getAverageGrade()}}/5</p>
-<span id="history">
-  <h3 id="history-title">Services :
-        <button mat-raised-button id="history-button" (click)="openHistoryModal()">Plus de services</button>
-  </h3>
-</span>
-<table width="70%" cellpadding="30" border="5px solid">
+<table width="70%" cellpadding="10" border="5px solid">
   <tr>
-    <td>
+    <td colspan="2" align="center">
+      <p>Rating : <img src="../../assets/data/star.png" class="star"> {{getAverageGrade()}}/5</p>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <div id="history">
+        <h3 id="history-title">Services :</h3>
+      </div>
+    </td>
+    <td align="right">
+      <button mat-raised-button id="history-button" (click)="openHistoryModal()">Plus de services</button>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
       Pour vous
     </td>
-    <td>
+    <td align="center">
       Par vous
     </td>
   </tr>

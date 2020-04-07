@@ -12,7 +12,7 @@ import {UserService} from "../services/users.service";
 })
 export class GlobalNavbarComponent implements OnInit {
 
-
+  collapsed: boolean = false;
   route: Observable<UrlSegment[]>;
   path: UrlSegment[];
   hasUrl: boolean;

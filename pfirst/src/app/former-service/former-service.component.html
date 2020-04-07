@@ -5,10 +5,13 @@
     </td>
     <td align="right">
       <!-- img se se rechargent pas -->
+      <img class="icone-cat" [src]="this.img_paths[this.categorie]">
+      <!-- alternative trouvée
       <img class="icone-cat" *ngIf="menage" src="../../assets/data/menage.png">
       <img class="icone-cat" *ngIf="accompagnement" src="../../assets/data/accompagner.png">
       <img class="icone-cat" *ngIf="cuisine" src="../../assets/data/cuisine.png">
       <img class="icone-cat" *ngIf="course" src="../../assets/data/cuisine.png">
+      -->
     </td>
   </tr>
   <tr>
