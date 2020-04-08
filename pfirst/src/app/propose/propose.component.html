@@ -20,11 +20,11 @@
   <div class="row">
     <h2> Les services qui sont actuellement proposes</h2>
     <ul class="list-group">
-      <app-service *ngFor ="let service of services_db,let i =index"
-                   [serviceName]="service.name"
-                   [serviceUser]="service.user"
-                   [serviceDescription]="service.description"
-                   [serviceImage]="service.image"
+      <app-service *ngFor ="let service of this.services_db,let i =index"
+                   [serviceName]="service['name']"
+                   [serviceUser]="service['user']"
+                   [serviceDescription]="service['description']"
+                   [serviceImage]="service['image']"
                    [index]="i"
                    [id]="service.id"></app-service>
 

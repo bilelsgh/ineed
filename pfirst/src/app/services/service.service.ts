@@ -18,7 +18,7 @@ export class ServiceService{
 
 
     this.httpClient
-      .post(this.auth.backend+"services.json", courses) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
+      .post(this.auth.backend_test +"services.json", courses) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
       .subscribe( //                                            Cette méthode renvoie un Observable, elle ne fait pas appel à elle toute seule
         () => { //                                       c'est en y souscrivant que l'appel est lancé ; put() écrase
           console.log("Enregistrement ok!");

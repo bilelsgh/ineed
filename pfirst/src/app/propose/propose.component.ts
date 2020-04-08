@@ -3,6 +3,7 @@ import { ServiceService } from '../services/service.service';
 import {AuthService} from '../services/auth.service';
 import {newArray} from '@angular/compiler/src/util';
 import {HttpClient} from '@angular/common/http';
+import {Courses} from '../models/Courses.model';
 
 @Component({
   selector: 'app-service-view',
@@ -13,7 +14,7 @@ export class ServiceViewComponent implements OnInit {
   type: any[];
   types : any[];
   services: any[];
-  services_db = new Array<{any:any}>();
+  services_db : any[];
 
   constructor (private serviceService : ServiceService, private auth: AuthService, private httpClient : HttpClient){
 
@@ -23,10 +24,10 @@ export class ServiceViewComponent implements OnInit {
     this.services=this.serviceService.services
 
     this.httpClient
-      .get<any[]>(this.auth.backend+"services.json")
+      .get<any[]>(this.auth.backend_test+"services.json")
       .subscribe(
         (response) => {
-          this.services_db = response;
+          this.services_db = response['services'];
           console.log("#OK");
           console.log("SERVICES : " + response);
         },
