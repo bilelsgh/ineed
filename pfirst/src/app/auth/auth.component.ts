@@ -17,7 +17,7 @@ export class AuthComponent implements OnInit {
   ngOnInit() {}
 
   onSignIn(mail: string, password: string) {
-    // PASSPORT
+    // PASSPORT à enlever éventuellement
     this.authService.validate(mail, password)
       .then((response) => {
         this.authService.setUserInfo({user : response['user']});
@@ -44,6 +44,9 @@ export class AuthComponent implements OnInit {
           console.log('Erreur : ' + error);
         }
       );
+
+    //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL STORAGE
+
 
 
 
