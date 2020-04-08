@@ -13,6 +13,8 @@ import {AuthService} from '../services/auth.service';
 })
 export class NewCoursesComponent implements OnInit {
 
+  Services: ServiceService;
+
   liste_courses = new Array<{produit: string, quantite: string}>(); //A ENVOYER DANS LA DB
   coursesForm: FormGroup;
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
@@ -34,7 +36,7 @@ export class NewCoursesComponent implements OnInit {
 
     onSubmitForm() {
       const formValue = this.coursesForm.value;
-      const newCourses = new Courses(98, "../../assets/data/menage.png", "service1",'Faire les courses',
+      const newCourses = new Courses( 5, "../../assets/data/courses.png", "service1",'Faire les courses',
         formValue['user'],
         formValue['description'],
         formValue['accompagne'],

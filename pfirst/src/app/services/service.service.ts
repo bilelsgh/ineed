@@ -3,37 +3,107 @@ import { Subject } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Injectable} from '@angular/core';
+import { Menage } from '../models/Menage.model';
+import { Cuisine } from '../models/Cuisine.model';
+import { Accompage } from '../models/Accompage.model';
 
 @Injectable()
 export class ServiceService{
 
     private courses:Courses[]= [];
+    private menage:Menage[] =[];
+    private cuisine:Cuisine[] = [];
+    private accompage: Accompage []=[];
     coursesSubject = new Subject<Courses[]>();
+    menageSubject = new Subject<Menage[]>();
+    cuisineSubject = new Subject<Cuisine[]>();
+    accompageSubject = new Subject<Accompage[]>();
+
+    addCuisine(cuisine : Cuisine){
+      cuisine.id=this.services[(this.services.length - 1)].id + 1
+      this.services.push(cuisine);
+      this.emitCuisine();
+      this.httpClient
+        .post(this.auth.backend+"services.json", cuisine)
+        .subscribe( //                                            
+          () => { //                                      
+            console.log("Enregistrement ok!");
+          },                                      
+          (error) => {
+            console.log("Erreur : "+ error);
+          }
+        );
+    }
+
+    emitAccompage(){
+      this.accompageSubject.next(this.accompage.slice());
+    }
+    
+
+    addAccompage(accompage : Accompage){
+      accompage.id=this.services[(this.services.length - 1)].id + 1
+      this.services.push(accompage);
+      this.emitCuisine();
+      this.httpClient
+        .post(this.auth.backend+"services.json", accompage)
+        .subscribe( //                                            
+          () => { //                                      
+            console.log("Enregistrement ok!");
+          },                                      
+          (error) => {
+            console.log("Erreur : "+ error);
+          }
+        );
+    }
+
+    emitCuisine(){
+      this.cuisineSubject.next(this.cuisine.slice());
+    }
+    
     emitCourses(){
       this.coursesSubject.next(this.courses.slice());
-  }
-  addCourses(courses : Courses){
+    }
+
+    addCourses(courses : Courses){
+      courses.id=this.services[(this.services.length - 1)].id + 1
       this.services.push(courses);
       this.emitCourses();
 
 
-    this.httpClient
-      .post(this.auth.backend+"services.json", courses) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
-      .subscribe( //                                            Cette méthode renvoie un Observable, elle ne fait pas appel à elle toute seule
-        () => { //                                       c'est en y souscrivant que l'appel est lancé ; put() écrase
+      this.httpClient
+        .post(this.auth.backend+"services.json", courses) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
+        .subscribe( //                                            Cette méthode renvoie un Observable, elle ne fait pas appel à elle toute seule
+          () => { //                                       c'est en y souscrivant que l'appel est lancé ; put() écrase
+            console.log("Enregistrement ok!");
+          },                                         //subscribe() prévoie le cas où tout fonctionne t le cas où il y a des erreurs
+          (error) => {
+            console.log("Erreur : "+ error);
+          }
+        );
+    }
+    emitMenage(){
+      this.menageSubject.next(this.menage.slice());
+    };
+
+    addMenage(menage : Menage){
+      menage.id=this.services[(this.services.length - 1)].id + 1
+      this.services.push(menage);
+      this.emitCourses();
+      this.httpClient
+      .post(this.auth.backend+"services.json", menage)
+      .subscribe( //                                            
+        () => { //                                      
           console.log("Enregistrement ok!");
-        },                                         //subscribe() prévoie le cas où tout fonctionne t le cas où il y a des erreurs
+        },                                      
         (error) => {
           console.log("Erreur : "+ error);
         }
-      );
-  }
-
+      );}
 
     services=[
         {
         id: 1,
-        image:"../../assets/data/menage.png",
+        image:"../../assets/data/courses.png",
         type:"service1",
         name: 'Faire les courses',
         user: 'Jean Paul Gauthier',
@@ -50,7 +120,7 @@ export class ServiceService{
         type:"service2",
         name: 'Faire le menage',
         user: 'Jean Paul',
-        description: "Esclave",
+        description: "Mon copain va m' aider",
         dispo: "24/03/2020",
         surface : 50,
         materiel: []
@@ -61,7 +131,7 @@ export class ServiceService{
         type:"service3",
         name: 'Faire la cuisine',
         user: 'Jean Paul',
-        description: "Petit con va",
+        description: "Salut mec",
         sur_place: "oui",
         type_de_plat: "fast food",
         dispo: "09/09/2009"
@@ -73,7 +143,7 @@ export class ServiceService{
         type:"service4",
         name: 'Accompagne moi gros',
         user: 'Jean Paul',
-        description: "Petit con va",
+        description: "Salut mec",
         kind:"ponctuel",
         quand:"midi a 14h",
         local: "a la pischine",

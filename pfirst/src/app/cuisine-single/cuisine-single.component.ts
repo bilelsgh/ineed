@@ -14,7 +14,7 @@ export class CuisineSingleComponent implements OnInit {
   Description: string = 'Description';
   Sur_place:string = 'oui';
   Dispo : string = 'oui';
-  Type_de_plat : string = "caca";
+  Type_de_plat : string = "pas ouf";
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router) { }
 

@@ -41,6 +41,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalHistoryComponent } from './modal-history/modal-history.component';
 import { ModalUserComponent } from './modal-user/modal-user.component';
+import { NewMenageComponent } from './new-menage/new-menage.component';
+import { NewCuisineComponent } from './new-cuisine/new-cuisine.component';
+import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 
 
 @NgModule({
@@ -70,7 +73,10 @@ import { ModalUserComponent } from './modal-user/modal-user.component';
     AccompagnerSingleComponent,
     NewCoursesComponent,
     ModalHistoryComponent,
-    ModalUserComponent
+    ModalUserComponent,
+    NewMenageComponent,
+    NewCuisineComponent,
+    NewAccompageComponent
   ],
   imports: [
     BrowserModule,
