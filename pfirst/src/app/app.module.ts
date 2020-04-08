@@ -13,7 +13,7 @@ import { AuthComponent } from './auth/auth.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import {AuthGuard} from './services/auth-guard.Service';
 import { InscriptionComponent } from './inscription/inscription.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule,Validators} from '@angular/forms';
 import {InscriptionService} from './services/inscription.service';
 import { MembersComponent } from './members/members.component';
 import { ContactComponent } from './contact/contact.component';
@@ -87,7 +87,7 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [ //on ajoute ici tous les services
     AuthService,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -25,12 +25,13 @@ ngOnInit(): void {
 
   initForm(){
     this.menageForm=this.formBuilder.group({
-      user: "",
-      description:"" ,
-      materiel:[],
-      accompagne : "",
-      lieu : "",
-      dispo: "",
+      user: ['', Validators.required],
+      description:['', Validators.required],
+      materiel:['', Validators.required],
+      surface :['', Validators.required],
+      date : ['', Validators.required],
+      heure:['', Validators.required],
+      localisation: ['', Validators.required],
     });}
 
     onSubmitForm() {
@@ -38,9 +39,11 @@ ngOnInit(): void {
       const newMenage = new Menage(93, "../../assets/data/menage.png", "service2",'Faire le menage',
         formValue['user'],
         formValue['description'],
-        formValue['lieu'],
+        formValue['salle'],
+        formValue['localisation'],
         formValue['surface'],
-        formValue['dispo'],
+        formValue['date'],
+        formValue['heure'],
         this.liste_materiel,
       );
       this.serviceService.addMenage(newMenage);

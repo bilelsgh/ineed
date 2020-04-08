@@ -5,8 +5,11 @@ export class Menage{
         public name: string,
         public user: string,
         public description: string ,
-        public lieu : string,
+        public salle : string,
+        public localisation: string,
         public surface : number,
-        public dispo: string,
-        public materiel: string[], ){}
+        public date: string,
+        public heure: string,
+        public materiel: string[],
+         ){}
 }

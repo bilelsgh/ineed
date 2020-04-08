@@ -13,8 +13,12 @@ export class MenageSingleComponent implements OnInit {
   User: string = 'Utilisateur';
   Description: string = 'Description';
   Materiel: any = [];
-  Dispo : string = 'oui';
+  Date : string = 'oui';
+  Heure: string ="";
+  Salle: string ="";
+  Localisation: string;
   Surface : number = 55;
+
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router) { }
 
@@ -24,8 +28,11 @@ export class MenageSingleComponent implements OnInit {
     this.User=this.serviceService.getServiceById(+id).user;
     this.Description = this.serviceService.getServiceById(+id).description;
     this.Materiel= this.serviceService.getServiceById(+id).materiel;
-    this.Dispo=this.serviceService.getServiceById(+id).dispo;
+    this.Date=this.serviceService.getServiceById(+id).date;
     this.Surface=this.serviceService.getServiceById(+id).surface;
+    this.Heure=this.serviceService.getServiceById(+id).heure;
+    this.Salle=this.serviceService.getServiceById(+id).salle;
+    this.Localisation=this.serviceService.getServiceById(+id).localisation;
   }
 
 

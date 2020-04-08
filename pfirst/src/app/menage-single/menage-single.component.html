@@ -1,5 +1,22 @@
-<h2>Vous souhaitez aider quelqu'un a faire son menage! <img src="../../assets/data/menage.png" class="imageservice"/> </h2>
-<h2>Vous allez pouvoir aider {{User}} (cliquer pour voir son profil) </h2>
-<h2> {{User}} aimerez que vous lui veniez en aide ce jour ci -- {{Dispo}}-- et ce serait pour une surface de {{Surface}} m^2</h2>
-<h2> Voici la liste du materiel qui est a sa disposition: {{ Materiel}}</h2>
-<h2>Description,commentaires, indications ... {{Description}}</h2>
+
+<div class="card" >
+    <div class="card-header">
+        Menage
+      </div>
+    <div class="card-body">
+        <h2 class="card-title">Vous souhaitez aider quelqu'un a faire son menage! Super !
+            <img src="../../assets/data/menage.png" class="imageservice"/> </h2>
+        <p class="card-text"> Vous allez pouvoir aider {{User}} (cliquer pour voir son profil)</p>
+        <p class="card-text"> {{User}} se trouve aux alentours de {{Localisation}}, contactez le pour avoir plus d'information</p>
+        <p class="card-text">{{User}} aimerait avoir de l' aide pour netoyer : {{Salle}}, c' est une piece qui fait {{Surface}} m² comme surface</p>
+
+        <p class="card-text">Si cela vous chauffe {{User}} souhaite que ca soit fait le {{Date}} a {{Heure}}</p>
+
+        <p class="card-text">Voici la liste du materiel qui est a votre disposition</p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor ="let elt of Materiel">{{elt}}</li>
+        </ul>
+        <p class="class-text">Description,commentaires, indications ... {{Description}}</p>
+
+    </div>
+    </div>  

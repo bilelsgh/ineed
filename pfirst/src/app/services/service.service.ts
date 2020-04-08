@@ -121,9 +121,12 @@ export class ServiceService{
       name: 'Faire le menage',
       user: 'Jean Paul',
       description: "Mon copain va m' aider",
-      dispo: "24/03/2020",
+      date: "24/03/2020",
+      heure: "9:00 PM ",
       surface : 50,
-      materiel: []
+      materiel: ["un ballai","une eponge","autre"],
+      salle: "Sallon",
+      localisation:"Chez moi a chassiue",
     },
     {
       id:3,
