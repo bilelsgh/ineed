@@ -11,9 +11,3 @@
   background-image: url("../../assets/data/pdp-test.jpg");
   background-size: cover;
 }
-
-#navbar-user-button-wrapper
-{
-  height: 10px;
-  width: auto;
-}
