@@ -1,0 +1,91 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4" align="center">Faire les courses</h1>
+        <table align="center">
+  
+          <!--#############PRENOM######################-->
+          <div class="col-sm-8 col-sm-offset-2">
+            <form [formGroup]="menageForm" (ngSubmit)="onSubmitForm()" id="form">
+              <div class="form-group">
+                <label for ="user" ><h2>Prénom</h2></label>
+                <input type="text" id="user" class="form-control" formControlName="user">
+              </div>
+  
+              <!--#############DISPO######################-->
+              <div class= "form-group">
+                <label for="dispo"> <h2>Quand souhaitez vous que quelqu'un vienne vous aider a faire le menage (Date et heure)</h2></label>
+                <input type="date" id="dispo" name="dispo">
+                <input type="time" id="dispo" name ="dispo2">
+              </div>
+
+              <div class="input-group mb-3">
+                <label for="surface"><h2>Quel est la surface de l'endroit qu'il faut nettoyer ?</h2></label>
+                <input type="number" class="form-control" id="surface" aria-label="surface">
+                <div class="input-group-append"><span class="input-group-text">m²</span></div>
+              </div>
+
+              <div class="form-group">
+                <label for ="lieu" ><h2>Lieu en particuler ?</h2></label>
+                <input type="text" id="lieu" class="form-control" formControlName="lieu">
+              </div>
+
+
+              <!--#############LISTE DE COURSES######################-->
+            <div class= "form-group">
+                <label for="liste"><h2>Liste du materiel qui est a votre disposition</h2></label>
+  
+                <form (ngSubmit)="ajouterListe(liste)" #liste="ngForm">
+                  <table>
+                    <tr>
+                      <td>Materiel</td>
+                    </tr>
+                    <tr>
+                      <td><input type="text" id="liste" name="liste_materiel" class="form-control" ngModel></td>
+                      <td><button type="submit" class="btn btn-secondary">Ajouter</button></td>
+                    </tr>
+                    <tr>
+                      <ul class="list-group">
+                          <div *ngFor="let element of this.liste_materiel">
+                            <table cellpadding="10">
+                              <tr>
+                                <td>
+                                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{element}}
+                                  </li>
+                                </td>
+                                <td><span style="cursor:pointer" class="badge badge-danger badge-pill" (click)="supprimeElem(element)">
+                                  -</span></td>
+                              </tr>
+                            </table>
+                          </div>
+                      </ul>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+
+
+
+
+
+
+
+              <div class="form group">
+                <label for ="description"> <h2>Veuillez indiquer un petit texte qui aidera a mieux coller a vos attentes.</h2></label>
+                <!--<input type="text" id="description" class="form-control" formControlName="description"> -->
+                <textarea class="form-control" aria-label="With textarea" id="description" class="form-control" formControlName="description"></textarea>
+              </div>
+              <br>
+  
+              <button type="submit" class="btn btn-primary">Soumettre</button>
+            </form>
+  
+          </div>
+  
+  
+        </table>
+    </div>
+  </div>
+  
+  
+
