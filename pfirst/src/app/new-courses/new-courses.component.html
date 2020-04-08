@@ -1,113 +1,121 @@
 <!-- <div class="jumbotron jumbotron-fluid"> -->
-  <div class="container">
-    <h1 class="display-4" align="center">Faire les courses</h1>
-      <table align="center">
+<div class="container">
+  <h1 class="display-4" align="center">Faire les courses</h1>
+  <table align="center">
 
-        <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-8 col-sm-offset-2">
 
-          <!--#############PRENOM######################-->
-          <form [formGroup]="coursesForm" (ngSubmit)="onSubmitForm()" id="form">
+      <!--#############PRENOM######################-->
+      <form [formGroup]="coursesForm" (ngSubmit)="onSubmitForm()" id="form">
 
-            <div class="jumbotron" id="formulaire">
+        <div class="jumbotron" id="formulaire">
 
-              <div class="form-group">
-                <label for ="user" ><h2>Prénom</h2></label>
-                <input type="text" id="user" class="form-control" formControlName="user">
-              </div>
-
-            </div>
-
-            <!--#############DISPO######################-->
-
-            <div class= "form-group">
-              <label for="dispo"> <h2>Quand voulez vous que les courses soient faites au plus tard ? (Date et heure)</h2></label>
-              <input type="date" id="dispo" name="dispo">
-              <input type="time" id="dispo" name ="dispo2">
-
-            <div class="jumbotron" id="formulaire">
-              <div class= "form-group">
-                <label for="dispo"> <h2>Quand voulez vous que les courses soient faites au plus tard ? (Date et heure)</h2></label>
-                <input type="datetime" id="dispo" name="dispo">
-                <input type="time" id="dispo" name ="dispo2">
-              </div>
-
-            </div>
-            <!--#############ACCOMPAGNE######################-->
-            <div class="jumbotron" id="formulaire">
-              <div class= "form-group">
-                <label for="accompagne"><h2>Souhaitez vous que l'on vous accompagne ?</h2></label>
-                <select id="accompagne" class="form-control" formControlName="accompagne">
-                  <option value="Oui">Oui, je souhaite que l' on m'accompagne.</option>
-                  <option value="Non">Non, j'aimerais que la personne qui vient m'aider y aille toute seule.</option>
-                </select>
-              </div>
-            </div>
-
-
-            <!--#############BUDGET######################-->
-            <div class="jumbotron" id="formulaire">
-              <div class="input-group mb-3">
-                <label for="budget"><h2>Quel est le montant de votre budget ?</h2></label>
-                <div class="input-group-prepend"><span class="input-group-text">€</span></div>
-                <input type="number" class="form-control" id="budget" aria-label="Budget">
-                <div class="input-group-append"><span class="input-group-text">,00</span></div>
-              </div>
-            </div>
-            <!--#############LISTE DE COURSES######################-->
-            <div class="jumbotron" id="formulaire">
-              <div class= "form-group">
-                <label for="liste"><h2>Ajoutez un élément à la liste de course</h2></label>
-
-                <form (ngSubmit)="ajouterListe(liste)" #liste="ngForm">
-                  <table>
-                    <tr>
-                      <td>Produit</td>
-                      <td>Quantité</td>
-                    </tr>
-                    <tr>
-                      <td><input type="text" id="liste" name="liste_produit" class="form-control" ngModel></td>
-                      <td><input type="text" id="liste_quantite" name="liste_quantite" class="form-control" ngModel></td>
-                      <td><button type="submit" class="btn btn-secondary">Ajouter</button></td>
-                    </tr>
-                    <tr>
-                      <ul class="list-group">
-                          <div *ngFor="let element of this.liste_courses">
-                            <table cellpadding="10">
-                              <tr>
-                                <td>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{element.produit}}
-                                    <span class="badge badge-primary">{{element.quantite}}</span>
-                                  </li>
-                                </td>
-                                <td><span style="cursor:pointer" class="badge badge-danger badge-pill" (click)="supprimeElem(element.produit, element.quantite)">
-                                  -</span></td>
-                              </tr>
-                            </table>
-                          </div>
-                      </ul>
-                    </tr>
-                  </table>
-                </form>
-              </div>
-            </div>
-            <!--#############COMMENTAIRES######################-->
-            <div class="jumbotron" id="formulaire">
-              <div class="form group">
-                <label for ="description"> <h2>Veuillez indiquer un petit texte qui aidera a mieux coller a vos attentes.</h2></label>
-                <!--<input type="text" id="description" class="form-control" formControlName="description"> -->
-                <textarea class="form-control" aria-label="With textarea" id="description" class="form-control" formControlName="description"></textarea>
-              </div>
-            </div>
-            <br>
-
-            <button type="submit" class="btn btn-primary">Soumettre</button>
-          </form>
+          <div class="form-group">
+            <label for="user"><h2>Prénom</h2></label>
+            <input type="text" id="user" class="form-control" formControlName="user">
+          </div>
 
         </div>
 
+        <!--#############DISPO######################-->
 
-      </table>
-  </div>
+        <div class="form-group">
+          <label for="dispo"><h2>Quand voulez vous que les courses soient faites au plus tard ? (Date et heure)</h2>
+          </label>
+          <input type="date" id="dispo" name="dispo">
+          <input type="time" id="dispo" name="dispo2">
+
+          <div class="jumbotron" id="formulaire">
+            <div class="form-group">
+              <label for="dispo"><h2>Quand voulez vous que les courses soient faites au plus tard ? (Date et heure)</h2>
+              </label>
+              <input type="datetime" id="dispo" name="dispo">
+              <input type="time" id="dispo" name="dispo2">
+            </div>
+
+          </div>
+          <!--#############ACCOMPAGNE######################-->
+          <div class="jumbotron" id="formulaire">
+            <div class="form-group">
+              <label for="accompagne"><h2>Souhaitez vous que l'on vous accompagne ?</h2></label>
+              <select id="accompagne" class="form-control" formControlName="accompagne">
+                <option value="Oui">Oui, je souhaite que l' on m'accompagne.</option>
+                <option value="Non">Non, j'aimerais que la personne qui vient m'aider y aille toute seule.</option>
+              </select>
+            </div>
+          </div>
+
+
+          <!--#############BUDGET######################-->
+          <div class="jumbotron" id="formulaire">
+            <div class="input-group mb-3">
+              <label for="budget"><h2>Quel est le montant de votre budget ?</h2></label>
+              <div class="input-group-prepend"><span class="input-group-text">€</span></div>
+              <input type="number" class="form-control" id="budget" aria-label="Budget">
+              <div class="input-group-append"><span class="input-group-text">,00</span></div>
+            </div>
+          </div>
+          <!--#############LISTE DE COURSES######################-->
+          <div class="jumbotron" id="formulaire">
+            <div class="form-group">
+              <label for="liste"><h2>Ajoutez un élément à la liste de course</h2></label>
+
+              <form (ngSubmit)="ajouterListe(liste)" #liste="ngForm">
+                <table>
+                  <tr>
+                    <td>Produit</td>
+                    <td>Quantité</td>
+                  </tr>
+                  <tr>
+                    <td><input type="text" id="liste" name="liste_produit" class="form-control" ngModel></td>
+                    <td><input type="text" id="liste_quantite" name="liste_quantite" class="form-control" ngModel></td>
+                    <td>
+                      <button type="submit" class="btn btn-secondary">Ajouter</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <ul class="list-group">
+                      <div *ngFor="let element of this.liste_courses">
+                        <table cellpadding="10">
+                          <tr>
+                            <td>
+                              <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{element.produit}}
+                                <span class="badge badge-primary">{{element.quantite}}</span>
+                              </li>
+                            </td>
+                            <td><span style="cursor:pointer" class="badge badge-danger badge-pill"
+                                      (click)="supprimeElem(element.produit, element.quantite)">
+                                  -</span></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </ul>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </div>
+          <!--#############COMMENTAIRES######################-->
+          <div class="jumbotron" id="formulaire">
+            <div class="form group">
+              <label for="description"><h2>Veuillez indiquer un petit texte qui aidera a mieux coller a vos
+                attentes.</h2></label>
+              <!--<input type="text" id="description" class="form-control" formControlName="description"> -->
+              <textarea class="form-control" aria-label="With textarea" id="description" class="form-control"
+                        formControlName="description"></textarea>
+            </div>
+          </div>
+          <br>
+
+          <button type="submit" class="btn btn-primary">Soumettre</button>
+        </div>
+      </form>
+
+    </div>
+
+
+  </table>
+</div>
 <!-- </div> -->
 

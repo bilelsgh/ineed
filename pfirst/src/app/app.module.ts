@@ -46,8 +46,6 @@ import { NewMenageComponent } from './new-menage/new-menage.component';
 import { NewCuisineComponent } from './new-cuisine/new-cuisine.component';
 import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 
->>>>>>> 16f306a9616b26e6ff2fd76e9bd09fa56d665f4b
-
 @NgModule({
   declarations: [
     AppComponent,
