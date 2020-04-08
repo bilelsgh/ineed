@@ -1,0 +1,13 @@
+export class Accompage{
+    constructor(public id : number,
+        public image : string,
+        public type:string,
+        public name: string,
+        public user: string,
+        public description: string ,
+        public kind : string,
+        public quand : string,
+        public local: string,
+        public dispo: string,
+         ){}
+}
