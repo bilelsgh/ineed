@@ -41,7 +41,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalHistoryComponent } from './modal-history/modal-history.component';
 import {ModalUserComponent} from "./modal-user/modal-user.component";
-//import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
@@ -83,7 +82,6 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     MatButtonModule,
     MatDialogModule,
     NgbModule
-    //NgbModule
   ],
   providers: [ //on ajoute ici tous les services
     AuthService,
