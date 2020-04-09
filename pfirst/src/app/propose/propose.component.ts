@@ -24,21 +24,29 @@ export class ServiceViewComponent implements OnInit {
     this.services=this.serviceService.services
 
     this.httpClient
-      .get<any[]>(this.auth.backend_test+"services.json")
+      .get<any[]>(this.auth.backend_test+'services.json')
       .subscribe(
         (response) => {
-          this.services_db = response['services'];
+
+          this.services_db = response;
           console.log("#OK");
-          console.log("SERVICES : " + response);
+          console.log("#SERVICES : " + response);
         },
         (error) => {
           console.log("Erreur de chargement : " + error);
         }
       );
 
-
+  }
+  lireService(){
+    console.log("##SERVICE DB##\n");
+    for(let service of this.services_db){
+      console.log("NAME : " + service["name"] + " // ");
+      console.log("USER : " + service["user"] + "# \n");
+    }
 
 
   }
+
 
 }
