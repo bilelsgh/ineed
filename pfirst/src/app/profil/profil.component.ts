@@ -11,6 +11,7 @@ export class ProfilComponent implements OnInit {
   bio : string;
   lname: string;
   fname: string;
+  average_grade: number;
 
   constructor(private userService : UserService) { }
 
@@ -18,6 +19,7 @@ export class ProfilComponent implements OnInit {
     this.bio=this.userService.bio;
     this.fname = this.userService.fname;
     this.lname = this.userService.lname;
+    this.average_grade = this.userService.average_grade;
   }
 
   onSave(){

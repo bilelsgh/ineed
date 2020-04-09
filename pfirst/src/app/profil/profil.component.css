@@ -5,10 +5,13 @@
   text-align: top left;
 }
 
-#myProfilPic
+#profil-pic
 {
-  height: 300px;
-  border: 5px #8f2812 solid;
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  background-image: url("../../assets/data/pdp-test.jpg");
+  background-size: cover;
 }
 
 .user_identifier
@@ -21,6 +24,11 @@
   margin-top: 30px;
 }
 
+#progress-img
+{
+  width: 500px;
+  height: auto;
+}
 app-services-experience
 {
   text-align: left;
@@ -41,4 +49,10 @@ app-services-experience
   padding-top: 50px;
   margin-left: 10%;
   margin-right: auto;
+}
+
+#rating-img
+{
+  height: 150px;
+  width: auto;
 }

@@ -11,7 +11,7 @@ export class UserService{
   bio: string = "Salut a tous du coup moi c'est gilbert aka le toat.";
   fname: string = "Gilbert";
   lname: string = "Angénieux";
-  rating: number = 4.5;
+  average_grade: number = 4.5;
 
   services_history_for = [
     {

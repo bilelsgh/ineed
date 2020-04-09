@@ -1,17 +1,7 @@
-<table width="70%" cellpadding="10" border="5px solid">
+<table width="80%" cellpadding="40">
   <tr>
-    <td colspan="2" align="center">
-      <p>Rating : <img src="../../assets/data/star.png" class="star"> {{getAverageGrade()}}/5</p>
-      <ngb-rating rate="8"></ngb-rating>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <div id="history">
-        <h3 id="history-title">Services :</h3>
-      </div>
-    </td>
-    <td align="right">
+    <td align="center" colspan="2">
+      <img src="../../assets/data/last_services.png" id="last-serv-img">
       <button mat-raised-button id="history-button" (click)="openHistoryModal()">Plus de services</button>
     </td>
   </tr>

@@ -31,16 +31,19 @@ export class ServicesExperienceComponent implements OnInit {
     this.showAllComments = this.usr_service.showAllComments;
   }
 
-  getAverageGrade() {
+  getAverageGrade() { // plus util normalement
     let grades = 0;
     let sum = 0;
+    let res: number;
     this.history_for.forEach(elt => {
       sum = sum + elt.note , grades = grades + 1;
     });
     this.history_by.forEach(elt => {
       sum = sum + elt.note , grades = grades + 1;
     });
-    return (sum / grades);
+    res = (sum / grades)*10;
+    res = Math.round(res);
+    return res/10;
   }
 
   setAllComments(){
