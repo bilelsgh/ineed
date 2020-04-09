@@ -1,6 +1,27 @@
-<li class="list-group-item">
-    
-    <h4>{{serviceName}}<img [src]="serviceImage" class="imageservice"/>-- demande par: {{serviceUser}}  </h4>
-    <h4>Description breve : {{serviceDescription}}</h4>
-    <button class="btn btn-link"> <a [routerLink]="[id]">Détail</a> </button>
-</li>
+
+    <div class="annonce_courte">
+      <div class="card" style="width:auto;">
+        <img [src]="serviceImage" class="card-img-top" alt="...">
+        
+          <div class="card-header">
+          <h2 class="card-title">{{serviceName}} pour {{serviceUser}}</h2>
+          </div>
+          <div class="card-body" >
+          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="mr-auto">Description:</strong>
+            </div>
+            <div class="toast-body">
+                {{serviceDescription}}
+            </div>
+            <div class="toast-header">
+              <strong class="mr-auto">Pour le:</strong>
+            </div>
+            <div class="toast-body">
+                {{serviceDate}}
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary"[routerLink]="[id]" >Voir l'annonce</a>
+        </div>
+      </div>
+    </div>

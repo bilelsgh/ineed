@@ -7,6 +7,6 @@ export class Courses{
         public description: string ,
         public accompagner : string,
         public budget : number,
-        public dispo: string,
+        public date: string,
         public liste: Array<{produit: string, quantite: string}> ){}
 }

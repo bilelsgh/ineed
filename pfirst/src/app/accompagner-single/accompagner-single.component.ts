@@ -25,7 +25,7 @@ export class AccompagnerSingleComponent implements OnInit {
     this.User=this.serviceService.getServiceById(+id).user;
     this.Description = this.serviceService.getServiceById(+id).description;
     this.Local= this.serviceService.getServiceById(+id).local;
-    this.Dispo=this.serviceService.getServiceById(+id).dispo;
+    this.Dispo=this.serviceService.getServiceById(+id).date;
     this.Quand=this.serviceService.getServiceById(+id).quand;
     this.Kind=this.serviceService.getServiceById(+id).kind;
 

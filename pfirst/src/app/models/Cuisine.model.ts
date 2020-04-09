@@ -7,6 +7,6 @@ export class Cuisine{
         public description: string ,
         public lieu : string,
         public sur_place : string,
-        public dispo: string,
+        public date: string,
         public type_de_plat: string, ){}
 }

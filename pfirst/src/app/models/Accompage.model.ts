@@ -8,6 +8,6 @@ export class Accompage{
         public kind : string,
         public quand : string,
         public local: string,
-        public dispo: string,
+        public date: string,
          ){}
 }

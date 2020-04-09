@@ -29,7 +29,7 @@ ngOnInit(): void {
       sur_place:"",
       type_plat : "",
       lieu : "",
-      dispo: "",
+      date: "",
     });}
 
     onSubmitForm() {
@@ -39,7 +39,7 @@ ngOnInit(): void {
         formValue['description'],
         formValue['lieu'],
         formValue['sur_place'],
-        formValue['dispo'],
+        formValue['date'],
         formValue['type_plat'],
       );
       this.serviceService.addCuisine(newCuisine);

@@ -103,7 +103,7 @@ export class ServiceService{
   services=[
     {
       id: 1,
-      image:"../../assets/data/courses.png",
+      image:"../assets/data/cuisine_pour_annonce_courte.jpg",
       type:"service1",
       name: 'Faire les courses',
       user: 'Jean Paul Gauthier',
@@ -111,12 +111,12 @@ export class ServiceService{
       liste: [],
       accompagner:"",
       budget: 98,
-      dispo:"30/03/2002"
+      date:"30/03/2002"
 
 
     },
     {id:2,
-      image:"../../assets/data/menage.png",
+      image:"../assets/data/menage_pour_annonce_courte.jpg",
       type:"service2",
       name: 'Faire le menage',
       user: 'Jean Paul',
@@ -130,19 +130,19 @@ export class ServiceService{
     },
     {
       id:3,
-      image:"../../assets/data/cuisine.png",
+      image:"../assets/data/cuisine_pour_annonce_courte.jpg",
       type:"service3",
       name: 'Faire la cuisine',
       user: 'Jean Paul',
       description: "Salut mec",
       sur_place: "oui",
       type_de_plat: "fast food",
-      dispo: "09/09/2009"
+      date: "09/09/2009"
 
 
     },
     {id :4,
-      image:"../../assets/data/accompagner.png",
+      image:"../assets/data/accompagne_pour_annonce_courte.jpg",
       type:"service4",
       name: 'Accompagne moi gros',
       user: 'Jean Paul',
@@ -150,7 +150,7 @@ export class ServiceService{
       kind:"ponctuel",
       quand:"midi a 14h",
       local: "a la pischine",
-      dispo:"03/04/2040"
+      date:"03/04/2040"
 
     }
   ];

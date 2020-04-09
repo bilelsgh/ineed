@@ -29,7 +29,7 @@ ngOnInit(): void {
       kind:"",
       quand : "",
       local : "",
-      dispo: "",
+      date: "",
     });}
 
     onSubmitForm() {
@@ -40,7 +40,7 @@ ngOnInit(): void {
         formValue['kind'],
         formValue['quand'],
         formValue['local'],
-        formValue['dispo'],
+        formValue['date'],
       );
       this.serviceService.addAccompage(newAccompagne);
       this.router.navigate(['/profil']);

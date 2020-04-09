@@ -30,7 +30,7 @@ export class CoursesSingleComponent implements OnInit {
     this.Liste= this.serviceService.getServiceById(+id).liste;
     this.Accompagne=this.serviceService.getServiceById(+id).accompagner;
     this.Budget=this.serviceService.getServiceById(+id).budget;
-    this.Dispo=this.serviceService.getServiceById(+id).dispo;
+    this.Dispo=this.serviceService.getServiceById(+id).date;
     this.writeList();
     this.copied = false;
   }

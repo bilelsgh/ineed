@@ -24,7 +24,7 @@ export class CuisineSingleComponent implements OnInit {
     this.User=this.serviceService.getServiceById(+id).user;
     this.Description = this.serviceService.getServiceById(+id).description;
     this.Sur_place= this.serviceService.getServiceById(+id).sur_place;
-    this.Dispo=this.serviceService.getServiceById(+id).dispo;
+    this.Dispo=this.serviceService.getServiceById(+id).date;
     this.Type_de_plat=this.serviceService.getServiceById(+id).type_de_plat;
   }
 

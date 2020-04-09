@@ -30,8 +30,8 @@ export class NewCoursesComponent implements OnInit {
       description:"" ,
       liste:[],
       accompagne : "",
-      budget : 32,
-      dispo: "",
+      budget : "",
+      date: "",
     });}
 
     onSubmitForm() {
@@ -41,7 +41,7 @@ export class NewCoursesComponent implements OnInit {
         formValue['description'],
         formValue['accompagne'],
         formValue['budget'],
-        formValue['dispo'],
+        formValue['date'],
         this.liste_courses,
       );
       this.serviceService.addCourses(newCourses);
