@@ -1,6 +1,5 @@
 <h1 class ="text-center"> Les services qui sont actuellement proposes</h1>
 
-          <div class="card-columns">
             <app-service  *ngFor ="let service of services,let i =index"
             [serviceName]="service.name"
             [serviceUser]="service.user"
@@ -9,7 +8,6 @@
             [serviceDate]="service.date"
             [index]="i"
             [id]="service.id"></app-service>
-          </div>
 
 <h1>###########TEST BILEL##########</h1>
 

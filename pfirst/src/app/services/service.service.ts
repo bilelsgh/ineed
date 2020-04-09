@@ -116,7 +116,7 @@ export class ServiceService{
 
     },
     {id:2,
-      image:"../assets/data/menage_pour_annonce_courte.jpg",
+      image:"../assets/data/V1/menage.jpg",
       type:"service2",
       name: 'Faire le menage',
       user: 'Jean Paul',
@@ -142,7 +142,7 @@ export class ServiceService{
 
     },
     {id :4,
-      image:"../assets/data/accompagne_pour_annonce_courte.jpg",
+      image:"../assets/data/V2/accompagner.jpg",
       type:"service4",
       name: 'Accompagne moi gros',
       user: 'Jean Paul',

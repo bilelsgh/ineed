@@ -1,17 +1,20 @@
 
 
-    <div class="card mb-3" style="width:max-content;">
+    <div class="card mb-3" style="width:75%;">
       <div class="row no-gutters">
-        <div class="col-md-1">
+        <div class="col-md-2">
           <img [src]="serviceImage" class="card-img-top" alt="...">
         </div>
-        <div class="col-md-11">
+        <div class="col-md-10">
           <div class="card-body">
             <h2 class="card-title">{{serviceName}} pour {{serviceUser}}</h2>
             <p class="card-text">Description: {{serviceDescription}}</p>
             <p class="card-text"><small class="text-muted">Pour le :{{serviceDate}}</small></p>
+              <div class="text-right">
+                <a href="#" class="btn btn-primary"[routerLink]="[id]" >Voir l'annonce</a>
+              </div>
           </div>
-          <a href="#" class="btn btn-primary"[routerLink]="[id]" >Voir l'annonce</a>
+          
         </div>
       </div>
     </div>
