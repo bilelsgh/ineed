@@ -127,7 +127,8 @@ export class InscriptionComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    this.picture_profil_file = event.target.files[0] as File;
+    this.picture_profil_file = event.target.files[0] as File
+    console.log("PROFIL PIC :", this.picture_profil_file);
   }
 
   onUpload() {

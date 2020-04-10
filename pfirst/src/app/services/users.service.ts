@@ -9,6 +9,9 @@ export class UserService{
   constructor(private httpClient: HttpClient, private auth : AuthService){}
 
   bio: string = "Salut a tous du coup moi c'est gilbert aka le toat.";
+  email: string = "gigi.ange@gmail.com";
+  username: string = "giAnge";
+  profil_pic: File = null;
   fname: string = "Gilbert";
   lname: string = "Angénieux";
   average_grade: number = 4.5;
@@ -87,8 +90,6 @@ export class UserService{
     "menage":"../../assets/data/menage.png"
   };
 
-  //services_history: any[];
-
   ngOnInit(){
     this.getUserInfosFromServer();
   }
@@ -114,7 +115,6 @@ export class UserService{
   saveUserInfosToServer(){
     this.httpClient.put(this.auth.backend + 'userInfos.json',this.services_history_for)
       .subscribe(()=>{console.log('save done');},(err)=>{console.log('Erreur de save '+err);});
-
   }
 
   getUserInfosFromServer(){
