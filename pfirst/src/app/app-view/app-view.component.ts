@@ -9,6 +9,7 @@ import {AuthService} from '../services/auth.service';
 export class AppViewComponent implements OnInit {
 
   authStatus: boolean;
+
   annonces = [{helper: "Toto", helped: "Lulu", date: "27/05", service: "menage"},
     {helper: "Bilel", helped: "Raphael", date: "15/08", service: "cuisine"},
     {helper: "Lucie", helped: "Alain", date: "8/09", service: "accompagne"}]; //à aller chercher dans la base de données
@@ -18,7 +19,6 @@ export class AppViewComponent implements OnInit {
   ngOnInit(){
     //faire une fonctionpour sélectionner les dernières annonces dans la DB
   }
-
 
 
 }
