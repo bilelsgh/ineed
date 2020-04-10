@@ -1,8 +1,11 @@
-<h1 class ="text-center"> Les services qui sont actuellement proposes</h1>
+<div class="jumbotron text-center">
+  <h1 class="display-4 text-white">"Rendre service"</h1>
+  <h2 class="text-white">Plusieurs personnes attendent votre aide, aidez les.</h2>
+</div>
 
 <div class="col-xs-12">
   <div class="row">
-    <h2> Les services qui sont actuellement proposes</h2>
+
     <ul class="list-group">
       <app-service *ngFor ="let service of this.services_db,let i =index"
                    [serviceName]="service['name']"

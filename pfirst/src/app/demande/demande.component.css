@@ -2,6 +2,13 @@
   width: 150px;
 }
 
+.jumbotron{
+  background-image: url("../../assets/data/banniere.jpg");
+  background-size: cover;
+  min-height: 100px;
+  height: 200px;
+}
+
 #accompagner_logo,#cuisine_logo,#menage_logo,#accompagner_logo1,#cuisine_logo1,#menage_logo1{
   width: 130px;
 }
