@@ -41,6 +41,7 @@ ngOnInit(): void {
         formValue['quand'],
         formValue['local'],
         formValue['date'],
+        8, //A RECUPERER DANS LE TOKEN LORS DE LA PROPOSITION DE SERVICE
       );
       this.serviceService.addAccompage(newAccompagne);
       this.router.navigate(['/profil']);

@@ -45,6 +45,7 @@ ngOnInit(): void {
         formValue['date'],
         formValue['heure'],
         this.liste_materiel,
+        8, //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)
       );
       this.serviceService.addMenage(newMenage);
       this.router.navigate(['/profil']);

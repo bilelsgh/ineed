@@ -15,7 +15,7 @@ import {NewCoursesComponent} from './new-courses/new-courses.component';
 
 const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path: 'propose', component: ServiceViewComponent},
-  {path:'propose/:id', component :  SingleServiceComponent},
+  {path:'propose/:id', canActivate:[AuthGuard], component :  SingleServiceComponent},
   {path: 'auth', component: AuthComponent},
   {path:'profil',  canActivate:[AuthGuard], component: ProfilComponent},
   {path: 'demande', canActivate:[AuthGuard], component: DemandeComponent},

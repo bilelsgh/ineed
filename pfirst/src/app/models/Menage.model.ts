@@ -11,5 +11,6 @@ export class Menage{
         public date: string,
         public heure: string,
         public materiel: string[],
+        public id_user : number,
          ){}
 }

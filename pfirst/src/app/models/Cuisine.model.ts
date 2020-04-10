@@ -8,5 +8,6 @@ export class Cuisine{
         public lieu : string,
         public sur_place : string,
         public date: string,
-        public type_de_plat: string, ){}
+        public type_de_plat: string,
+        public id_user : number,){}
 }
