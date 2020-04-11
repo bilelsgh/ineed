@@ -44,6 +44,6 @@ ngOnInit(): void {
         8, //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)
       );
       this.serviceService.addCuisine(newCuisine);
-      this.router.navigate(['/profil']);
+      this.router.navigate(['']);
     }
 }

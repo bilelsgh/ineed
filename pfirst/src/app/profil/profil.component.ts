@@ -8,18 +8,12 @@ import {UserService} from '../services/users.service';
 })
 export class ProfilComponent implements OnInit {
 
-  bio : string;
-  lname: string;
-  fname: string;
-  average_grade: number;
+  info_user = [];
 
   constructor(private userService : UserService) { }
 
   ngOnInit(): void {
-    this.bio=this.userService.bio;
-    this.fname = this.userService.fname;
-    this.lname = this.userService.lname;
-    this.average_grade = this.userService.average_grade;
+    this.info_user = this.userService.info_user;
   }
 
   onSave(){

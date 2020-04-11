@@ -8,13 +8,8 @@ export class UserService{
 
   constructor(private httpClient: HttpClient, private auth : AuthService){}
 
-  bio: string = "Salut a tous du coup moi c'est gilbert aka le toat.";
-  email: string = "gigi.ange@gmail.com";
-  username: string = "giAnge";
-  profil_pic: File = null;
-  fname: string = "Gilbert";
-  lname: string = "Angénieux";
-  average_grade: number = 4.5;
+  info_user = [];
+
 
   services_history_for = [
     {
@@ -129,7 +124,7 @@ export class UserService{
       );
   }
   public getInitials(){
-    let res: string = this.fname[0].toUpperCase()+this.lname[0].toUpperCase();
+    let res: string = this.info_user['fname'][0].toUpperCase()+this.info_user['lname'][0].toUpperCase();
     console.log(res);
     return res;
   }
