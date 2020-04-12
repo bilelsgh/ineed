@@ -18,9 +18,9 @@ export class InfoSettingsComponent implements OnInit {
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.email = this.userService[0]['email'];
-    this.bio = this.userService[0]['bio'];
-    this.profil_pic = this.userService[0]['profil_pic'];
+    this.email = this.userService.info_user[0]['email'];
+    this.bio = this.userService.info_user[0]['bio'];
+    this.profil_pic = this.userService.info_user[0]['profil_pic'];
     this.initForm();
   }
 

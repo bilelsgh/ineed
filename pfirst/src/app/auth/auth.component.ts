@@ -47,9 +47,5 @@ export class AuthComponent implements OnInit {
 
     //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL STORAGE
 
-
-
-
-
   }
 }

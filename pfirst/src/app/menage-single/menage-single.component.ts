@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { ServiceService } from '../services/service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
 import {UserService} from '../services/users.service';
+import {Menage} from "../models/Menage.model";
 
 @Component({
   selector: 'app-menage-single',
@@ -23,12 +24,25 @@ export class MenageSingleComponent implements OnInit {
   Surface : number;
   liste_a_copier : string;
   copied = false;
+  @Input() service_descriptor: Menage;
 
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
+    this.Name = this.service_descriptor.name;
+    this.User=this.service_descriptor.user;
+    this.Description = this.service_descriptor.description;
+    this.Materiel= this.service_descriptor.materiel;
+    this.Date=this.service_descriptor.date;
+    this.Surface=this.service_descriptor.surface;
+    this.Heure=this.service_descriptor.heure;
+    this.Salle=this.service_descriptor.salle;
+    this.Localisation=this.service_descriptor.localisation;
+    this.writeList();
+    this.copied = false;
+    /*
     const id = this.route.snapshot.params['id'];
     this.Name = this.serviceService.getServiceById(+id).name;
     this.User=this.serviceService.getServiceById(+id).user;
@@ -41,6 +55,7 @@ export class MenageSingleComponent implements OnInit {
     this.Localisation=this.serviceService.getServiceById(+id).localisation;
     this.writeList();
     this.copied = false;
+     */
   }
 
   writeList(){

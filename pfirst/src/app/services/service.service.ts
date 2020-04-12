@@ -10,6 +10,7 @@ import { Accompage } from '../models/Accompage.model';
 @Injectable()
 export class ServiceService{
 
+  current_service: any;
   private courses:Courses[]= [];
   private menage:Menage[] =[];
   private cuisine:Cuisine[] = [];
@@ -159,29 +160,29 @@ export class ServiceService{
   }
 
   getServiceById(id: number) {
+    return new Promise((resolve,reject)=>
+    {
+      this.httpClient
+        .get<any[]>(this.auth.backend_test+'services.json')
+        .subscribe(
+          (response) => {
 
-    this.httpClient
-      .get<any[]>(this.auth.backend_test+'services.json')
-      .subscribe(
-        (response) => {
-
-          this.services = response;
-          console.log("#OK");
-          console.log("#SERVICES : " + response);
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-      );
-
-    const service = this.services.find(
-      (s) => {
-        return s.id === id;
-      }
-    );
-    return service;
+            this.services = response;
+            this.current_service = this.services.find(
+              (s) => {
+                return s.id === id;
+              }
+            );
+            console.log("#SERVICE-SERVICE : current_service :", this.current_service);
+            console.log("#OK");
+            console.log("#SERVICES : " + response);
+            resolve(true);
+          },
+          (error) => {
+            console.log("Erreur de chargement : " + error);
+            reject(true);
+          }
+        );
+    });
   }
-
-
-
 }

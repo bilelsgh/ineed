@@ -1,14 +1,15 @@
 import {Injectable} from '@angular/core';
-import{HttpClient} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {subscribeOn} from 'rxjs/operators';
 import {AuthService} from './auth.service';
 
 @Injectable()
-export class UserService{
+export class UserService {
 
-  constructor(private httpClient: HttpClient, private auth : AuthService){}
+  constructor(private httpClient: HttpClient, private auth: AuthService) {
+  }
 
-  info_user = [];
+  info_user: any[];
 
 
   services_history_for = [
@@ -82,10 +83,10 @@ export class UserService{
     "accompagnement": "../../assets/data/accompagner.png",
     "course": "../../assets/data/courses.png",
     "cuisine": "../../assets/data/cuisine.png",
-    "menage":"../../assets/data/menage.png"
+    "menage": "../../assets/data/menage.png"
   };
 
-  ngOnInit(){
+  ngOnInit() {
     this.getUserInfosFromServer();
   }
 
@@ -93,39 +94,64 @@ export class UserService{
 
   showAllComments: boolean = false;
 
-  setShowAllComments(){
+  setShowAllComments() {
     this.showAllComments = true;
     console.log('userServ : showAll set a true');
   }
 
-  resetShowAllComments(){
+  resetShowAllComments() {
     this.showAllComments = false;
     console.log('userServ : showAll reset a false');
   }
 
-  getNiveau(): number{
-    return (Math.floor((this.services_history_for.length + this.services_history_by.length)/5) + 1);//pour le moment 5 services dans chaque niveau
+  getNiveau(): number {
+    return (Math.floor((this.services_history_for.length + this.services_history_by.length) / 5) + 1);//pour le moment 5 services dans chaque niveau
   }
 
-  saveUserInfosToServer(){
-    this.httpClient.put(this.auth.backend + 'userInfos.json',this.services_history_for)
-      .subscribe(()=>{console.log('save done');},(err)=>{console.log('Erreur de save '+err);});
+  saveUserInfosToServer() {
+    this.httpClient.put(this.auth.backend + 'userInfos.json', this.services_history_for)
+      .subscribe(() => {
+        console.log('save done');
+      }, (err) => {
+        console.log('Erreur de save ' + err);
+      });
   }
 
-  getUserInfosFromServer(){
+  getUserInfosFromServer() {
     this.httpClient
       .get<any[]>(this.auth.backend)
-      .subscribe((got)=>{
-          this.services_history_for=got;
+      .subscribe((got) => {
+          this.services_history_for = got;
         },
-        (err)=>{
-          console.log("Erreur de récupération"+err);
+        (err) => {
+          console.log("Erreur de récupération" + err);
         }
       );
   }
-  public getInitials(){
-    let res: string = this.info_user['fname'][0].toUpperCase()+this.info_user['lname'][0].toUpperCase();
+
+  public getInitials() {
+    let res: string = this.info_user['fname'][0].toUpperCase() + this.info_user['lname'][0].toUpperCase();
     console.log(res);
     return res;
+  }
+
+  // variante avec id en param pour différents users -> besoin de differentes url pr differents profils
+  getProfilById(id: string = 'current_user') {
+    return new Promise((resolve, reject)=>{
+        this.httpClient
+          .get<any[]>(this.auth.backend_test + id + '.json')
+          .subscribe(
+            (response) => {
+              this.info_user = response;
+              console.log("#OK");
+              console.log("#SERVICES : " + response);
+              resolve(true);
+            },
+            (error) => {
+              console.log("Erreur de chargement : " + error);
+              reject(true);
+            }
+          );
+      });
   }
 }

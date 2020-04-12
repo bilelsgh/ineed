@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { ServiceService } from '../services/service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
 import {UserService} from '../services/users.service';
+import {Courses} from "../models/Courses.model";
 
 @Component({
   selector: 'app-courses-single',
@@ -21,12 +22,23 @@ export class CoursesSingleComponent implements OnInit {
   Dispo: string="coucou"
   liste_a_copier : string;
   copied = false;
+  @Input() service_descriptor: Courses;
 
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
+    this.Name = this.service_descriptor.name;
+    this.User=this.service_descriptor.user;
+    this.Description = this.service_descriptor.description;
+    this.Liste= this.service_descriptor.liste;
+    this.Accompagne=this.service_descriptor.accompagner;
+    this.Budget=this.service_descriptor.budget;
+    this.Dispo=this.service_descriptor.date;
+    this.writeList();
+    this.copied = false;
+    /*
     const id = this.route.snapshot.params['id'];
     this.Name = this.serviceService.getServiceById(+id).name;
     this.User=this.serviceService.getServiceById(+id).user;
@@ -37,6 +49,7 @@ export class CoursesSingleComponent implements OnInit {
     this.Dispo=this.serviceService.getServiceById(+id).date;
     this.writeList();
     this.copied = false;
+     */
   }
 
   writeList(){

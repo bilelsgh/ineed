@@ -7,21 +7,28 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './single-service.component.html',
   styleUrls: ['./single-service.component.css']
 })
+
 export class SingleServiceComponent implements OnInit {
 
+  serviceDescriptor: any;
   name: string = 'Action';
   user: string = 'Utilisateur';
   description: string = 'Description';
   type: number 
 
-  constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router) { }
+  constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
-    this.name = this.serviceService.getServiceById(+id).name;
-    this.user=this.serviceService.getServiceById(+id).user;
-    this.description = this.serviceService.getServiceById(+id).description;
-    this.type= this.serviceService.getServiceById(+id).type;
+    this.serviceService.getServiceById(+id)
+      .then(()=>{
+        this.serviceDescriptor = this.serviceService.current_service;
+        this.name = this.serviceDescriptor.name;
+        this.user = this.serviceDescriptor.user;
+        this.description = this.serviceDescriptor.description;
+        this.type= this.serviceDescriptor.type;
+      })
+      .catch(()=>{console.log("Erreur de récupération du service courant au niveau single-service")});
   }
 
 }
