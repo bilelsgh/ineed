@@ -36,7 +36,7 @@ ngOnInit(): void {
 
     onSubmitForm() {
       const formValue = this.menageForm.value;
-      const newMenage = new Menage(93, "../../assets/data/menage.png", 2,'Faire le menage',
+      const newMenage = new Menage(93, "../../assets/data/menage.png", 'service2','Faire le menage',
         formValue['user'],
         formValue['description'],
         formValue['salle'],

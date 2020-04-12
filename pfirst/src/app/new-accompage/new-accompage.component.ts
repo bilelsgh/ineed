@@ -34,7 +34,7 @@ ngOnInit(): void {
 
     onSubmitForm() {
       const formValue = this.accompagneForm.value;
-      const newAccompagne = new Accompage(103, "../../assets/data/accompage.png", 4,"Accompagner quelqu'un",
+      const newAccompagne = new Accompage(103, "../../assets/data/accompage.png", 'service4',"Accompagner quelqu'un",
         formValue['user'],
         formValue['description'],
         formValue['kind'],

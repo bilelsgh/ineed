@@ -33,16 +33,7 @@ export class AccompagnerSingleComponent implements OnInit {
     this.Dispo=this.service_descriptor.date;
     this.Quand=this.service_descriptor.quand;
     this.Kind=this.service_descriptor.kind;
-    /*
-    const id = this.route.snapshot.params['id'];
-    this.Name = this.serviceService.getServiceById(+id).name;
-    this.User=this.serviceService.getServiceById(+id).user;
-    this.Description = this.serviceService.getServiceById(+id).description;
-    this.Local= this.serviceService.getServiceById(+id).local;
-    this.Dispo=this.serviceService.getServiceById(+id).date;
-    this.Quand=this.serviceService.getServiceById(+id).quand;
-    this.Kind=this.serviceService.getServiceById(+id).kind;
-     */
+    
 
   }
   goProfil(){

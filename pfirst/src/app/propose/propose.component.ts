@@ -11,6 +11,7 @@ import {Courses} from '../models/Courses.model';
   styleUrls: ['./propose.component.css']
 })
 export class ServiceViewComponent implements OnInit {
+  public shown = false;
   type: any[];
   types : any[];
   service: any[];
@@ -37,10 +38,6 @@ export class ServiceViewComponent implements OnInit {
         }
       );
 
-    for (var elt in this.services_db){
-
-    } 
-
   }
   lireService(){
     console.log("##SERVICE DB##\n");
@@ -51,6 +48,5 @@ export class ServiceViewComponent implements OnInit {
 
 
   }
-
 
 }
