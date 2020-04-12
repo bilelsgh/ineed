@@ -45,6 +45,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { NewMenageComponent } from './new-menage/new-menage.component';
 import { NewCuisineComponent } from './new-cuisine/new-cuisine.component';
 import { NewAccompageComponent } from './new-accompage/new-accompage.component';
+import { InfoSettingsComponent } from './info-settings/info-settings.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
     ModalUserComponent,
     NewMenageComponent,
     NewCuisineComponent,
-    NewAccompageComponent
+    NewAccompageComponent,
+    InfoSettingsComponent
   ],
   imports: [
     BrowserModule,

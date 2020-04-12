@@ -1,3 +1,15 @@
-.list-group{
+.list-group{.jumbotron{
+  background-image: url("../../assets/data/banniere.jpg");
+  background-size: cover;
+  min-height: 100px;
+  height: 200px;
+}
     text-align: center;
+}
+
+.jumbotron{
+  background-image: url("../../assets/data/banniere.jpg");
+  background-size: cover;
+  min-height: 100px;
+  height: 200px;
 }

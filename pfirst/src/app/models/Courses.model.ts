@@ -8,5 +8,6 @@ export class Courses{
         public accompagner : string,
         public budget : number,
         public date: string,
-        public liste: Array<{produit: string, quantite: string}> ){}
+        public liste: Array<{produit: string, quantite: string}>,
+        public id_user : number,){}
 }

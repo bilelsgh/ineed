@@ -43,6 +43,7 @@ export class NewCoursesComponent implements OnInit {
         formValue['budget'],
         formValue['date'],
         this.liste_courses,
+        8, //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)
       );
       this.serviceService.addCourses(newCourses);
       this.router.navigate(['/profil']);

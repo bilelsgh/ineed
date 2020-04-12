@@ -9,5 +9,6 @@ export class Accompage{
         public quand : string,
         public local: string,
         public date: string,
+        public id_user : number,
          ){}
 }

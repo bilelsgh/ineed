@@ -1,0 +1,47 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4" align="center">Mes informations</h1>
+    <table align="center">
+
+      <div class="col-sm-8 col-sm-offset-2">
+
+        <!--#############PRENOM######################-->
+        <form [formGroup]="userForm" (ngSubmit)="onSubmitNewInfos()" id="form">
+
+          <div class="jumbotron" id="formulaire">
+
+            <div class="form-group">
+              <label for="user"><h2>Email</h2></label>
+              <input type="text" id="user" class="form-control" formControlName="email">
+            </div>
+
+          </div>
+
+          <!--#############DISPO######################-->
+          <div class="form-group">
+            <div class="jumbotron" id="formulaire">
+              <label for="date"><h2>Votre bio</h2>
+              </label>
+              <input type="text" id="bio" formControlName="bio">
+            </div>
+
+            <!--#############DATE######################-->
+            <div class="jumbotron" id="formulaire">
+              <div class="form-group">
+                <label for="date"><h2>Votre photo de profil</h2>
+                </label>
+                <input type="file" id="date" formControlName="profil_pic">
+              </div>
+              <button type="submit" class="btn btn-primary">Soumettre</button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+
+
+    </table>
+  </div>
+</div>
+

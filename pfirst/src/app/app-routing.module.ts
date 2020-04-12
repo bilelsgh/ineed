@@ -11,13 +11,15 @@ import {InscriptionComponent} from './inscription/inscription.component';
 import {AppViewComponent} from './app-view/app-view.component';
 import { SingleServiceComponent } from './single-service/single-service.component';
 import {NewCoursesComponent} from './new-courses/new-courses.component';
+import {InfoSettingsComponent} from "./info-settings/info-settings.component";
 
 
 const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path: 'propose', component: ServiceViewComponent},
-  {path:'propose/:id', component :  SingleServiceComponent},
+  {path:'propose/:id', canActivate:[AuthGuard], component :  SingleServiceComponent},
   {path: 'auth', component: AuthComponent},
   {path:'profil',  canActivate:[AuthGuard], component: ProfilComponent},
+  {path:'mes-infos', canActivate: [AuthGuard], component: InfoSettingsComponent},
   {path: 'demande', canActivate:[AuthGuard], component: DemandeComponent},
   {path:'not-found', component: FourOhFourComponent},
   {path:'contact', component: ContactComponent},
