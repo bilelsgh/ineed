@@ -45,27 +45,6 @@ export class InscriptionComponent implements OnInit {
       const password = form.value.password;
       this.subService.addUser(name, prenom, sexe, mail, password);
 
-      //###CRÉATION D'UN TABLEAU POUR ENVOYER AU BACK###
-      let new_user =  new Array<{lastName: string, firstName: string, sex: string, mail: string, password: string}>();
-      new_user['lastName'] = name;
-      new_user['firstName'] = prenom;
-      new_user['sex'] = sexe;
-      new_user['mail'] = mail;
-      new_user['password'] = password;
-      this.httpClient
-        .post(this.auth.backend + 'api/user/register', new_user)
-        .subscribe(
-          (response) => {
-            //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL
-            console.log("#DEBUG : " + response);
-          },
-          (error) => {
-            console.log('Erreur lors de linscription: ' + error);
-          }
-        );
-
-
-
 
       // this.auth.isAuth = true;
       this.router.navigate(['']);
