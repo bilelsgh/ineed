@@ -12,7 +12,7 @@ export class SingleServiceComponent implements OnInit {
   name: string = 'Action';
   user: string = 'Utilisateur';
   description: string = 'Description';
-  type: string ="service"
+  type: number 
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router) { }
 

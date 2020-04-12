@@ -13,7 +13,7 @@ import {Courses} from '../models/Courses.model';
 export class ServiceViewComponent implements OnInit {
   type: any[];
   types : any[];
-  services: any[];
+  service: any[];
   services_db : any[];
 
   constructor (private serviceService : ServiceService, private auth: AuthService, private httpClient : HttpClient){
@@ -21,7 +21,7 @@ export class ServiceViewComponent implements OnInit {
 
   }
   ngOnInit(){
-    //this.services=this.serviceService.services
+    
 
     this.httpClient
       .get<any[]>(this.auth.backend_test+'services.json')
@@ -36,6 +36,10 @@ export class ServiceViewComponent implements OnInit {
           console.log("Erreur de chargement : " + error);
         }
       );
+
+    for (var elt in this.services_db){
+
+    } 
 
   }
   lireService(){

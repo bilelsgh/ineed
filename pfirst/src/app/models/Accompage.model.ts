@@ -1,7 +1,7 @@
 export class Accompage{
     constructor(public id : number,
         public image : string,
-        public type:string,
+        public type:number,
         public name: string,
         public user: string,
         public description: string ,
