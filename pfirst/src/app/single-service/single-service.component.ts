@@ -14,7 +14,11 @@ export class SingleServiceComponent implements OnInit {
   name: string = 'Action';
   user: string = 'Utilisateur';
   description: string = 'Description';
+<<<<<<< HEAD
   type: string ;
+=======
+  type : string;
+>>>>>>> 048503a2738c0a9bdc341e6aa7d3ff1388afbb40
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router) {}
 
