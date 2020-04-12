@@ -15,7 +15,7 @@ export class AuthService {
 
 
   public isAuthenticated() : Boolean {
-    let userData = sessionStorage.getItem('userInfo')
+    let userData = sessionStorage.getItem('token')
     if(userData && JSON.parse(userData)){
       return true;
     }
@@ -23,11 +23,11 @@ export class AuthService {
   }
 
   public removeUserInfo(){
-    sessionStorage.removeItem('userInfo');
+    sessionStorage.removeItem('token');
   }
 
-  public setUserInfo(user){
-    sessionStorage.setItem('userInfo', JSON.stringify(user));
+  public setUserInfo(user){ //on met le token ici
+    sessionStorage.setItem('token', JSON.stringify(user));
   }
 
   public validate(email, password) {

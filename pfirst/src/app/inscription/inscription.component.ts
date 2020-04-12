@@ -37,7 +37,7 @@ export class InscriptionComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.checkSamePassword(form)) {
       this.same_password = true;
-      console.log('inscription ok');
+      console.log('inscription valide.');
       const name = form.value.lastName;
       const prenom = form.value.firstName;
       const sexe = form.value.sex;
@@ -66,9 +66,9 @@ export class InscriptionComponent implements OnInit {
     }
   }
 
-  onSave() {
-    this.subService.saveUsersToServers();
-  }
+ /** onSave() {
+    this.subService.saveUsersToServers(); méthode saveUsersToServers() n'existe plus et est dans addUSer
+  } **/
 
   checkSamePassword(form: NgForm) {
     return form.value.password === form.value.confirm_password;

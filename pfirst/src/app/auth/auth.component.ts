@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
     // PASSPORT à enlever éventuellement
     this.authService.validate(mail, password)
       .then((response) => {
-        this.authService.setUserInfo({user : response['user']});
+        this.authService.setUserInfo({user : response['user']}); //mettre le token ici
         this.router.navigate(['']);
       });
   }
@@ -28,6 +28,7 @@ export class AuthComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.onSignIn(form.value.mail, form.value.password); // PASSPORT
 
+/* Peut être inutile car déja fait dans validate ci dessus, à vérifier ...
     // CRÉATION D'UN USER À ENVOYER AU BACKEND
     let current_user =  new Array<{mail: string, password: string}>();
     current_user['mail'] = form.value['mail'];
@@ -39,13 +40,13 @@ export class AuthComponent implements OnInit {
       .subscribe(
         () => {
           console.log('#DEBUG Envoie des infos de connexion : OK');
+          //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL STORAGE
         },
         (error) => {
           console.log('Erreur : ' + error);
         }
       );
-
-    //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL STORAGE
+ */
 
   }
 }

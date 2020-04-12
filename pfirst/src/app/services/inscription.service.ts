@@ -23,9 +23,10 @@ export class InscriptionService{
     this.httpClient
       .post(this.auth.backend + 'api/user/register', newUser)
       .subscribe(
-        (response) => {
+        (token) => {
           //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL
-          console.log("#DEBUG : " + response);
+          console.log("#Inscription réussie : " + token);
+          //this.auth.setUserInfo(token); stocke le tocken dans le session/localStorage
         },
         (error) => {
           console.log('Erreur lors de linscription: ' + error);
