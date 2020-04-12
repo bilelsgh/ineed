@@ -55,16 +55,16 @@ export class InscriptionComponent implements OnInit {
       this.httpClient
         .post(this.auth.backend + 'api/user/register', new_user)
         .subscribe(
-          () => {
-            console.log('#DEBUG Envoie des infos de connexion : OK');
+          (response) => {
+            //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL
+            console.log("#DEBUG : " + response);
           },
           (error) => {
-            console.log('Erreur : ' + error);
+            console.log('Erreur lors de linscription: ' + error);
           }
         );
 
-      //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL  UNIQUEMENT SI ON DÉCIDE QUE L'USER
-      // EST CO APRÈS L'INSCRIPTION.
+
 
 
       // this.auth.isAuth = true;
