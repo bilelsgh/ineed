@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ServiceComponent implements OnInit {
 
   @Input() serviceName: string;
+  @Input() ServiceType : number;
   @Input() serviceUser: string;
   @Input() serviceDescription : string;
   @Input() serviceImage : string;
