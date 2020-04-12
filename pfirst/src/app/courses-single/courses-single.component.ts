@@ -18,7 +18,7 @@ export class CoursesSingleComponent implements OnInit {
   Description: string = 'Description';
   Liste = new Array<{produit: string, quantite: string}>();
   Accompagne : string = 'oui';
-  Budget : number = 55;
+  Budget : number;
   Dispo: string="coucou"
   liste_a_copier : string;
   copied = false;
@@ -38,18 +38,7 @@ export class CoursesSingleComponent implements OnInit {
     this.Dispo=this.service_descriptor.date;
     this.writeList();
     this.copied = false;
-    /*
-    const id = this.route.snapshot.params['id'];
-    this.Name = this.serviceService.getServiceById(+id).name;
-    this.User=this.serviceService.getServiceById(+id).user;
-    this.Description = this.serviceService.getServiceById(+id).description;
-    this.Liste= this.serviceService.getServiceById(+id).liste;
-    this.Accompagne=this.serviceService.getServiceById(+id).accompagner;
-    this.Budget=this.serviceService.getServiceById(+id).budget;
-    this.Dispo=this.serviceService.getServiceById(+id).date;
-    this.writeList();
-    this.copied = false;
-     */
+
   }
 
   writeList(){

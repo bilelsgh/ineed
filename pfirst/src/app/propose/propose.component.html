@@ -5,31 +5,34 @@
   <h2 class="text-white">Plusieurs personnes attendent votre aide, aidez les.</h2>
 </div>
 
+
 <div class="row">
   <div class="col-md-2">
   </div>
+  <input type="checkbox" name="checkBox" #checkBox="ngModel" [(ngModel)]="shown">
+<label for="courses">Courses</label>
   <div class="col-md-10">
 
-
     
+    <div class="col-xs-12">
+      <div class="row">
+    
+        <ul class="list-group">
+          <div *ngIf = "shown">
+          <app-service *ngFor ="let service of this.services_db,let i =index"
+                       [serviceName]="service['name']"
+                       [serviceUser]="service['user']"
+                       [serviceDescription]="service['description']"
+                       [serviceImage]="service['image']"
+                       [index]="i"
+                       [id]="service.id"
+                       [serviceDate]="service.date" >
+          </app-service>
+        </div>
+        </ul>
+      </div>
+    </div>
 
-  <div class="col-xs-12">
-    <div class="row">
 
-      <ul class="list-group">
 
-            <app-service *ngFor ="let service of this.services_db,let i =index"
-                    [serviceName]="service['name']"
-                    [serviceUser]="service['user']"
-                    [serviceDescription]="service['description']"
-                    [serviceImage]="service['image']"
-                    [serviceDate]="service['date']"
-                    [index]="i"
-                    [id]="service.id">
-                    </app-service>
-
-      </ul>
-
-  </div>
-</div>
 
