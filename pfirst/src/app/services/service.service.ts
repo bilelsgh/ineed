@@ -159,6 +159,21 @@ export class ServiceService{
   }
 
   getServiceById(id: number) {
+
+    this.httpClient
+      .get<any[]>(this.auth.backend_test+'services.json')
+      .subscribe(
+        (response) => {
+
+          this.services = response;
+          console.log("#OK");
+          console.log("#SERVICES : " + response);
+        },
+        (error) => {
+          console.log("Erreur de chargement : " + error);
+        }
+      );
+
     const service = this.services.find(
       (s) => {
         return s.id === id;
@@ -166,4 +181,7 @@ export class ServiceService{
     );
     return service;
   }
+
+
+
 }

@@ -21,7 +21,7 @@ export class ServiceViewComponent implements OnInit {
 
   }
   ngOnInit(){
-    this.services=this.serviceService.services
+    //this.services=this.serviceService.services
 
     this.httpClient
       .get<any[]>(this.auth.backend_test+'services.json')

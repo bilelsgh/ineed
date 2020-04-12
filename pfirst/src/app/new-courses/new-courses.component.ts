@@ -46,7 +46,7 @@ export class NewCoursesComponent implements OnInit {
         8, //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)
       );
       this.serviceService.addCourses(newCourses);
-      this.router.navigate(['/profil']);
+      this.router.navigate(['']);
     }
 
    ajouterListe(f : NgForm) {
