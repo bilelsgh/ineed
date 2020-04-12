@@ -11,11 +11,15 @@ import {Courses} from '../models/Courses.model';
   styleUrls: ['./propose.component.css']
 })
 export class ServiceViewComponent implements OnInit {
-  public shown = false;
   type: any[];
   types : any[];
   service: any[];
   services_db : any[];
+  public showncourses = false;
+  public shownmenage = false;
+  public showncuisine = false;
+  public shownaccompagne = false;
+  public all = true;
 
   constructor (private serviceService : ServiceService, private auth: AuthService, private httpClient : HttpClient){
 

@@ -16,6 +16,8 @@ export class ServiceComponent implements OnInit {
   @Input() index : number;
   @Input() id : number;
 
+
+
   constructor() { }
 
   ngOnInit(): void {

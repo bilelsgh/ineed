@@ -9,8 +9,25 @@
 <div class="row">
   <div class="col-md-2">
   </div>
-  <input type="checkbox" name="checkBox" #checkBox="ngModel" [(ngModel)]="shown">
-<label for="courses">Courses</label>
+
+  <input type="checkbox" ngModel="all"> 
+  <label for="All" >All</label>
+
+    <input type="checkbox" #checkBoxcourses="ngModel" [(ngModel)]="showncourses" name="checkBoxcourses">
+    <label for="Courses">Courses</label>
+    <input type="checkbox" #checkBoxmenage="ngModel" [(ngModel)]="shownmenage" name="checkBoxmenage">
+    <label for="Menage">Menage</label>
+    <input type="checkbox" #checkBoxcuisine="ngModel" [(ngModel)]="showncuisine" name="checkBoxcuisine">
+    <label for="Cuisine">Cuisine</label>
+    <input type="checkbox" #checkBoxaccompagne="ngModel" [(ngModel)]="shownaccompagne" name="checkBoxaccompagne">
+    <label for="Accompagne">Accompagne</label>
+
+    
+
+
+<div class="row">
+  <div class="col-md-2">
+  </div>
   <div class="col-md-10">
 
     
@@ -18,8 +35,10 @@
       <div class="row">
     
         <ul class="list-group">
-          <div *ngIf = "shown">
-          <app-service *ngFor ="let service of this.services_db,let i =index"
+
+          <div *ngFor ="let service of this.services_db, let i =index">
+            <div *ngIf = "all && !showncourses && !shownaccompagne && !showncuisine && !shownmenage">
+              <app-service 
                        [serviceName]="service['name']"
                        [serviceUser]="service['user']"
                        [serviceDescription]="service['description']"
@@ -27,8 +46,56 @@
                        [index]="i"
                        [id]="service.id"
                        [serviceDate]="service.date" >
-          </app-service>
-        </div>
+            </app-service>
+            </div>
+            <div *ngIf = "service['type']== 'service1'&& showncourses">
+              <app-service 
+                       [serviceName]="service['name']"
+                       [serviceUser]="service['user']"
+                       [serviceDescription]="service['description']"
+                       [serviceImage]="service['image']"
+                       [index]="i"
+                       [id]="service.id"
+                       [serviceDate]="service.date" >
+            </app-service>
+              </div>
+              <div *ngIf = "service['type']== 'service2' &&shownmenage ">
+                <app-service 
+                         [serviceName]="service['name']"
+                         [serviceUser]="service['user']"
+                         [serviceDescription]="service['description']"
+                         [serviceImage]="service['image']"
+                         [index]="i"
+                         [id]="service.id"
+                         [serviceDate]="service.date" >
+              </app-service>
+                </div>
+                <div *ngIf = "service['type']== 'service3' && showncuisine">
+                  <app-service 
+                           [serviceName]="service['name']"
+                           [serviceUser]="service['user']"
+                           [serviceDescription]="service['description']"
+                           [serviceImage]="service['image']"
+                           [index]="i"
+                           [id]="service.id"
+                           [serviceDate]="service.date" >
+                </app-service>
+                  </div>
+                  <div *ngIf = "service['type']== 'service4' && shownaccompagne">
+                    <app-service 
+                             [serviceName]="service['name']"
+                             [serviceUser]="service['user']"
+                             [serviceDescription]="service['description']"
+                             [serviceImage]="service['image']"
+                             [index]="i"
+                             [id]="service.id"
+                             [serviceDate]="service.date" >
+                  </app-service>
+                    </div>
+          </div>
+
+          
+
         </ul>
       </div>
     </div>
