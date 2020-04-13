@@ -8,14 +8,19 @@
   <table align="center" cellpadding="5">
     <tr>
       <td>
-        <label for="mail">
-          Adresse mail
-        </label>
-        <input type="text" id="mail" class="form-control" name="mail" placeholder="name@example.com" ngModel>
+        <!--#####MAIL#####-->
+        <div class="form-group" [class.has-error]="mail.invalid && mail.touched">
+          <label for="mail">
+            Adresse mail
+          </label>
+          <input type="text" id="mail" class="form-control" name="mail" placeholder="name@example.com"
+                 #mail="ngModel" email ngModel>
+        </div>
       </td>
     </tr>
     <tr>
       <td>
+        <!--#####PASSWORD#####-->
         <label for="password">Mot de passe</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Password" ngModel>
       </td>

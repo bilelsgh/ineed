@@ -27,5 +27,7 @@
   color: dimgray;
 }
 
-
+.ng-invalid.ng-touched {
+  border-color: red;
+}
 
