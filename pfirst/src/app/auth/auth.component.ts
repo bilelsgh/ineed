@@ -13,8 +13,12 @@ export class AuthComponent implements OnInit {
 
 
   constructor(public authService: AuthService, private router: Router, private httpClient: HttpClient) {}
+  field_non_valid : boolean = false;
 
-  ngOnInit() {}
+
+  ngOnInit() {
+    this.field_non_valid = false;
+  }
 
   onSignIn(mail: string, password: string) {
     // PASSPORT à enlever éventuellement
@@ -26,7 +30,12 @@ export class AuthComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.onSignIn(form.value.mail, form.value.password); // PASSPORT
+    if (this.testMail(form.value['mail'])){
+      this.onSignIn(form.value.mail, form.value.password); // PASSPORT
+    }else{
+      this.field_non_valid = true;
+      form.reset();
+    }
 
 /* Peut être inutile car déja fait dans validate ci dessus, à vérifier ...
     // CRÉATION D'UN USER À ENVOYER AU BACKEND
@@ -48,5 +57,14 @@ export class AuthComponent implements OnInit {
       );
  */
 
+  }
+
+  testMail(mail:string){
+    for(let elt of mail){
+      if(elt === '@'){
+        return true;
+      }
+    }
+    return false;
   }
 }
