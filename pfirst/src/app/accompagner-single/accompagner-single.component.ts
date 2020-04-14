@@ -11,6 +11,7 @@ import {Accompage} from "../models/Accompage.model";
   templateUrl: './accompagner-single.component.html',
   styleUrls: ['./accompagner-single.component.css']
 })
+
 export class AccompagnerSingleComponent implements OnInit {
 
   Name: string = 'Courses';
