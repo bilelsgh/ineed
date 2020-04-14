@@ -36,7 +36,7 @@ export class NewCoursesComponent implements OnInit {
 
     onSubmitForm() {
       const formValue = this.coursesForm.value;
-      const newCourses = new Courses( 5, "../../assets/data/courses.png", "service1",'Faire les courses',
+      const newCourses = new Courses( 5, "../../assets/data/courses.png", 'service1','Faire les courses',
         formValue['user'],
         formValue['description'],
         formValue['accompagne'],

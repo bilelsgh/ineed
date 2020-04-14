@@ -47,6 +47,7 @@ import { NewCuisineComponent } from './new-cuisine/new-cuisine.component';
 import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 import { InfoSettingsComponent } from './info-settings/info-settings.component';
 import { DisplayProfilComponent } from './display-profil/display-profil.component';
+import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { DisplayProfilComponent } from './display-profil/display-profil.componen
     NewCuisineComponent,
     NewAccompageComponent,
     InfoSettingsComponent,
-    DisplayProfilComponent
+    DisplayProfilComponent,
+    FiltreProposeComponent
   ],
   imports: [
     BrowserModule,

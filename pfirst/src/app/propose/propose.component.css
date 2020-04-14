@@ -13,3 +13,11 @@
   min-height: 100px;
   height: 200px;
 }
+
+#logo {
+  width: 150px;
+}
+
+#accompagner_logo,#cuisine_logo,#menage_logo,#accompagner_logo1,#cuisine_logo1,#menage_logo1{
+  width: 130px;
+}

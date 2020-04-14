@@ -34,7 +34,7 @@ ngOnInit(): void {
 
     onSubmitForm() {
       const formValue = this.cuisineForm.value;
-      const newCuisine = new Cuisine(101, "../../assets/data/cuisine.png", "service3",'Faire la cuisine',
+      const newCuisine = new Cuisine(101, "../../assets/data/cuisine.png", 'service3','Faire la cuisine',
         formValue['user'],
         formValue['description'],
         formValue['lieu'],

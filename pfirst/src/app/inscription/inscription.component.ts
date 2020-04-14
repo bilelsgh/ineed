@@ -37,34 +37,13 @@ export class InscriptionComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.checkSamePassword(form)) {
       this.same_password = true;
-      console.log('inscription ok');
+      console.log('inscription valide.');
       const name = form.value.lastName;
       const prenom = form.value.firstName;
       const sexe = form.value.sex;
       const mail = form.value.mail;
       const password = form.value.password;
       this.subService.addUser(name, prenom, sexe, mail, password);
-
-      //###CRÉATION D'UN TABLEAU POUR ENVOYER AU BACK###
-      let new_user =  new Array<{lastName: string, firstName: string, sex: string, mail: string, password: string}>();
-      new_user['lastName'] = name;
-      new_user['firstName'] = prenom;
-      new_user['sex'] = sexe;
-      new_user['mail'] = mail;
-      new_user['password'] = password;
-      this.httpClient
-        .post(this.auth.backend + 'api/user/register', new_user)
-        .subscribe(
-          () => {
-            console.log('#DEBUG Envoie des infos de connexion : OK');
-          },
-          (error) => {
-            console.log('Erreur : ' + error);
-          }
-        );
-
-      //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL  UNIQUEMENT SI ON DÉCIDE QUE L'USER
-      // EST CO APRÈS L'INSCRIPTION.
 
 
       // this.auth.isAuth = true;
@@ -87,9 +66,9 @@ export class InscriptionComponent implements OnInit {
     }
   }
 
-  onSave() {
-    this.subService.saveUsersToServers();
-  }
+ /** onSave() {
+    this.subService.saveUsersToServers(); méthode saveUsersToServers() n'existe plus et est dans addUSer
+  } **/
 
   checkSamePassword(form: NgForm) {
     return form.value.password === form.value.confirm_password;

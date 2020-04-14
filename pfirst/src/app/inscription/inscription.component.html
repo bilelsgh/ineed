@@ -10,26 +10,55 @@
         <form (ngSubmit)="onSubmit(f)" #f="ngForm"> <!-- #f passe une référence au formulaire (#x) -->
 
           <!--############NOM############-->
-          <div class="form-group">
-            <label for="lastName">
+          <div class="form-group" [class.has-error]="lastName.invalid && lastName.touched">
+            <!-- Nom des champs -->
+            <label for="lastName" *ngIf="!(lastName.invalid && lastName.touched)">
               Nom <span style="color:red">*</span>
             </label>
-            <input type="text" id="lastName" class="form-control" name="lastName" placeholder="ex: Dupont" ngModel required> <!-- ce champ est requis -->
+            <label for="lastName" style="color:red" *ngIf="lastName.invalid && lastName.touched">
+              Nom <span style="color:red">*</span>
+            </label>
+            <!-- -------------- -->
+            <input type="text" id="lastName" class="form-control" name="lastName" placeholder="ex: Dupont"
+                   #lastName="ngModel" ngModel required> <!-- ce champ est requis -->
+            <span class="help-block" *ngIf="lastName.invalid && lastName.touched" style="color:red">Une nom est requis.</span>
+          </div>
 
             <br>
-            <!--############PRÉNOM############-->
-            <label for="firstName">
+
+          <!--############PRÉNOM############-->
+          <div class="form-group" [class.has-error]="firstName.invalid && firstName.touched">
+            <!-- Nom des champs -->
+            <label for="firstName" *ngIf="!(firstName.invalid && firstName.touched)">
+              Prénom <span style="color:red">*</span>
+            </label>
+            <!-- -------------- -->
+            <label for="firstName" style="color:red" *ngIf="firstName.invalid && firstName.touched" >
               Prénom <span style="color:red">*</span>
             </label>
             <input type="text" id="firstName" class="form-control" name="firstName" placeholder="ex: Jean"
-                   (change) = "updateSurname(f.value['firstName'])" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
-            <br>
+                   (change) = "updateSurname(f.value['firstName'])" #firstName="ngModel" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
+            <span class="help-block" *ngIf="firstName.invalid && firstName.touched" style="color:red">Une prénom est requis.</span>
+          </div>
+          <br>
 
             <!--############MAIL############-->
-            <label for="mail">
+          <div class="form-group" [class.has-error]="mail.invalid && mail.touched">
+            <!-- Nom des champs -->
+            <label for="mail" class="control-label" *ngIf="!(mail.invalid && mail.touched)">
               Adresse mail <span style="color:red">*</span>
             </label>
-            <input type="text" id="mail" class="form-control" name="mail" placeholder="example@example.com" ngModel required>
+            <label for="mail" class="control-label" style="color:red" *ngIf="mail.invalid && mail.touched">
+              Adresse mail <span style="color:red">*</span>
+            </label>
+            <!-- -------------- -->
+            <input type="text" id="mail" class="form-control" name="mail" placeholder="example@example.com"
+                   #mail = "ngModel" ngModel required email>
+            <!-- Affichage des messages d'erreur si l'email entrée est invalide ou pas remplie -->
+            <span class="help-block" *ngIf="mail.errors?.required && mail.touched" style="color:red">
+              Une adresse mail est requise.</span>
+            <span class="help-block" *ngIf="mail.errors?.email && mail.touched" style="color:red">
+              L'adresse mail est invalide.</span>
 
           </div>
 

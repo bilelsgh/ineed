@@ -13,15 +13,20 @@ import {Courses} from '../models/Courses.model';
 export class ServiceViewComponent implements OnInit {
   type: any[];
   types : any[];
-  services: any[];
+  service: any[];
   services_db : any[];
+  public showncourses = false;
+  public shownmenage = false;
+  public showncuisine = false;
+  public shownaccompagne = false;
+  public all = true;
 
   constructor (private serviceService : ServiceService, private auth: AuthService, private httpClient : HttpClient){
 
 
   }
   ngOnInit(){
-    //this.services=this.serviceService.services
+    
 
     this.httpClient
       .get<any[]>(this.auth.backend_test+'services.json')
@@ -47,6 +52,5 @@ export class ServiceViewComponent implements OnInit {
 
 
   }
-
 
 }

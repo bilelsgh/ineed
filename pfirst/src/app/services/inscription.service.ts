@@ -19,23 +19,22 @@ export class InscriptionService{
       newUser.mail = mail;
       newUser.password = password;
       this.users.push(newUser);
-      this.saveUsersToServers();
+
+    this.httpClient
+      .post(this.auth.backend + 'api/user/register', newUser)
+      .subscribe(
+        (token) => {
+          //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL
+          console.log("#Inscription réussie : " + token);
+          //this.auth.setUserInfo(token); stocke le tocken dans le session/localStorage
+        },
+        (error) => {
+          console.log('Erreur lors de linscription: ' + error);
+        }
+      );
     }
 
 
-
-  saveUsersToServers(){
-    this.httpClient
-      .post(this.auth.backend+"/api/user", this.users) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
-      .subscribe( //                                            Cette méthode renvoie un Observable, elle ne fait pas appel à elle toute seule
-        () => { //                                       c'est en y souscrivant que l'appel est lancé ; put() écrase
-          console.log("Enregistrement ok!");
-        },                                         //subscribe() prévoie le cas où tout fonctionne t le cas où il y a des erreurs
-        (error) => {
-          console.log("Erreur : "+ error);
-        }
-      );
-  }
 
   getFromServer(){
     this.httpClient
