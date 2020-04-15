@@ -21,12 +21,27 @@ export class AuthComponent implements OnInit {
   }
 
   onSignIn(mail: string, password: string) {
-    // PASSPORT à enlever éventuellement
-    this.authService.validate(mail, password)
+    /*Envoie du mail et mdp au backend et réception du token de l'user correspondant*/
+    this.httpClient
+      .post(this.authService.backend + 'api/user/login', {mail: mail, password: password})
+      .subscribe(
+        (token) => {
+          console.log("#Connexion réussie : " + token);
+          this.authService.setUserInfo(token); //stocke le token dans le session/localStorage
+          this.router.navigate(['']);
+        },
+        (error) => {
+          console.log('Erreur lors de la connexion: ' + error);
+        }
+      );
+
+
+     //PASSPORT à enlever éventuellement
+    /*this.authService.validate(mail, password)
       .then((response) => {
         this.authService.setUserInfo({user : response['user']}); //mettre le token ici
         this.router.navigate(['']);
-      });
+      });*/
   }
 
   onSubmit(form: NgForm) {

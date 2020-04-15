@@ -9,7 +9,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private auth: AuthService) {
   }
 
-  info_user: any[];
+  info_user: any;
 
 
   services_history_for = [
@@ -135,10 +135,13 @@ export class UserService {
     return res;
   }
 
-  // variante avec id en param pour différents users -> besoin de differentes url pr differents profils
+
+  // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
   getProfilById(id: string = 'current_user') {
-    return new Promise((resolve, reject)=>{
-        this.httpClient
+   /*return new Promise((resolve, reject)=>{
+      this.info_user = JSON.parse(sessionStorage.getItem('token'))["user"] ;
+
+      this.httpClient
           .get<any[]>(this.auth.backend_test + id + '.json')
           .subscribe(
             (response) => {
@@ -152,6 +155,6 @@ export class UserService {
               reject(true);
             }
           );
-      });
+      });*/
   }
 }

@@ -47,7 +47,6 @@ export class InscriptionComponent implements OnInit {
 
 
       // this.auth.isAuth = true;
-      this.router.navigate(['']);
     } else if (form.value.password.length < 6) {
       form.reset();
       this.strong_password = false;

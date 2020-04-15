@@ -15,9 +15,10 @@ export class AppViewComponent implements OnInit {
     {user: "Test", date: "15/08", name: "Faire la cuisine", image:"../assets/data/V1/cuisine.jpg"},
     {user: "Test", date: "8/09", name: "Accompagner", image: "../assets/data/V1/accompagner.jpg"}]; //à aller chercher dans la base de données
 
-  constructor(private authService: AuthService, private serv: ServiceService) {}
+  constructor(public authService: AuthService, private serv: ServiceService) {}
 
   ngOnInit(){
+    console.table();
     //faire une fonctionpour sélectionner les dernières annonces dans la DB
   }
 
