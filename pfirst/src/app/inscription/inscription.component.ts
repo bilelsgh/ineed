@@ -13,6 +13,7 @@ import {HttpClient} from '@angular/common/http';
 
 export class InscriptionComponent implements OnInit {
 
+  alreadyExist : boolean = false;
   current_surname: string;
   picture_profil_file: File = null;
   small_password: boolean;
@@ -26,7 +27,7 @@ export class InscriptionComponent implements OnInit {
   info_mdp = false;
 
 
-  constructor(private subService: InscriptionService, private router: Router, private auth: AuthService,
+  constructor(public subService: InscriptionService, private router: Router, private auth: AuthService,
               private httpClient: HttpClient) {
   }
 
@@ -43,7 +44,7 @@ export class InscriptionComponent implements OnInit {
       const sexe = form.value.sex;
       const mail = form.value.mail;
       const password = form.value.password;
-      this.subService.addUser(name, prenom, sexe, mail, password);
+      this.addUser(name, prenom, sexe, mail, password);
 
 
       // this.auth.isAuth = true;
@@ -102,6 +103,36 @@ export class InscriptionComponent implements OnInit {
       this.medium_password = false;
     }
 
+  }
+
+  addUser(nom: string, prenom: string, sexe: string, mail: string, password: string, ){
+    const newUser = {firstName: '', lastName: '', sex: '', mail:'', password:''};
+    newUser.firstName = prenom;
+    newUser.lastName = nom;
+    newUser.sex = sexe;
+    newUser.mail = mail;
+    newUser.password = password;
+    //this.users.push(newUser);
+    console.log(newUser + "#");
+
+    this.httpClient
+      .post(this.auth.backend + 'api/user', newUser)
+      .subscribe(
+        (token) => {
+          //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL
+          console.log("#Inscription réussie : " + token);
+          this.alreadyExist = false;
+          this.auth.setUserInfo(token); //stocke le tocken dans le session/localStorage
+          this.router.navigate(['']);
+
+        },
+        (error) => {
+          if(error['status'] === 400){
+            this.alreadyExist = true;
+          }
+          console.log('Erreur lors de linscription: ' + error);
+        }
+      );
   }
 
   onFileSelected(event) {

@@ -1,4 +1,12 @@
-<p *ngIf="field_non_valid" class="alert alert-danger">L'adresse mail ou le mot de passe est invalide.</p>
+<div *ngIf="field_non_valid" class="alert alert-dismissable alert-danger">
+  L'adresse mail entrée est invalide.
+</div>
+<div *ngIf="bad_mail_password" class="alert alert-dismissable alert-danger">
+  Le mot de passe ou l'adresse mail est incorrecte.
+  <p><button id="myButton" type="button" routerLink="../inscription" class="btn btn-danger">S'inscrire</button></p>
+
+</div>
+<!-- ^ BANDEAUX D'ALERTE ^ -->
 
 <br>
 <h2 align="center">Connexion</h2>

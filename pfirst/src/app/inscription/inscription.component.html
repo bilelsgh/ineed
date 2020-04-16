@@ -1,4 +1,8 @@
 <br>
+<div *ngIf="alreadyExist" class="alert alert-dismissable alert-danger">
+  Un compte existe déjà avec cette adresse mail.
+  <p><button id="myButton" type="button" routerLink="../auth" class="btn btn-danger">Se connecter</button></p>
+</div>
 
 <h2 align="center">Oh ! Un nouveau parmi nous ?</h2>
 
@@ -133,4 +137,3 @@
     </tr>
   </table>
 
-</body>
