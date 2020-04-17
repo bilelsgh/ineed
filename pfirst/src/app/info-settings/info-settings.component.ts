@@ -13,14 +13,16 @@ export class InfoSettingsComponent implements OnInit {
   profil_pic: File;
   bio: string;
   phone: string;
+  info_user: any;
 
   userForm: FormGroup;
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.email = this.userService.info_user[0]['email'];
-    this.bio = this.userService.info_user[0]['bio'];
-    this.profil_pic = this.userService.info_user[0]['profil_pic'];
+    this.info_user = JSON.parse(sessionStorage.getItem('token'))["user"];
+    this.email = this.info_user['email'];
+    this.bio = this.info_user['bio'];
+    this.profil_pic = this.info_user['profil_pic'];
     this.initForm();
   }
 

@@ -1,8 +1,9 @@
 <table>
   <tr>
-    <td>
-      <button type="button" class="btn btn-dark" routerLink="profil/current_user" >Mon profil</button><br>
-    <!--  <button type="button" class="btn btn-dark" (click)="myProfil()" >Mon profil</button><br> -->
+    <td align="center">
+      <button type="button" class="btn btn-dark" (click)="this.goThenClose('profil/current_user')">Mon profil</button>
+      <br>
+      <!--  <button type="button" class="btn btn-dark" (click)="myProfil()" >Mon profil</button><br> -->
     </td>
   </tr>
   <tr>
@@ -11,13 +12,20 @@
     </td>
   </tr>
   <tr>
-    <td>
-      <a routerLink="mes-infos">Mes infos</a><br>
+    <td align="center">
+      <button type="button" class="btn btn-dark" (click)="this.goThenClose('mes-infos')">Mes infos</button>
+      <br>
     </td>
   </tr>
- <tr>
-   <td>
-     <a (click)="closeUserModal()">Fermer le menu</a><br>
-   </td>
- </tr>
+  <tr>
+    <td>
+
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <button type="button" class="btn btn-danger" (click)="closeUserModal()">X</button>
+      <br>
+    </td>
+  </tr>
 </table>
