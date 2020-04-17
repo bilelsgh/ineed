@@ -18,6 +18,7 @@ export class AppViewComponent implements OnInit {
   constructor(private authService: AuthService, private serv: ServiceService) {}
 
   ngOnInit(){
+    console.table();
     //faire une fonctionpour sélectionner les dernières annonces dans la DB
   }
 
