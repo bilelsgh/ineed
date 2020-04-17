@@ -7,98 +7,121 @@
 
 
 <div class="row">
-  <div class="col-md-2">
-  </div>
-
-  <input type="checkbox" ngModel="all"> 
-  <label for="All" >All</label>
-
-    <input type="checkbox" #checkBoxcourses="ngModel" [(ngModel)]="showncourses" name="checkBoxcourses">
-    <label for="Courses">Courses</label>
-    <input type="checkbox" #checkBoxmenage="ngModel" [(ngModel)]="shownmenage" name="checkBoxmenage">
-    <label for="Menage">Menage</label>
-    <input type="checkbox" #checkBoxcuisine="ngModel" [(ngModel)]="showncuisine" name="checkBoxcuisine">
-    <label for="Cuisine">Cuisine</label>
-    <input type="checkbox" #checkBoxaccompagne="ngModel" [(ngModel)]="shownaccompagne" name="checkBoxaccompagne">
-    <label for="Accompagne">Accompagne</label>
-
-    
-
-
-<div class="row">
-  <div class="col-md-2">
-  </div>
-  <div class="col-md-10">
-
-    
-    <div class="col-xs-12">
-      <div class="row">
-    
-        <ul class="list-group">
-
-          <div *ngFor ="let service of this.services_db, let i =index">
-            <div *ngIf = "all && !showncourses && !shownaccompagne && !showncuisine && !shownmenage">
-              <app-service 
-                       [serviceName]="service['name']"
-                       [serviceUser]="service['user']"
-                       [serviceDescription]="service['description']"
-                       [serviceImage]="service['image']"
-                       [index]="i"
-                       [id]="service.id"
-                       [serviceDate]="service.date" >
-            </app-service>
-            </div>
-            <div *ngIf = "service['type']== 'service1'&& showncourses">
-              <app-service 
-                       [serviceName]="service['name']"
-                       [serviceUser]="service['user']"
-                       [serviceDescription]="service['description']"
-                       [serviceImage]="service['image']"
-                       [index]="i"
-                       [id]="service.id"
-                       [serviceDate]="service.date" >
-            </app-service>
-              </div>
-              <div *ngIf = "service['type']== 'service2' &&shownmenage ">
-                <app-service 
-                         [serviceName]="service['name']"
-                         [serviceUser]="service['user']"
-                         [serviceDescription]="service['description']"
-                         [serviceImage]="service['image']"
-                         [index]="i"
-                         [id]="service.id"
-                         [serviceDate]="service.date" >
-              </app-service>
-                </div>
-                <div *ngIf = "service['type']== 'service3' && showncuisine">
-                  <app-service 
-                           [serviceName]="service['name']"
-                           [serviceUser]="service['user']"
-                           [serviceDescription]="service['description']"
-                           [serviceImage]="service['image']"
-                           [index]="i"
-                           [id]="service.id"
-                           [serviceDate]="service.date" >
-                </app-service>
-                  </div>
-                  <div *ngIf = "service['type']== 'service4' && shownaccompagne">
-                    <app-service 
-                             [serviceName]="service['name']"
-                             [serviceUser]="service['user']"
-                             [serviceDescription]="service['description']"
-                             [serviceImage]="service['image']"
-                             [index]="i"
-                             [id]="service.id"
-                             [serviceDate]="service.date" >
-                  </app-service>
-                    </div>
+  <div class="col-md-2"></div>
+  <div class="col-md-7">
+    <div class="row">
+      <ul class="list-group">
+        <div *ngFor ="let service of this.services_db, let i =index">
+          <div *ngIf = "all && !showncourses && !shownaccompagne && !showncuisine && !shownmenage">
+            <app-service 
+                      [serviceName]="service['name']"
+                      [serviceUser]="service['user']"
+                      [serviceDescription]="service['description']"
+                      [serviceImage]="service['image']"
+                      [index]="i"
+                      [id]="service.id"
+                      [serviceDate]="service.date" >
+          </app-service>
           </div>
-
-          
-
-        </ul>
-      </div>
+          <div *ngIf = "service['type']== 'service1'&& showncourses">
+            <app-service 
+                      [serviceName]="service['name']"
+                      [serviceUser]="service['user']"
+                      [serviceDescription]="service['description']"
+                      [serviceImage]="service['image']"
+                      [index]="i"
+                      [id]="service.id"
+                      [serviceDate]="service.date" >
+          </app-service>
+          </div>
+          <div *ngIf = "service['type']== 'service2' &&shownmenage ">
+            <app-service 
+                        [serviceName]="service['name']"
+                        [serviceUser]="service['user']"
+                        [serviceDescription]="service['description']"
+                        [serviceImage]="service['image']"
+                        [index]="i"
+                        [id]="service.id"
+                        [serviceDate]="service.date" >
+            </app-service>
+          </div>
+          <div *ngIf = "service['type']== 'service3' && showncuisine">
+            <app-service 
+                          [serviceName]="service['name']"
+                          [serviceUser]="service['user']"
+                          [serviceDescription]="service['description']"
+                          [serviceImage]="service['image']"
+                          [index]="i"
+                          [id]="service.id"
+                          [serviceDate]="service.date" >
+            </app-service>
+          </div>
+          <div *ngIf = "service['type']== 'service4' && shownaccompagne">
+            <app-service 
+                            [serviceName]="service['name']"
+                            [serviceUser]="service['user']"
+                            [serviceDescription]="service['description']"
+                            [serviceImage]="service['image']"
+                            [index]="i"
+                            [id]="service.id"
+                            [serviceDate]="service.date" > 
+            </app-service>
+                
+          </div>
+        </div>
+      </ul>
     </div>
+
+  </div>
+
+  <div class="col-md-3"  >   
+    <div class="card"  style="width:70%;">
+      <div class="card-body">
+        <div class="checkbox">
+      <input type="checkbox" ngModel="all"> 
+      <label for="All" >All</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" #checkBoxcourses="ngModel" [(ngModel)]="showncourses" name="checkBoxcourses">
+          <label for="Courses">Courses</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" #checkBoxmenage="ngModel" [(ngModel)]="shownmenage" name="checkBoxmenage">
+          <label for="Menage">Menage</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" #checkBoxcuisine="ngModel" [(ngModel)]="showncuisine" name="checkBoxcuisine">
+          <label for="Cuisine">Cuisine</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" #checkBoxaccompagne="ngModel" [(ngModel)]="shownaccompagne" name="checkBoxaccompagne">
+          <label for="Accompagne">Accompagne</label>
+        </div>
+        
+        <div class="slidecontainer">
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+          <p>Value: <span id="demo"></span></p>
+        </div>
+        <label for="kms">Combien de kms autour de vous</label>
+        
+        <script>
+          var slider = document.getElementById("myRange");
+          var output = document.getElementById("demo");
+          output.innerHTML = slider.value;
+          
+          slider.oninput = function() {
+            output.innerHTML = this.value;
+          }
+          </script>
+      </div>
+    </div> 
+  </div>
+</div>
+      
+
+    
+    
+
 
 
 
