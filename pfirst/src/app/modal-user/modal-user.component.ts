@@ -19,6 +19,10 @@ export class ModalUserComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goThenClose(where: string){
+    this.router.navigate([where]);
+    this.closeUserModal();
+  }
   closeUserModal(){
     this.matDialogRef.close();
   }

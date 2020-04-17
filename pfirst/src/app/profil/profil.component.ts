@@ -12,7 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ProfilComponent implements OnInit {
 
-  info_user = [];
+  info_user : any;
   id: string;
 
   constructor(private userService : UserService,
@@ -20,12 +20,8 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    console.log("profil : this.is :", this.id);
-    console.log("profil route.snapshot : ",this.route.snapshot);
-    this.userService.getProfilById(this.id)
-      .then(()=>{this.info_user = this.userService.info_user;})
-      .catch(()=>{console.log("erreur de chargement profil");});
+    this.info_user = JSON.parse(localStorage.getItem('token'))["user"] ;
+    console.table(this.info_user);
   }
 
   onSave(){

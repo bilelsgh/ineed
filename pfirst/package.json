@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~9.0.1",
     "@angular/router": "~9.0.1",
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
+    "@popperjs/core": "^2.3.3",
     "bootstrap": "^4.0.0",
     "ng-recaptcha": "^5.0.0",
     "popper.js": "^1.16.1",

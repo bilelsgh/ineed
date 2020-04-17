@@ -15,7 +15,7 @@ export class AuthService {
 
 
   public isAuthenticated() : Boolean {
-    let userData = sessionStorage.getItem('token')
+    let userData = localStorage.getItem('token')
     if(userData && JSON.parse(userData)){
       return true;
     }
@@ -23,14 +23,14 @@ export class AuthService {
   }
 
   public removeUserInfo(){
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
   }
 
   public setUserInfo(user){ //on met le token ici
-    sessionStorage.setItem('token', JSON.stringify(user));
+    localStorage.setItem('token', JSON.stringify(user));
   }
 
   public validate(email, password) {
-    return this.http.post(this.backend_test+"user_co.json", {'mail' : email, 'password' : password}).toPromise();
+    return this.http.post(this.backend_test+"user_co.json", {"mail" : email, "password" : password}).toPromise();
   }
 }

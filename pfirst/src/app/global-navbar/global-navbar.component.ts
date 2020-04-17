@@ -62,10 +62,10 @@ export class GlobalNavbarComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-user-component";
-    dialogConfig.width = "150px";
+    dialogConfig.width = "170px";
     dialogConfig.height = "auto";
-    dialogConfig.position = {top: '95px', left:'130px'};
-    dialogConfig.hasBackdrop = false;
+    dialogConfig.position = {top: '95px', left:'140px'};
+    dialogConfig.hasBackdrop = true;
     const modalDialog = this.matDialog.open(ModalUserComponent, dialogConfig);
   }
 }

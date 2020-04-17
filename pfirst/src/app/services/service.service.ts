@@ -160,8 +160,7 @@ export class ServiceService{
   }
 
   getServiceById(id: number) {
-    return new Promise((resolve,reject)=>
-    {
+    return new Promise((resolve,reject)=> {
       this.httpClient
         .get<any[]>(this.auth.backend_test+'services.json')
         .subscribe(
