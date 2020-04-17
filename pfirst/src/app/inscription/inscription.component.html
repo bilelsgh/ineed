@@ -83,19 +83,15 @@
             <label for="password">Mot de passe <span style="color:red">*</span> </label>
             <table>
               <tr>
-                <td><input class="form-control" type="password" id="password" name="password" (change)="passwordComplexity(f.value['password'])"
-                           ngModel required>
+                <td><input class="form-control" type="password" id="password" name="password"
+                           (change)="passwordComplexity(f.value['password'])" ngModel required>
                 </td>
-                <td><span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary" (click)="displayInfo()">
+                <!-- ////POPOVER MOT DE PASSSE //// -->
+                <td><span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary" ngbPopover="Votre
+                mot de passe doit faire au moins 6 caractères. Utilisez des lettres majuscules et minuscules, des chiffres
+                 ou encore descaractères spéciaux pour rendre votre mot de passe plus sûr." triggers="mouseenter:mouseleave"
+                          popoverTitle="Un mot de passe c'est important !" placement="right">
                   <p id="text_info">?</p></span></td>
-              </tr>
-              <tr id="info_mdp" *ngIf="info_mdp">
-                Le mot de passe :
-                <ul>
-                  <li>doit contenir 6 caractères</li>
-                  <li>est correct s'il contient chiffres et majuscules</li>
-                  <li>est fort s'il contient, en plus, des caractères spéciaux</li>
-                </ul>
               </tr>
             </table>
 
@@ -136,4 +132,5 @@
       </div>
     </tr>
   </table>
+
 
