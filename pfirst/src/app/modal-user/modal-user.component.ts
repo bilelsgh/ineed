@@ -28,19 +28,8 @@ export class ModalUserComponent implements OnInit {
   }
 
   myProfil(){
-    this.httpClient
-      .get<any[]>(this.auth.backend_test+'current_user.json')
-      .subscribe(
-        (response) => {
-
-          this.userserv.info_user = response;
-          console.log("#OK");
-          console.log("#SERVICES : " + response);
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-      );
+    this.auth.setUserInfo( localStorage.getItem('token') ,'current_profil');
     this.router.navigate(['profil']);
+    this.closeUserModal()
   }
 }

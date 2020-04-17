@@ -26,8 +26,8 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  public setUserInfo(user){ //on met le token ici
-    localStorage.setItem('token', JSON.stringify(user));
+  public setUserInfo(user, where : string){ //on met le token ici
+    localStorage.setItem(where, user);
   }
 
   public validate(email, password) {

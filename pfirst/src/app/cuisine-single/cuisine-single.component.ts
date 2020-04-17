@@ -42,20 +42,21 @@ export class CuisineSingleComponent implements OnInit {
      */
   }
 
+  /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
+   EN QUESTION.
+    */
   goProfil(){
     this.httpClient
-      .get<any[]>(this.auth.backend_test+'other_user.json')
+      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.id_user)
       .subscribe(
-        (response) => {
+        (token) => {
+          this.auth.setUserInfo(token, 'current_profil');
+          this.router.navigate(['profil']);
 
-          this.userserv.info_user = response;
-          console.log("#OK");
-          console.log("#SERVICES : " + response);
         },
         (error) => {
           console.log("Erreur de chargement : " + error);
         }
       );
-    this.router.navigate(['profil']);
   }
 }
