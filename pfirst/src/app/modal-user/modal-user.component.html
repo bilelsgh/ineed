@@ -1,31 +1,40 @@
-<table>
+<table width="100%">
   <tr>
     <td align="center">
-      <button type="button" class="btn btn-dark" (click)="this.goThenClose('profil/current_user')">Mon profil</button>
+      <button type="button" class="btn btn-outline-light" (click)="this.goThenClose('profil/current_user')">Mon profil</button>
       <br>
       <!--  <button type="button" class="btn btn-dark" (click)="myProfil()" >Mon profil</button><br> -->
     </td>
   </tr>
   <tr>
     <td>
-
+      <p> </p>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <button type="button" class="btn btn-dark" (click)="this.goThenClose('mes-infos')">Mes infos</button>
+      <button type="button" class="btn btn-outline-light" (click)="this.goThenClose('mes-infos')">Mes infos</button>
       <br>
     </td>
   </tr>
   <tr>
     <td>
-
+      <p> </p>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <button type="button" class="btn btn-danger" (click)="closeUserModal()">X</button>
-      <br>
+      <button type="button" class="btn btn-outline-light">Mon activité</button>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p> </p>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <button type="button" class="btn btn-outline-danger" style="width: 70%" (click)="this.matDialogRef.close()">X</button>
     </td>
   </tr>
 </table>

@@ -19,13 +19,14 @@ export class GlobalNavbarComponent implements OnInit {
   path: UrlSegment[];
   hasUrl: boolean;
   showProfilMenu: boolean; // a sup si dropdown
+  notifs: string[];
 
   constructor(public authService: AuthService, private actRoute: ActivatedRoute, router: Router,public userService: UserService, public matDialog: MatDialog) {
   }
 
   ngOnInit() {
     this.showProfilMenu=false;
-
+    this.notifs = this.userService.notifications;
     this.actRoute.url.subscribe(value => {
       this.path = value;
       console.log("oninit ext"+this.path);
@@ -49,23 +50,15 @@ export class GlobalNavbarComponent implements OnInit {
     console.log("url ",url);
   }
 
-  // a supprimer si solution optimale dropdown trouvée
-  switchMenu(){
-    if (this.showProfilMenu){
-      this.showProfilMenu=false;
-    }else{
-      this.showProfilMenu=true;
-    }
-  }
-
   openUserModal(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-user-component";
-    dialogConfig.width = "170px";
+    dialogConfig.width = "180px";
     dialogConfig.height = "auto";
     dialogConfig.position = {top: '95px', left:'140px'};
     dialogConfig.hasBackdrop = true;
+    dialogConfig.backdropClass = "backdropClass";
     const modalDialog = this.matDialog.open(ModalUserComponent, dialogConfig);
   }
 }

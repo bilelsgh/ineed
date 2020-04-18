@@ -10,7 +10,9 @@ export class UserService {
   }
 
   info_user: any;
-
+  notifications: string[] = [
+    'post-inscription'
+  ];
 
   services_history_for = [
     {
@@ -135,6 +137,17 @@ export class UserService {
     return res;
   }
 
+  getUserInfosFromToken(){
+    return new Promise((resolve, reject) =>{
+      this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
+      console.log("GetfromToken : this.info_user =", this.info_user);
+      if (this.info_user != undefined){
+        resolve(true);
+      }else{
+        reject(true);
+      }
+    });
+  }
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
   getProfilById(id: string = 'current_user') {

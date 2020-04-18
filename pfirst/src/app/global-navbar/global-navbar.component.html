@@ -37,10 +37,6 @@
           </ul>
         </div>
         -->
-        <ul *ngIf="this.showProfilMenu">
-          <li>Mes infos</li>
-          <li>Mes notifs</li>
-        </ul>
         <!--
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -83,3 +79,6 @@
     </tr>
   </table>
 </nav>
+<div *ngIf="this.notifs.length>0&&this.authService.isAuthenticated()" id="roundNotifIcon" (click)="openUserModal()">
+  {{this.notifs.length}}
+</div>

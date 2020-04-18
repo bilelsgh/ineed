@@ -5,27 +5,57 @@
 
       <div class="col-sm-8 col-sm-offset-2">
 
-        <!--#############PRENOM######################-->
+        <form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">
+
+
+          <!-- ##################### MAIL ####################-->
+          <div class="form-group">
+            <div class="jumbotron" id="formulaire">
+              <label for="mail">Votre email</label>
+              <input type="text" class="form-control" id="mail" name="mail"
+                     #email="ngModel" ngModel>
+              <span class="current-info-indicator">{{this.bio}}</span>
+            </div>
+
+            <!-- ##################### BIO ####################-->
+            <div class="jumbotron" id="formulaire">
+              <label for="bio">Votre bio</label>
+              <input type="text" class="form-control" id="bio" name="bio"
+                     #bio="ngModel" ngModel>
+              <span class="current-info-indicator">{{this.bio}}</span>
+            </div>
+
+            <div class="jumbotron" id="formulaire">
+              <label for="profil-pic">Votre photo de profil</label>
+              <input type="file" class="form-control" id="profil-pic" name="profil-pic"
+                     #bio="ngModel" ngModel>
+              <img src="../../assets/data/photo_undefined.png">
+              <span>(en dur)</span>
+            </div>
+           <button class="btn btn-primary" type="submit">Valider</button>
+          </div>
+        </form>
+        <!--
         <form [formGroup]="userForm" (ngSubmit)="onSubmitNewInfos()" id="form">
 
-          <div class="jumbotron" id="formulaire">
 
             <div class="form-group">
+              <div class="jumbotron" id="formulaire">
+
               <label for="user"><h2>Email</h2></label>
               <input type="text" id="user" class="form-control" formControlName="email">
             </div>
 
           </div>
 
-          <!--#############DISPO######################-->
           <div class="form-group">
             <div class="jumbotron" id="formulaire">
+
               <label for="date"><h2>Votre bio</h2>
               </label>
               <input type="text" id="bio" formControlName="bio">
             </div>
 
-            <!--#############DATE######################-->
             <div class="jumbotron" id="formulaire">
               <div class="form-group">
                 <label for="date"><h2>Votre photo de profil</h2>
@@ -37,6 +67,7 @@
           </div>
 
         </form>
+        -->
 
       </div>
 

@@ -4,4 +4,12 @@
 #formulaire{
   background-color: #ededed;
   box-shadow: 1px 1px 5px #c0c0c0;
+  width: 800px;
+  height: auto;
+}
+
+.current-info-indicator
+{
+  color: #3f77dc;
+  font-family: italic;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../services/users.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-info-settings',
@@ -19,22 +19,27 @@ export class InfoSettingsComponent implements OnInit {
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.info_user = JSON.parse(sessionStorage.getItem('token'))["user"];
-    this.email = this.info_user['email'];
-    this.bio = this.info_user['bio'];
-    this.profil_pic = this.info_user['profil_pic'];
-    this.initForm();
+    this.userService.getUserInfosFromToken().then(()=> {
+        this.info_user = this.userService.info_user;
+        console.log("Init info-set : this.info_user : ", this.info_user);
+        this.email = this.info_user['mail'];
+        console.log("this.email : ", this.email);
+        this.bio = this.info_user['bio'];
+        this.profil_pic = this.info_user['profil_pic'];
+        this.userForm = this.initForm();
+      }
+    );
   }
 
   initForm(){
-    this.userForm=this.formBuilder.group({
+    return this.formBuilder.group({
       email: this.email,
       bio: this.bio,
       profil_pic: this.profil_pic
     });
   }
 
-  onSubmitNewInfos() {
+  onSubmitNewInfos(form: NgForm) {
     const form_value = this.userForm.value;
     console.log("formValue : ", form_value);
   }

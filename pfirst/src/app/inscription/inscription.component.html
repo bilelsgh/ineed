@@ -25,7 +25,7 @@
             <!-- -------------- -->
             <input type="text" id="lastName" class="form-control" name="lastName" placeholder="ex: Dupont"
                    #lastName="ngModel" ngModel required> <!-- ce champ est requis -->
-            <span class="help-block" *ngIf="lastName.invalid && lastName.touched" style="color:red">Une nom est requis.</span>
+            <span class="help-block" *ngIf="lastName.invalid && lastName.touched" style="color:red">Un nom est requis.</span>
           </div>
 
             <br>
@@ -42,7 +42,7 @@
             </label>
             <input type="text" id="firstName" class="form-control" name="firstName" placeholder="ex: Jean"
                    (change) = "updateSurname(f.value['firstName'])" #firstName="ngModel" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
-            <span class="help-block" *ngIf="firstName.invalid && firstName.touched" style="color:red">Une prénom est requis.</span>
+            <span class="help-block" *ngIf="firstName.invalid && firstName.touched" style="color:red">Un prénom est requis.</span>
           </div>
           <br>
 

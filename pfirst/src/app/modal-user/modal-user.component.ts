@@ -13,17 +13,14 @@ import {Router} from '@angular/router';
 })
 export class ModalUserComponent implements OnInit {
 
-  constructor(private userserv : UserService, public matDialogRef: MatDialogRef<ModalUserComponent>,
-              private httpClient : HttpClient, private auth : AuthService, private router : Router){ }
+  constructor(private userserv: UserService, public matDialogRef: MatDialogRef<ModalUserComponent>,
+              private httpClient: HttpClient, private auth: AuthService, private router: Router){ }
 
   ngOnInit(): void {
   }
 
   goThenClose(where: string){
     this.router.navigate([where]);
-    this.closeUserModal();
-  }
-  closeUserModal(){
     this.matDialogRef.close();
   }
 
