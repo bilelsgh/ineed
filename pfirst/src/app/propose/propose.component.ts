@@ -15,6 +15,7 @@ export class ServiceViewComponent implements OnInit {
   types : any[];
   service: any[];
   services_db : any[];
+  kms : number;
   public showncourses = false;
   public shownmenage = false;
   public showncuisine = false;
@@ -22,9 +23,9 @@ export class ServiceViewComponent implements OnInit {
   public all = true;
 
   constructor (private serviceService : ServiceService, private auth: AuthService, private httpClient : HttpClient){
-
-
   }
+  
+
   ngOnInit(){
     
 
