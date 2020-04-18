@@ -20,7 +20,8 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.info_user = JSON.parse(localStorage.getItem('token'))["user"] ;
+    this.info_user = JSON.parse(localStorage.getItem('current_profil'))["user"] ;
+    console.table('#infouser : ' + this.info_user);
     console.table(this.info_user);
   }
 

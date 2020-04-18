@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
 export class ModalUserComponent implements OnInit {
 
   constructor(private userserv: UserService, public matDialogRef: MatDialogRef<ModalUserComponent>,
-              private httpClient: HttpClient, private auth: AuthService, private router: Router){ }
+              private httpClient: HttpClient, private auth: AuthService, private router: Router){}
 
   ngOnInit(): void {
   }
@@ -25,19 +25,9 @@ export class ModalUserComponent implements OnInit {
   }
 
   myProfil(){
-    this.httpClient
-      .get<any[]>(this.auth.backend_test+'current_user.json')
-      .subscribe(
-        (response) => {
-
-          this.userserv.info_user = response;
-          console.log("#OK");
-          console.log("#SERVICES : " + response);
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-      );
+    this.auth.setUserInfo( localStorage.getItem('token') ,'current_profil');
     this.router.navigate(['profil']);
+    this.matDialogRef.close();
   }
+
 }

@@ -28,7 +28,7 @@ export class AuthComponent implements OnInit {
       .subscribe(
         (token) => {
           console.log("#Connexion réussie : " + token);
-          this.authService.setUserInfo(token); //stocke le token dans le session/localStorage
+          this.authService.setUserInfo( JSON.stringify(token), 'token'); //stocke le token dans le session/localStorage
           this.router.navigate(['']);
         },
         (error) => {

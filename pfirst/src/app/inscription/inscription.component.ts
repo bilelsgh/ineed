@@ -122,7 +122,7 @@ export class InscriptionComponent implements OnInit {
           //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL
           console.log("#Inscription réussie : " + token);
           this.alreadyExist = false;
-          this.auth.setUserInfo(token); //stocke le tocken dans le session/localStorage
+          this.auth.setUserInfo( JSON.stringify(token), 'token'); //stocke le tocken dans le session/localStorage
           this.router.navigate(['']);
 
         },
