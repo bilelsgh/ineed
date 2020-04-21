@@ -150,17 +150,20 @@ export class UserService {
   }
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
-  getProfilById(id: string = 'current_user') {
-   /*return new Promise((resolve, reject)=>{
+  getProfilById(id: string) {
+   return new Promise((resolve, reject)=>{
       this.info_user = JSON.parse(sessionStorage.getItem('token'))["user"] ;
 
       this.httpClient
-          .get<any[]>(this.auth.backend_test + id + '.json')
+          .get<any[]>(this.auth.backend + '/api/register/' + id )
           .subscribe(
             (response) => {
-              this.info_user = response;
+              console.log("#GETPROFILBYID");
+              console.table(response)
+              this.auth.setUserInfo( JSON.stringify(response), 'current_profil');
+              /*this.info_user = response;
               console.log("#OK");
-              console.log("#SERVICES : " + response);
+              console.log("#SERVICES : " + response);*/
               resolve(true);
             },
             (error) => {
@@ -168,6 +171,6 @@ export class UserService {
               reject(true);
             }
           );
-      });*/
+      });
   }
 }

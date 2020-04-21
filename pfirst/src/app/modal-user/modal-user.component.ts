@@ -24,10 +24,5 @@ export class ModalUserComponent implements OnInit {
     this.matDialogRef.close();
   }
 
-  myProfil(){
-    this.auth.setUserInfo( localStorage.getItem('token') ,'current_profil');
-    this.router.navigate(['profil']);
-    this.matDialogRef.close();
-  }
 
 }
