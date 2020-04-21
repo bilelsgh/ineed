@@ -1,0 +1,10 @@
+#notifIcon
+{
+  text-align: center;
+  color: white;
+  min-width: 20px;
+  border-radius: 10%;
+  background-color: red;
+  cursor: pointer;
+}
+

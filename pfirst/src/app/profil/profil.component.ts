@@ -20,9 +20,16 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.info_user = JSON.parse(localStorage.getItem('current_profil'))["user"] ;
-    console.table('#infouser : ' + this.info_user);
-    console.table(this.info_user);
+    this.id = this.route.snapshot.params['id'];
+    this.userService.getProfilById(this.id).then( ()=>{
+      this.info_user = this.userService.info_user;
+      console.table('#infouser : ', this.info_user);
+      }
+    )
+      .catch( ()=>{
+        console.log("Erreur de recupération des infos profil");
+      });
+
   }
 
   onSave(){

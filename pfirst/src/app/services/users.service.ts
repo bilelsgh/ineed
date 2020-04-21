@@ -137,13 +137,13 @@ export class UserService {
     return res;
   }
 
-  getUserInfosFromToken(){
-    return new Promise((resolve, reject) =>{
+  getUserInfosFromToken() {
+    return new Promise((resolve, reject) => {
       this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
       console.log("GetfromToken : this.info_user =", this.info_user);
-      if (this.info_user != undefined){
+      if (this.info_user != undefined) {
         resolve(true);
-      }else{
+      } else {
         reject(true);
       }
     });
@@ -151,10 +151,18 @@ export class UserService {
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
   getProfilById(id: string = 'current_user') {
-   /*return new Promise((resolve, reject)=>{
-      this.info_user = JSON.parse(sessionStorage.getItem('token'))["user"] ;
+    return new Promise((resolve, reject) => {
+      if (id == "current_user") {
+        this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
+        console.table(this.info_user);
+        if (this.info_user != null) {
+          resolve(true);
+        } else {
+          reject(true);
+        }
+      } else {
 
-      this.httpClient
+        this.httpClient
           .get<any[]>(this.auth.backend_test + id + '.json')
           .subscribe(
             (response) => {
@@ -168,6 +176,7 @@ export class UserService {
               reject(true);
             }
           );
-      });*/
+      }
+    });
   }
 }
