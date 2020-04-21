@@ -161,14 +161,16 @@ export class UserService {
           reject(true);
         }
       } else {
-
         this.httpClient
-          .get<any[]>(this.auth.backend_test + id + '.json')
+          .get<any[]>(this.auth.backend + '/api/register/' + id)
           .subscribe(
             (response) => {
-              this.info_user = response;
+              console.log("#GETPROFILBYID");
+              console.table(response)
+              this.auth.setUserInfo(JSON.stringify(response), 'current_profil');
+              /*this.info_user = response;
               console.log("#OK");
-              console.log("#SERVICES : " + response);
+              console.log("#SERVICES : " + response);*/
               resolve(true);
             },
             (error) => {
@@ -179,4 +181,7 @@ export class UserService {
       }
     });
   }
+
+);
+}
 }
