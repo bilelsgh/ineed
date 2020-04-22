@@ -162,7 +162,8 @@ export class UserService {
         }
       } else {
         this.httpClient
-          .get<any[]>(this.auth.backend + '/api/register/' + id)
+          .get<any[]>(this.auth.backend + 'api/user/' + id +
+            '?token=' + JSON.parse(localStorage.getItem('token'))["token"])
           .subscribe(
             (response) => {
               console.log("#GETPROFILBYID");
@@ -182,6 +183,4 @@ export class UserService {
     });
   }
 
-);
-}
 }

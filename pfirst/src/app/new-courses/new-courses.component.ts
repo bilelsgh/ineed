@@ -40,7 +40,7 @@ export class NewCoursesComponent implements OnInit {
         formValue['user'],
         formValue['description'],
         formValue['accompagne'],
-        formValue['budget'],
+        Number(formValue['budget']),
         formValue['date'],
         this.liste_courses,
         JSON.parse(localStorage.getItem('token'))["user"]['idUser'], //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)

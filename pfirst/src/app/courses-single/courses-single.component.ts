@@ -39,6 +39,7 @@ export class CoursesSingleComponent implements OnInit {
     this.writeList();
     this.copied = false;
 
+    console.log("BUDGET : " + this.Budget);
   }
 
   writeList(){

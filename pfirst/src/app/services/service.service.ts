@@ -101,7 +101,7 @@ export class ServiceService{
         }
       );}
 
-  services=[
+  services : any[] = [
     {
       id: 1,
       image:"../assets/data/cuisine_pour_annonce_courte.jpg",
@@ -114,44 +114,6 @@ export class ServiceService{
       budget: 98,
       date:"30/03/2002"
 
-
-    },
-    {id:2,
-      image:"../assets/data/V1/menage.jpg",
-      type:'service2',
-      name: 'Faire le menage',
-      user: 'Jean Paul',
-      description: "Mon copain va m' aider",
-      date: "24/03/2020",
-      heure: "9:00 PM ",
-      surface : 50,
-      materiel: ["un ballai","une eponge","autre"],
-      salle: "Sallon",
-      localisation:"Chez moi a chassiue",
-    },
-    {
-      id:3,
-      image:"../assets/data/cuisine_pour_annonce_courte.jpg",
-      type:'service3',
-      name: 'Faire la cuisine',
-      user: 'Jean Paul',
-      description: "Salut mec",
-      sur_place: "oui",
-      type_de_plat: "fast food",
-      date: "09/09/2009"
-
-
-    },
-    {id :4,
-      image:"../assets/data/V2/accompagner.jpg",
-      type:'service4',
-      name: 'Accompagne moi gros',
-      user: 'Jean Paul',
-      description: "Salut mec",
-      kind:"ponctuel",
-      quand:"midi a 14h",
-      local: "a la pischine",
-      date:"03/04/2040"
 
     }
   ];
