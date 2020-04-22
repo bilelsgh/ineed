@@ -2,7 +2,11 @@
 {
   width: 150px;
 }
-
+#who{
+  color: #ededed;
+  font-weight: bold;
+  font-size: 25px;
+}
 #roundProfilPic
 {
   border-radius: 50%;
