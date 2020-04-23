@@ -15,8 +15,8 @@ export class Courses{
 /*export class Courses{
   constructor(
     public idUser: number,
-    public content: { date: any; accompagner: any; liste: { produit: string; quantite: string }[];
-    name: string; description: any; id: number; type: string; user: any },
+    public content: { date: any, accompagner: any, liste: { produit: string, quantite: string }[],
+    name: string, description: any, id: number, type: string, user: any, image : string },
     public price: number,
   ) {
   }
