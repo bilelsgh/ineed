@@ -20,7 +20,7 @@ export class CoursesSingleComponent implements OnInit {
   Accompagne : string = 'oui';
   Budget : number;
   Dispo: string="coucou"
-  liste_a_copier : string;
+  liste_a_copier : string = "LISTE : \n ";
   copied = false;
   @Input() service_descriptor: Courses;
 
