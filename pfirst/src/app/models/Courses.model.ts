@@ -9,5 +9,15 @@ export class Courses{
         public budget : number,
         public date: string,
         public liste: Array<{produit: string, quantite: string}>,
-        public id_user : number,){}
+        public idUser : number,){}
 }
+
+/*export class Courses{
+  constructor(
+    public idUser: number,
+    public content: { date: any; accompagner: any; liste: { produit: string; quantite: string }[];
+    name: string; description: any; id: number; type: string; user: any },
+    public price: number,
+  ) {
+  }
+}*/

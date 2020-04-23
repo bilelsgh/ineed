@@ -65,22 +65,46 @@ export class ServiceService{
     this.coursesSubject.next(this.courses.slice());
   }
 
+  //VERSION POUR ENVOYER DANS FIREBASE
   addCourses(courses : Courses){
     courses.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
     this.emitCourses();
 
     this.httpClient
-      .put(this.auth.backend_test+"services.json", this.services) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
-      .subscribe( //                                            Cette méthode renvoie un Observable, elle ne fait pas appel à elle toute seule
-        () => { //                                       c'est en y souscrivant que l'appel est lancé ; put() écrase
+      .put(this.auth.backend_test+"services.json", this.services)
+      .subscribe(
+        () => {
           console.log("Enregistrement ok!");
-        },                                         //subscribe() prévoie le cas où tout fonctionne t le cas où il y a des erreurs
+        },
         (error) => {
           console.log("Erreur : "+ error);
         }
       );
   }
+
+  //VERSION POUR ENVOYER DANS LE BACK
+  /*addCourses(courses : Courses){
+    courses.content['id']=this.services[(this.services.length - 1)].id + 1
+    this.services.push(courses);
+    this.emitCourses();
+
+    //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
+    let message = {"token" : JSON.parse(localStorage.getItem('token'))['token'], "announce" : courses}
+    console.table(message);
+
+    this.httpClient
+      .post(this.auth.backend+"api/announce", message)
+      .subscribe(
+        (response) => {
+          console.log("#DEBUG : Envoie des courses réussi");
+          console.table(response);
+        },
+        (error) => {
+          console.log("#DEBUG : Erreur lors de l'envoie des courses: "+ error);
+        }
+      );
+  }*/
 
   emitMenage(){
     this.menageSubject.next(this.menage.slice());
