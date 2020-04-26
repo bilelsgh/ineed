@@ -8,18 +8,22 @@
 }
 
 .jumbotron{
-  background-image: url("../../assets/data/banniere.jpg");
+  background-image: url("../../assets/data/banniere1.png");
   background-size: cover;
   min-height: 380px;
   height: 400px;
+
 }
 
+/*
 .jumbotron:hover{
-  background-image: url("../../assets/data/banniere_flou.jpg");
+  background-image: url("../../assets/data/banniere1.png");
   background-size: cover;
   min-height: 380px;
   height: 400px;
+  transition: backround 5s;
 }
+*/
 
 #space{
   height: 200px;
