@@ -18,7 +18,7 @@ export class CoursesSingleComponent implements OnInit {
   Description: string = 'Description';
   Liste = new Array<{produit: string, quantite: string}>();
   Accompagne : string = 'oui';
-  Budget : number;
+  Budget : string;
   Dispo: string="coucou"
   liste_a_copier : string;
   copied = false;

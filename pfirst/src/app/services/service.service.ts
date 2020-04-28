@@ -111,7 +111,7 @@ export class ServiceService{
       description: "J'ai faim la vie de maman",
       liste: [],
       accompagner:"",
-      budget: 98,
+      budget: "98",
       date:"30/03/2002"
 
 

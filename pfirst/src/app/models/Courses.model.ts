@@ -6,7 +6,7 @@ export class Courses{
         public user: string,
         public description: string ,
         public accompagner : string,
-        public budget : number,
+        public budget : string,
         public date: string,
         public liste: Array<{produit: string, quantite: string}>,
         public id_user : number,){}
