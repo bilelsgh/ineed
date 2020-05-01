@@ -25,11 +25,11 @@ export class ServiceViewComponent implements OnInit {
 
   constructor (private serviceService : ServiceService, private auth: AuthService, private httpClient : HttpClient){
   }
-  
+
 
   ngOnInit(){
-    
 
+    //RÉCUPÈRE DEPUIS FIREBASE
     this.httpClient
       .get<any[]>(this.auth.backend_test+'services.json')
       .subscribe(
@@ -45,15 +45,40 @@ export class ServiceViewComponent implements OnInit {
           for (let content of this.servicesContent){
             console.log(content.user);}
 
-          
+
         },
         (error) => {
           console.log("Erreur de chargement : " + error);
         }
-        
+
       );
-      
-      
+
+    //RÉCUPÈRE DEPUIS LE BACK
+    /*this.httpClient
+      .get<any[]>(this.auth.backend_test+'services.json')
+      .subscribe(
+        (response) => {
+          let converted_response = {idUser: response['idUser'], content: JSON.parse(response['content']),
+          id: response['id'], price: response['price']}
+          this.services_db = converted_response;
+          console.log("#OK");
+          console.log("#SERVICES : " + response);
+          console.log(this.services_db)
+          for (let j=0; j< this.services_db.length ; j++){
+            this.servicesContent.push(this.services_db[j].content);
+          }
+          for (let content of this.servicesContent){
+            console.log(content.user);}
+
+
+        },
+        (error) => {
+          console.log("Erreur de chargement : " + error);
+        }
+
+      );*/
+
+
 
   }
   lireService(){
@@ -66,6 +91,6 @@ export class ServiceViewComponent implements OnInit {
 
   }
 
-  
+
 
 }

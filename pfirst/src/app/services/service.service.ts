@@ -88,9 +88,11 @@ export class ServiceService{
     courses.content['id']=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
     this.emitCourses();
+    let course_back = {idUser: courses["idUser"], content: JSON.stringify(courses["content"]), id: courses["id"],
+    price: courses} //On convertit en string car c'est le format attendu dans le BACK
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
-    let message = {"token" : JSON.parse(localStorage.getItem('token'))['token'], "announce" : courses}
+    let message = {"token" : JSON.parse(localStorage.getItem('token'))['token'], "announce" : course_back};
     console.table(message);
 
     this.httpClient
@@ -126,11 +128,11 @@ export class ServiceService{
       );}
 
   services : any[] = [
-    
+
     {idUser: 999,
     content:{
-      
-      
+
+
       image:"../assets/data/cuisine_pour_annonce_courte.jpg",
       type:'service1',
       name: 'Faire les courses',
