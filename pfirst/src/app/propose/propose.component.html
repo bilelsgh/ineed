@@ -11,62 +11,67 @@
   <div class="col-md-7">
     <div class="row">
       <ul class="list-group">
-        <div *ngFor ="let service of this.services_db, let i =index">
-          <div *ngIf = "all && !showncourses && !shownaccompagne && !showncuisine && !shownmenage">
+        <div *ngFor ="let service of this.services_db,  let i =index,">
+          <div *ngIf = "all && !showncourses && !shownaccompagne && !showncuisine && !shownmenage"> 
+            
             <app-service 
-                      [serviceName]="service['name']"
-                      [serviceUser]="service['user']"
-                      [serviceDescription]="service['description']"
-                      [serviceImage]="service['image']"
+                      [serviceName]="service.content.name"
+                      [serviceUser]="service.content.user"
+                      [serviceDescription]="service.content.description"
+                      [serviceImage]="service.content.image"
                       [index]="i"
                       [id]="service.id"
-                      [serviceDate]="service.date" >
+                      [serviceDate]="service.content.datejour" >
+            </app-service>
+          </div>  
+        
+
+
+         <div *ngIf = "service.content.type== 'service1'&& showncourses">
+            <app-service 
+            [serviceName]="service.content.name"
+            [serviceUser]="service.content.user"
+            [serviceDescription]="service.content.description"
+            [serviceImage]="service.content.image"
+            [index]="i"
+            [id]="service.id"
+            [serviceDate]="service.content.datejour" >
           </app-service>
           </div>
-          <div *ngIf = "service['type']== 'service1'&& showncourses">
+
+
+          <div *ngIf = "service.content.type== 'service2'&& shownmenage">
             <app-service 
-                      [serviceName]="service['name']"
-                      [serviceUser]="service['user']"
-                      [serviceDescription]="service['description']"
-                      [serviceImage]="service['image']"
-                      [index]="i"
-                      [id]="service.id"
-                      [serviceDate]="service.date" >
+            [serviceName]="service.content.name"
+            [serviceUser]="service.content.user"
+            [serviceDescription]="service.content.description"
+            [serviceImage]="service.content.image"
+            [index]="i"
+            [id]="service.id"
+            [serviceDate]="service.content.datejour" >
           </app-service>
           </div>
-          <div *ngIf = "service['type']== 'service2' &&shownmenage ">
+          <div *ngIf = "service.content.type== 'service3'&& showncuisine">
             <app-service 
-                        [serviceName]="service['name']"
-                        [serviceUser]="service['user']"
-                        [serviceDescription]="service['description']"
-                        [serviceImage]="service['image']"
-                        [index]="i"
-                        [id]="service.id"
-                        [serviceDate]="service.date" >
-            </app-service>
+            [serviceName]="service.content.name"
+            [serviceUser]="service.content.user"
+            [serviceDescription]="service.content.description"
+            [serviceImage]="service.content.image"
+            [index]="i"
+            [id]="service.id"
+            [serviceDate]="service.content.datejour" >
+          </app-service>
           </div>
-          <div *ngIf = "service['type']== 'service3' && showncuisine">
+          <div *ngIf = "service.content.type== 'service4'&& shownaccompagne">
             <app-service 
-                          [serviceName]="service['name']"
-                          [serviceUser]="service['user']"
-                          [serviceDescription]="service['description']"
-                          [serviceImage]="service['image']"
-                          [index]="i"
-                          [id]="service.id"
-                          [serviceDate]="service.date" >
-            </app-service>
-          </div>
-          <div *ngIf = "service['type']== 'service4' && shownaccompagne">
-            <app-service 
-                            [serviceName]="service['name']"
-                            [serviceUser]="service['user']"
-                            [serviceDescription]="service['description']"
-                            [serviceImage]="service['image']"
-                            [index]="i"
-                            [id]="service.id"
-                            [serviceDate]="service.date" > 
-            </app-service>
-                
+            [serviceName]="service.content.name"
+            [serviceUser]="service.content.user"
+            [serviceDescription]="service.content.description"
+            [serviceImage]="service.content.image"
+            [index]="i"
+            [id]="service.id"
+            [serviceDate]="service.content.datejour" >
+          </app-service>
           </div>
         </div>
       </ul>
@@ -121,7 +126,6 @@
 
     
     
-
 
 
 

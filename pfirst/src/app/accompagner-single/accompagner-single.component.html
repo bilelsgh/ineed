@@ -6,7 +6,7 @@
   </tr>
   <tr>
     <button type="button" class="btn btn-dark"
-            (click)="goProfil('profil/'+this.service_descriptor.id_user)">Voir le profil</button>
+            (click)="goProfil('profil/'+this.service_descriptor.idUser)">Voir le profil</button>
     <!-- <button type="button" class="btn btn-info" (click)="goProfil()">Voir le profil</button> -->
 
   </tr>
@@ -37,7 +37,7 @@
       </tr>
       <tr>
         <td><h2>Plage horaire:</h2></td>
-        <td>{{Dispo}}</td>
+        <td>De {{Quand1}} a {{Quand2}}</td>
       </tr>
 
       <tr>

@@ -29,20 +29,23 @@ ngOnInit(): void {
       sur_place:"",
       type_plat : "",
       lieu : "",
-      date: "",
+      datejour: "",
     });}
 
     onSubmitForm() {
-      const formValue = this.cuisineForm.value;
-      const newCuisine = new Cuisine(101, "../../assets/data/cuisine.png", 'service3','Faire la cuisine',
-        formValue['user'],
-        formValue['description'],
-        formValue['lieu'],
-        formValue['sur_place'],
-        formValue['date'],
-        formValue['type_plat'],
-        JSON.parse(localStorage.getItem('token'))["user"]['idUser'], //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)
-      );
+
+
+      const f = this.cuisineForm;
+      const content=  {id: 5, type:'service3', name:"Faire la cuisine", user:'',description: '', lieu:'',sur_place:'', datejour:'', type_de_plat: '',  image: '../../assets/data/cuisine.png' }
+      content.datejour=f.value['datejour'];
+      content.lieu= f.value['lieu'];
+      content.sur_place= f.value['sur_place'];
+      content.type_de_plat=f.value['type_plat'];
+      content.description=f.value['description'];
+      content.user=f.value['user'];
+    const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('token'))["user"]["idUser"], content,
+   
+    0);
       this.serviceService.addCuisine(newCuisine);
       this.router.navigate(['']);
     }

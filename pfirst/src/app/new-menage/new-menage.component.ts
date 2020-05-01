@@ -24,29 +24,35 @@ ngOnInit(): void {
   }
 
   initForm(){
+    
     this.menageForm=this.formBuilder.group({
       user: ['', Validators.required],
       description:['', Validators.required],
       materiel:['', Validators.required],
       surface :['', Validators.required],
-      date : ['', Validators.required],
+      datejour : ['', Validators.required],
       heure:['', Validators.required],
       localisation: ['', Validators.required],
     });}
 
     onSubmitForm() {
-      const formValue = this.menageForm.value;
-      const newMenage = new Menage(93, "../../assets/data/menage.png", 'service2','Faire le menage',
-        formValue['user'],
-        formValue['description'],
-        formValue['salle'],
-        formValue['localisation'],
-        formValue['surface'],
-        formValue['date'],
-        formValue['heure'],
-        this.liste_materiel,
-        JSON.parse(localStorage.getItem('token'))["user"]['idUser'], //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)
-      );
+      const f = this.menageForm;
+      const content=  { type:'service2', name:"Faire le menage", user:'',description: '', salle:'',localisation:'', surface: '', datejour: '', materiel:[],  image: '../../assets/data/menage.png' }
+      content.datejour=f.value['datejour'];
+      content.salle= f.value['salle'];
+      content.localisation= f.value['localisation'];
+      content.surface=f.value['surface'];
+      content.description=f.value['description'];
+      
+      content.user=f.value['user'];
+      content.materiel=this.liste_materiel
+    const newMenage= new Menage( JSON.parse(localStorage.getItem('token'))["user"]["idUser"], content, 93,
+   
+    0);
+
+
+
+      
       this.serviceService.addMenage(newMenage);
       this.router.navigate(['']);
     }

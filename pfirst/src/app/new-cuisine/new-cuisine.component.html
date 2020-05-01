@@ -11,9 +11,8 @@
 
 
                   <div class= "form-group">
-                    <label for="date"> <h2>Quand souhaitez vous que quelqu'un vienne vous aider pour la cuisine ? (Date et heure)</h2></label>
-                    <input type="date" id="dispo" name="date">
-                    <input type="time" id="dispo" name ="date">
+                    <label for="datejour"> <h2>Quand souhaitez vous que quelqu'un vienne vous aider pour la cuisine ? (Date et heure)</h2></label>
+                    <input type="datetime-local" id="datejour" class="form-control" formControlName="datejour" >
                   </div>
 
                   <div class= "form-group">
@@ -30,8 +29,8 @@
                   </div>
 
                   <div class= "form-group">
-                    <label for="sur_place"><h2>Quel type de plat souhaitez vous que la personne prepare ?</h2></label>
-                    <select id="accompagne" class="form-control" formControlName="accompagne">
+                    <label for="type_plat"><h2>Quel type de plat souhaitez vous que la personne prepare ?</h2></label>
+                    <select id="type_plat" class="form-control" formControlName="type_plat">
                       <option value="entree">Entree</option>
                       <option value="plat">Plat</option>
                       <option value="desser">Dessert</option>

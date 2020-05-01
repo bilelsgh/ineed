@@ -17,7 +17,6 @@ export class NewAccompageComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
              private httpClient : HttpClient, private auth : AuthService) { }
-
 ngOnInit(): void {
     this.initForm();
   }
@@ -27,24 +26,26 @@ ngOnInit(): void {
       user: "",
       description:"" ,
       kind:"",
-      quand : "",
+      quand1 : "",
+      quand2:"",
       local : "",
-      date: "",
+      datejour: "",
     });}
 
     onSubmitForm() {
-      const formValue = this.accompagneForm.value;
-      const newAccompagne = new Accompage(103, "../../assets/data/accompage.png", 'service4',"Accompagner quelqu'un",
-        formValue['user'],
-        formValue['description'],
-        formValue['kind'],
-        formValue['quand'],
-        formValue['local'],
-        formValue['date'],
-        JSON.parse(localStorage.getItem('token'))["user"]['idUser'], //A RECUPERER DANS LE TOKEN LORS DE LA PROPOSITION DE SERVICE
-      );
-      this.serviceService.addAccompage(newAccompagne);
-      this.router.navigate(['']);
-    }
+    const f = this.accompagneForm;
+    const content=  {id: 5, type:'service4', name:"Accompagner quelqu'un", user:'',description: '', kind:'',quand1:'',quand2 : '', local:'', datejour: '',  image: '../../assets/data/accompagner.png' }
+    content.datejour=f.value['datejour'];
+    content.kind= f.value['kind'];
+    content.quand1= f.value['quand1'];
+    content.quand2= f.value['quand2'];
+    content.local=f.value['local'];
+    content.description=f.value['description'];
+    content.user=f.value['user'];
+    const newAccompage = new Accompage( JSON.parse(localStorage.getItem('token'))["user"]["idUser"], content,8,
+   
+    0);
+    this.serviceService.addAccompage(newAccompage);
+    this.router.navigate(['']);
+};
 }
-

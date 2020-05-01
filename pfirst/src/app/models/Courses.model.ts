@@ -1,4 +1,4 @@
-export class Courses{
+/*export class Courses{
     constructor(public id : number,
         public image : string,
         public type:string,
@@ -10,14 +10,16 @@ export class Courses{
         public date: string,
         public liste: Array<{produit: string, quantite: string}>,
         public idUser : number,){}
-}
+}}*/
 
-/*export class Courses{
+export class Courses{
   constructor(
     public idUser: number,
-    public content: { date: any, accompagner: any, liste: { produit: string, quantite: string }[],
-    name: string, description: any, id: number, type: string, user: any, image : string },
-    public price: number,
+    public content: { datejour: string, accompagner: any, budget : string, liste: { produit: string, quantite: string }[],
+    name: string, description: any,type: string, user: any, image : string },
+    public id : number,
+    public price: number =0,
   ) {
   }
-}*/
+}
+

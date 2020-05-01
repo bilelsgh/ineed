@@ -18,8 +18,8 @@ export class CoursesSingleComponent implements OnInit {
   Description: string = 'Description';
   Liste = new Array<{produit: string, quantite: string}>();
   Accompagne : string = 'oui';
-  Budget : string;
-  Dispo: string="coucou"
+  Budget : number;
+  Dispo: any;
   liste_a_copier : string = "LISTE : \n ";
   copied = false;
   @Input() service_descriptor: Courses;
@@ -29,13 +29,14 @@ export class CoursesSingleComponent implements OnInit {
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
-    this.Name = this.service_descriptor.name;
-    this.User=this.service_descriptor.user;
-    this.Description = this.service_descriptor.description;
-    this.Liste= this.service_descriptor.liste;
-    this.Accompagne=this.service_descriptor.accompagner;
-    this.Budget=this.service_descriptor.budget;
-    this.Dispo=this.service_descriptor.date;
+    this.Name = this.service_descriptor.content.name;
+    this.User=this.service_descriptor.content.user;
+    this.Description = this.service_descriptor.content.description;
+    this.Liste= this.service_descriptor.content.liste;
+    this.Accompagne=this.service_descriptor.content.accompagner;
+    this.Budget=parseInt(this.service_descriptor.content.budget);
+    const dispo=this.service_descriptor.content.datejour;
+    this.Dispo=new Date(dispo)
     this.writeList();
     this.copied = false;
 

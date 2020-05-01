@@ -25,10 +25,10 @@ export class SingleServiceComponent implements OnInit {
     this.serviceService.getServiceById(+id)
       .then(()=>{
         this.serviceDescriptor = this.serviceService.current_service;
-        this.name = this.serviceDescriptor.name;
-        this.user = this.serviceDescriptor.user;
-        this.description = this.serviceDescriptor.description;
-        this.type= this.serviceDescriptor.type;
+        this.name = this.serviceDescriptor.content.name;
+        this.user = this.serviceDescriptor.content.user;
+        this.description = this.serviceDescriptor.content.description;
+        this.type= this.serviceDescriptor.content.type;
       })
       .catch(()=>{console.log("Erreur de récupération du service courant au niveau single-service")});
   }

@@ -13,20 +13,19 @@
   
               <!--#############DISPO######################-->
               <div class= "form-group">
-                <label for="date"> <h2>Quand souhaitez vous que quelqu'un vienne vous aider a faire le menage (Date et heure)</h2></label>
-                <input type="date" id="date" name="date">
-                <input type="time" id="heure" name ="heure">
+                <label for="datejour"> <h2>Quand souhaitez vous que quelqu'un vienne vous aider a faire le menage (Date et heure)</h2></label>
+                <input type="datetime-local" id="datejour" class="form-control" formControlName="datejour" >
               </div>
 
               <div class="input-group mb-3">
                 <label for="surface"><h2>Quel est la surface de l'endroit qu'il faut nettoyer ?</h2></label>
-                <input type="number" class="form-control" id="surface" aria-label="surface">
+                <input type="text" id="surface" class="form-control" formControlName="surface">
                 <div class="input-group-append"><span class="input-group-text">m²</span></div>
               </div>
 
               <div class="form-group">
                 <label for ="salle" ><h2>Quel salle necesite d'etre nettoyer </h2></label>
-                <input type="text" id="salle" class="form-control" formControlName="salle">
+                <input type="text" id="salle"  >
               </div>
 
               <div class="form-group">
@@ -45,7 +44,7 @@
                       <td>Materiel</td>
                     </tr>
                     <tr>
-                      <td><input type="text" id="liste" name="liste_materiel" class="form-control" ngModel></td>
+                      <td><input type="text" id="liste" name="liste_materiel" ngModel></td>
                       <td><button type="submit" class="btn btn-secondary">Ajouter</button></td>
                     </tr>
                     <tr>
@@ -78,11 +77,12 @@
               <div class="form group">
                 <label for ="description"> <h2>Veuillez indiquer un petit texte qui aidera a mieux coller a vos attentes.</h2></label>
                 <!--<input type="text" id="description" class="form-control" formControlName="description"> -->
-                <textarea class="form-control" aria-label="With textarea" id="description" class="form-control" formControlName="description"></textarea>
+                <textarea class="form-control" aria-label="With textarea" id="description" class="form-control"
+                        formControlName="description"></textarea>
               </div>
               <br>
   
-              <button type="submit" class="btn btn-primary" [disabled]="menageForm.invalid" >Soumettre</button>
+              <button type="submit" class="btn btn-primary"  >Soumettre</button>
             </form>
   
           </div>

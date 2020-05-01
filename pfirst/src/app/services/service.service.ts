@@ -126,8 +126,11 @@ export class ServiceService{
       );}
 
   services : any[] = [
-    {
-      id: 1,
+    
+    {idUser: 999,
+    content:{
+      
+      
       image:"../assets/data/cuisine_pour_annonce_courte.jpg",
       type:'service1',
       name: 'Faire les courses',
@@ -136,7 +139,9 @@ export class ServiceService{
       liste: [],
       accompagner:"",
       budget: "98",
-      date:"30/03/2002"
+      datejour:"30/03/2002"},
+      id: 1,
+      price : 0,
 
 
     }

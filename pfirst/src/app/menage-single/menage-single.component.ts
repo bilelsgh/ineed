@@ -17,7 +17,7 @@ export class MenageSingleComponent implements OnInit {
   User: string = 'Utilisateur';
   Description: string = 'Description';
   Materiel: any = [];
-  Date : string = 'oui';
+  Date : any;
   Heure: string ="";
   Salle: string ="";
   Localisation: string;
@@ -31,15 +31,15 @@ export class MenageSingleComponent implements OnInit {
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
-    this.Name = this.service_descriptor.name;
-    this.User=this.service_descriptor.user;
-    this.Description = this.service_descriptor.description;
-    this.Materiel= this.service_descriptor.materiel;
-    this.Date=this.service_descriptor.date;
-    this.Surface=this.service_descriptor.surface;
-    this.Heure=this.service_descriptor.heure;
-    this.Salle=this.service_descriptor.salle;
-    this.Localisation=this.service_descriptor.localisation;
+    this.Name = this.service_descriptor.content.name;
+    this.User=this.service_descriptor.content.user;
+    this.Description = this.service_descriptor.content.description;
+    this.Materiel= this.service_descriptor.content.materiel;
+    this.Date=new Date(this.service_descriptor.content.datejour);
+    this.Surface=parseInt(this.service_descriptor.content.surface);
+
+    this.Salle=this.service_descriptor.content.salle;
+    this.Localisation=this.service_descriptor.content.localisation;
     this.writeList();
     this.copied = false;
     /*
@@ -86,7 +86,7 @@ export class MenageSingleComponent implements OnInit {
     */
   goProfil(){
     this.httpClient
-      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.id_user)
+      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.idUser)
       .subscribe(
         (token) => {
           this.auth.setUserInfo(token, 'current_profil')

@@ -5,6 +5,9 @@ import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
+
+
 
 @Component({
   selector: 'app-new-courses',
@@ -14,6 +17,8 @@ import {AuthService} from '../services/auth.service';
 export class NewCoursesComponent implements OnInit {
 
   Services: ServiceService;
+  /*content= new Array<{ jour: string, accompagner: any,budget: string, liste :any,
+  name: string, description: any, id: number, type: string, user: any, image : string }>();*/
 
   liste_courses = new Array<{produit: string, quantite: string}>(); //A ENVOYER DANS LA DB
   coursesForm: FormGroup;
@@ -31,23 +36,25 @@ export class NewCoursesComponent implements OnInit {
       liste:[],
       accompagne : "",
       budget : "",
-      date: "",
+      datejour: "",
     });}
 
   onSubmitForm() {
-    const formValue = this.coursesForm.value;
-    const newCourses = new Courses( 5, "../../assets/data/courses.png", 'service1','Faire les courses',
-      formValue['user'],
-      formValue['description'],
-      formValue['accompagne'],
-      Number(formValue['budget']),
-      formValue['date'],
-      this.liste_courses,
-      JSON.parse(localStorage.getItem('token'))["user"]['idUser'], //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)
-    );
+
+    const f = this.coursesForm;
+    const content=  { datejour: '', accompagner:'',budget:'', liste: [],name:'Faire les courses', description: '',type:'service1',user:'', image: '../../assets/data/courses.png' }
+    content.datejour=f.value['datejour'];
+    content.accompagner= f.value['accompagne'];
+    content.budget= f.value['budget'];
+    content.liste=this.liste_courses;
+    content.description=f.value['description'];
+    content.user=f.value['user'];
+    const newCourses = new Courses( JSON.parse(localStorage.getItem('token'))["user"]["idUser"], content,5,0);    
+      //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)
     this.serviceService.addCourses(newCourses);
     this.router.navigate(['']);
   }
+
 
   ajouterListe(f : NgForm) {
     const new_element = {produit: '', quantite: ''};

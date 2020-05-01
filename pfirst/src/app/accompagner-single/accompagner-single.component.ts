@@ -14,12 +14,13 @@ import {Accompage} from "../models/Accompage.model";
 
 export class AccompagnerSingleComponent implements OnInit {
 
-  Name: string = 'Courses';
+  Name: string ;
   User: string = 'Utilisateur';
   Description: string = 'Description';
   Local:string = 'oui';
   Dispo : string = 'oui';
-  Quand : string = "caca";
+  Quand1 : string;
+  Quand2 : string;
   Kind: string = "non"
   @Input() service_descriptor: Accompage;
 
@@ -27,13 +28,15 @@ export class AccompagnerSingleComponent implements OnInit {
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
-    this.Name = this.service_descriptor.name;
-    this.User=this.service_descriptor.user;
-    this.Description = this.service_descriptor.description;
-    this.Local= this.service_descriptor.local;
-    this.Dispo=this.service_descriptor.date;
-    this.Quand=this.service_descriptor.quand;
-    this.Kind=this.service_descriptor.kind;
+    this.Name = this.service_descriptor.content.name;
+    this.User=this.service_descriptor.content.user;
+    this.Description = this.service_descriptor.content.description;
+    this.Local= this.service_descriptor.content.local;
+    this.Dispo=this.service_descriptor.content.datejour;
+    this.Quand1=this.service_descriptor.content.quand1;
+    this.Quand2=this.service_descriptor.content.quand2;
+
+    this.Kind=this.service_descriptor.content.kind;
 
 
   }

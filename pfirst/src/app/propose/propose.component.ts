@@ -13,8 +13,9 @@ import {Courses} from '../models/Courses.model';
 export class ServiceViewComponent implements OnInit {
   type: any[];
   types : any[];
-  service: any[];
+   servicesContent = new Array;
   services_db : any[];
+  content: any [];
   kms : number;
   public showncourses = false;
   public shownmenage = false;
@@ -37,11 +38,22 @@ export class ServiceViewComponent implements OnInit {
           this.services_db = response;
           console.log("#OK");
           console.log("#SERVICES : " + response);
+          console.log(this.services_db)
+          for (let j=0; j< this.services_db.length ; j++){
+            this.servicesContent.push(this.services_db[j].content);
+          }
+          for (let content of this.servicesContent){
+            console.log(content.user);}
+
+          
         },
         (error) => {
           console.log("Erreur de chargement : " + error);
         }
+        
       );
+      
+      
 
   }
   lireService(){
@@ -53,5 +65,7 @@ export class ServiceViewComponent implements OnInit {
 
 
   }
+
+  
 
 }

@@ -25,12 +25,12 @@ export class CuisineSingleComponent implements OnInit {
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
-    this.Name = this.service_descriptor.name;
-    this.User=this.service_descriptor.user;
-    this.Description = this.service_descriptor.description;
-    this.Sur_place= this.service_descriptor.sur_place;
-    this.Dispo=this.service_descriptor.date;
-    this.Type_de_plat=this.service_descriptor.type_de_plat;
+    this.Name = this.service_descriptor.content.name;
+    this.User=this.service_descriptor.content.user;
+    this.Description = this.service_descriptor.content.description;
+    this.Sur_place= this.service_descriptor.content.sur_place;
+    this.Dispo=this.service_descriptor.content.datejour;
+    this.Type_de_plat=this.service_descriptor.content.type_de_plat;
     /*
     const id = this.route.snapshot.params['id'];
     this.Name = this.serviceService.getServiceById(+id).name;
@@ -47,7 +47,7 @@ export class CuisineSingleComponent implements OnInit {
     */
   goProfil(){
     this.httpClient
-      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.id_user)
+      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.idUser)
       .subscribe(
         (token) => {
           this.auth.setUserInfo(token, 'current_profil');
