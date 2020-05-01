@@ -50,12 +50,13 @@
         </div>
         -->
       </td>
-      <td>
-        <p style="color:white">route : {{path}} ; hasUrl : <span *ngIf="hasUrl">true</span> </p>
-      </td>
-      <td>
+    </tr>
+  </table>
 
-      </td>
+  <!-- ##### PRENOM AU MILIEU #### -->
+  <table align="v">
+    <tr>
+      <td *ngIf="this.authService.isAuthenticated()" id="who">Bonjour *user* !</td>
     </tr>
   </table>
   <table align="right" id="buttons_connection" cellpadding="5">
@@ -79,6 +80,6 @@
     </tr>
   </table>
 </nav>
-<div *ngIf="this.notifs.length>0&&this.authService.isAuthenticated()" id="roundNotifIcon" (click)="openUserModal()">
+<div [@reduceNotif]="stateNotif" *ngIf="this.hasNotif&&this.authService.isAuthenticated()" id="roundNotifIcon" (click)="openUserModal()">
   {{this.notifs.length}}
 </div>

@@ -137,13 +137,13 @@ export class UserService {
     return res;
   }
 
-  getUserInfosFromToken(){
-    return new Promise((resolve, reject) =>{
+  getUserInfosFromToken() {
+    return new Promise((resolve, reject) => {
       this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
       console.log("GetfromToken : this.info_user =", this.info_user);
-      if (this.info_user != undefined){
+      if (this.info_user != undefined) {
         resolve(true);
-      }else{
+      } else {
         reject(true);
       }
     });
@@ -151,16 +151,27 @@ export class UserService {
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
   getProfilById(id: string = 'current_user') {
-   /*return new Promise((resolve, reject)=>{
-      this.info_user = JSON.parse(sessionStorage.getItem('token'))["user"] ;
-
-      this.httpClient
-          .get<any[]>(this.auth.backend_test + id + '.json')
+    return new Promise((resolve, reject) => {
+      if (id == "current_user") {
+        this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
+        console.table(this.info_user);
+        if (this.info_user != null) {
+          resolve(true);
+        } else {
+          reject(true);
+        }
+      } else {
+        this.httpClient
+          .get<any[]>(this.auth.backend + 'api/user/' + id +
+            '?token=' + JSON.parse(localStorage.getItem('token'))["token"])
           .subscribe(
             (response) => {
-              this.info_user = response;
+              console.log("#GETPROFILBYID");
+              console.table(response)
+              this.auth.setUserInfo(JSON.stringify(response), 'current_profil');
+              /*this.info_user = response;
               console.log("#OK");
-              console.log("#SERVICES : " + response);
+              console.log("#SERVICES : " + response);*/
               resolve(true);
             },
             (error) => {
@@ -168,6 +179,8 @@ export class UserService {
               reject(true);
             }
           );
-      });*/
+      }
+    });
   }
+
 }

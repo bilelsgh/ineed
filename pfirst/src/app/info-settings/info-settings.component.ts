@@ -16,6 +16,7 @@ export class InfoSettingsComponent implements OnInit {
   info_user: any;
 
   userForm: FormGroup;
+
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -24,9 +25,11 @@ export class InfoSettingsComponent implements OnInit {
         console.log("Init info-set : this.info_user : ", this.info_user);
         this.email = this.info_user['mail'];
         console.log("this.email : ", this.email);
+        console.table(this.email);
         this.bio = this.info_user['bio'];
+        console.log(typeof (this.bio));
         this.profil_pic = this.info_user['profil_pic'];
-        this.userForm = this.initForm();
+        //this.userForm = this.initForm();
       }
     );
   }
@@ -43,6 +46,7 @@ export class InfoSettingsComponent implements OnInit {
     const form_value = this.userForm.value;
     console.log("formValue : ", form_value);
   }
+
 }
 
 

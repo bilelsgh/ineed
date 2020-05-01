@@ -65,22 +65,46 @@ export class ServiceService{
     this.coursesSubject.next(this.courses.slice());
   }
 
+  //VERSION POUR ENVOYER DANS FIREBASE
   addCourses(courses : Courses){
     courses.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
     this.emitCourses();
 
     this.httpClient
-      .put(this.auth.backend_test+"services.json", this.services) //post() : lancer un appel POST, prend l'url visé et ce qui faut lui envoyer
-      .subscribe( //                                            Cette méthode renvoie un Observable, elle ne fait pas appel à elle toute seule
-        () => { //                                       c'est en y souscrivant que l'appel est lancé ; put() écrase
+      .put(this.auth.backend_test+"services.json", this.services)
+      .subscribe(
+        () => {
           console.log("Enregistrement ok!");
-        },                                         //subscribe() prévoie le cas où tout fonctionne t le cas où il y a des erreurs
+        },
         (error) => {
           console.log("Erreur : "+ error);
         }
       );
   }
+
+  //VERSION POUR ENVOYER DANS LE BACK
+  /*addCourses(courses : Courses){
+    courses.content['id']=this.services[(this.services.length - 1)].id + 1
+    this.services.push(courses);
+    this.emitCourses();
+
+    //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
+    let message = {"token" : JSON.parse(localStorage.getItem('token'))['token'], "announce" : courses}
+    console.table(message);
+
+    this.httpClient
+      .post(this.auth.backend+"api/announce", message)
+      .subscribe(
+        (response) => {
+          console.log("#DEBUG : Envoie des courses réussi");
+          console.table(response);
+        },
+        (error) => {
+          console.log("#DEBUG : Erreur lors de l'envoie des courses: "+ error);
+        }
+      );
+  }*/
 
   emitMenage(){
     this.menageSubject.next(this.menage.slice());
@@ -101,7 +125,7 @@ export class ServiceService{
         }
       );}
 
-  services=[
+  services : any[] = [
     {
       id: 1,
       image:"../assets/data/cuisine_pour_annonce_courte.jpg",
@@ -114,44 +138,6 @@ export class ServiceService{
       budget: "98",
       date:"30/03/2002"
 
-
-    },
-    {id:2,
-      image:"../assets/data/V1/menage.jpg",
-      type:'service2',
-      name: 'Faire le menage',
-      user: 'Jean Paul',
-      description: "Mon copain va m' aider",
-      date: "24/03/2020",
-      heure: "9:00 PM ",
-      surface : 50,
-      materiel: ["un ballai","une eponge","autre"],
-      salle: "Sallon",
-      localisation:"Chez moi a chassiue",
-    },
-    {
-      id:3,
-      image:"../assets/data/cuisine_pour_annonce_courte.jpg",
-      type:'service3',
-      name: 'Faire la cuisine',
-      user: 'Jean Paul',
-      description: "Salut mec",
-      sur_place: "oui",
-      type_de_plat: "fast food",
-      date: "09/09/2009"
-
-
-    },
-    {id :4,
-      image:"../assets/data/V2/accompagner.jpg",
-      type:'service4',
-      name: 'Accompagne moi gros',
-      user: 'Jean Paul',
-      description: "Salut mec",
-      kind:"ponctuel",
-      quand:"midi a 14h",
-      local: "a la pischine",
-      date:"03/04/2040"
 
     }
   ];

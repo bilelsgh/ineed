@@ -6,14 +6,31 @@ import {switchMap} from "rxjs/operators";
 import {UserService} from "../services/users.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ModalUserComponent} from "../modal-user/modal-user.component";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-global-navbar',
   templateUrl: './global-navbar.component.html',
-  styleUrls: ['./global-navbar.component.css']
+  styleUrls: ['./global-navbar.component.css'],
+  animations: [
+    trigger('reduceNotif', [
+      state('inactive', style({
+        transform: 'scale(15)',
+        position: 'absolute',
+        top: '40%',
+        left: '30%'
+      })),
+      state('active', style({
+        transform: 'scale(1)'
+      })),
+      transition('inactive => active', animate('800ms ease-in')),
+    ]),
+    ]
 })
 export class GlobalNavbarComponent implements OnInit {
 
+  stateNotif: string = 'inactive';
+  hasNotif: boolean = false;
   collapsed: boolean = false;
   route: Observable<UrlSegment[]>;
   path: UrlSegment[];
@@ -26,11 +43,17 @@ export class GlobalNavbarComponent implements OnInit {
 
   ngOnInit() {
     this.showProfilMenu=false;
-    this.notifs = this.userService.notifications;
     this.actRoute.url.subscribe(value => {
       this.path = value;
       console.log("oninit ext"+this.path);
     });
+    setTimeout(()=>{
+      this.notifs = this.userService.notifications;
+      this.hasNotif = this.notifs.length>0;
+    },1000);
+    setTimeout(()=>{
+      this.stateNotif = 'active';
+    },1000);
 
     /*
     this.route = this.actRoute.url.pipe(
@@ -54,7 +77,7 @@ export class GlobalNavbarComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-user-component";
-    dialogConfig.width = "180px";
+    dialogConfig.width = "220px";
     dialogConfig.height = "auto";
     dialogConfig.position = {top: '95px', left:'140px'};
     dialogConfig.hasBackdrop = true;

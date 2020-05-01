@@ -13,22 +13,23 @@
             <div class="jumbotron" id="formulaire">
               <label for="mail">Votre email</label>
               <input type="text" class="form-control" id="mail" name="mail"
-                     #email="ngModel" ngModel>
-              <span class="current-info-indicator">{{this.bio}}</span>
+                      ngModel>
+              <span class="current-info-indicator">{{this.email}}</span>
             </div>
 
             <!-- ##################### BIO ####################-->
             <div class="jumbotron" id="formulaire">
               <label for="bio">Votre bio</label>
               <input type="text" class="form-control" id="bio" name="bio"
-                     #bio="ngModel" ngModel>
-              <span class="current-info-indicator">{{this.bio}}</span>
+                      ngModel>
+              <span *ngIf="this.bio!=null" class="current-info-indicator">{{this.bio}}</span>
+              <span *ngIf="this.bio==null" class="current-info-indicator">Décriver vous en quelques lignes</span>
             </div>
 
             <div class="jumbotron" id="formulaire">
               <label for="profil-pic">Votre photo de profil</label>
               <input type="file" class="form-control" id="profil-pic" name="profil-pic"
-                     #bio="ngModel" ngModel>
+                     ngModel>
               <img src="../../assets/data/photo_undefined.png">
               <span>(en dur)</span>
             </div>

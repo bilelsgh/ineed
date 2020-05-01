@@ -20,7 +20,7 @@ export class CoursesSingleComponent implements OnInit {
   Accompagne : string = 'oui';
   Budget : string;
   Dispo: string="coucou"
-  liste_a_copier : string;
+  liste_a_copier : string = "LISTE : \n ";
   copied = false;
   @Input() service_descriptor: Courses;
 
@@ -39,6 +39,7 @@ export class CoursesSingleComponent implements OnInit {
     this.writeList();
     this.copied = false;
 
+    console.log("BUDGET : " + this.Budget);
   }
 
   writeList(){
@@ -67,22 +68,8 @@ export class CoursesSingleComponent implements OnInit {
     document.body.removeChild(selBox);
   }
 
-  /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
- EN QUESTION.
-  */
-  goProfil(){
-    this.httpClient
-      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.id_user)
-      .subscribe(
-        (token) => {
-          this.auth.setUserInfo(token, 'current_profil');
-          this.router.navigate(['profil']);
-
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-      );
+  goProfil(where : string){
+    this.router.navigate([where]);
   }
 
 

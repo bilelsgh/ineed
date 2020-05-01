@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-
+  who : string;
   backend = "https://rpicloud.ddns.net/";
   backend_test = "https://ineed-1ce51.firebaseio.com/";
   loggedInUserInfo : {};
