@@ -66,7 +66,7 @@ export class ServiceService{
   }
 
   //VERSION POUR ENVOYER DANS FIREBASE
-  addCourses(courses : Courses){
+  /*addCourses(courses : Courses){
     courses.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
     this.emitCourses();
@@ -81,15 +81,15 @@ export class ServiceService{
           console.log("Erreur : "+ error);
         }
       );
-  }
+  }*/
 
   //VERSION POUR ENVOYER DANS LE BACK
-  /*addCourses(courses : Courses){
+  addCourses(courses : Courses){
     courses.content['id']=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
     this.emitCourses();
     let course_back = {idUser: courses["idUser"], content: JSON.stringify(courses["content"]), id: courses["id"],
-    price: courses} //On convertit en string car c'est le format attendu dans le BACK
+    price: courses['price']} //On convertit en string car c'est le format attendu dans le BACK
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token'))['token'], "announce" : course_back};
@@ -103,10 +103,11 @@ export class ServiceService{
           console.table(response);
         },
         (error) => {
+
           console.log("#DEBUG : Erreur lors de l'envoie des courses: "+ error);
         }
       );
-  }*/
+  }
 
   emitMenage(){
     this.menageSubject.next(this.menage.slice());

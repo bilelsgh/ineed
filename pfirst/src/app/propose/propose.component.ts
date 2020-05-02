@@ -54,12 +54,14 @@ export class ServiceViewComponent implements OnInit {
       );
 
     //RÉCUPÈRE DEPUIS LE BACK
-    /*this.httpClient
+   /* this.httpClient
       .get<any[]>(this.auth.backend_test+'services.json')
       .subscribe(
         (response) => {
+          console.table(response);
           let converted_response = {idUser: response['idUser'], content: JSON.parse(response['content']),
-          id: response['id'], price: response['price']}
+          id: response['id'], price: response['price']};
+          console.table(converted_response);
           this.services_db = converted_response;
           console.log("#OK");
           console.log("#SERVICES : " + response);
@@ -73,6 +75,9 @@ export class ServiceViewComponent implements OnInit {
 
         },
         (error) => {
+          if(error['status'] === 401){
+            this.auth.removeUserInfo();
+          }
           console.log("Erreur de chargement : " + error);
         }
 
