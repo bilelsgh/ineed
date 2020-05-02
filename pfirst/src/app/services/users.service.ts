@@ -160,7 +160,7 @@ export class UserService {
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
   getProfilById(id: string = 'current_user') {
     return new Promise((resolve, reject) => {
-      if (id == "current_user") {
+      if (id === "current_user") {
         this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
         console.table(this.info_user);
         if (this.info_user != null) {
@@ -171,7 +171,7 @@ export class UserService {
       } else {
         this.httpClient
           .get<any[]>(this.auth.backend + 'api/user/' + id +
-            '?token=' + JSON.parse(localStorage.getItem('token'))["token"])
+            '?token=' + JSON.parse(localStorage.getItem('token')))
           .subscribe(
             (response) => {
               console.log("#GETPROFILBYID");
