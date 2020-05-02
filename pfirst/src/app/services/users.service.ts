@@ -115,6 +115,10 @@ export class UserService {
       .subscribe(() => {
         console.log('save done');
       }, (err) => {
+        if(err['status'] === 401){
+          this.auth.removeUserInfo();
+          console.log("#TOKEN EXPIRED");
+        }
         console.log('Erreur de save ' + err);
       });
   }
@@ -126,6 +130,10 @@ export class UserService {
           this.services_history_for = got;
         },
         (err) => {
+          if(err['status'] === 401){
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
           console.log("Erreur de récupération" + err);
         }
       );
@@ -175,6 +183,10 @@ export class UserService {
               resolve(true);
             },
             (error) => {
+              if(error['status'] === 401){
+                this.auth.removeUserInfo();
+                console.log("#TOKEN EXPIRED");
+              }
               console.log("Erreur de chargement : " + error);
               reject(true);
             }

@@ -31,6 +31,10 @@ export class ServiceService{
           console.log("Enregistrement ok!");
         },
         (error) => {
+          if(error['status'] === 401){
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
           console.log("Erreur : "+ error);
         }
       );
@@ -52,6 +56,10 @@ export class ServiceService{
           console.log("Enregistrement ok!");
         },
         (error) => {
+          if(error['status'] === 401){
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
           console.log("Erreur : "+ error);
         }
       );
@@ -103,7 +111,10 @@ export class ServiceService{
           console.table(response);
         },
         (error) => {
-
+          if(error['status'] === 401){
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
           console.log("#DEBUG : Erreur lors de l'envoie des courses: "+ error);
         }
       );
@@ -124,6 +135,10 @@ export class ServiceService{
           console.log("Enregistrement ok!");
         },
         (error) => {
+          if(error['status'] === 401){
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
           console.log("Erreur : "+ error);
         }
       );}
@@ -172,6 +187,10 @@ export class ServiceService{
             resolve(true);
           },
           (error) => {
+            if(error['status'] === 401){
+              this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
             console.log("Erreur de chargement : " + error);
             reject(true);
           }
