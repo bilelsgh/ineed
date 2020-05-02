@@ -175,7 +175,7 @@ export class UserService {
           .subscribe(
             (response) => {
               console.log("#GETPROFILBYID");
-              console.table(response)
+              console.table(response);
               this.auth.setUserInfo(JSON.stringify(response), 'current_profil');
               /*this.info_user = response;
               console.log("#OK");

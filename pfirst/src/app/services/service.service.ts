@@ -168,6 +168,7 @@ export class ServiceService{
   constructor(private httpClient : HttpClient, private auth : AuthService){
   }
 
+  //Récupérer une annonce par ID depuis firebase
   getServiceById(id: number) {
     return new Promise((resolve,reject)=> {
       this.httpClient
@@ -197,4 +198,34 @@ export class ServiceService{
         );
     });
   }
+
+  //Récupérer une annonce par ID depuis le BACK
+  /*getServiceById(id: number) {
+    return new Promise((resolve,reject)=> {
+      this.httpClient
+        .get<any[]>(this.auth.backend + 'api/announce/' + id +
+          'token=' + JSON.parse(localStorage.getItem('token'))["token"])
+        .subscribe(
+          (response) => { //on récupère le service mais 'content' est une string ...
+            let final_service = {idUser: response["announce"]['idUser'], content: JSON.parse(response["announce"]['content']),
+            id: response["announce"]['id'], price: response["announce"]['price']}; //...on le parse donc
+            this.service = final_service;
+
+            console.log("#SERVICE-SERVICE : current_service :", this.current_service);
+            console.log("#OK");
+            console.log("#SERVICES : " + response);
+            resolve(true);
+          },
+          (error) => {
+            if(error['status'] === 401){
+              this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
+            console.log("Erreur de chargement : " + error);
+            reject(true);
+          }
+        );
+    });
+  }*/
+
 }
