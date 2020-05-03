@@ -8,3 +8,9 @@
   cursor: pointer;
 }
 
+#loadingText
+{
+  margin-left: 15px;
+  font-size: large;
+  font-weight: bold;
+}
