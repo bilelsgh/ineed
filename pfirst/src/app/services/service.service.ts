@@ -100,7 +100,7 @@ export class ServiceService{
     price: courses['price']} //On convertit en string car c'est le format attendu dans le BACK
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
-    let message = {"token" : JSON.parse(localStorage.getItem('token'))['token'], "announce" : course_back};
+    let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : course_back};
     console.table(message);
 
     this.httpClient
