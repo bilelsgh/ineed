@@ -30,7 +30,7 @@ export class ServiceViewComponent implements OnInit {
   ngOnInit(){
 
     //RÉCUPÈRE DEPUIS FIREBASE
-    this.httpClient
+    /*this.httpClient
       .get<any[]>(this.auth.backend_test+'services.json')
       .subscribe(
         (response) => {
@@ -51,27 +51,21 @@ export class ServiceViewComponent implements OnInit {
           console.log("Erreur de chargement : " + error);
         }
 
-      );
+      );*/
 
     //RÉCUPÈRE DEPUIS LE BACK
-   /* this.httpClient
-      .get<any[]>(this.auth.backend_test+'services.json')
+    /*this.httpClient
+      .get<any[]>(this.auth.backend+'api/announce/user')
       .subscribe(
         (response) => {
-          console.table(response);
-          let converted_response = {idUser: response['idUser'], content: JSON.parse(response['content']),
-          id: response['id'], price: response['price']};
-          console.table(converted_response);
-          this.services_db = converted_response;
-          console.log("#OK");
-          console.log("#SERVICES : " + response);
-          console.log(this.services_db)
-          for (let j=0; j< this.services_db.length ; j++){
-            this.servicesContent.push(this.services_db[j].content);
+          console.log("#######ALL ANNOUNCES###########");
+          for (let j=0; j< this.response.length ; j++) {
+            console.table("##########ANNOUNCE " + (j+1) + "###########" );
+            this.servicesContent.push(
+              {idUser: response[j]['idUser'], content: JSON.parse(response[j]['content']),
+                id: response[j]['id'], price: response[j]['price']}
+            );
           }
-          for (let content of this.servicesContent){
-            console.log(content.user);}
-
 
         },
         (error) => {

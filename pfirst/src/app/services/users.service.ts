@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {subscribeOn} from 'rxjs/operators';
 import {AuthService} from './auth.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
