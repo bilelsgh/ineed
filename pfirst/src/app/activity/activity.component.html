@@ -1,0 +1,17 @@
+<div class="col-md-7">
+  <div class="row">
+    <ul class="list-group">
+      <div *ngFor ="let service of this.proposed_services,  let i =index,">
+          <app-service
+            [serviceName]="service.content.name"
+            [serviceUser]="service.content.user"
+            [serviceDescription]="service.content.description"
+            [serviceImage]="service.content.image"
+            [index]="i"
+            [id]="service.id"
+            [serviceDate]="service.content.datejour" >
+          </app-service>
+      </div>
+    </ul>
+  </div>
+</div>
