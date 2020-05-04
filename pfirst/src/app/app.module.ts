@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppViewComponent } from './app-view/app-view.component';
@@ -13,7 +13,7 @@ import { AuthComponent } from './auth/auth.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import {AuthGuard} from './services/auth-guard.Service';
 import { InscriptionComponent } from './inscription/inscription.component';
-import {FormsModule,Validators} from '@angular/forms';
+import {FormsModule, Validators} from '@angular/forms';
 import {InscriptionService} from './services/inscription.service';
 import { MembersComponent } from './members/members.component';
 import { ContactComponent } from './contact/contact.component';
@@ -25,7 +25,7 @@ import { FormerServiceComponent } from './former-service/former-service.componen
 import { NiveauComponent } from './niveau/niveau.component';
 import { ProfilComponent } from './profil/profil.component';
 import { ServicesExperienceComponent } from './services-experience/services-experience.component';
-import {UserService} from "./services/users.service";
+import {UserService} from './services/users.service';
 import { GlobalNavbarComponent } from './global-navbar/global-navbar.component';
 import { ServiceComponent } from './service/service.component';
 import { SingleServiceComponent } from './single-service/single-service.component';
@@ -39,9 +39,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ModalHistoryComponent } from './modal-history/modal-history.component';
-import {ModalUserComponent} from "./modal-user/modal-user.component";
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {ModalUserComponent} from './modal-user/modal-user.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NewMenageComponent } from './new-menage/new-menage.component';
 import { NewCuisineComponent } from './new-cuisine/new-cuisine.component';
 import { NewAccompageComponent } from './new-accompage/new-accompage.component';
@@ -94,8 +95,9 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
     MatButtonModule,
     MatDialogModule,
     NgbModule,
+    MatProgressSpinnerModule
   ],
-  providers: [ //on ajoute ici tous les services
+  providers: [ // on ajoute ici tous les services
     AuthService,
     AuthGuard,
     InscriptionService,

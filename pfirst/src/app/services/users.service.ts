@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {subscribeOn} from 'rxjs/operators';
 import {AuthService} from './auth.service';
-import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
@@ -14,6 +13,7 @@ export class UserService {
   notifications: string[] = [
     'post-inscription'
   ];
+
 
   services_history_for = [
     {
@@ -97,6 +97,8 @@ export class UserService {
 
   showAllComments: boolean = false;
 
+  active_announces: any[];
+
   setShowAllComments() {
     this.showAllComments = true;
     console.log('userServ : showAll set a true');
@@ -116,7 +118,7 @@ export class UserService {
       .subscribe(() => {
         console.log('save done');
       }, (err) => {
-        if(err['status'] === 401){
+        if (err['status'] === 401) {
           this.auth.removeUserInfo();
           console.log("#TOKEN EXPIRED");
         }
@@ -131,7 +133,7 @@ export class UserService {
           this.services_history_for = got;
         },
         (err) => {
-          if(err['status'] === 401){
+          if (err['status'] === 401) {
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
@@ -159,7 +161,7 @@ export class UserService {
   }
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
-  getProfilById(id: string = 'current_user') {
+  getProfilById(id: string = 'user') {
     return new Promise((resolve, reject) => {
       if (id === "current_user") {
         this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
@@ -176,7 +178,7 @@ export class UserService {
           .subscribe(
             (response) => {
               console.log("#GETPROFILBYID");
-              console.table(response)
+              console.table(response);
               this.auth.setUserInfo(JSON.stringify(response['user']), 'current_profil'); //on stocke les infos de l'utilisateur récupérée dans le local storage
               this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
 
@@ -186,7 +188,7 @@ export class UserService {
               resolve(true);
             },
             (error) => {
-              if(error['status'] === 401){
+              if (error['status'] === 401) {
                 this.auth.removeUserInfo();
                 console.log("#TOKEN EXPIRED");
               }
@@ -196,6 +198,41 @@ export class UserService {
           );
       }
     });
-  }
+  };
 
+  getPostedAnnounces(id: string = 'user') {
+    return new Promise((resolve, reject) => {
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': localStorage.getItem('token')
+        })
+      };
+
+      this.httpClient
+        .get<any[]>(this.auth.backend + '/api/announce/user/' + id, httpOptions)
+        .subscribe(
+          (response) => {
+            console.log("#GETPOSTEDANNOUNCES");
+            console.table(response)
+            this.active_announces = response['announces'];
+            this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
+
+            /*this.info_user = response;
+            console.log("#OK");
+            console.log("#SERVICES : " + response);*/
+            resolve(true);
+          },
+          (error) => {
+            if (error['status'] === 401) {
+              //this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
+            console.log("Erreur de chargement : " + error);
+            reject(true);
+          }
+        );
+    });
+  };
 }
