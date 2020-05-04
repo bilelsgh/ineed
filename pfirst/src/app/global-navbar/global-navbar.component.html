@@ -81,11 +81,16 @@
   </table>
 </nav>
   <div
-    [@rotatedState]="stateRotate"
-    [@reduceNotif]="stateNotif"
+    [@notifAppearance]="stateNotif"
     *ngIf="this.hasNotif&&this.authService.isAuthenticated()"
     id="roundNotifIcon" (click)="openUserModal()">
     {{this.notifs.length}}
   </div>
+<!--
+<div class="roundNotifIcon" [ngStyle]="quart">1</div>
+<div class="roundNotifIcon" [ngStyle]="semi">1</div>
+<div class="roundNotifIcon" [ngStyle]="almost">1</div>
+<div class="roundNotifIcon" [ngStyle]="rotated">1</div>
+-->
 
 

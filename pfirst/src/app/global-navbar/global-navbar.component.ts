@@ -14,50 +14,78 @@ import {transformAll} from "@angular/compiler/src/render3/r3_ast";
   templateUrl: './global-navbar.component.html',
   styleUrls: ['./global-navbar.component.css'],
   animations: [
-    trigger('reduceNotif', [
-      state('inactive', style({
-        transform: 'scale(15)',
+    trigger('notifAppearance', [
+      state('right', style({
+        transform: 'scale(3)',
         position: 'absolute',
-        top: '5%',
-        left: '60%'
+        top: '30px',
+        left: '1400px'
       })),
-      state('active', style({
+      state('placed', style({
         transform: 'scale(1)'
       })),
-      transition('inactive => active', animate('800ms ease-in')),
-    ]),
-    trigger('rotatedState', [
-      state('default', style({
-        transform: 'rotate(0)'
-      })),
       state('quartRotated', style({
-        left: '30px',
-        transform: 'rotate(90deg) translate(-100%,-30px)',
+        //transform: 'rotate(90deg)',
+        position: 'absolute',
+        top: '33px',
+        left: '257px'
       })),
       state('semiRotated', style({
-        left: '30px',
-        transform: 'rotate(180deg) translate(-100%,30px)',
+        //transform: 'rotate(180deg)',
+        position: 'absolute',
+        top: '63px',
+        left: '227px'
       })),
       state('almostRotated', style({
-        left: '30px',
-        transform: 'rotate(270deg) translate(100%,30px)',
+        //transform: 'rotate(270deg)',
+        position: 'absolute',
+        top: '33px',
+        left: '197px'
       })),
       state('rotated', style({
-        left: '30px',
-        transform: 'rotate(360deg) translate(100%,-30px)',
+        //transform: 'rotate(360deg)',
+        position: 'absolute',
+        top: '3px',
+        left: '227px'
       })),
-      transition('default => quartRotated', animate('400ms linear')),
-      transition('quartRotated => semiRotated', animate('400ms linear')),
-      transition('semiRotated => almostRotated', animate('400ms linear')),
-      transition('almostRotated => rotated', animate('400ms linear')),
-    ]),
+      transition('rotated => placed', animate('100ms linear')),
+      transition('quartRotated => semiRotated', animate('200ms linear')),
+      transition('semiRotated => almostRotated', animate('200ms linear')),
+      transition('almostRotated => rotated', animate('200ms linear')),
+      transition('right => placed', animate('800ms ease-in')),
+      transition('right => semiRotated', animate('800ms ease-in')),
+      transition('placed => quartRotated', animate('100ms linear'))
+    ])
   ]
 })
 
 export class GlobalNavbarComponent implements OnInit {
 
-  stateNotif: string = 'inactive';
-  stateRotate: string = 'default';
+  quart = {
+    position: 'absolute',
+    top: '33px',
+    left: '257px'
+  };
+
+  semi = {
+    position: 'absolute',
+    top: '63px',
+    left: '225px'
+  };
+
+  almost = {
+    position: 'absolute',
+    top: '33px',
+    left: '195px'
+  };
+
+  rotated = {
+    position: 'absolute',
+    top: '3px',
+    left: '225px'
+  };
+
+  stateNotif: string = 'right';
   hasNotif: boolean = false;
   collapsed: boolean = false;
   route: Observable<UrlSegment[]>;
@@ -79,10 +107,7 @@ export class GlobalNavbarComponent implements OnInit {
       this.notifs = this.userService.notifications;
       this.hasNotif = this.notifs.length > 0;
     }, 1000);
-    setTimeout(() => {
-      this.stateNotif = 'active';
-    }, 1000);
-    //this.triggerRotation();
+    this.triggerNotifAppeareance(1000); //delay in ms
     /*
     this.route = this.actRoute.url.pipe(
       switchMap((params) => {
@@ -101,23 +126,33 @@ export class GlobalNavbarComponent implements OnInit {
     console.log("url ", url);
   }
 
-  triggerRotation(){
-    this.stateRotate='default';
+  triggerNotifAppeareance(delay: number) {
     setTimeout(() => {
-      this.stateRotate = 'quartRotated';
-    }, 3000);
+      this.stateNotif = 'right';
+    }, delay + 400);
+    /*
     setTimeout(() => {
-      this.stateRotate = 'semiRotated';
-    }, 3400);
+      this.stateNotif = 'placed';
+    }, delay+800);
     setTimeout(() => {
-      this.stateRotate = 'almostrotated';
-    }, 3800);
+      this.stateNotif = 'quartRotated';
+    },delay+900);
+     */
     setTimeout(() => {
-      this.stateRotate = 'rotated';
-    }, 4200);
-    setTimeout ( ()=>{
-      this.stateRotate='default';
-    },4600);
+      this.stateNotif = 'semiRotated';
+    }, delay + 1100);
+    /*
+setTimeout(() => {
+this.stateNotif = 'almostRotated';
+}, delay+1300);
+setTimeout(() => {
+this.stateNotif = 'rotated';
+}, delay+1500);
+setTimeout(() => {
+this.stateNotif = 'placed';
+}, delay+1600);
+*/
+
   }
 
   openUserModal() {
