@@ -197,4 +197,25 @@ export class ServiceService{
         );
     });
   }
+
+  //Ajoute un service dans services_provided de helper & dans services_asked de helped
+  helpService(helperID : number, helpedID : number, serviceID : number){
+    let user_helper = {service_provided: serviceID} ;//"user" de la personne qui rend le service
+    let user_helped = {service_asked: serviceID, helper : helperID};//"user" de la personne qui demande le service
+    let message = {user_helper, user_helped};
+
+    this.httpClient
+      .post(this.auth.backend + 'api/user/services (route à définir)', message) //PUT plutôt ?
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //récupération du token plus récent
+        },
+        (error) => {
+          if(error['status'] === 401){
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
+        }
+      );
+  }
 }
