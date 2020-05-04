@@ -24,7 +24,7 @@ ngOnInit(): void {
   }
 
   initForm(){
-    
+
     this.menageForm=this.formBuilder.group({
       user: ['', Validators.required],
       description:['', Validators.required],
@@ -44,16 +44,16 @@ ngOnInit(): void {
       content.localisation= f.value['localisation'];
       content.surface=f.value['surface'];
       content.description=f.value['description'];
-      
+
       content.user=f.value['user'];
       content.materiel=this.liste_materiel
-    const newMenage= new Menage( JSON.parse(localStorage.getItem('token'))["user"]["idUser"], content, 93,
-   
+    const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
+
     0);
 
 
 
-      
+
       this.serviceService.addMenage(newMenage);
       this.router.navigate(['']);
     }
