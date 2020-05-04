@@ -30,7 +30,7 @@ export class ServiceViewComponent implements OnInit {
   ngOnInit(){
 
     //RÉCUPÈRE DEPUIS FIREBASE
-    /*this.httpClient
+    this.httpClient
       .get<any[]>(this.auth.backend_test+'services.json')
       .subscribe(
         (response) => {
@@ -51,7 +51,7 @@ export class ServiceViewComponent implements OnInit {
           console.log("Erreur de chargement : " + error);
         }
 
-      );*/
+      );
 
     //RÉCUPÈRE DEPUIS LE BACK
     /*this.httpClient
