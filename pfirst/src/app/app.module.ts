@@ -48,6 +48,7 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 import { InfoSettingsComponent } from './info-settings/info-settings.component';
 import { DisplayProfilComponent } from './display-profil/display-profil.component';
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
+import { ActivityComponent } from './activity/activity.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
     NewAccompageComponent,
     InfoSettingsComponent,
     DisplayProfilComponent,
-    FiltreProposeComponent
+    FiltreProposeComponent,
+    ActivityComponent
   ],
   imports: [
     BrowserModule,
