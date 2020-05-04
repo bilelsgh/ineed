@@ -43,8 +43,8 @@ ngOnInit(): void {
       content.type_de_plat=f.value['type_plat'];
       content.description=f.value['description'];
       content.user=f.value['user'];
-    const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('token'))["user"]["idUser"], content,
-   
+    const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('user'))["idUser"], content,
+
     0);
       this.serviceService.addCuisine(newCuisine);
       this.router.navigate(['']);
