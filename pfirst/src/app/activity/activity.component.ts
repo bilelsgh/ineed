@@ -25,7 +25,7 @@ export class ActivityComponent implements OnInit {
         budget: '98',
         datejour: '30/03/2002',
         description: 'J\'ai faim la vie de maman',
-        image: '../assets/data/cuisine_pour_annonce_courte.jpg',
+        image: '../assets/data/accompagne_pour_annonce_courte.jpg',
         name: 'Faire les courses',
         type: 'service1',
         user: 'Jean Paul Gauthier',
