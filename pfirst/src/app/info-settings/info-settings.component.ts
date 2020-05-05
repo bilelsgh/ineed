@@ -15,13 +15,17 @@ export class InfoSettingsComponent implements OnInit {
   phone: string;
   info_user: any;
 
+  notifs: any = {
+    profilPic: 'Veuillez entrer une nouvelle pdp'
+  };
+
   userForm: FormGroup;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.userService.getUserInfosFromToken().then(()=> {
-        this.info_user = this.userService.info_user;
+    this.userService.getProfilById('user').then(()=> {
+        this.info_user = localStorage.getItem('user');
         console.log("Init info-set : this.info_user : ", this.info_user);
         this.email = this.info_user['mail'];
         console.log("this.email : ", this.email);
@@ -32,6 +36,11 @@ export class InfoSettingsComponent implements OnInit {
         //this.userForm = this.initForm();
       }
     );
+  }
+
+  onFileSelected(event) {
+    this.profil_pic = event.target.files[0] as File
+    console.log("PROFIL PIC :", this.profil_pic);
   }
 
   initForm(){

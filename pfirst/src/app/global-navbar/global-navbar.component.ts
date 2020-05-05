@@ -30,11 +30,23 @@ import {transformAll} from "@angular/compiler/src/render3/r3_ast";
         top: '33px',
         left: '257px'
       })),
+      state('38Rotated', style({
+        //transform: 'rotate(90deg)',
+        position: 'absolute',
+        top: '48px',
+        left: '242px'
+      })),
       state('semiRotated', style({
         //transform: 'rotate(180deg)',
         position: 'absolute',
         top: '63px',
         left: '227px'
+      })),
+      state('58Rotated', style({
+        //transform: 'rotate(90deg)',
+        position: 'absolute',
+        top: '48px',
+        left: '212px'
       })),
       state('almostRotated', style({
         //transform: 'rotate(270deg)',
@@ -42,19 +54,47 @@ import {transformAll} from "@angular/compiler/src/render3/r3_ast";
         top: '33px',
         left: '197px'
       })),
+      state('78Rotated', style({
+        //transform: 'rotate(90deg)',
+        position: 'absolute',
+        top: '18px',
+        left: '212px'
+      })),
       state('rotated', style({
         //transform: 'rotate(360deg)',
         position: 'absolute',
         top: '3px',
         left: '227px'
       })),
+      transition('placed => rotated', animate('100ms linear')),
+      transition('rotated => 78Rotated', animate('100ms linear')),
+      transition('78Rotated => almostRotated', animate('100ms linear')),
+      transition('almostRotated => 58Rotated', animate('100ms linear')),
+      transition('58Rotated => semiRotated', animate('100ms linear')),
+      transition('semiRotated => 38Rotated', animate('100ms linear')),
+      transition('38Rotated => quartRotated', animate('100ms linear')),
+      transition('quartRotated => placed', animate('100ms linear')),
+
+
       transition('rotated => placed', animate('100ms linear')),
-      transition('quartRotated => semiRotated', animate('200ms linear')),
+      transition('quartRotated => 38Rotated', animate('100ms linear')),
+      transition('38Rotated => semiRotated', animate('100ms linear')),
       transition('semiRotated => almostRotated', animate('200ms linear')),
       transition('almostRotated => rotated', animate('200ms linear')),
       transition('right => placed', animate('800ms ease-in')),
       transition('right => semiRotated', animate('800ms ease-in')),
       transition('placed => quartRotated', animate('100ms linear'))
+    ]),
+    trigger('translation',[
+      state('toRight',style({
+        transform: 'translateX(100px)'
+      })),
+      state('toLeft', style({
+        transform: 'translateX(-100px)'
+      })),
+      transition('toRight => toRight', animate('800ms linear')),
+      transition('toRight => toLeft', animate('800ms linear')),
+      transition('toLeft => toRight', animate('800ms linear'))
     ])
   ]
 })
@@ -84,6 +124,8 @@ export class GlobalNavbarComponent implements OnInit {
     top: '3px',
     left: '225px'
   };
+
+  stateTranslate: string = 'toRight';
 
   stateNotif: string = 'right';
   hasNotif: boolean = false;
