@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {subscribeOn} from 'rxjs/operators';
 import {AuthService} from './auth.service';
 
@@ -13,6 +13,8 @@ export class UserService {
   notifications: string[] = [
     'post-inscription'
   ];
+
+  active_announces: any[];
 
   services_history_for = [
     {
@@ -194,6 +196,48 @@ export class UserService {
             }
           );
       }
+    });
+  }
+
+
+  getPostedAnnounces(id: string = 'user') {
+    return new Promise((resolve, reject) => {
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': localStorage.getItem('token')
+        })
+      };
+
+      this.httpClient
+        //.get<any[]>(this.auth.backend + '/api/announce/user/' + id, httpOptions)   //from backend
+        .get(this.auth.backend_test + 'actives.json')     //from firebase
+        .subscribe(
+          (response) => {
+            console.log("#GETPOSTEDANNOUNCES");
+            console.table(response);
+            /*for backend
+            this.active_announces = response['announces'];
+            this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
+             */
+            //for firebase
+            this.active_announces = <any[]> response;
+
+            /*this.info_user = response;
+            console.log("#OK");
+            console.log("#SERVICES : " + response);*/
+            resolve(true);
+          },
+          (error) => {
+            if (error['status'] === 401) {
+              //this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
+            console.log("Erreur de chargement : " + error);
+            reject(true);
+          }
+        );
     });
   }
 

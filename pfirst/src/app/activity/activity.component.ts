@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from "../services/auth.service";
+import {UserService} from "../services/users.service";
+import {catchError} from "rxjs/operators";
 
 @Component({
   selector: 'app-activity',
@@ -35,11 +37,54 @@ export class ActivityComponent implements OnInit {
   ]
   ;
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) {}
-
-  ngOnInit(): void {
+  constructor(private httpClient: HttpClient,
+              private authService: AuthService,
+              private userService: UserService
+  ) {
   }
 
+  ngOnInit(): void {
+    /*
+    this.sendToFirebase().then(() => {
+      this.userService.getPostedAnnounces('user')
+        .then(() => {
+          this.proposed_services = this.userService.active_announces;
+        })
+        .catch((err) => {
+          console.log('#ACTIVITY: Erreur de récupération des services demandés', err);
+        });
+    })
+      .catch(() => {
+        console.log('Failed to send actives to firebase');
+      });
+     */
+    this.userService.getPostedAnnounces('user')
+      .then(() => {
+        this.proposed_services = this.userService.active_announces;
+        console.log('#ACTIVIY : Récupération ok', 'announces in userServ :', this.userService.active_announces);
+      })
+      .catch((err) => {
+        console.log('#ACTIVITY: Erreur de récupération des services demandés', err);
+      });
+  }
+
+
+  sendToFirebase() {
+    return new Promise((resolve, reject) => {
+      this.httpClient
+        .put(this.authService.backend_test + "actives.json", this.proposed_services)
+        .subscribe(
+          () => {
+            console.log("Enregistrement ok!");
+            resolve(true);
+          },
+          (error) => {
+            console.log("Erreur : " + error);
+            reject(true);
+          }
+        );
+    });
+  }
 
 
 }
