@@ -177,7 +177,7 @@ export class UserService {
           .subscribe(
             (response) => {
               console.log("#GETPROFILBYID");
-              console.table(response)
+              console.table(response);
               this.auth.setUserInfo(JSON.stringify(response['user']), 'current_profil'); //on stocke les infos de l'utilisateur récupérée dans le local storage
               this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
 
@@ -211,18 +211,19 @@ export class UserService {
       };
 
       this.httpClient
-        //.get<any[]>(this.auth.backend + '/api/announce/user/' + id, httpOptions)   //from backend
-        .get(this.auth.backend_test + 'actives.json')     //from firebase
+        .get<any[]>(this.auth.backend + '/api/announce/user/' + id, httpOptions)   //from backend
+        //.get(this.auth.backend_test + 'actives.json')     //from firebase
         .subscribe(
           (response) => {
             console.log("#GETPOSTEDANNOUNCES");
             console.table(response);
-            /*for backend
+            /*for backend*/
             this.active_announces = response['announces'];
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
-             */
-            //for firebase
+
+            /*for firebase
             this.active_announces = <any[]> response;
+             */
 
             /*this.info_user = response;
             console.log("#OK");
@@ -231,7 +232,7 @@ export class UserService {
           },
           (error) => {
             if (error['status'] === 401) {
-              //this.auth.removeUserInfo();
+              this.auth.removeUserInfo();
               console.log("#TOKEN EXPIRED");
             }
             console.log("Erreur de chargement : " + error);
