@@ -12,3 +12,26 @@
 {
   color: #3f77dc;
 }
+
+#infoContainer
+{
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}
+
+#mdpContainer
+{
+  width: 460px;
+  height: auto;
+  position: absolute;
+  top: 200px;
+  left: 1200px;
+}
+
+#showMdpContainer
+{
+  position: absolute;
+  top: 200px;
+  left: 1200px;
+}

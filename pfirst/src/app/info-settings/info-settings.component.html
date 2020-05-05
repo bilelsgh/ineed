@@ -1,3 +1,4 @@
+<div id="infoContainer">
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4" align="center">Mes informations</h1>
@@ -13,7 +14,7 @@
             <div class="jumbotron" id="formulaire">
               <label for="mail">Votre email</label>
               <input type="text" class="form-control" id="mail" name="mail"
-                      ngModel>
+                     ngModel>
               <span class="current-info-indicator">{{this.email}}</span>
             </div>
 
@@ -21,7 +22,7 @@
             <div class="jumbotron" id="formulaire">
               <label for="bio">Votre bio</label>
               <input type="text" class="form-control" id="bio" name="bio"
-                      ngModel>
+                     ngModel>
               <span *ngIf="this.bio!=null" class="current-info-indicator">{{this.bio}}</span>
               <span *ngIf="this.bio==null" class="current-info-indicator">Décriver vous en quelques lignes</span>
             </div>
@@ -31,12 +32,13 @@
                 <span *ngIf="this.notifs.profilPic == ''">Votre photo de profil</span>
                 <span style="color: red" *ngIf="this.notifs.profilPic != ''">{{this.notifs.profilPic}}</span>
               </label>
-              <input type="file" class="form-control" id="profil-pic" name="profil-pic"(change)="onFileSelected($event)"
+              <input type="file" class="form-control" id="profil-pic" name="profil-pic"
+                     (change)="onFileSelected($event)"
                      ngModel>
               <img src="../../assets/data/photo_undefined.png">
               <span>(en dur)</span>
             </div>
-           <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
+            <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
           </div>
         </form>
         <!--
@@ -79,4 +81,55 @@
     </table>
   </div>
 </div>
+</div>
+
+<!-------------------------------- MOT DE PASSE------------------------->
+
+<div id="showMdpContainer">
+  <button class="btn btn-primary" (click)="changePassword=true" *ngIf="!changePassword">Modifier mon mot de passe</button>
+</div>
+
+<div id="mdpContainer" *ngIf="changePassword">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4" align="center">Modifier mon mot de passe</h1>
+      <table align="center">
+
+        <div class="col-sm-8 col-sm-offset-2">
+
+          <form (ngSubmit)="onSubmitNewPassword(f)" #f="ngForm">
+
+
+            <!-- ##################### Former ####################-->
+            <div class="form-group">
+              <div class="jumbotron" id="formulaire" style="width: 400px">
+                <label for="formerPassword">Mot de passe actuel</label>
+                <input type="text" class="form-control" id="formerPassword" name="formerPassword"
+                       ngModel>
+                <span class="current-info-indicator">{{this.email}}</span>
+              </div>
+
+              <!-- ##################### New ####################-->
+              <div class="jumbotron" id="formulaire" style="width: 400px">
+                <label for="newPassword">Entrez votre nouveau mot de passe</label>
+                <input type="text" class="form-control" id="newPassword" name="newPassword"
+                       ngModel>
+              </div>
+
+              <div class="jumbotron" id="formulaire" style="width: 400px">
+                <label for="newPassword2">Confirmez le nouveau mot de passe</label>
+                <input type="text" class="form-control" id="newPassword2" name="newPassword2"
+                       ngModel>
+                <label for="newPassword2" *ngIf="notSamePasswords" style="color: red" class="current-info-indicator">Les mots de passe ne correspondent pas</label>
+              </div>
+
+              <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
+            </div>
+          </form>
+        </div>
+      </table>
+    </div>
+  </div>
+</div>
+
 

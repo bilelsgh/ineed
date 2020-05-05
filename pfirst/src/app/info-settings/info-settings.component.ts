@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/users.service";
 import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
+import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-info-settings',
@@ -9,6 +12,8 @@ import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
 })
 export class InfoSettingsComponent implements OnInit {
 
+  changePassword: boolean = false;
+  notSamePasswords: boolean = true;
   email: string;
   profil_pic: File;
   bio: string;
@@ -21,10 +26,15 @@ export class InfoSettingsComponent implements OnInit {
 
   userForm: FormGroup;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService,
+              private formBuilder: FormBuilder,
+              private httpClient: HttpClient,
+              private authService: AuthService,
+              private router: Router) {
+  }
 
   ngOnInit(): void {
-    this.userService.getProfilById('user').then(()=> {
+    this.userService.getProfilById('user').then(() => {
         this.info_user = localStorage.getItem('user');
         console.log("Init info-set : this.info_user : ", this.info_user);
         this.email = this.info_user['mail'];
@@ -43,7 +53,7 @@ export class InfoSettingsComponent implements OnInit {
     console.log("PROFIL PIC :", this.profil_pic);
   }
 
-  initForm(){
+  initForm() {
     return this.formBuilder.group({
       email: this.email,
       bio: this.bio,
@@ -51,8 +61,42 @@ export class InfoSettingsComponent implements OnInit {
     });
   }
 
+  onSubmitNewPassword(form: NgForm) {
+    const formerMdp = form.value['formerPassword'];
+    const newPassword = 'newP';
+    console.log('modif mdp form.value', formerMdp);
+    this.httpClient
+      .post(this.authService.backend + 'api/user/login', {mail: JSON.parse(localStorage.getItem('user'))['mail'], password: formerMdp})
+      .subscribe(
+        (response) => {
+          console.log("#Modif : mdp ancien correct: " + response);
+          this.authService.setUserInfo(JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
+          this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
+          //nouveau mdp envoyé
+          this.httpClient.post(this.authService.backend + 'routemodifmdp', {password: newPassword})
+            .subscribe(
+              (response) => {
+                console.log("#Modif : nouveau mdp accepté", response);
+                //modifier user dans local storage + token
+              },
+              (error) => {
+                console.log("#Modif : nouveau mdp refusé", response);
+              }
+        );
+          this.router.navigate(['']);
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            console.log("MDP Modif : erreur d'ancien mdp", error);
+          }
+
+        }
+      );
+
+  }
+
   onSubmitNewInfos(form: NgForm) {
-    const form_value = this.userForm.value;
+    const form_value = form.value;
     console.log("formValue : ", form_value);
   }
 
