@@ -234,5 +234,5 @@ export class UserService {
           }
         );
     });
-  };
+  }
 }
