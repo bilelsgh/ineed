@@ -48,7 +48,7 @@ export class ServiceService{
   addAccompage(accompage : Accompage){
     accompage.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(accompage);
-    this.emitCuisine();
+    this.emitAccompage();
     this.httpClient
       .put(this.auth.backend_test +"services.json", this.services)
       .subscribe( //
@@ -127,7 +127,7 @@ export class ServiceService{
   addMenage(menage : Menage){
     menage.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(menage);
-    this.emitCourses();
+    this.emitMenage();
     this.httpClient
       .put(this.auth.backend_test+"services.json", this.services)
       .subscribe( //
