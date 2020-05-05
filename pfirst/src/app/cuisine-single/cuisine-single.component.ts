@@ -21,13 +21,15 @@ export class CuisineSingleComponent implements OnInit {
   DispoJour : string = 'oui';
   DispoHeure : string = 'oui';
   Type_de_plat : string = "pas ouf";
-  Id : string;
+  Id : number;
+
   @Input() service_descriptor: Cuisine;
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
+    this.Id = this.service_descriptor.idUser;
     this.Name = this.service_descriptor.content.name;
     this.User=this.service_descriptor.content.user;
     this.Description = this.service_descriptor.content.description;
@@ -39,7 +41,20 @@ export class CuisineSingleComponent implements OnInit {
 
 
     //GESTION DU NOMBRE DE VUS
+    if(JSON.parse(localStorage.getItem('user'))["idUser"] != this.Id){
+      let new_view = this.View + 1;
+      this.View = new_view;
 
+      //CRéation du service avec le nombre de vu mis à jour
+      const content=  {id: 5, type:'service3', name:"Faire la cuisine", user: this.User ,description: this.Description,
+        lieu:this.service_descriptor.content.lieu , sur_place:this.Sur_place,
+        datejour:this.DispoJour, dateheure : this.DispoHeure, type_de_plat: this.Type_de_plat, viewNumber : new_view, image: '../../assets/data/cuisine.png' }
+      const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('user'))["idUser"], content,
+        this.service_descriptor.id, this.service_descriptor.price, this.service_descriptor.finished);
+
+      //envoie du nouveau viewNUmber dans le back
+      this.updateView(newCuisine);
+    }
 
     /*
     const id = this.route.snapshot.params['id'];
@@ -66,6 +81,20 @@ export class CuisineSingleComponent implements OnInit {
         },
         (error) => {
           console.log("Erreur de chargement : " + error);
+        }
+      );
+  }
+
+  //IL FAUT PAS ENVOYER JUSTE CUISINE MAIS TOUT LE TABLEAU DE SERVICES
+  updateView(cuisine : Cuisine){
+    this.httpClient
+      .put(this.auth.backend_test+'services.json', cuisine)
+      .subscribe(
+        (response) => {
+
+        },
+        (error) => {
+          console.log("Erreur d'envoie de l'annonce avec les nouvelles vues : " + error);
         }
       );
   }
