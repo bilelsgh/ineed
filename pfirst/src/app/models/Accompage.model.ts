@@ -5,6 +5,7 @@ export class Accompage{
               kind : string, quand1 : string,quand2 : string, local : string, datejour : string, image : string},
               public id : number,
               public price : number = 0,
+              public finished : boolean,
   ){}
 }
 

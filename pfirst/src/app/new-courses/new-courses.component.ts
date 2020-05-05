@@ -37,19 +37,21 @@ export class NewCoursesComponent implements OnInit {
       accompagne : "",
       budget : "",
       datejour: "",
+      dateheure:"",
     });}
 
   onSubmitForm() {
 
     const f = this.coursesForm;
-    const content=  { datejour: '', accompagner:'',budget:'', liste: [],name:'Faire les courses', description: '',type:'service1',user:'', image: '../../assets/data/courses.png' }
+    const content=  { datejour: '',dateheure:'', accompagner:'',budget:'', liste: [],name:'Faire les courses', description: '',type:'service1',user:'', image: '../../assets/data/courses.png' }
     content.datejour=f.value['datejour'];
+    content.datejour=f.value['dateheure'];
     content.accompagner= f.value['accompagne'];
     content.budget= f.value['budget'];
     content.liste=this.liste_courses;
     content.description=f.value['description'];
     content.user=f.value['user'];
-    const newCourses = new Courses( JSON.parse(localStorage.getItem('user'))["idUser"], content,5,0);
+    const newCourses = new Courses( JSON.parse(localStorage.getItem('user'))["idUser"], content,5,0, false);
       //ID A RECUPERER DANS LE TOKEN LORSQU'ON PROPOSE LE SERVICE (il sera utilisé pour afficher le profil)
     this.serviceService.addCourses(newCourses);
     this.router.navigate(['']);

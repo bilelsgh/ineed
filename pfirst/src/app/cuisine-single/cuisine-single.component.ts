@@ -17,7 +17,8 @@ export class CuisineSingleComponent implements OnInit {
   User: string = 'Utilisateur';
   Description: string = 'Description';
   Sur_place:string = 'oui';
-  Dispo : string = 'oui';
+  DispoJour : string = 'oui';
+  DispoHeure : string = 'oui';
   Type_de_plat : string = "pas ouf";
   @Input() service_descriptor: Cuisine;
 
@@ -29,7 +30,8 @@ export class CuisineSingleComponent implements OnInit {
     this.User=this.service_descriptor.content.user;
     this.Description = this.service_descriptor.content.description;
     this.Sur_place= this.service_descriptor.content.sur_place;
-    this.Dispo=this.service_descriptor.content.datejour;
+    this.DispoJour=this.service_descriptor.content.datejour;
+    this.DispoHeure=this.service_descriptor.content.dateheure;
     this.Type_de_plat=this.service_descriptor.content.type_de_plat;
     /*
     const id = this.route.snapshot.params['id'];
