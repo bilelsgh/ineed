@@ -41,20 +41,8 @@ export class CuisineSingleComponent implements OnInit {
 
 
     //GESTION DU NOMBRE DE VUS
-    if(JSON.parse(localStorage.getItem('user'))["idUser"] != this.Id){
-      let new_view = this.View + 1;
-      this.View = new_view;
+    this.updateView();
 
-      //CRéation du service avec le nombre de vu mis à jour
-      const content=  {id: 5, type:'service3', name:"Faire la cuisine", user: this.User ,description: this.Description,
-        lieu:this.service_descriptor.content.lieu , sur_place:this.Sur_place,
-        datejour:this.DispoJour, dateheure : this.DispoHeure, type_de_plat: this.Type_de_plat, viewNumber : new_view, image: '../../assets/data/cuisine.png' }
-      const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('user'))["idUser"], content,
-        this.service_descriptor.id, this.service_descriptor.price, this.service_descriptor.finished);
-
-      //envoie du nouveau viewNUmber dans le back
-      this.updateView(newCuisine);
-    }
 
     /*
     const id = this.route.snapshot.params['id'];
@@ -85,17 +73,22 @@ export class CuisineSingleComponent implements OnInit {
       );
   }
 
-  //IL FAUT PAS ENVOYER JUSTE CUISINE MAIS TOUT LE TABLEAU DE SERVICES
-  updateView(cuisine : Cuisine){
-    this.httpClient
-      .put(this.auth.backend_test+'services.json', cuisine)
-      .subscribe(
-        (response) => {
-
-        },
-        (error) => {
-          console.log("Erreur d'envoie de l'annonce avec les nouvelles vues : " + error);
-        }
-      );
+  updateView() {
+    if (JSON.parse(localStorage.getItem('user'))["idUser"] != this.Id) {
+      let new_view = this.View + 1;
+      this.View = new_view;
+      let message = {updatedViewNumber: new_view, announceID: this.service_descriptor.id};
+      //Envoie du nouveau viewNUmber dans le back
+      this.httpClient
+        .post(this.auth.backend + 'route à définir', message)
+        .subscribe(
+          (response) => {
+            this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          },
+          (error) => {
+            console.log("Erreur d'envoie de updatedViewNumber : " + error);
+          }
+        );
+    }
   }
 }

@@ -107,6 +107,7 @@ export class ServiceService{
       .post(this.auth.backend+"api/announce", message)
       .subscribe(
         (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
           console.log("#DEBUG : Envoie des courses réussi");
           console.table(response);
         },
