@@ -13,6 +13,7 @@ import {Cuisine} from "../models/Cuisine.model";
 })
 export class CuisineSingleComponent implements OnInit {
 
+  applied : boolean;
   Name: string = 'Courses';
   User: string = 'Utilisateur';
   Description: string = 'Description';
@@ -26,6 +27,7 @@ export class CuisineSingleComponent implements OnInit {
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
+    this.applied = this.appliedOrNot();
     this.Name = this.service_descriptor.content.name;
     this.User=this.service_descriptor.content.user;
     this.Description = this.service_descriptor.content.description;
@@ -61,4 +63,21 @@ export class CuisineSingleComponent implements OnInit {
         }
       );
   }
+
+  /*applyCuisine(){
+    if( !this.applied ){
+      this.serviceService.applyService(this.service_descriptor.id)
+      //mettre à jour this.applied
+    }
+  }
+
+  //Indique si l'utilisateur s'est proposé pour cette annonce
+  appliedOrNot(): boolean{
+    for(let elt of 'liste des services_proposedID'){
+      if(elt === this.service_descriptor.id){
+        return true;
+      }
+    }
+    return false;
+  }*/
 }

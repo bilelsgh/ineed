@@ -199,12 +199,14 @@ export class ServiceService{
   }
 
   //Ajoute un service dans services_provided de helper & dans services_asked de helped
-  applyService(){
+  applyService(announceID : number){
+    let message = {helperID: JSON.parse(localStorage.getItem('user'))['idUser'], announceID: announceID};
 
-    this.httpClient
-      .post(this.auth.backend + 'api/user/services (route à définir)', message) //PUT plutôt ?
+    this.httpClient //checker si on met le helperID dans la route
+      .post(this.auth.backend + 'api/user/services (route à définir)', message)
       .subscribe(
         (response) => {
+          //this.auth.setUserInfo(response['services_provided'], 'voir où on le stocke');
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //récupération du token plus récent
         },
         (error) => {
