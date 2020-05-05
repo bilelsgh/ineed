@@ -43,7 +43,7 @@ export class NewCoursesComponent implements OnInit {
   onSubmitForm() {
 
     const f = this.coursesForm;
-    const content=  { datejour: '',dateheure:'', accompagner:'',budget:'', liste: [],name:'Faire les courses', description: '',type:'service1',user:'', image: '../../assets/data/courses.png' }
+    const content=  { datejour: '',dateheure:'', accompagner:'',budget:'', liste: [],name:'Faire les courses', description: '',type:'service1',user:'', viewNumber : 0, image: '../../assets/data/courses.png' }
     content.datejour=f.value['datejour'];
     content.datejour=f.value['dateheure'];
     content.accompagner= f.value['accompagne'];

@@ -2,7 +2,8 @@
 export class Cuisine{
   constructor(public idUser : number,
               public content : { type : string, name : string, user : string, description : string
-              lieu : string, sur_place : string, datejour : string,dateheure : string, type_de_plat : string, image : string},
+              lieu : string, sur_place : string, datejour : string,dateheure : string, type_de_plat : string,
+                viewNumber : number, image : string},
               public id : number,
               public price : number = 0,
               public finished : boolean,){}

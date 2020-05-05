@@ -37,7 +37,7 @@ ngOnInit(): void {
 
 
       const f = this.cuisineForm;
-      const content=  {id: 5, type:'service3', name:"Faire la cuisine", user:'',description: '', lieu:'',sur_place:'', datejour:'', dateheure : '', type_de_plat: '',  image: '../../assets/data/cuisine.png' }
+      const content=  {id: 5, type:'service3', name:"Faire la cuisine", user:'',description: '', lieu:'',sur_place:'', datejour:'', dateheure : '', type_de_plat: '', viewNumber : 0, image: '../../assets/data/cuisine.png' }
       content.datejour=f.value['datejour'];
       content.lieu= f.value['lieu'];
       content.sur_place= f.value['sur_place'];

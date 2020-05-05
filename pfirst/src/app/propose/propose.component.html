@@ -12,9 +12,9 @@
     <div class="row">
       <ul class="list-group">
         <div *ngFor ="let service of this.services_db,  let i =index,">
-          <div *ngIf = "all && !showncourses && !shownaccompagne && !showncuisine && !shownmenage"> 
-            
-            <app-service 
+          <div *ngIf = "all && !showncourses && !shownaccompagne && !showncuisine && !shownmenage">
+
+            <app-service
                       [serviceName]="service.content.name"
                       [serviceUser]="service.content.user"
                       [serviceDescription]="service.content.description"
@@ -23,12 +23,12 @@
                       [id]="service.id"
                       [serviceDate]="service.content.datejour" >
             </app-service>
-          </div>  
-        
+          </div>
+
 
 
          <div *ngIf = "service.content.type== 'service1'&& showncourses">
-            <app-service 
+            <app-service
             [serviceName]="service.content.name"
             [serviceUser]="service.content.user"
             [serviceDescription]="service.content.description"
@@ -41,7 +41,7 @@
 
 
           <div *ngIf = "service.content.type== 'service2'&& shownmenage">
-            <app-service 
+            <app-service
             [serviceName]="service.content.name"
             [serviceUser]="service.content.user"
             [serviceDescription]="service.content.description"
@@ -51,8 +51,8 @@
             [serviceDate]="service.content.datejour" >
           </app-service>
           </div>
-          <div *ngIf = "service.content.type== 'service3'&& showncuisine">
-            <app-service 
+          <div *ngIf = "service.content.type == 'service3'&& showncuisine">
+            <app-service
             [serviceName]="service.content.name"
             [serviceUser]="service.content.user"
             [serviceDescription]="service.content.description"
@@ -63,7 +63,7 @@
           </app-service>
           </div>
           <div *ngIf = "service.content.type== 'service4'&& shownaccompagne">
-            <app-service 
+            <app-service
             [serviceName]="service.content.name"
             [serviceUser]="service.content.user"
             [serviceDescription]="service.content.description"
@@ -79,11 +79,11 @@
 
   </div>
 
-  <div class="col-md-3"  >   
+  <div class="col-md-3"  >
     <div class="card"  style="width:70%;">
       <div class="card-body">
         <div class="checkbox">
-      <input type="checkbox" ngModel="all"> 
+      <input type="checkbox" ngModel="all">
       <label for="All" >All</label>
         </div>
         <div class="checkbox">
@@ -102,30 +102,30 @@
           <input type="checkbox" #checkBoxaccompagne="ngModel" [(ngModel)]="shownaccompagne" name="checkBoxaccompagne">
           <label for="Accompagne">Accompagne</label>
         </div>
-        
+
         <div class="slidecontainer">
           <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
           <p>Value: <span id="demo"></span></p>
         </div>
         <label for="kms">Combien de kms autour de vous</label>
-        
+
         <script>
           var slider = document.getElementById("myRange");
           var output = document.getElementById("demo");
           output.innerHTML = slider.value;
-          
+
           slider.oninput = function() {
             output.innerHTML = this.value;
           }
           </script>
       </div>
-    </div> 
+    </div>
   </div>
 </div>
-      
 
-    
-    
+
+
+
 
 
 

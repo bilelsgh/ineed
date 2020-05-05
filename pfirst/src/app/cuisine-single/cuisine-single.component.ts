@@ -13,6 +13,7 @@ import {Cuisine} from "../models/Cuisine.model";
 })
 export class CuisineSingleComponent implements OnInit {
 
+  View : number;
   Name: string = 'Courses';
   User: string = 'Utilisateur';
   Description: string = 'Description';
@@ -20,6 +21,7 @@ export class CuisineSingleComponent implements OnInit {
   DispoJour : string = 'oui';
   DispoHeure : string = 'oui';
   Type_de_plat : string = "pas ouf";
+  Id : string;
   @Input() service_descriptor: Cuisine;
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
@@ -33,6 +35,12 @@ export class CuisineSingleComponent implements OnInit {
     this.DispoJour=this.service_descriptor.content.datejour;
     this.DispoHeure=this.service_descriptor.content.dateheure;
     this.Type_de_plat=this.service_descriptor.content.type_de_plat;
+    this.View = this.service_descriptor.content.viewNumber;
+
+
+    //GESTION DU NOMBRE DE VUS
+
+
     /*
     const id = this.route.snapshot.params['id'];
     this.Name = this.serviceService.getServiceById(+id).name;
