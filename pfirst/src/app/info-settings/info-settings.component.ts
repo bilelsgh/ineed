@@ -34,6 +34,8 @@ export class InfoSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    //probleme promesse
     this.userService.getProfilById('user').then(() => {
         this.info_user = localStorage.getItem('user');
         console.log("Init info-set : this.info_user : ", this.info_user);
@@ -49,7 +51,7 @@ export class InfoSettingsComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    this.profil_pic = event.target.files[0] as File
+    this.profil_pic = event.target.files[0] as File;
     console.log("PROFIL PIC :", this.profil_pic);
   }
 
@@ -65,6 +67,7 @@ export class InfoSettingsComponent implements OnInit {
     const formerMdp = form.value['formerPassword'];
     const newPassword = 'newP';
     console.log('modif mdp form.value', formerMdp);
+    /*
     this.httpClient
       .post(this.authService.backend + 'api/user/login', {mail: JSON.parse(localStorage.getItem('user'))['mail'], password: formerMdp})
       .subscribe(
@@ -92,12 +95,15 @@ export class InfoSettingsComponent implements OnInit {
 
         }
       );
-
+    */
   }
 
   onSubmitNewInfos(form: NgForm) {
     const form_value = form.value;
-    console.log("formValue : ", form_value);
+    const user = JSON.parse(localStorage.getItem('user'));
+    user['bio'] = form_value['bio'];
+    user['mail'] = form_value['email'];
+    console.log("user : ", user);
   }
 
 }
