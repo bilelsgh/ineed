@@ -41,7 +41,7 @@ export class CuisineSingleComponent implements OnInit {
 
 
     //GESTION DU NOMBRE DE VUS
-    this.updateView();
+    //this.updateView();
 
 
     /*
@@ -73,7 +73,8 @@ export class CuisineSingleComponent implements OnInit {
       );
   }
 
-  updateView() {
+  //Fait automatiquement par le back
+  /*updateView() {
     if (JSON.parse(localStorage.getItem('user'))["idUser"] != this.Id) {
       let new_view = this.View + 1;
       this.View = new_view;
@@ -90,5 +91,5 @@ export class CuisineSingleComponent implements OnInit {
           }
         );
     }
-  }
+  }*/
 }
