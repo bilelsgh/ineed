@@ -73,24 +73,6 @@ export class ServiceService{
     this.coursesSubject.next(this.courses.slice());
   }
 
-  //VERSION POUR ENVOYER DANS FIREBASE
-  /*addCourses(courses : Courses){
-    courses.id=this.services[(this.services.length - 1)].id + 1
-    this.services.push(courses);
-    this.emitCourses();
-
-    this.httpClient
-      .put(this.auth.backend_test+"services.json", this.services)
-      .subscribe(
-        () => {
-          console.log("Enregistrement ok!");
-        },
-        (error) => {
-          console.log("Erreur : "+ error);
-        }
-      );
-  }*/
-
   //VERSION POUR ENVOYER DANS LE BACK
   addCourses(courses : Courses){
     courses.content['id']=this.services[(this.services.length - 1)].id + 1
@@ -108,7 +90,7 @@ export class ServiceService{
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-          console.log("#DEBUG : Envoie des courses réussi");
+          console.log("#DEBUG : Envoie des courses vers le BACK réussi");
           console.table(response);
         },
         (error) => {
@@ -116,7 +98,7 @@ export class ServiceService{
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
-          console.log("#DEBUG : Erreur lors de l'envoie des courses: "+ error);
+          console.log("#DEBUG : Erreur lors de l'envoie des courses vers le BACK: "+ error);
         }
       );
   }
@@ -129,20 +111,30 @@ export class ServiceService{
     menage.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(menage);
     this.emitMenage();
+    let menage_back = {idUser: menage["idUser"], content: JSON.stringify(menage["content"]), id: menage["id"],
+      price: menage['price']} //On convertit en string car c'est le format attendu dans le BACK
+
+    //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
+    let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : menage_back};
+    console.table(message);
+
     this.httpClient
-      .put(this.auth.backend_test+"services.json", this.services)
-      .subscribe( //
-        () => { //
-          console.log("Enregistrement ok!");
+      .post(this.auth.backend+"api/announce", message)
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          console.log("#DEBUG : Envoie de ménage vers le BACK réussi");
+          console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
-          console.log("Erreur : "+ error);
+          console.log("#DEBUG : Erreur lors de l'envoie de ménage vers le BACK : "+ error);
         }
-      );}
+      );
+  }
 
   services : any[] = [
 
