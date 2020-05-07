@@ -1,92 +1,93 @@
 <div id="infoContainer">
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4" align="center">Mes informations</h1>
-    <table align="center">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4" align="center">Mes informations</h1>
+      <table align="center">
 
-      <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-sm-8 col-sm-offset-2">
 
-        <form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">
+          <form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">
 
 
-          <!-- ##################### MAIL ####################-->
-          <div class="form-group">
-            <div class="jumbotron" id="formulaire">
-              <label for="mail">Votre email</label>
-              <input type="text" class="form-control" id="mail" name="mail"
-                     ngModel>
-              <span class="current-info-indicator">{{this.email}}</span>
+            <!-- ##################### MAIL ####################-->
+            <div class="form-group">
+              <div class="jumbotron" id="formulaire">
+                <label for="mail">Votre email</label>
+                <input type="text" class="form-control" id="mail" name="mail"
+                       ngModel>
+                <span class="current-info-indicator">{{this.email}}</span>
+              </div>
+
+              <!-- ##################### BIO ####################-->
+              <div class="jumbotron" id="formulaire">
+                <label for="bio">Votre bio</label>
+                <input type="text" class="form-control" id="bio" name="bio"
+                       ngModel>
+                <span *ngIf="this.bio!=null" class="current-info-indicator">{{this.bio}}</span>
+                <span *ngIf="this.bio==null" class="current-info-indicator">Décriver vous en quelques lignes</span>
+              </div>
+
+              <div class="jumbotron" id="formulaire">
+                <label for="profil-pic">
+                  <span *ngIf="this.notifs.profilPic == ''">Votre photo de profil</span>
+                  <span style="color: red" *ngIf="this.notifs.profilPic != ''">{{this.notifs.profilPic}}</span>
+                </label>
+                <input type="file" class="form-control" id="profil-pic" name="profil-pic"
+                       (change)="onFileSelected($event)"
+                       ngModel>
+                <img src="../../assets/data/photo_undefined.png">
+                <span>(en dur)</span>
+              </div>
+              <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
             </div>
+          </form>
+          <!--
+          <form [formGroup]="userForm" (ngSubmit)="onSubmitNewInfos()" id="form">
 
-            <!-- ##################### BIO ####################-->
-            <div class="jumbotron" id="formulaire">
-              <label for="bio">Votre bio</label>
-              <input type="text" class="form-control" id="bio" name="bio"
-                     ngModel>
-              <span *ngIf="this.bio!=null" class="current-info-indicator">{{this.bio}}</span>
-              <span *ngIf="this.bio==null" class="current-info-indicator">Décriver vous en quelques lignes</span>
+
+              <div class="form-group">
+                <div class="jumbotron" id="formulaire">
+
+                <label for="user"><h2>Email</h2></label>
+                <input type="text" id="user" class="form-control" formControlName="email">
+              </div>
+
             </div>
-
-            <div class="jumbotron" id="formulaire">
-              <label for="profil-pic">
-                <span *ngIf="this.notifs.profilPic == ''">Votre photo de profil</span>
-                <span style="color: red" *ngIf="this.notifs.profilPic != ''">{{this.notifs.profilPic}}</span>
-              </label>
-              <input type="file" class="form-control" id="profil-pic" name="profil-pic"
-                     (change)="onFileSelected($event)"
-                     ngModel>
-              <img src="../../assets/data/photo_undefined.png">
-              <span>(en dur)</span>
-            </div>
-            <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
-          </div>
-        </form>
-        <!--
-        <form [formGroup]="userForm" (ngSubmit)="onSubmitNewInfos()" id="form">
-
 
             <div class="form-group">
               <div class="jumbotron" id="formulaire">
 
-              <label for="user"><h2>Email</h2></label>
-              <input type="text" id="user" class="form-control" formControlName="email">
-            </div>
-
-          </div>
-
-          <div class="form-group">
-            <div class="jumbotron" id="formulaire">
-
-              <label for="date"><h2>Votre bio</h2>
-              </label>
-              <input type="text" id="bio" formControlName="bio">
-            </div>
-
-            <div class="jumbotron" id="formulaire">
-              <div class="form-group">
-                <label for="date"><h2>Votre photo de profil</h2>
+                <label for="date"><h2>Votre bio</h2>
                 </label>
-                <input type="file" id="date" formControlName="profil_pic">
+                <input type="text" id="bio" formControlName="bio">
               </div>
-              <button type="submit" class="btn btn-primary">Soumettre</button>
+
+              <div class="jumbotron" id="formulaire">
+                <div class="form-group">
+                  <label for="date"><h2>Votre photo de profil</h2>
+                  </label>
+                  <input type="file" id="date" formControlName="profil_pic">
+                </div>
+                <button type="submit" class="btn btn-primary">Soumettre</button>
+              </div>
             </div>
-          </div>
 
-        </form>
-        -->
+          </form>
+          -->
 
-      </div>
+        </div>
 
 
-    </table>
+      </table>
+    </div>
   </div>
-</div>
 </div>
 
 <!-------------------------------- MOT DE PASSE------------------------->
 
 <div id="showMdpContainer">
-  <button class="btn btn-primary" (click)="changePassword=true" *ngIf="!changePassword">Modifier mon mot de passe</button>
+  <button class="btn btn-primary" (click)="changePassword=true" *ngIf="!changePassword">Modifier mon mot de passe
+  </button>
 </div>
 
 <div id="mdpContainer" *ngIf="changePassword">
@@ -112,29 +113,35 @@
               <!-- ##################### New ####################-->
               <div class="jumbotron" id="formulaire" style="width: 400px">
                 <table>
-                  <td> <label for="newPassword">Entrez votre nouveau mot de passe</label></td>
+                  <td><label for="newPassword">Entrez votre nouveau mot de passe</label></td>
                   <td> <!--#POPOVER INFO MDP#-->
                     <span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary" ngbPopover="Votre
                 mot de passe doit faire au moins 6 caractères. Utilisez des lettres majuscules et minuscules, des chiffres
-                 ou encore descaractères spéciaux pour rendre votre mot de passe plus sûr." triggers="mouseenter:mouseleave"
+                 ou encore descaractères spéciaux pour rendre votre mot de passe plus sûr."
+                          triggers="mouseenter:mouseleave"
                           popoverTitle="Un mot de passe c'est important !" placement="right">
                   <p id="text_info">?</p></span>
                   </td>
                 </table>
-                <input type="text" class="form-control" id="newPassword" name="newPassword"
+                <input type="password" class="form-control" id="newPassword" name="newPassword"
+                       (change)="passwordComplexity(f.value['newPassword'])"
                        ngModel>
+
+                <i><p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p>
+                </i>
+                <span *ngIf="bad_password" class="badge badge-pill badge-danger">Votre mot de passe est faible.</span>
+                <span *ngIf="medium_password"
+                      class="badge badge-pill badge-warning">Votre mot de passe est correct.</span>
+                <span *ngIf="strong_password" class="badge badge-pill badge-success">Votre mot de passe est fort.</span>
               </div>
-              <i><p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p></i>
-              <span *ngIf="bad_password"  class="badge badge-pill badge-danger">Votre mot de passe est faible.</span>
-              <span *ngIf="medium_password"  class="badge badge-pill badge-warning">Votre mot de passe est correct.</span>
-              <span *ngIf="strong_password"  class="badge badge-pill badge-success">Votre mot de passe est fort.</span>
 
               <!-- NEW CONFIRMER -->
               <div class="jumbotron" id="formulaire" style="width: 400px">
-                <label for="newPassword2">Confirmez le nouveau mot de passe</label>
-                <input type="text" class="form-control" id="newPassword2" name="newPassword2"
-                       ngModel>
-                <label for="newPassword2" *ngIf="notSamePasswords" style="color: red" class="current-info-indicator">Les mots de passe ne correspondent pas</label>
+                <label for="confirm_password">Confirmez votre mot de passe <span style="color:red">*</span></label>
+                <input class="form-control" type="password" id="confirm_password" name="confirm_password"
+                       (change)="quickCheckPassword(f)" ngModel required>
+                <i><strong><span *ngIf="!same_password"
+                                 style="color:red">Les mots de passe ne sont pas identiques.</span></strong></i>
               </div>
 
               <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
