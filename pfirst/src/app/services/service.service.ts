@@ -183,7 +183,7 @@ export class ServiceService{
     console.log("#ID : " + id);
     return new Promise((resolve,reject)=> {
       this.httpClient
-        .get(this.auth.backend+'announce/' + id + '?token=' + JSON.parse(localStorage.getItem('token')))
+        .get(this.auth.backend+'api/announce/' + id + '?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(
           (response) => {
             this.current_service = response["announce"];
