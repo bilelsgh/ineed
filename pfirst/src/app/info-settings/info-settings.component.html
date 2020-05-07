@@ -103,17 +103,7 @@
             <!-- ##################### Former ####################-->
             <div class="form-group">
               <div class="jumbotron" id="formulaire" style="width: 400px">
-                <table>
-                  <td> <label for="formerPassword">Mot de passe actuel</label></td>
-                  <td> <!--#POPOVER INFO MDP#-->
-                  <span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary" ngbPopover="Votre
-                mot de passe doit faire au moins 6 caractères. Utilisez des lettres majuscules et minuscules, des chiffres
-                 ou encore descaractères spéciaux pour rendre votre mot de passe plus sûr." triggers="mouseenter:mouseleave"
-                            popoverTitle="Un mot de passe c'est important !" placement="right">
-                  <p id="text_info">?</p></span>
-                  </td>
-                </table>
-
+                <label for="formerPassword">Mot de passe actuel</label>
                 <input type="text" class="form-control" id="formerPassword" name="formerPassword"
                        ngModel>
                 <span class="current-info-indicator">{{this.email}}</span>
@@ -121,11 +111,25 @@
 
               <!-- ##################### New ####################-->
               <div class="jumbotron" id="formulaire" style="width: 400px">
-                <label for="newPassword">Entrez votre nouveau mot de passe</label>
+                <table>
+                  <td> <label for="newPassword">Entrez votre nouveau mot de passe</label></td>
+                  <td> <!--#POPOVER INFO MDP#-->
+                    <span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary" ngbPopover="Votre
+                mot de passe doit faire au moins 6 caractères. Utilisez des lettres majuscules et minuscules, des chiffres
+                 ou encore descaractères spéciaux pour rendre votre mot de passe plus sûr." triggers="mouseenter:mouseleave"
+                          popoverTitle="Un mot de passe c'est important !" placement="right">
+                  <p id="text_info">?</p></span>
+                  </td>
+                </table>
                 <input type="text" class="form-control" id="newPassword" name="newPassword"
                        ngModel>
               </div>
+              <i><p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p></i>
+              <span *ngIf="bad_password"  class="badge badge-pill badge-danger">Votre mot de passe est faible.</span>
+              <span *ngIf="medium_password"  class="badge badge-pill badge-warning">Votre mot de passe est correct.</span>
+              <span *ngIf="strong_password"  class="badge badge-pill badge-success">Votre mot de passe est fort.</span>
 
+              <!-- NEW CONFIRMER -->
               <div class="jumbotron" id="formulaire" style="width: 400px">
                 <label for="newPassword2">Confirmez le nouveau mot de passe</label>
                 <input type="text" class="form-control" id="newPassword2" name="newPassword2"

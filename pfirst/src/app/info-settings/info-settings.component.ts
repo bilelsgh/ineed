@@ -12,6 +12,15 @@ import {Router} from "@angular/router";
 })
 export class InfoSettingsComponent implements OnInit {
 
+  small_password: boolean;
+  strong_password: boolean;
+  bad_password: boolean;
+  medium_password: boolean;
+  badRegex = new RegExp('^[a-z]{6,}$');
+  mediumRegex = new RegExp('^[a-zA-Z0-9]{8,}$');
+  strongRegex = new RegExp('^.{9,}$');
+  same_password = true;
+
   changePassword: boolean = false;
   notSamePasswords: boolean = true;
   email: string;
