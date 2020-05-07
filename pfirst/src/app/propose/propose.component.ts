@@ -35,16 +35,15 @@ export class ServiceViewComponent implements OnInit {
       .subscribe(
         (response) => {
           console.table('#ALL ANNOUNCES ' + response['announces'][0]['content']['image']);
-          this.services_db = response['announces'];
           for (let j=0; j< Number(response['announces']['length']) ; j++) {
             //this.services_db.push(response['announces'][j]);
             console.log("##########ANNOUNCE " + (j+1) + "###########" );
             console.log(response['announces'][j]);
-            console.log(response['announces'][j]['content']["image"]);
-           /* this.servicesContent.push(
+            console.log(JSON.parse(response['announces'][j]['content'])['image']);
+            this.services_db.push(
               {idUser: response['announces'][j]['idUser'], content: JSON.parse(response['announces'][j]['content']),
                 id: response['announces'][j]['idAnnounce'], price: response['announces'][j]['price']}
-            );*/
+            );
           }
         },
         (error) => {
