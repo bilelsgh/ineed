@@ -13,8 +13,8 @@ import {Courses} from '../models/Courses.model';
 export class ServiceViewComponent implements OnInit {
   type: any[];
   types : any[];
-   servicesContent = new Array;
-  services_db : any[];
+  servicesContent = new Array;
+  services_db = new Array;
   content: any [];
   kms : number;
   public showncourses = false;
@@ -34,21 +34,18 @@ export class ServiceViewComponent implements OnInit {
       .get<any[]>(this.auth.backend+'api/announce')
       .subscribe(
         (response) => {
-          console.log("#######ALL ANNOUNCES###########");
-          console.log(response['announces']);
-          /*for (let j=0; j< Number(response['announces']['length']) ; j++) {
+          console.table('#ALL ANNOUNCES ' + response['announces'][0]['content']['image']);
+          this.services_db = response['announces'];
+          for (let j=0; j< Number(response['announces']['length']) ; j++) {
+            //this.services_db.push(response['announces'][j]);
             console.log("##########ANNOUNCE " + (j+1) + "###########" );
             console.log(response['announces'][j]);
-            this.servicesContent.push(
+            console.log(response['announces'][j]['content']["image"]);
+           /* this.servicesContent.push(
               {idUser: response['announces'][j]['idUser'], content: JSON.parse(response['announces'][j]['content']),
                 id: response['announces'][j]['idAnnounce'], price: response['announces'][j]['price']}
-            );
-          }*/
-          this.servicesContent.push(
-            {idUser: response['announces'][3]['idUser'], content: JSON.parse(response['announces'][3]['content']),
-              id: response['announces'][3]['idAnnounce'], price: response['announces'][3]['price']}
-          );
-
+            );*/
+          }
         },
         (error) => {
           if(error['status'] === 401){

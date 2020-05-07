@@ -180,6 +180,7 @@ export class ServiceService{
   }
 
   getServiceById(id: number) {
+    console.log("#ID : " + id);
     return new Promise((resolve,reject)=> {
       this.httpClient
         .get(this.auth.backend+'announce/' + id + '?token=' + JSON.parse(localStorage.getItem('token')))
