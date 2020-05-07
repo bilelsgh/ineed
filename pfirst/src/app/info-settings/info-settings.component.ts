@@ -38,7 +38,7 @@ export class InfoSettingsComponent implements OnInit {
     //probleme promesse
     this.userService.getProfilById('user').then(() => {
         this.info_user = localStorage.getItem('user');
-        console.log("Init info-set : this.info_user : ", this.info_user);
+        console.log('Init info-set : this.info_user : ', this.info_user);
         this.email = this.info_user['mail'];
         console.log("this.email : ", this.email);
         console.table(this.email);
