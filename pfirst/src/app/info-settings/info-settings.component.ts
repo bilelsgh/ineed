@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/users.service";
 import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {error} from "@angular/compiler/src/util";
@@ -63,24 +63,19 @@ export class InfoSettingsComponent implements OnInit {
     });
   }
 
+  // Recuperation de la photo selectionnee
   onFileSelected(event) {
     this.profil_pic = event.target.files[0] as File;
     console.log("PROFIL PIC :", this.profil_pic);
   }
 
-  initForm() {
-    return this.formBuilder.group({
-      email: this.email,
-      bio: this.bio,
-      profil_pic: this.profil_pic
-    });
-  }
-
+  // Modification du mot de passe utilisateur
   onSubmitNewPassword(form: NgForm) {
     const formerMdp = form.value['formerPassword'];
     const newPassword = 'newP';
     console.log('modif mdp form.value', formerMdp);
-    /*
+
+
     this.httpClient
       .post(this.authService.backend + 'api/user/login', {mail: JSON.parse(localStorage.getItem('user'))['mail'], password: formerMdp})
       .subscribe(
@@ -88,12 +83,21 @@ export class InfoSettingsComponent implements OnInit {
           console.log("#Modif : mdp ancien correct: " + response);
           this.authService.setUserInfo(JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
-          //nouveau mdp envoyé
-          this.httpClient.post(this.authService.backend + 'routemodifmdp', {password: newPassword})
+
+          const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json',
+              'Authorization': response['token']
+            })
+          };
+
+          console.log("token : ", typeof localStorage.getItem('token'));
+          // nouveau mdp envoyé
+          this.httpClient.put(this.authService.backend + 'api/user/' + this.info_user["idUser"] + "/password" ,{"password" : newPassword}, httpOptions)
             .subscribe(
               (response) => {
                 console.log("#Modif : nouveau mdp accepté", response);
-                //modifier user dans local storage + token
+                this.authService.setUserInfo(response['token'],'token');
               },
               (error) => {
                 console.log("#Modif : nouveau mdp refusé", response);
@@ -107,8 +111,7 @@ export class InfoSettingsComponent implements OnInit {
           }
 
         }
-      );
-    */
+        );
   }
 
   onSubmitNewInfos(form: NgForm) {

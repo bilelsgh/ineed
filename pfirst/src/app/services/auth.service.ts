@@ -30,6 +30,7 @@ export class AuthService {
     localStorage.setItem(where, data);
   }
 
+
   public validate(email, password) {
     return this.http.post(this.backend_test+"user_co.json", {"mail" : email, "password" : password}).toPromise();
   }
