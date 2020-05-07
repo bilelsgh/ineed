@@ -87,9 +87,8 @@ export class InfoSettingsComponent implements OnInit {
           const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':  'application/json',
-              'Authorization': response['token']
+              'Authorization': response['toke
             })
-          };
 
           console.log("token : ", typeof localStorage.getItem('token'));
           // nouveau mdp envoyé
