@@ -29,53 +29,31 @@ export class ServiceViewComponent implements OnInit {
 
   ngOnInit(){
 
-    //RÉCUPÈRE DEPUIS FIREBASE
-    this.httpClient
-      .get<any[]>(this.auth.backend_test+'services.json')
-      .subscribe(
-        (response) => {
-
-          this.services_db = response;
-          console.log("#OK");
-          console.log("#SERVICES : " + response);
-          console.log(this.services_db)
-          for (let j=0; j< this.services_db.length ; j++){
-            this.servicesContent.push(this.services_db[j].content);
-          }
-          for (let content of this.servicesContent){
-            console.log(content.user);}
-
-
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-
-      );
-
     //RÉCUPÈRE DEPUIS LE BACK
-    /*this.httpClient
-      .get<any[]>(this.auth.backend+'api/announce/user')
+    this.httpClient
+      .get<any[]>(this.auth.backend+'api/announce')
       .subscribe(
         (response) => {
           console.log("#######ALL ANNOUNCES###########");
-          for (let j=0; j< this.response.length ; j++) {
-            console.table("##########ANNOUNCE " + (j+1) + "###########" );
+          console.log(response);
+          /*for (let j=0; j< response.length ; j++) {
+            console.log("##########ANNOUNCE " + (j+1) + "###########" );
+
             this.servicesContent.push(
               {idUser: response[j]['idUser'], content: JSON.parse(response[j]['content']),
                 id: response[j]['id'], price: response[j]['price']}
             );
-          }
+          }*/
 
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
           }
-          console.log("Erreur de chargement : " + error);
+          console.log("Erreur lors de la récupération des services : " + error);
         }
 
-      );*/
+      );
 
 
 
