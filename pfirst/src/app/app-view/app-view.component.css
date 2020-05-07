@@ -10,8 +10,8 @@
 .jumbotron{
   background-image: url("../../assets/data/banniere1.png");
   background-size: cover;
-  min-height: 380px;
-  height: 400px;
+  min-height: 200px;
+  height: 300px;
 
 }
 
@@ -26,6 +26,8 @@
 */
 
 #space{
+  position: absolute;
+  top: 1500px;
   height: 200px;
 }
 
@@ -61,5 +63,59 @@
 
 }
 
+/* INEED C'EST QUOI */
+#IneedCQ{
+  position: absolute;
+  top: 420px;
+  left: 100px;
+  width: 230px;
+}
 
+#pile{
+  width: 800px;
+  position: absolute;
+  right: 100px;
+  width: 450px;
+}
+#sep
+{
+  width: 1280px;
+  position: absolute;
+  top : 750px;
+  left : 0px;
+}
+#textIn{
+  width: 300px;
+  position: absolute;
+  left: 100px;
+  top: 550px;
+}
 
+/*AIDER QLQ */
+
+#tuveux{
+  position: absolute;
+  top: 1000px;
+  right: 100px;
+  width: 320px;
+}
+#jetCourse{
+  position: absolute;
+  width: 350px;
+  top : 1050px;
+  left : 250px;
+}
+#aBesoin{
+  position:absolute;
+  top: 1400px;
+  left: 310px;
+  font-size: large;
+
+}
+#textTV{
+  position: absolute;
+  width: 300px;
+  top : 1120px;
+  right : 100px;
+  text-align: right;
+}
