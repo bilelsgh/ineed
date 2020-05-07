@@ -24,18 +24,27 @@ export class ServiceService{
     cuisine.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(cuisine);
     this.emitCuisine();
+    let cuisine_back = {idUser: cuisine["idUser"], content: JSON.stringify(cuisine["content"]), id: cuisine["id"],
+      price: cuisine['price']} //On convertit en string car c'est le format attendu dans le BACK
+
+    //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
+    let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : cuisine_back};
+    console.table(message);
+
     this.httpClient
-      .put(this.auth.backend_test +"services.json", this.services)
-      .subscribe( //
-        () => { //
-          console.log("Enregistrement ok!");
+      .post(this.auth.backend+"api/announce", message)
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          console.log("#DEBUG : Envoie de cuisine vers le BACK réussi");
+          console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
-          console.log("Erreur : "+ error);
+          console.log("#DEBUG : Erreur lors de l'envoie de cuisine vers le BACK : "+ error);
         }
       );
   }
@@ -45,22 +54,31 @@ export class ServiceService{
   }
 
 
-  addAccompage(accompage : Accompage){
-    accompage.id=this.services[(this.services.length - 1)].id + 1
-    this.services.push(accompage);
+  addAccompage(accompagne : Accompage){
+    accompagne.id=this.services[(this.services.length - 1)].id + 1
+    this.services.push(accompagne);
     this.emitAccompage();
+    let accompagne_back = {idUser: accompagne["idUser"], content: JSON.stringify(accompagne["content"]), id: accompagne["id"],
+      price: accompagne['price']} //On convertit en string car c'est le format attendu dans le BACK
+
+    //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
+    let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : accompagne_back};
+    console.table(message);
+
     this.httpClient
-      .put(this.auth.backend_test +"services.json", this.services)
-      .subscribe( //
-        () => { //
-          console.log("Enregistrement ok!");
+      .post(this.auth.backend+"api/announce", message)
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          console.log("#DEBUG : Envoie de accompagne vers le BACK réussi");
+          console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
-          console.log("Erreur : "+ error);
+          console.log("#DEBUG : Erreur lors de l'envoie de accompagne vers le BACK : "+ error);
         }
       );
   }
