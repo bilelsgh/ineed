@@ -31,22 +31,25 @@ ngOnInit(): void {
       lieu : "",
       datejour: "",
       dateheure:'',
+      city:'',
+      adress:'',
     });}
 
     onSubmitForm() {
 
 
       const f = this.cuisineForm;
-      const content=  {id: 5, type:'service3', name:"Faire la cuisine", user:'',description: '', lieu:'',sur_place:'', datejour:'', dateheure : '', type_de_plat: '',  image: '../../assets/data/cuisine.png' }
+      const content=  {id: 5, type:'service3', name:"Faire la cuisine", user:'',description: '', lieu:'',sur_place:'', datejour:'', dateheure : '', type_de_plat: '',  image: '../../assets/data/cuisine.png', contry:'France', city:'', adress: '' }
       content.datejour=f.value['datejour'];
       content.lieu= f.value['lieu'];
       content.sur_place= f.value['sur_place'];
       content.type_de_plat=f.value['type_plat'];
       content.description=f.value['description'];
       content.user=f.value['user'];
+      content.city=f.value['city'];
+      content.adress=f.value['adress'];
     const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('user'))["idUser"], content,
-
-    0);
+    0, 0, false);
       this.serviceService.addCuisine(newCuisine);
       this.router.navigate(['']);
     }

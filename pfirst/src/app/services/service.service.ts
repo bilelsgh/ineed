@@ -74,7 +74,7 @@ export class ServiceService{
   }
 
   //VERSION POUR ENVOYER DANS FIREBASE
-  /*addCourses(courses : Courses){
+  addCourses(courses : Courses){
     courses.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
     this.emitCourses();
@@ -89,10 +89,10 @@ export class ServiceService{
           console.log("Erreur : "+ error);
         }
       );
-  }*/
+  }
 
   //VERSION POUR ENVOYER DANS LE BACK
-  addCourses(courses : Courses){
+  /*addCourses(courses : Courses){
     courses.content['id']=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
     this.emitCourses();
@@ -118,7 +118,7 @@ export class ServiceService{
           console.log("#DEBUG : Erreur lors de l'envoie des courses: "+ error);
         }
       );
-  }
+  }*/
 
   emitMenage(){
     this.menageSubject.next(this.menage.slice());

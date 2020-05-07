@@ -1,3 +1,9 @@
+-> Politique du git
+
+Put here mistakes to avoid when using git.
+
+When commiting, put the issue number, e.g, #12 in the message.
+
 -> Rendre service
 
 Nous détaillons ici comment nous allons gérer le fonctionnement du **processus de "rendre service".** 

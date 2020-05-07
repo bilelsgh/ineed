@@ -40,7 +40,7 @@ export class CoursesSingleComponent implements OnInit {
     const dispo=this.service_descriptor.content.datejour;
     this.DispoJour=new Date(dispo);
     this.DispoHeure= this.service_descriptor.content.dateheure
-    this.City=this.service_descriptor.content.city;
+    this.City=this.service_descriptor.content.city; 
     this.writeList();
     this.copied = false;
 

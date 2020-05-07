@@ -31,7 +31,9 @@ export class ServiceViewComponent implements OnInit {
 
     //RÉCUPÈRE DEPUIS FIREBASE
 
+
     this.httpClient
+
 
       .get<any[]>(this.auth.backend_test+'services.json')
       .subscribe(

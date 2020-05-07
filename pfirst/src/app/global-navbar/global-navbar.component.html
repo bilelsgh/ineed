@@ -80,6 +80,12 @@
     </tr>
   </table>
 </nav>
-<div [@reduceNotif]="stateNotif" *ngIf="this.hasNotif&&this.authService.isAuthenticated()" id="roundNotifIcon" (click)="openUserModal()">
-  {{this.notifs.length}}
-</div>
+  <div
+    [@rotatedState]="stateRotate"
+    [@reduceNotif]="stateNotif"
+    *ngIf="this.hasNotif&&this.authService.isAuthenticated()"
+    id="roundNotifIcon" (click)="openUserModal()">
+    {{this.notifs.length}}
+  </div>
+
+
