@@ -103,7 +103,17 @@
             <!-- ##################### Former ####################-->
             <div class="form-group">
               <div class="jumbotron" id="formulaire" style="width: 400px">
-                <label for="formerPassword">Mot de passe actuel</label>
+                <table>
+                  <td> <label for="formerPassword">Mot de passe actuel</label></td>
+                  <td> <!--#POPOVER INFO MDP#-->
+                  <span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary" ngbPopover="Votre
+                mot de passe doit faire au moins 6 caractères. Utilisez des lettres majuscules et minuscules, des chiffres
+                 ou encore descaractères spéciaux pour rendre votre mot de passe plus sûr." triggers="mouseenter:mouseleave"
+                            popoverTitle="Un mot de passe c'est important !" placement="right">
+                  <p id="text_info">?</p></span>
+                  </td>
+                </table>
+
                 <input type="text" class="form-control" id="formerPassword" name="formerPassword"
                        ngModel>
                 <span class="current-info-indicator">{{this.email}}</span>
