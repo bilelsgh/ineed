@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
+import {error} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-info-settings',
@@ -44,10 +45,11 @@ export class InfoSettingsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //probleme promesse
     this.userService.getProfilById('user').then(() => {
-        this.info_user = localStorage.getItem('user');
+        //this.info_user = localStorage.getItem('user');   /!\ asynchrone
+        this.info_user = this.userService.info_user;
         console.log('Init info-set : this.info_user : ', this.info_user);
+        console.log(this.info_user["mail"]);
         this.email = this.info_user['mail'];
         console.log("this.email : ", this.email);
         console.table(this.email);
@@ -56,7 +58,9 @@ export class InfoSettingsComponent implements OnInit {
         this.profil_pic = this.info_user['profil_pic'];
         //this.userForm = this.initForm();
       }
-    );
+    ).catch((e)=>{
+      console.log('Init info-set : impossible de récupérer les infos users', e);
+    });
   }
 
   onFileSelected(event) {
