@@ -34,12 +34,8 @@ export class ServiceViewComponent implements OnInit {
       .get<any[]>(this.auth.backend+'api/announce')
       .subscribe(
         (response) => {
-          console.table('#ALL ANNOUNCES ' + response['announces'][0]['content']['image']);
           for (let j=0; j< Number(response['announces']['length']) ; j++) {
             //this.services_db.push(response['announces'][j]);
-            console.log("##########ANNOUNCE " + (j+1) + "###########" );
-            console.log(response['announces'][j]);
-            console.log(JSON.parse(response['announces'][j]['content'])['image']);
             this.services_db.push(
               {idUser: response['announces'][j]['idUser'], content: JSON.parse(response['announces'][j]['content']),
                 id: response['announces'][j]['idAnnounce'], price: response['announces'][j]['price']}

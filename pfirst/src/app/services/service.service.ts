@@ -186,7 +186,8 @@ export class ServiceService{
         .get(this.auth.backend+'api/announce/' + id + '?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(
           (response) => {
-            this.current_service = response["announce"];
+            this.current_service = {idUser: response['announce']['idUser'], content: JSON.parse(response['announce']['content']),
+              id: response['announce']['idAnnounce'], price: response['announce']['price']};
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
             console.log("#Récupération de current_service (getById) OK");
