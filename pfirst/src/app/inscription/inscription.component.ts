@@ -85,22 +85,28 @@ export class InscriptionComponent implements OnInit {
 
     if (text.length < 6) {
       this.small_password = true;
+      this.bad_password = false;
+      this.medium_password = false;
+      this.strong_password = false;
+      console.log("MOT DE PASSE TAILLE PETITE")
     } else if ( this.badRegex.test(text) ) {
       this.small_password = false;
       this.bad_password = true;
       this.medium_password = false;
       this.strong_password = false;
-
+      console.log("MDP MAUVAIS");
     } else if ( this.mediumRegex.test(text) ) {
       this.small_password = false;
       this.medium_password = true;
       this.strong_password = false;
       this.bad_password = false;
+      console.log("MDP MOYEN")
     } else if ( this.strongRegex.test(text) ) {
       this.small_password = false;
       this.strong_password = true;
       this.bad_password = false;
       this.medium_password = false;
+      console.log("MDP FORT")
     }
 
   }
