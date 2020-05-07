@@ -35,15 +35,19 @@ export class ServiceViewComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log("#######ALL ANNOUNCES###########");
-          console.log(response);
-          /*for (let j=0; j< response.length ; j++) {
+          console.log(response['announces']);
+          /*for (let j=0; j< Number(response['announces']['length']) ; j++) {
             console.log("##########ANNOUNCE " + (j+1) + "###########" );
-
+            console.log(response['announces'][j]);
             this.servicesContent.push(
-              {idUser: response[j]['idUser'], content: JSON.parse(response[j]['content']),
-                id: response[j]['id'], price: response[j]['price']}
+              {idUser: response['announces'][j]['idUser'], content: JSON.parse(response['announces'][j]['content']),
+                id: response['announces'][j]['idAnnounce'], price: response['announces'][j]['price']}
             );
           }*/
+          this.servicesContent.push(
+            {idUser: response['announces'][3]['idUser'], content: JSON.parse(response['announces'][3]['content']),
+              id: response['announces'][3]['idAnnounce'], price: response['announces'][3]['price']}
+          );
 
         },
         (error) => {

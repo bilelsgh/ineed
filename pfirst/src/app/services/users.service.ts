@@ -178,7 +178,7 @@ export class UserService {
           .subscribe(
             (response) => {
               console.log("#GETPROFILBYID");
-              console.table(response);
+              console.log(response);
               this.auth.setUserInfo(JSON.stringify(response['user']), 'current_profil'); //on stocke les infos de l'utilisateur récupérée dans le local storage
               this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
 
