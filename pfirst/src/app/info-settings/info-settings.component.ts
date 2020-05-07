@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/users.service";
 import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {error} from "@angular/compiler/src/util";
@@ -58,7 +58,7 @@ export class InfoSettingsComponent implements OnInit {
         this.profil_pic = this.info_user['profil_pic'];
         //this.userForm = this.initForm();
       }
-    ).catch((e)=>{
+    ).catch((e) => {
       console.log('Init info-set : impossible de récupérer les infos users', e);
     });
   }
@@ -72,37 +72,49 @@ export class InfoSettingsComponent implements OnInit {
   // Modification du mot de passe utilisateur
   onSubmitNewPassword(form: NgForm) {
     const formerMdp = form.value['formerPassword'];
-    const newPassword = 'newP';
+    const newPassword = form.value['newPassword'];
     console.log('modif mdp form.value', formerMdp);
 
 
     this.httpClient
-      .post(this.authService.backend + 'api/user/login', {mail: JSON.parse(localStorage.getItem('user'))['mail'], password: formerMdp})
+      .post(this.authService.backend + 'api/user/login', {
+        mail: JSON.parse(localStorage.getItem('user'))['mail'],
+        password: formerMdp
+      })
       .subscribe(
         (response) => {
           console.log("#Modif : mdp ancien correct: " + response);
-          this.authService.setUserInfo(JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
+          this.authService.setUserInfo(JSON.stringify(response['token']), 'token'); // stocke le token dans le session/localStorage
           this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
 
-          const httpOptions = {
+          /*const httpOptions = {
             headers: new HttpHeaders({
-              'Content-Type':  'application/json',
-              'Authorization': response['toke
-            })
+              'Content-Type': 'application/json',
+              'Authorization': response['token']
+            }),
+          };
+           */
+          const myHeader = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': response['token']
+          });
 
           console.log("token : ", typeof localStorage.getItem('token'));
+
           // nouveau mdp envoyé
-          this.httpClient.put(this.authService.backend + 'api/user/' + this.info_user["idUser"] + "/password" ,{"password" : newPassword}, httpOptions)
+          this.httpClient.put(this.authService.backend + 'api/user/' + this.info_user["idUser"] + "/password",
+            {"password": newPassword},
+            {headers: myHeader, observe: 'response'})
             .subscribe(
-              (response) => {
-                console.log("#Modif : nouveau mdp accepté", response);
-                this.authService.setUserInfo(response['token'],'token');
+              (resp) => {
+                console.log("#Modif : nouveau mdp accepté, nouveau token = ", typeof resp.headers.get('Authorization'));
+                this.authService.setUserInfo(JSON.stringify(resp.headers.get('Authorization')), 'token');
               },
-              (error) => {
-                console.log("#Modif : nouveau mdp refusé", response);
+              (e) => {
+                console.log("#Modif : nouveau mdp refusé", e);
               }
-        );
-          this.router.navigate(['']);
+            );
+          //this.router.navigate(['']);
         },
         (error) => {
           if (error['status'] === 401) {
@@ -110,7 +122,7 @@ export class InfoSettingsComponent implements OnInit {
           }
 
         }
-        );
+      );
   }
 
   onSubmitNewInfos(form: NgForm) {
@@ -138,18 +150,18 @@ export class InfoSettingsComponent implements OnInit {
       this.medium_password = false;
       this.strong_password = false;
       console.log("MOT DE PASSE TAILLE PETITE")
-    } else if ( this.badRegex.test(text) ) {
+    } else if (this.badRegex.test(text)) {
       this.small_password = false;
       this.bad_password = true;
       this.medium_password = false;
       this.strong_password = false;
 
-    } else if ( this.mediumRegex.test(text) ) {
+    } else if (this.mediumRegex.test(text)) {
       this.small_password = false;
       this.medium_password = true;
       this.strong_password = false;
       this.bad_password = false;
-    } else if ( this.strongRegex.test(text) ) {
+    } else if (this.strongRegex.test(text)) {
       this.small_password = false;
       this.strong_password = true;
       this.bad_password = false;
