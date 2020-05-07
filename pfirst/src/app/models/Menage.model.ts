@@ -5,6 +5,7 @@ export class Menage{
                 materiel : string[], image : string},
                 public id : number,
               public price : number = 0,
+              public finished : boolean,
   ){}
 }
 
