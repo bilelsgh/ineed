@@ -182,19 +182,14 @@ export class ServiceService{
   getServiceById(id: number) {
     return new Promise((resolve,reject)=> {
       this.httpClient
-        .get<any[]>(this.auth.backend_test+'services.json')
+        .get(this.auth.backend+'announce/' + id + '?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(
           (response) => {
+            this.current_service = response["announce"];
+            this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
-            this.services = response;
-            this.current_service = this.services.find(
-              (s) => {
-                return s.id === id;
-              }
-            );
-            console.log("#SERVICE-SERVICE : current_service :", this.current_service);
-            console.log("#OK");
-            console.log("#SERVICES : " + response);
+            console.log("#Récupération de current_service (getById) OK");
+            console.table("#SERVICE-SERVICE : current_service :", this.current_service);
             resolve(true);
           },
           (error) => {
