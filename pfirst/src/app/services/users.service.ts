@@ -165,7 +165,7 @@ export class UserService {
     return new Promise((resolve, reject) => {
       if (id === 'user') {
         this.info_user = JSON.parse(localStorage.getItem('user'));
-        console.table(this.info_user);
+        console.table("getProfilByID : ",this.info_user);
         if (this.info_user != null) {
           resolve(true);
         } else {

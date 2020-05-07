@@ -14,12 +14,13 @@ export class AuthService {
   constructor(private http : HttpClient, private router : Router) { }
 
   public isAuthenticated() : Boolean {
+
     let userData = localStorage.getItem('token')
     if(userData && JSON.parse(userData)){
       return true;
     }
     return false;
-  }
+    }
 
   public removeUserInfo(){
     localStorage.removeItem('token');
