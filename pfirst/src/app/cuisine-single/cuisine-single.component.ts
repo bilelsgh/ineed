@@ -48,38 +48,8 @@ export class CuisineSingleComponent implements OnInit {
   /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
    EN QUESTION.
     */
-  goProfil(){
-    this.httpClient
-      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.idUser)
-      .subscribe(
-        (token) => {
-          this.auth.setUserInfo(token, 'current_profil');
-          this.router.navigate(['profil']);
-
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-      );
+  goProfil(where : string){
+    this.router.navigate([where]);
   }
 
-  //Fait automatiquement par le back
-  /*updateView() {
-    if (JSON.parse(localStorage.getItem('user'))["idUser"] != this.Id) {
-      let new_view = this.View + 1;
-      this.View = new_view;
-      let message = {updatedViewNumber: new_view, announceID: this.service_descriptor.id};
-      //Envoie du nouveau viewNUmber dans le back
-      this.httpClient
-        .post(this.auth.backend + 'route à définir', message)
-        .subscribe(
-          (response) => {
-            this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-          },
-          (error) => {
-            console.log("Erreur d'envoie de updatedViewNumber : " + error);
-          }
-        );
-    }
-  }*/
 }

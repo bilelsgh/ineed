@@ -162,6 +162,7 @@ export class UserService {
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
   getProfilById(id: string = 'user') {
+    console.log("#IDUSERgetProfil : " + id );
     return new Promise((resolve, reject) => {
       if (id === "current_user") {
         this.info_user = JSON.parse(localStorage.getItem('token'))['user'];

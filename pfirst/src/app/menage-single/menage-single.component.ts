@@ -87,19 +87,8 @@ export class MenageSingleComponent implements OnInit {
   /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
    EN QUESTION.
     */
-  goProfil(){
-    this.httpClient
-      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.idUser)
-      .subscribe(
-        (token) => {
-          this.auth.setUserInfo(token, 'current_profil')
-          this.router.navigate(['profil']);
-
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-      );
+  goProfil(where : string){
+    this.router.navigate([where]);
   }
 
 }
