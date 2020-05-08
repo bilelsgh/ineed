@@ -43,16 +43,6 @@ export class CuisineSingleComponent implements OnInit {
     //GESTION DU NOMBRE DE VUS
     //this.updateView();
 
-
-    /*
-    const id = this.route.snapshot.params['id'];
-    this.Name = this.serviceService.getServiceById(+id).name;
-    this.User=this.serviceService.getServiceById(+id).user;
-    this.Description = this.serviceService.getServiceById(+id).description;
-    this.Sur_place= this.serviceService.getServiceById(+id).sur_place;
-    this.Dispo=this.serviceService.getServiceById(+id).date;
-    this.Type_de_plat=this.serviceService.getServiceById(+id).type_de_plat;
-     */
   }
 
   /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
