@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {subscribeOn} from 'rxjs/operators';
 import {AuthService} from './auth.service';
 
@@ -15,6 +15,8 @@ export class UserService {
   ];
 
   active_announces: any[];
+
+  announceHelpers: any[];
 
   services_history_for = [
     {
@@ -200,18 +202,22 @@ export class UserService {
   }
 
 
-  getPostedAnnounces(id: string = 'user') {
+  getPostedAnnounces(idUsr: string) {
     return new Promise((resolve, reject) => {
-
+      /*
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
           'Authorization': localStorage.getItem('token')
         })
       };
+       */
+      const params = new HttpParams().append('token', localStorage.getItem('token'));
+      //const usrId = JSON.parse(localStorage.getItem('user'))['idUser'];
 
       this.httpClient
-        .get<any[]>(this.auth.backend + '/api/announce/user/' + id, httpOptions)   //from backend
+        .get<any[]>(this.auth.backend + 'api/announce/user/' + idUsr, {params})   //from backend
+        //.get<any[]>(this.auth.backend + 'api/announce/user/'+usrId)
         //.get(this.auth.backend_test + 'actives.json')     //from firebase
         .subscribe(
           (response) => {
@@ -235,11 +241,31 @@ export class UserService {
               this.auth.removeUserInfo();
               console.log("#TOKEN EXPIRED");
             }
-            console.log("Erreur de chargement : " + error);
+            console.log("#getPostedA() :Erreur de chargement : " + error);
             reject(true);
           }
         );
     });
+  }
+
+  getAnnounceHelpersById(announceId: string){
+    return new Promise( ((resolve, reject) => {
+      let params = new HttpParams();
+      params = params.append('token', localStorage.getItem('token'));
+
+      this.httpClient.get<any[]>('api/announce/' + announceId + '/helpers', {params  })
+        .subscribe(
+          (response) => {
+            this.announceHelpers = response;
+            console.log('#getAnnounceHelpers : success', response);
+            resolve(true);
+          },
+          (error) => {
+            console.log('#getAnnounceHelpers : failure');
+            reject(true);
+          }
+        );
+    }));
   }
 
 }

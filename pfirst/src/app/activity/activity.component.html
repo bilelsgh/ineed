@@ -2,7 +2,8 @@
   <h2 id="demandeTexte">Vos demandes en cours</h2>
   <div class="row">
     <ul class="list-group">
-      <div *ngFor ="let service of this.proposed_services,  let i =index,">
+      <table>
+        <div *ngFor="let service of this.proposed_services,  let i =index,">
           <app-service
             [serviceName]="service.content.name"
             [serviceUser]="service.content.user"
@@ -10,9 +11,10 @@
             [serviceImage]="service.content.image"
             [index]="i"
             [id]="service.id"
-            [serviceDate]="service.content.datejour" >
+            [serviceDate]="service.content.datejour">
           </app-service>
-      </div>
+        </div>
+      </table>
     </ul>
   </div>
 </div>

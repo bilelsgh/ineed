@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/users.service";
 import {catchError} from "rxjs/operators";
+import {replaceTsWithNgInErrors} from "@angular/compiler-cli/src/ngtsc/diagnostics";
 
 @Component({
   selector: 'app-activity',
@@ -58,7 +59,7 @@ export class ActivityComponent implements OnInit {
         console.log('Failed to send actives to firebase');
       });
      */
-    this.userService.getPostedAnnounces('user')
+    this.userService.getPostedAnnounces(JSON.parse(localStorage.getItem('user'))['idUser'])
       .then(() => {
         this.proposed_services = this.userService.active_announces;
         console.log('#ACTIVIY : Récupération ok', 'announces in userServ :', this.userService.active_announces);
@@ -86,5 +87,16 @@ export class ActivityComponent implements OnInit {
     });
   }
 
+  getHelper(announceId: string){
+    this.userService.getAnnounceHelpersById(announceId)
+      .then(() => {
+        return this.userService.announceHelpers;
+      })
+      .catch((e) => {
+        console.log("#getHelpers : erreur de recupération ", e);
+        let empty = [];
+        return empty ;
+      });
+  }
 
 }
