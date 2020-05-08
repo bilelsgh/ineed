@@ -72,10 +72,14 @@ export class CuisineSingleComponent implements OnInit {
         JSON.parse(localStorage.getItem('token')) )
       .subscribe(
         (response) => {
-          this.auth.setUserInfo(response['token'], 'current_profil'); //mise à jour du token
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'current_profil'); //mise à jour du token
+
           for(let helper of response['helpers']){
-            if(helper['idUser'] === JSON.parse())
+            if(helper['idUser'] === JSON.parse(localStorage.getItem('user'))['idUser']){
+              return false;
+            }
           }
+          return true;
         },
         (error) => {
           console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
