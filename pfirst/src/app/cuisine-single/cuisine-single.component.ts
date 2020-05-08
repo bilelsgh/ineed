@@ -33,7 +33,6 @@ export class CuisineSingleComponent implements OnInit {
   ngOnInit() {
 
     this.appliedOrNot();
-    console.log("#APPLIED : " + this.applied);
     this.Id = this.service_descriptor.idUser;
     this.Name = this.service_descriptor.content.name;
     this.User=this.service_descriptor.content.user;
@@ -70,10 +69,10 @@ export class CuisineSingleComponent implements OnInit {
 
           for (let helper of response['helpers']) {
             if (helper['idUser'] === JSON.parse(localStorage.getItem('user'))['idUser']) {
-              this.applied = false;
+              this.applied = true;
             }
           }
-          this.applied = true;
+          this.applied = false;
         },
         (error) => {
           console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
