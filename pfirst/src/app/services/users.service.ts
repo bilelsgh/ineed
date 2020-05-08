@@ -204,6 +204,7 @@ export class UserService {
 
   getPostedAnnounces(idUsr: string) {
     return new Promise((resolve, reject) => {
+
       /*
       const httpOptions = {
         headers: new HttpHeaders({
