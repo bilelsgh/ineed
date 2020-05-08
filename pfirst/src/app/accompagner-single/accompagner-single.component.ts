@@ -14,6 +14,7 @@ import {Accompage} from "../models/Accompage.model";
 
 export class AccompagnerSingleComponent implements OnInit {
 
+  applied : boolean;
   Name: string ;
   User: string = 'Utilisateur';
   Description: string = 'Description';
@@ -29,6 +30,8 @@ export class AccompagnerSingleComponent implements OnInit {
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
+    this.appliedOrNot();
+
     this.Name = this.service_descriptor.content.name;
     this.User=this.service_descriptor.content.user;
     this.Description = this.service_descriptor.content.description;
@@ -48,4 +51,34 @@ export class AccompagnerSingleComponent implements OnInit {
   goProfil(where : string){
     this.router.navigate([where]);
   }
+
+  applyAccompagne() {
+    if (!this.applied) {
+      this.serviceService.applyService(this.service_descriptor.id)
+      this.appliedOrNot();
+    }
+  }
+
+  //Indique si l'utilisateur s'est proposé pour cette annonce
+  /*brief Renvoie vrai so l'utilisateur a déjà proposé son aide pour cette annonce*/
+  appliedOrNot() {
+    this.httpClient
+      .get<any[]>(this.auth.backend + 'api/announce/' + this.service_descriptor.id + '/helpers?token=' +
+        JSON.parse(localStorage.getItem('token')))
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'current_profil'); //mise à jour du token
+          this.applied = false;
+          for (let helper of response['helpers']) {
+            if (helper['idUser'] === JSON.parse(localStorage.getItem('user'))['idUser']) {
+              this.applied = true;
+            }
+          }
+        },
+        (error) => {
+          console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
+        }
+      );
+  }
+
 }

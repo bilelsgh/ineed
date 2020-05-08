@@ -1,3 +1,9 @@
+<div *ngIf="applied" class="alert alert-dismissable alert-success">
+  <table align="center">
+    Votre demande d'aide a bien été envoyé à <b>{{User}}</b>, attendez son acceptation.
+  </table>
+</div>
+
 <br>
 
 <table align="center">
@@ -50,7 +56,14 @@
   </div>
 
   <table align="center">
-    <tr><button id="button_rendre" type="button" class="btn btn-warning">Aider {{User}} !</button></tr>
+    <tr>
+      <button *ngIf="!applied" id="button_rendre" type="button" class="btn btn-warning" (click)="applyAccompagne()">
+        <p style="font-size: larger">Aider {{User}} !</p></button>
+
+      <button *ngIf="applied" [disabled]="true" id="button_rendre" type="button" class="btn btn-warning" >
+        <p style="font-size: larger">Vous avez proposé votre aide.</p>
+      </button>
+    </tr>
     <tr>
       <!--#####NOMBRES DE VUES####-->
       <div id="view" style="position: absolute;left: 500px;">

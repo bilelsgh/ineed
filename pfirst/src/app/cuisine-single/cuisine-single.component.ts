@@ -58,7 +58,7 @@ export class CuisineSingleComponent implements OnInit {
   }
 
   //Indique si l'utilisateur s'est proposé pour cette annonce
-  /*brief Renvoie vrai sur l'utilisateur a déjà proposé son aide pour cette annonce*/
+  /*brief Renvoie vrai si l'utilisateur a déjà proposé son aide pour cette annonce*/
   appliedOrNot() {
     this.httpClient
       .get<any[]>(this.auth.backend + 'api/announce/' + this.service_descriptor.id + '/helpers?token=' +
