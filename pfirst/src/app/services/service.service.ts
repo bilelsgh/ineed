@@ -24,8 +24,9 @@ export class ServiceService{
     cuisine.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(cuisine);
     this.emitCuisine();
+    //On convertit en string car c'est le format attendu dans le BACK
     let cuisine_back = {idUser: cuisine["idUser"], content: JSON.stringify(cuisine["content"]), id: cuisine["id"],
-      price: cuisine['price']} //On convertit en string car c'est le format attendu dans le BACK
+      price: cuisine['price'], viewNumber: cuisine['viewNumber'], finished: cuisine['finished']}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : cuisine_back};
@@ -91,7 +92,6 @@ export class ServiceService{
     this.coursesSubject.next(this.courses.slice());
   }
 
-  //VERSION POUR ENVOYER DANS LE BACK
   addCourses(courses : Courses){
     courses.content['id']=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
@@ -187,7 +187,8 @@ export class ServiceService{
         .subscribe(
           (response) => {
             this.current_service = {idUser: response['announce']['idUser'], content: JSON.parse(response['announce']['content']),
-              id: response['announce']['idAnnounce'], price: response['announce']['price']};
+              id: response['announce']['idAnnounce'], price: response['announce']['price'],
+            viewNumber: response['announce']['viewNumber'], finished: response['announce']['finished']};
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
             console.log("#Récupération de current_service (getById) OK");

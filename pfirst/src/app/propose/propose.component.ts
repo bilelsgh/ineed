@@ -38,7 +38,8 @@ export class ServiceViewComponent implements OnInit {
             //this.services_db.push(response['announces'][j]);
             this.services_db.push(
               {idUser: response['announces'][j]['idUser'], content: JSON.parse(response['announces'][j]['content']),
-                id: response['announces'][j]['idAnnounce'], price: response['announces'][j]['price']}
+                id: response['announces'][j]['idAnnounce'], price: response['announces'][j]['price'],
+              viewNumber: response['announces']['viewNumber'], finished: response['announces']['finished']}
             );
           }
         },

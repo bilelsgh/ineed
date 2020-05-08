@@ -37,7 +37,7 @@ export class CuisineSingleComponent implements OnInit {
     this.DispoJour=this.service_descriptor.content.datejour;
     this.DispoHeure=this.service_descriptor.content.dateheure;
     this.Type_de_plat=this.service_descriptor.content.type_de_plat;
-    this.View = this.service_descriptor.content.viewNumber;
+    this.View = this.service_descriptor['viewNumber'];
 
 
     //GESTION DU NOMBRE DE VUS
