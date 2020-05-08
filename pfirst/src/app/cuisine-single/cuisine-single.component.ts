@@ -31,6 +31,7 @@ export class CuisineSingleComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.appliedOrNot();
     console.log("#APPLIED : " + this.applied);
     this.Id = this.service_descriptor.idUser;
@@ -45,9 +46,7 @@ export class CuisineSingleComponent implements OnInit {
 
   }
 
-  /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
-   EN QUESTION.
-    */
+
   goProfil(where : string) {
     this.router.navigate([where]);
   }
@@ -61,16 +60,16 @@ export class CuisineSingleComponent implements OnInit {
 
   //Indique si l'utilisateur s'est proposé pour cette annonce
   /*brief Renvoie vrai sur l'utilisateur a déjà proposé son aide pour cette annonce*/
-  appliedOrNot(){
+  appliedOrNot() {
     this.httpClient
       .get(this.auth.backend + 'api/announce/' + this.service_descriptor.id + '/helpers?token=' +
-        JSON.parse(localStorage.getItem('token')) )
+        JSON.parse(localStorage.getItem('token')))
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'current_profil'); //mise à jour du token
 
-          for(let helper of response['helpers']){
-            if(helper['idUser'] === JSON.parse(localStorage.getItem('user'))['idUser']){
+          for (let helper of response['helpers']) {
+            if (helper['idUser'] === JSON.parse(localStorage.getItem('user'))['idUser']) {
               this.applied = false;
             }
           }
@@ -81,4 +80,5 @@ export class CuisineSingleComponent implements OnInit {
         }
       );
   }
+
 }

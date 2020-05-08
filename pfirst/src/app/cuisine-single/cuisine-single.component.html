@@ -54,13 +54,28 @@
 
   <!-- ###PROPOSER SON AIDE### -->
   <table align="center">
-    <button *ngIf="!applied" id="button_rendre" type="button" class="btn btn-warning" (click)="applyCuisine()">
-      <p style="font-size: larger">Aider {{User}} !</p></button>
+    <tr>
+      <button *ngIf="!applied" id="button_rendre" type="button" class="btn btn-warning" (click)="applyCuisine()">
+        <p style="font-size: larger">Aider {{User}} !</p></button>
 
       <button *ngIf="applied" [disabled]="true" id="button_rendre" type="button" class="btn btn-warning" (click)="applyCuisine()">
         <p style="font-size: larger">Vous avez proposé votre aide.</p>
       </button>
+    </tr>
+    <tr>
+
+      <!--#####NOMBRES DE VUES####-->
+      <div id="view" style="position: absolute;left: 500px;">
+        <td>
+          <img style="width:50px" id="viewPic" src="../../assets/data/view.png" alt="">
+        </td>
+        <td><span style="font-size: 25px">{{View}}</span></td>
+      </div>
+    </tr>
   </table>
+
+
+
 </div>
 
 
