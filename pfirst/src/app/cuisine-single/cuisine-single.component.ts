@@ -13,45 +13,38 @@ import {Cuisine} from "../models/Cuisine.model";
 })
 export class CuisineSingleComponent implements OnInit {
 
-  applied : boolean;
+  applied: boolean;
   Name: string = 'Courses';
   User: string = 'Utilisateur';
   Description: string = 'Description';
-  Sur_place:string = 'oui';
-  DispoJour : string = 'oui';
-  DispoHeure : string = 'oui';
-  Type_de_plat : string = "pas ouf";
+  Sur_place: string = 'oui';
+  DispoJour: string = 'oui';
+  DispoHeure: string = 'oui';
+  Type_de_plat: string = "pas ouf";
   @Input() service_descriptor: Cuisine;
 
-  constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
-              private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
+  constructor(private serviceService: ServiceService, private route: ActivatedRoute, private router: Router,
+              private httpClient: HttpClient, private auth: AuthService, private userserv: UserService) {
+  }
 
   ngOnInit() {
-    this.applied = this.appliedOrNot();
+    this.applied = false;//this.appliedOrNot();
     this.Name = this.service_descriptor.content.name;
-    this.User=this.service_descriptor.content.user;
+    this.User = this.service_descriptor.content.user;
     this.Description = this.service_descriptor.content.description;
-    this.Sur_place= this.service_descriptor.content.sur_place;
-    this.DispoJour=this.service_descriptor.content.datejour;
-    this.DispoHeure=this.service_descriptor.content.dateheure;
-    this.Type_de_plat=this.service_descriptor.content.type_de_plat;
-    /*
-    const id = this.route.snapshot.params['id'];
-    this.Name = this.serviceService.getServiceById(+id).name;
-    this.User=this.serviceService.getServiceById(+id).user;
-    this.Description = this.serviceService.getServiceById(+id).description;
-    this.Sur_place= this.serviceService.getServiceById(+id).sur_place;
-    this.Dispo=this.serviceService.getServiceById(+id).date;
-    this.Type_de_plat=this.serviceService.getServiceById(+id).type_de_plat;
-     */
+    this.Sur_place = this.service_descriptor.content.sur_place;
+    this.DispoJour = this.service_descriptor.content.datejour;
+    this.DispoHeure = this.service_descriptor.content.dateheure;
+    this.Type_de_plat = this.service_descriptor.content.type_de_plat;
+
   }
 
   /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
    EN QUESTION.
     */
-  goProfil(){
+  goProfil() {
     this.httpClient
-      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.idUser)
+      .put(this.auth.backend_test + 'other_user.json', this.service_descriptor.idUser)
       .subscribe(
         (token) => {
           this.auth.setUserInfo(token, 'current_profil');
@@ -64,20 +57,29 @@ export class CuisineSingleComponent implements OnInit {
       );
   }
 
-  /*applyCuisine(){
-    if( !this.applied ){
+  applyCuisine() {
+    if (!this.applied) {
       this.serviceService.applyService(this.service_descriptor.id)
       //mettre à jour this.applied
     }
   }
 
   //Indique si l'utilisateur s'est proposé pour cette annonce
-  appliedOrNot(): boolean{
-    for(let elt of 'liste des services_proposedID'){
-      if(elt === this.service_descriptor.id){
-        return true;
-      }
-    }
-    return false;
-  }*/
+  /*brief Renvoie vrai sur l'utilisateur a déjà proposé son aide pour cette annonce*/
+  appliedOrNot(): boolean {
+    this.httpClient
+      .get(this.auth.backend + 'api/announce/' + this.service_descriptor.id + '/helpers?token=' +
+        JSON.parse(localStorage.getItem('token')) )
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(response['token'], 'current_profil'); //mise à jour du token
+          for(let helper of response['helpers']){
+            if(helper['idUser'] === JSON.parse())
+          }
+        },
+        (error) => {
+          console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
+        }
+      );
+  }
 }
