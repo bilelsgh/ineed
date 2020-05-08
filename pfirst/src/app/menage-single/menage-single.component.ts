@@ -13,6 +13,7 @@ import {Menage} from "../models/Menage.model";
 })
 export class MenageSingleComponent implements OnInit {
 
+  View : string;
   Name: string = 'Courses';
   User: string = 'Utilisateur';
   Description: string = 'Description';
@@ -38,6 +39,7 @@ export class MenageSingleComponent implements OnInit {
     this.Date=new Date(this.service_descriptor.content.datejour);
     this.Heure = this.service_descriptor.content.dateheure;
     this.Surface=parseInt(this.service_descriptor.content.surface);
+    this.View= this.service_descriptor['viewNumber'];
 
     this.Salle=this.service_descriptor.content.salle;
     this.Localisation=this.service_descriptor.content.localisation;

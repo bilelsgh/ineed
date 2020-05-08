@@ -59,8 +59,9 @@ export class ServiceService{
     accompagne.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(accompagne);
     this.emitAccompage();
+    //On convertit en string car c'est le format attendu dans le BACK
     let accompagne_back = {idUser: accompagne["idUser"], content: JSON.stringify(accompagne["content"]), id: accompagne["id"],
-      price: accompagne['price']} //On convertit en string car c'est le format attendu dans le BACK
+      price: accompagne['price'], viewNumber: accompagne['viewNumber'], finished: accompagne['finished']}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : accompagne_back};
@@ -96,8 +97,9 @@ export class ServiceService{
     courses.content['id']=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
     this.emitCourses();
+    //On convertit en string car c'est le format attendu dans le BACK
     let course_back = {idUser: courses["idUser"], content: JSON.stringify(courses["content"]), id: courses["id"],
-    price: courses['price']} //On convertit en string car c'est le format attendu dans le BACK
+    price: courses['price'], viewNumber: courses['viewNumber'], finished: courses['finished']}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : course_back};
@@ -129,8 +131,9 @@ export class ServiceService{
     menage.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(menage);
     this.emitMenage();
+    //On convertit en string car c'est le format attendu dans le BACK
     let menage_back = {idUser: menage["idUser"], content: JSON.stringify(menage["content"]), id: menage["id"],
-      price: menage['price']} //On convertit en string car c'est le format attendu dans le BACK
+      price: menage['price'], viewNumber: menage["viewNumber"], finished: menage['finished']}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : menage_back};

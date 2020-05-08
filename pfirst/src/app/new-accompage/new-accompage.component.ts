@@ -43,8 +43,7 @@ ngOnInit(): void {
     content.description=f.value['description'];
     content.user=f.value['user'];
     const newAccompage = new Accompage( JSON.parse(localStorage.getItem('user'))["idUser"], content,8,
-
-    0, false);
+    0, 0, false);
     this.serviceService.addAccompage(newAccompage);
     this.router.navigate(['']);
 };
