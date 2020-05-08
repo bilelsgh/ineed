@@ -28,7 +28,8 @@ export class CuisineSingleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.applied = false;//this.appliedOrNot();
+    this.appliedOrNot();
+    console.log("#APPLIED : " + this.applied);
     this.Name = this.service_descriptor.content.name;
     this.User = this.service_descriptor.content.user;
     this.Description = this.service_descriptor.content.description;
@@ -66,7 +67,7 @@ export class CuisineSingleComponent implements OnInit {
 
   //Indique si l'utilisateur s'est proposé pour cette annonce
   /*brief Renvoie vrai sur l'utilisateur a déjà proposé son aide pour cette annonce*/
-  appliedOrNot(): boolean {
+  appliedOrNot(){
     this.httpClient
       .get(this.auth.backend + 'api/announce/' + this.service_descriptor.id + '/helpers?token=' +
         JSON.parse(localStorage.getItem('token')) )
@@ -76,10 +77,10 @@ export class CuisineSingleComponent implements OnInit {
 
           for(let helper of response['helpers']){
             if(helper['idUser'] === JSON.parse(localStorage.getItem('user'))['idUser']){
-              return false;
+              this.applied = false;
             }
           }
-          return true;
+          this.applied = true;
         },
         (error) => {
           console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
