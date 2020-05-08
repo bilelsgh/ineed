@@ -3,17 +3,22 @@
   <div class="row">
     <ul class="list-group">
       <table>
-        <div *ngFor="let service of this.proposed_services,  let i =index,">
-          <app-service
-            [serviceName]="service.content.name"
-            [serviceUser]="service.content.user"
-            [serviceDescription]="service.content.description"
-            [serviceImage]="service.content.image"
-            [index]="i"
-            [id]="service.id"
-            [serviceDate]="service.content.datejour">
-          </app-service>
-        </div>
+        <tr>
+          <td>
+            <div *ngFor="let service of proposed_services,  let i =index,">
+              <app-service
+                [serviceName]="service.content.name"
+                [serviceUser]="service.content.user"
+                [serviceDescription]="service.content.description"
+                [serviceImage]="service.content.image"
+                [index]="i"
+                [id]="service.id"
+                [serviceDate]="service.content.datejour">
+              </app-service>
+            </div>
+          </td>
+        </tr>
+
       </table>
     </ul>
   </div>

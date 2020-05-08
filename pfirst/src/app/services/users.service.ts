@@ -212,17 +212,15 @@ export class UserService {
         })
       };
        */
-      const params = new HttpParams().append('token', localStorage.getItem('token'));
+      const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
       //const usrId = JSON.parse(localStorage.getItem('user'))['idUser'];
 
       this.httpClient
         .get<any[]>(this.auth.backend + 'api/announce/user/' + idUsr, {params})   //from backend
-        //.get<any[]>(this.auth.backend + 'api/announce/user/'+usrId)
+        //.get<any[]>(this.auth.backend + 'api/announce/user/'+ idUsr +'?token='+localStorage.getItem('token'))
         //.get(this.auth.backend_test + 'actives.json')     //from firebase
         .subscribe(
           (response) => {
-            console.log("#GETPOSTEDANNOUNCES");
-            console.table(response);
             /*for backend*/
             this.active_announces = response['announces'];
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
@@ -241,7 +239,7 @@ export class UserService {
               this.auth.removeUserInfo();
               console.log("#TOKEN EXPIRED");
             }
-            console.log("#getPostedA() :Erreur de chargement : " + error);
+            console.log("#getPostedA() :Erreur de chargement : ", error);
             reject(true);
           }
         );
@@ -250,8 +248,7 @@ export class UserService {
 
   getAnnounceHelpersById(announceId: string){
     return new Promise( ((resolve, reject) => {
-      let params = new HttpParams();
-      params = params.append('token', localStorage.getItem('token'));
+      const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
 
       this.httpClient.get<any[]>('api/announce/' + announceId + '/helpers', {params  })
         .subscribe(

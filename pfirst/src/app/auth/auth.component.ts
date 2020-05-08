@@ -40,7 +40,6 @@ export class AuthComponent implements OnInit {
       );
   }
 
-
   onSubmit(form: NgForm) {
     if (this.testMail(form.value['mail'])){
       this.field_non_valid = false;

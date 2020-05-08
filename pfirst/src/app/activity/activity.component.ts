@@ -62,10 +62,13 @@ export class ActivityComponent implements OnInit {
     this.userService.getPostedAnnounces(JSON.parse(localStorage.getItem('user'))['idUser'])
       .then(() => {
         this.proposed_services = this.userService.active_announces;
+        this.proposed_services.forEach((serv)=>{
+          serv.content = JSON.parse(serv.content);
+        });
         console.log('#ACTIVIY : Récupération ok', 'announces in userServ :', this.userService.active_announces);
       })
-      .catch((err) => {
-        console.log('#ACTIVITY: Erreur de récupération des services demandés', err);
+      .catch((e) => {
+        console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
       });
   }
 
@@ -87,6 +90,7 @@ export class ActivityComponent implements OnInit {
     });
   }
 
+
   getHelper(announceId: string){
     this.userService.getAnnounceHelpersById(announceId)
       .then(() => {
@@ -98,5 +102,6 @@ export class ActivityComponent implements OnInit {
         return empty ;
       });
   }
+
 
 }
