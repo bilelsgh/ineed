@@ -212,20 +212,21 @@ export class ServiceService{
 
   //Ajoute un service dans services_provided de helper & dans services_asked de helped
   applyService(announceID : number){
-    let message = {helperID: JSON.parse(localStorage.getItem('user'))['idUser'], announceID: announceID};
+    let message = {helperID: JSON.parse(localStorage.getItem('user'))['idUser']};
 
     this.httpClient //checker si on met le helperID dans la route
-      .post(this.auth.backend + 'api/user/services (route à définir)', message)
+      .post(this.auth.backend + 'api/announce/' + announceID + '/apply?token=' +
+        JSON.parse(localStorage.getItem('token')), message)
       .subscribe(
         (response) => {
-          //this.auth.setUserInfo(response['services_provided'], 'voir où on le stocke');
-          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //récupération du token plus récent
-        },
+
+          },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
+          console.log("#Erreur lors de ApplyService");
         }
       );
   }

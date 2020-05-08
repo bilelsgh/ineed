@@ -53,7 +53,7 @@ export class CuisineSingleComponent implements OnInit {
   applyCuisine() {
     if (!this.applied) {
       this.serviceService.applyService(this.service_descriptor.id)
-      //mettre à jour this.applied
+      this.appliedOrNot();
     }
   }
 
@@ -61,18 +61,17 @@ export class CuisineSingleComponent implements OnInit {
   /*brief Renvoie vrai sur l'utilisateur a déjà proposé son aide pour cette annonce*/
   appliedOrNot() {
     this.httpClient
-      .get(this.auth.backend + 'api/announce/' + this.service_descriptor.id + '/helpers?token=' +
+      .get<any[]>(this.auth.backend + 'api/announce/' + this.service_descriptor.id + '/helpers?token=' +
         JSON.parse(localStorage.getItem('token')))
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'current_profil'); //mise à jour du token
-
+          this.applied = false;
           for (let helper of response['helpers']) {
             if (helper['idUser'] === JSON.parse(localStorage.getItem('user'))['idUser']) {
               this.applied = true;
             }
           }
-          this.applied = false;
         },
         (error) => {
           console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
