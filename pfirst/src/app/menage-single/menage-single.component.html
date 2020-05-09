@@ -4,13 +4,12 @@
   </tr>
   <tr>
     <td>
-      <button type="button" class="btn btn-info" (click)="goProfil()" )>Voir le profil</button>
+      <button type="button" class="btn btn-info" (click)="goProfil('profil/'+this.service_descriptor.idUser)">
+        Voir le profil</button>
       <!-- <button type="button" class="btn btn-info" (click)="goProfil()">Voir le profil</button> -->
     </td>
   </tr>
 </table>
-
-
 
 
 <div class="jumbotron jumbotron-fluid">
@@ -20,6 +19,10 @@
       <tr>
         <td><h2>Service : </h2></td>
         <td>Menage</td>
+      </tr>
+      <tr>
+        <td><h2>Quand ?</h2></td>
+        <td>{{Date}} a {{Heure}}</td>
       </tr>
       <tr>
         <td><h2>Salle a nettoyer :</h2></td>
@@ -64,4 +67,20 @@
       <a  class="btn btn-primary" routerLink="/propose">Retour à la liste</a>
     </div>
   </div>
+
+  <table align="center">
+    <tr><button id="button_rendre" type="button" class="btn btn-warning">Aider {{User}} !</button></tr>
+    <tr>
+      <!--#####NOMBRES DE VUES####-->
+      <div id="view" style="position: absolute;left: 500px;">
+        <td>
+          <img style="width:50px" id="viewPic" src="../../assets/data/view.png" alt="">
+        </td>
+        <td><span style="font-size: 25px">{{View}}</span></td>
+      </div>
+    </tr>
+  </table>
+
 </div>
+
+

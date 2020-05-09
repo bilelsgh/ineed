@@ -10,10 +10,14 @@
                   </div>
 
 
-                  <div class= "form-group">
-                    <label for="datejour"> <h2>Quand souhaitez vous que quelqu'un vienne vous aider pour la cuisine ? (Date et heure)</h2></label>
-                    <input type="datetime-local" id="datejour" class="form-control" formControlName="datejour" >
+                <div class= "form-group">
+                    <label for="datejour">Jour</label>
+                    <input type="date" id="datejour" class="form-control" formControlName="datejour" >
+                    <label for="dateheure">Heure</label>
+                    <input type="time" id="dateheure" class="form-control" formControlName="dateheure" >
                   </div>
+
+
 
                   <div class= "form-group">
                     <label for="sur_place"><h2>Voulez-vous que la cuisine soit faite chez vous ou que l'on vous l'emporte ?</h2></label>
@@ -45,17 +49,17 @@
                     <textarea class="form-control" aria-label="With textarea" id="description" class="form-control" formControlName="description"></textarea>
                   </div>
                   <br>
-      
+
                   <button type="submit" class="btn btn-primary">Soumettre</button>
                 </form>
-      
+
               </div>
-      
-      
+
+
             </table>
         </div>
       </div>
-      
-      
+
+
 
 

@@ -15,6 +15,7 @@ import {InfoSettingsComponent} from "./info-settings/info-settings.component";
 import {ActivityComponent} from "./activity/activity.component";
 
 
+
 const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path: 'propose', component: ServiceViewComponent},
   {path:'propose/:id', canActivate:[AuthGuard], component :  SingleServiceComponent},

@@ -1,5 +1,10 @@
 import {Injectable} from '@angular/core';
+<<<<<<< HEAD
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+=======
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {subscribeOn} from 'rxjs/operators';
+>>>>>>> master
 import {AuthService} from './auth.service';
 
 @Injectable()
@@ -13,9 +18,12 @@ export class UserService {
     'post-inscription'
   ];
 
+<<<<<<< HEAD
   active_announces: any[];
 
   announceHelpers: any[];
+=======
+>>>>>>> master
 
   services_history_for = [
     {
@@ -99,6 +107,8 @@ export class UserService {
 
   showAllComments: boolean = false;
 
+  active_announces: any[];
+
   setShowAllComments() {
     this.showAllComments = true;
     console.log('userServ : showAll set a true');
@@ -161,9 +171,10 @@ export class UserService {
   }
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
-  getProfilById(id: string = 'current_user') {
+  getProfilById(id: string = 'user') {
+    console.log("#IDUSERgetProfil : " + id );
     return new Promise((resolve, reject) => {
-      if (id === "current_user") {
+      if (id === "user") {
         this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
         console.table(this.info_user);
         if (this.info_user != null) {
@@ -197,19 +208,26 @@ export class UserService {
           );
       }
     });
-  }
+  };
 
+  getPostedAnnounces(id: string = 'user') {
+    return new Promise((resolve, reject) => {
+
+<<<<<<< HEAD
 
   getPostedAnnounces(idUsr: string) {
     return new Promise((resolve, reject) => {
 
       /*
+=======
+>>>>>>> master
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
           'Authorization': localStorage.getItem('token')
         })
       };
+<<<<<<< HEAD
 */
       const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
       //const usrId = JSON.parse(localStorage.getItem('user'))['idUser'];
@@ -231,6 +249,18 @@ export class UserService {
             this.active_announces = <any[]> response;
              */
 
+=======
+
+      this.httpClient
+        .get<any[]>(this.auth.backend + '/api/announce/user/' + id, httpOptions)
+        .subscribe(
+          (response) => {
+            console.log("#GETPOSTEDANNOUNCES");
+            console.table(response)
+            this.active_announces = response['announces'];
+            this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
+
+>>>>>>> master
             /*this.info_user = response;
             console.log("#OK");
             console.log("#SERVICES : " + response);*/
@@ -238,15 +268,23 @@ export class UserService {
           },
           (error) => {
             if (error['status'] === 401) {
+<<<<<<< HEAD
               this.auth.removeUserInfo();
               console.log("#TOKEN EXPIRED");
             }
             console.log("#getPostedA() :Erreur de chargement : ", error);
+=======
+              //this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
+            console.log("Erreur de chargement : " + error);
+>>>>>>> master
             reject(true);
           }
         );
     });
   }
+<<<<<<< HEAD
 
 
   getAnnounceHelpersById(announceId: string) {
@@ -267,4 +305,6 @@ export class UserService {
         );
     }));
   }
+=======
+>>>>>>> master
 }

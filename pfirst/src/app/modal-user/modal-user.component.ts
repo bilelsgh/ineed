@@ -4,6 +4,7 @@ import {UserService} from '../services/users.service';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
+import {MatSpinner} from "@angular/material/progress-spinner";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -34,7 +35,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 export class ModalUserComponent implements OnInit {
   stateExtend: string = 'inactive';
   stateReduce: string = 'inactive';
-
+  isLoading: boolean = true;
   hasInfoNotif: boolean = false;
   hasProfilNotif: boolean = false;
   hasActivityNotif: boolean = false;
@@ -46,6 +47,7 @@ export class ModalUserComponent implements OnInit {
     setTimeout( ()=>{
       //this.hasInfoNotif = true;
       this.hasProfilNotif = true;
+      this.isLoading = false;
       //this.hasActivityNotif = true;
     }, 500);
 

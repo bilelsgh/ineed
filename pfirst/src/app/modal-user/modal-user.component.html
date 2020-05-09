@@ -63,4 +63,12 @@
       <p> </p>
     </td>
   </tr>
+  <tr *ngIf="isLoading">
+    <td>
+      <mat-spinner color="warn" diameter="30"></mat-spinner>
+    </td>
+    <td>
+      <span id="loadingText">Checking</span>
+    </td>
+  </tr>
 </table>

@@ -21,7 +21,8 @@ export class AccompagnerSingleComponent implements OnInit {
   Dispo : string = 'oui';
   Quand1 : string;
   Quand2 : string;
-  Kind: string = "non"
+  Kind: string = "non";
+  View : string;
   @Input() service_descriptor: Accompage;
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
@@ -35,7 +36,7 @@ export class AccompagnerSingleComponent implements OnInit {
     this.Dispo=this.service_descriptor.content.datejour;
     this.Quand1=this.service_descriptor.content.quand1;
     this.Quand2=this.service_descriptor.content.quand2;
-
+    this.View = this.service_descriptor['viewNumber'];
     this.Kind=this.service_descriptor.content.kind;
 
 

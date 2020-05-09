@@ -21,6 +21,7 @@ export class ServiceComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("#IMAGE : " + this.serviceImage);
   }
 
   getUser(){
