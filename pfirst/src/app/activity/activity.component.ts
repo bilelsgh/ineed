@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/users.service";
+import {MatSelectModule} from "@angular/material/select";
 
 @Component({
   selector: 'app-activity',
@@ -33,6 +34,17 @@ export class ActivityComponent implements OnInit {
         user: 'Jean Paul Gauthier',
       }
     },
+  ];
+
+  indexes: any[] = [
+    {
+      value: 1,
+      view: '1'
+    },
+    {
+      value: 2,
+      view: '2'
+    }
   ];
 
   selectedId: string;
@@ -70,10 +82,11 @@ export class ActivityComponent implements OnInit {
         this.selectedId = this.proposed_services.length > 0 ? this.proposed_services[0]['idAnnounce'] : '0';
         console.log("SELECTED ID : ", this.selectedId);
         if (this.selectedId != '0') {  // vérifier avec le back que un id ne peut pas etre égal à 0
-          this.helpers = this.getHelpers(this.selectedId);
+          this.getHelpers(this.selectedId);
         }
       })
-      .catch((e) => {
+      .catch(
+        (e) => {
         console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
       });
   }
@@ -97,17 +110,16 @@ export class ActivityComponent implements OnInit {
   }
 
 
-  getHelpers(announceId: string) {
+  getHelpers(announceId: string){
     this.userService.getAnnounceHelpersById(announceId)
       .then(() => {
         console.log("#Got helpers for announce of id = ", this.selectedId);
         console.log("Helpers = ", this.userService.announceHelpers);
-        return this.userService.announceHelpers;
+        this.helpers = this.userService.announceHelpers;
       })
       .catch((e) => {
         console.log("#getHelpers : erreur de recupération ", e);
-        const emptyTab = [];
-        return emptyTab;
+        this.helpers = [];
       });
   }
 
