@@ -128,9 +128,30 @@ export class InfoSettingsComponent implements OnInit {
   onSubmitNewInfos(form: NgForm) {
     const form_value = form.value;
     const user = JSON.parse(localStorage.getItem('user'));
-    user['bio'] = form_value['bio'];
-    user['mail'] = form_value['email'];
-    console.log("user : ", user);
+    if (form_value['bio'] != undefined && form_value['bio'].length > 0 ){
+      user['bio'] = form_value['bio'];
+      console.log("#form value bio : ", form_value['bio']);
+    }
+    if (form_value['email'] != undefined && form_value['email'].includes('@')){
+      user['mail'] = form_value['email'];
+    }
+    console.log("Sending user : ", user);
+    console.log("Type of token ", typeof localStorage.getItem('token'), localStorage.getItem('token'));
+    this.httpClient
+      .put(this.authService.backend + 'api/user/' + user['idUser'], {
+        "token": JSON.parse(localStorage.getItem('token')),
+        "user": user
+      })
+      .subscribe(
+        (response)=>{
+          console.log("Nouvelles infos acceptées, new user :", response['user']);
+          this.authService.setUserInfo(JSON.stringify(response['token']), 'token'); // stocke le token dans le session/localStorage
+          this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
+        },
+        (error1)=>{
+          console.log("#Nouvelles infos refusées", error1);
+        }
+      );
   }
 
 

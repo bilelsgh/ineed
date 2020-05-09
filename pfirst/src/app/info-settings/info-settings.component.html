@@ -20,12 +20,27 @@
 
               <!-- ##################### BIO ####################-->
               <div class="jumbotron" id="formulaire">
-                <label for="bio">Votre bio</label>
-                <input type="text" class="form-control" id="bio" name="bio"
+                <table width="100%">
+                  <td>
+                    <label for="bio">Votre bio</label>
+                  </td>
+                  <td align="right">
+                    <span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary"
+                          ngbPopover="150 caractères maximum"
+                          triggers="mouseenter:mouseleave"
+                          popoverTitle="Limite" placement="right">
+                      <p id="text_info">?</p>
+                    </span>
+                  </td>
+                </table>
+
+                <input type="text" class="form-control" id="bio" name="bio" maxlength="150"
                        ngModel>
                 <span *ngIf="this.bio!=null" class="current-info-indicator">{{this.bio}}</span>
                 <span *ngIf="this.bio==null" class="current-info-indicator">Décriver vous en quelques lignes</span>
               </div>
+
+              <!-- ##################### PDP ####################-->
 
               <div class="jumbotron" id="formulaire">
                 <label for="profil-pic">
@@ -127,7 +142,8 @@
                        (change)="passwordComplexity(f.value['newPassword'])"
                        ngModel>
 
-                <i><p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p>
+                <i>
+                  <p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p>
                 </i>
                 <span *ngIf="bad_password" class="badge badge-pill badge-danger">Votre mot de passe est faible.</span>
                 <span *ngIf="medium_password"

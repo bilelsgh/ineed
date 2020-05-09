@@ -14,7 +14,6 @@ export class UserService {
     'post-inscription'
   ];
 
-
   services_history_for = [
     {
       pour: "Gilbert",
