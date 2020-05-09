@@ -99,8 +99,6 @@ export class UserService {
 
   showAllComments: boolean = false;
 
-  active_announces: any[];
-
   setShowAllComments() {
     this.showAllComments = true;
     console.log('userServ : showAll set a true');
