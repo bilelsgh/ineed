@@ -63,21 +63,15 @@ export class ActivityComponent implements OnInit {
     this.userService.getPostedAnnounces(JSON.parse(localStorage.getItem('user'))['idUser'])
       .then(() => {
         this.proposed_services = this.userService.active_announces;
-        this.proposed_services.forEach((serv)=>{
+        this.proposed_services.forEach((serv) => {
           serv.content = JSON.parse(serv.content);
         });
         console.log('#ACTIVIY : Récupération ok', 'announces in userServ :', this.userService.active_announces);
-        this.selectedId = this.proposed_services.length > 0 ? this.proposed_services[1]['idAnnounce'] : '0';
-        console.log("SELECTED ID : ",this.selectedId);
-        this.userService.getAnnounceHelpersById(this.selectedId).then(
-          ()=>{
-            console.log("#Got helpers for announce of id = ",this.selectedId);
-            this.helpers = this.userService.announceHelpers;
-            console.log("Helpers = ", this.helpers);
-          }
-        ).catch( (e) =>{
-          console.log("ERREUR DE RECUPERATION DES HELPERS", e);
-        });
+        this.selectedId = this.proposed_services.length > 0 ? this.proposed_services[0]['idAnnounce'] : '0';
+        console.log("SELECTED ID : ", this.selectedId);
+        if (this.selectedId != '0') {  // vérifier avec le back que un id ne peut pas etre égal à 0
+          this.helpers = this.getHelpers(this.selectedId);
+        }
       })
       .catch((e) => {
         console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
@@ -103,18 +97,19 @@ export class ActivityComponent implements OnInit {
   }
 
 
-  getHelper(announceId: string){
+  getHelpers(announceId: string) {
     this.userService.getAnnounceHelpersById(announceId)
       .then(() => {
+        console.log("#Got helpers for announce of id = ", this.selectedId);
+        console.log("Helpers = ", this.userService.announceHelpers);
         return this.userService.announceHelpers;
       })
       .catch((e) => {
         console.log("#getHelpers : erreur de recupération ", e);
-        let empty = [];
-        return empty ;
+        const emptyTab = [];
+        return emptyTab;
       });
   }
-
 
 
 }

@@ -265,11 +265,13 @@ export class UserService {
             resolve(true);
           },
           (error) => {
+            if (error['status'] == 400){
+              console.log("BAD REQUEST : token expired or announce deleted")
+            }
             console.log('#getAnnounceHelpers : failure');
             reject(true);
           }
         );
     }));
   }
-
 }
