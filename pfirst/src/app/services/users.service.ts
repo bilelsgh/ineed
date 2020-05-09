@@ -256,10 +256,11 @@ export class UserService {
     return new Promise(((resolve, reject) => {
       const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
 
-      this.httpClient.get<any[]>('api/announce/' + announceId + '/helpers', {params})
+      this.httpClient.get<any[]>(this.auth.backend + 'api/announce/' + announceId + '/helpers', {params})
         .subscribe(
           (response) => {
             this.announceHelpers = response;
+            this.auth.setUserInfo(JSON.stringify(response['token']),'token');
             console.log('#getAnnounceHelpers : success', response);
             resolve(true);
           },

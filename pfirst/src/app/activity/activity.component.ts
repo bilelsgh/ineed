@@ -33,8 +33,11 @@ export class ActivityComponent implements OnInit {
         user: 'Jean Paul Gauthier',
       }
     },
-  ]
-  ;
+  ];
+
+  selectedId: string;
+
+  helpers: any[];
 
   constructor(private httpClient: HttpClient,
               private authService: AuthService,
@@ -64,11 +67,21 @@ export class ActivityComponent implements OnInit {
           serv.content = JSON.parse(serv.content);
         });
         console.log('#ACTIVIY : Récupération ok', 'announces in userServ :', this.userService.active_announces);
+        this.selectedId = this.proposed_services.length > 0 ? this.proposed_services[1]['idAnnounce'] : '0';
+        console.log("SELECTED ID : ",this.selectedId);
+        this.userService.getAnnounceHelpersById(this.selectedId).then(
+          ()=>{
+            console.log("#Got helpers for announce of id = ",this.selectedId);
+            this.helpers = this.userService.announceHelpers;
+            console.log("Helpers = ", this.helpers);
+          }
+        ).catch( (e) =>{
+          console.log("ERREUR DE RECUPERATION DES HELPERS", e);
+        });
       })
       .catch((e) => {
         console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
       });
-
   }
 
 
