@@ -24,7 +24,7 @@ ngOnInit(): void {
   }
 
   initForm(){
-    
+
     this.menageForm=this.formBuilder.group({
       user: ['', Validators.required],
       description:['', Validators.required],
@@ -37,22 +37,23 @@ ngOnInit(): void {
 
     onSubmitForm() {
       const f = this.menageForm;
-      const content=  { type:'service2', name:"Faire le menage", user:'',description: '', salle:'',localisation:'', surface: '', datejour: '', materiel:[],  image: '../../assets/data/menage.png' }
+      const content=  { type:'service2', name:"Faire le menage", user:'',description: '', salle:'',localisation:'',
+        surface: '', datejour: '',dateheure:'', materiel:[], viewNumber: 0,  image: '../../assets/data/menage.png' }
       content.datejour=f.value['datejour'];
+      content.datejour=f.value['dateheure'];
       content.salle= f.value['salle'];
       content.localisation= f.value['localisation'];
       content.surface=f.value['surface'];
       content.description=f.value['description'];
-      
+
       content.user=f.value['user'];
       content.materiel=this.liste_materiel
-    const newMenage= new Menage( JSON.parse(localStorage.getItem('token'))["user"]["idUser"], content, 93,
-   
-    0);
+    const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
+    0, 0,false);
 
 
 
-      
+
       this.serviceService.addMenage(newMenage);
       this.router.navigate(['']);
     }

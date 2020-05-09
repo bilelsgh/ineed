@@ -24,18 +24,28 @@ export class ServiceService{
     cuisine.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(cuisine);
     this.emitCuisine();
+    //On convertit en string car c'est le format attendu dans le BACK
+    let cuisine_back = {idUser: cuisine["idUser"], content: JSON.stringify(cuisine["content"]), id: cuisine["id"],
+      price: cuisine['price'], viewNumber: cuisine['viewNumber'], finished: cuisine['finished']}
+
+    //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
+    let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : cuisine_back};
+    console.table(message);
+
     this.httpClient
-      .put(this.auth.backend_test +"services.json", this.services)
-      .subscribe( //
-        () => { //
-          console.log("Enregistrement ok!");
+      .post(this.auth.backend+"api/announce", message)
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          console.log("#DEBUG : Envoie de cuisine vers le BACK réussi");
+          console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
-          console.log("Erreur : "+ error);
+          console.log("#DEBUG : Erreur lors de l'envoie de cuisine vers le BACK : "+ error);
         }
       );
   }
@@ -45,22 +55,32 @@ export class ServiceService{
   }
 
 
-  addAccompage(accompage : Accompage){
-    accompage.id=this.services[(this.services.length - 1)].id + 1
-    this.services.push(accompage);
-    this.emitCuisine();
+  addAccompage(accompagne : Accompage){
+    accompagne.id=this.services[(this.services.length - 1)].id + 1
+    this.services.push(accompagne);
+    this.emitAccompage();
+    //On convertit en string car c'est le format attendu dans le BACK
+    let accompagne_back = {idUser: accompagne["idUser"], content: JSON.stringify(accompagne["content"]), id: accompagne["id"],
+      price: accompagne['price'], viewNumber: accompagne['viewNumber'], finished: accompagne['finished']}
+
+    //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
+    let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : accompagne_back};
+    console.table(message);
+
     this.httpClient
-      .put(this.auth.backend_test +"services.json", this.services)
-      .subscribe( //
-        () => { //
-          console.log("Enregistrement ok!");
+      .post(this.auth.backend+"api/announce", message)
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          console.log("#DEBUG : Envoie de accompagne vers le BACK réussi");
+          console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
-          console.log("Erreur : "+ error);
+          console.log("#DEBUG : Erreur lors de l'envoie de accompagne vers le BACK : "+ error);
         }
       );
   }
@@ -73,41 +93,24 @@ export class ServiceService{
     this.coursesSubject.next(this.courses.slice());
   }
 
-  //VERSION POUR ENVOYER DANS FIREBASE
-  /*addCourses(courses : Courses){
-    courses.id=this.services[(this.services.length - 1)].id + 1
-    this.services.push(courses);
-    this.emitCourses();
-
-    this.httpClient
-      .put(this.auth.backend_test+"services.json", this.services)
-      .subscribe(
-        () => {
-          console.log("Enregistrement ok!");
-        },
-        (error) => {
-          console.log("Erreur : "+ error);
-        }
-      );
-  }*/
-
-  //VERSION POUR ENVOYER DANS LE BACK
   addCourses(courses : Courses){
     courses.content['id']=this.services[(this.services.length - 1)].id + 1
     this.services.push(courses);
     this.emitCourses();
+    //On convertit en string car c'est le format attendu dans le BACK
     let course_back = {idUser: courses["idUser"], content: JSON.stringify(courses["content"]), id: courses["id"],
-    price: courses['price']} //On convertit en string car c'est le format attendu dans le BACK
+    price: courses['price'], viewNumber: courses['viewNumber'], finished: courses['finished']}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
-    let message = {"token" : JSON.parse(localStorage.getItem('token'))['token'], "announce" : course_back};
+    let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : course_back};
     console.table(message);
 
     this.httpClient
       .post(this.auth.backend+"api/announce", message)
       .subscribe(
         (response) => {
-          console.log("#DEBUG : Envoie des courses réussi");
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          console.log("#DEBUG : Envoie des courses vers le BACK réussi");
           console.table(response);
         },
         (error) => {
@@ -115,7 +118,7 @@ export class ServiceService{
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
-          console.log("#DEBUG : Erreur lors de l'envoie des courses: "+ error);
+          console.log("#DEBUG : Erreur lors de l'envoie des courses vers le BACK: "+ error);
         }
       );
   }
@@ -127,21 +130,32 @@ export class ServiceService{
   addMenage(menage : Menage){
     menage.id=this.services[(this.services.length - 1)].id + 1
     this.services.push(menage);
-    this.emitCourses();
+    this.emitMenage();
+    //On convertit en string car c'est le format attendu dans le BACK
+    let menage_back = {idUser: menage["idUser"], content: JSON.stringify(menage["content"]), id: menage["id"],
+      price: menage['price'], viewNumber: menage["viewNumber"], finished: menage['finished']}
+
+    //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
+    let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : menage_back};
+    console.table(message);
+
     this.httpClient
-      .put(this.auth.backend_test+"services.json", this.services)
-      .subscribe( //
-        () => { //
-          console.log("Enregistrement ok!");
+      .post(this.auth.backend+"api/announce", message)
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          console.log("#DEBUG : Envoie de ménage vers le BACK réussi");
+          console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
-          console.log("Erreur : "+ error);
+          console.log("#DEBUG : Erreur lors de l'envoie de ménage vers le BACK : "+ error);
         }
-      );}
+      );
+  }
 
   services : any[] = [
 
@@ -170,21 +184,19 @@ export class ServiceService{
 
   //Récupérer une annonce par ID depuis firebase
   getServiceById(id: number) {
+    console.log("#ID : " + id);
     return new Promise((resolve,reject)=> {
       this.httpClient
-        .get<any[]>(this.auth.backend_test+'services.json')
+        .get(this.auth.backend+'api/announce/' + id + '?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(
           (response) => {
+            this.current_service = {idUser: response['announce']['idUser'], content: JSON.parse(response['announce']['content']),
+              id: response['announce']['idAnnounce'], price: response['announce']['price'],
+            viewNumber: response['announce']['viewNumber'], finished: response['announce']['finished']};
+            this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
-            this.services = response;
-            this.current_service = this.services.find(
-              (s) => {
-                return s.id === id;
-              }
-            );
-            console.log("#SERVICE-SERVICE : current_service :", this.current_service);
-            console.log("#OK");
-            console.log("#SERVICES : " + response);
+            console.log("#Récupération de current_service (getById) OK");
+            console.table("#SERVICE-SERVICE : current_service :", this.current_service);
             resolve(true);
           },
           (error) => {

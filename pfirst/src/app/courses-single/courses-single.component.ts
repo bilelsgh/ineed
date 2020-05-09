@@ -19,9 +19,11 @@ export class CoursesSingleComponent implements OnInit {
   Liste = new Array<{produit: string, quantite: string}>();
   Accompagne : string = 'oui';
   Budget : number;
-  Dispo: any;
+  DispoJour: any;
+  DispoHeure: any;
   liste_a_copier : string = "LISTE : \n ";
   copied = false;
+  View: string;
   @Input() service_descriptor: Courses;
 
 
@@ -36,9 +38,12 @@ export class CoursesSingleComponent implements OnInit {
     this.Accompagne=this.service_descriptor.content.accompagner;
     this.Budget=parseInt(this.service_descriptor.content.budget);
     const dispo=this.service_descriptor.content.datejour;
-    this.Dispo=new Date(dispo)
+    this.DispoJour=new Date(dispo);
+    this.DispoHeure= this.service_descriptor.content.dateheure
     this.writeList();
     this.copied = false;
+    this.View = this.service_descriptor['viewNumber'];
+
 
     console.log("BUDGET : " + this.Budget);
   }

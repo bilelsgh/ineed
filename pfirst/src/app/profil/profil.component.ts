@@ -31,14 +31,14 @@ export class ProfilComponent implements OnInit {
         console.log("Erreur de recupération des infos profil");
       });
      */
-    if(this.id === 'current_user' || this.id === String(JSON.parse(localStorage.getItem('token'))["user"]["idUser"])){
-      this.info_user = JSON.parse(localStorage.getItem('token'))["user"] ;
+    if(this.id === 'current_user' || this.id === String(JSON.parse(localStorage.getItem('user'))["idUser"])){
+      this.info_user = JSON.parse(localStorage.getItem('user')) ;
 
       //si on accède au profil ailleurs que depuis la modal, on va chercher dans le back les infos
     }else{
       this.userService.getProfilById(this.id)
         .then(()=>{
-          this.info_user = JSON.parse(localStorage.getItem('current_profil'))["user"] ;
+          this.info_user = JSON.parse(localStorage.getItem('current_profil')) ;
         })
         .catch(()=>{console.log("erreur de chargement profil");});
     }

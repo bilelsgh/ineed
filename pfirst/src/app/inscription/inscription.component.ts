@@ -118,11 +118,12 @@ export class InscriptionComponent implements OnInit {
     this.httpClient
       .post(this.auth.backend + 'api/user', newUser)
       .subscribe(
-        (token) => {
+        (response) => {
           //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL
-          console.log("#Inscription réussie : " + token);
+          console.log("#Inscription réussie : " + response);
           this.alreadyExist = false;
-          this.auth.setUserInfo( JSON.stringify(token), 'token'); //stocke le tocken dans le session/localStorage
+          this.auth.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
+          this.auth.setUserInfo( JSON.stringify(response['user']), 'user');
           this.router.navigate(['']);
 
         },
