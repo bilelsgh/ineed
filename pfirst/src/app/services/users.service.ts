@@ -1,10 +1,5 @@
 import {Injectable} from '@angular/core';
-<<<<<<< HEAD
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-=======
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {subscribeOn} from 'rxjs/operators';
->>>>>>> master
 import {AuthService} from './auth.service';
 
 @Injectable()
@@ -18,12 +13,9 @@ export class UserService {
     'post-inscription'
   ];
 
-<<<<<<< HEAD
   active_announces: any[];
 
   announceHelpers: any[];
-=======
->>>>>>> master
 
   services_history_for = [
     {
@@ -210,24 +202,20 @@ export class UserService {
     });
   };
 
-  getPostedAnnounces(id: string = 'user') {
-    return new Promise((resolve, reject) => {
 
-<<<<<<< HEAD
+
 
   getPostedAnnounces(idUsr: string) {
     return new Promise((resolve, reject) => {
 
       /*
-=======
->>>>>>> master
+
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
           'Authorization': localStorage.getItem('token')
         })
       };
-<<<<<<< HEAD
 */
       const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
       //const usrId = JSON.parse(localStorage.getItem('user'))['idUser'];
@@ -248,19 +236,6 @@ export class UserService {
             /*for firebase
             this.active_announces = <any[]> response;
              */
-
-=======
-
-      this.httpClient
-        .get<any[]>(this.auth.backend + '/api/announce/user/' + id, httpOptions)
-        .subscribe(
-          (response) => {
-            console.log("#GETPOSTEDANNOUNCES");
-            console.table(response)
-            this.active_announces = response['announces'];
-            this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
-
->>>>>>> master
             /*this.info_user = response;
             console.log("#OK");
             console.log("#SERVICES : " + response);*/
@@ -268,24 +243,16 @@ export class UserService {
           },
           (error) => {
             if (error['status'] === 401) {
-<<<<<<< HEAD
               this.auth.removeUserInfo();
               console.log("#TOKEN EXPIRED");
             }
             console.log("#getPostedA() :Erreur de chargement : ", error);
-=======
-              //this.auth.removeUserInfo();
-              console.log("#TOKEN EXPIRED");
-            }
-            console.log("Erreur de chargement : " + error);
->>>>>>> master
+
             reject(true);
           }
         );
     });
   }
-<<<<<<< HEAD
-
 
   getAnnounceHelpersById(announceId: string) {
     return new Promise(((resolve, reject) => {
@@ -305,6 +272,5 @@ export class UserService {
         );
     }));
   }
-=======
->>>>>>> master
+
 }
