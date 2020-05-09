@@ -86,28 +86,16 @@
 /*AIDER QLQ */
 
 #tuveux{
-  position: absolute;
-  top: 1000px;
-  right: 100px;
   width: 320px;
 }
 #jetCourse{
-  position: absolute;
   width: 350px;
-  top : 1050px;
-  left : 250px;
 }
 #aBesoin{
-  position:absolute;
-  top: 1400px;
-  left: 310px;
   font-size: large;
 
 }
 #textTV{
-  position: absolute;
   width: 300px;
-  top : 1120px;
-  right : 100px;
   text-align: right;
 }
