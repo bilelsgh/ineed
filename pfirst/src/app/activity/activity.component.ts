@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/users.service";
-import {catchError} from "rxjs/operators";
-import {replaceTsWithNgInErrors} from "@angular/compiler-cli/src/ngtsc/diagnostics";
 
 @Component({
   selector: 'app-activity',
