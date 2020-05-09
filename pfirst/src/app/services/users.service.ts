@@ -119,7 +119,7 @@ export class UserService {
       .subscribe(() => {
         console.log('save done');
       }, (err) => {
-        if(err['status'] === 401){
+        if (err['status'] === 401) {
           this.auth.removeUserInfo();
           console.log("#TOKEN EXPIRED");
         }
@@ -134,7 +134,7 @@ export class UserService {
           this.services_history_for = got;
         },
         (err) => {
-          if(err['status'] === 401){
+          if (err['status'] === 401) {
             this.auth.removeUserInfo();
             console.log("#TOKEN EXPIRED");
           }
@@ -182,14 +182,13 @@ export class UserService {
               console.table(response);
               this.auth.setUserInfo(JSON.stringify(response['user']), 'current_profil'); //on stocke les infos de l'utilisateur récupérée dans le local storage
               this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
-
               /*this.info_user = response;
               console.log("#OK");
               console.log("#SERVICES : " + response);*/
               resolve(true);
             },
             (error) => {
-              if(error['status'] === 401){
+              if (error['status'] === 401) {
                 this.auth.removeUserInfo();
                 console.log("#TOKEN EXPIRED");
               }
@@ -212,18 +211,21 @@ export class UserService {
           'Authorization': localStorage.getItem('token')
         })
       };
-       */
+*/
       const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
       //const usrId = JSON.parse(localStorage.getItem('user'))['idUser'];
 
       this.httpClient
         .get<any[]>(this.auth.backend + 'api/announce/user/' + idUsr, {params})   //from backend
-        //.get<any[]>(this.auth.backend + 'api/announce/user/'+ idUsr +'?token='+localStorage.getItem('token'))
+        //.get<any[]>(this.auth.backend + 'api/announce/user/'+ idUsr +'?token='+ JSON.parse(localStorage.getItem('token')))
         //.get(this.auth.backend_test + 'actives.json')     //from firebase
+
         .subscribe(
           (response) => {
             /*for backend*/
             this.active_announces = response['announces'];
+            console.log("ICI : ", typeof response['token'], JSON.stringify(response['token']));
+            console.log(response);
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
 
             /*for firebase
@@ -247,11 +249,12 @@ export class UserService {
     });
   }
 
-  getAnnounceHelpersById(announceId: string){
-    return new Promise( ((resolve, reject) => {
+
+  getAnnounceHelpersById(announceId: string) {
+    return new Promise(((resolve, reject) => {
       const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
 
-      this.httpClient.get<any[]>('api/announce/' + announceId + '/helpers', {params  })
+      this.httpClient.get<any[]>('api/announce/' + announceId + '/helpers', {params})
         .subscribe(
           (response) => {
             this.announceHelpers = response;
@@ -265,5 +268,4 @@ export class UserService {
         );
     }));
   }
-
 }

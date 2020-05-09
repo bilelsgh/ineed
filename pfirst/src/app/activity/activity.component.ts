@@ -70,6 +70,7 @@ export class ActivityComponent implements OnInit {
       .catch((e) => {
         console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
       });
+
   }
 
 
@@ -102,6 +103,7 @@ export class ActivityComponent implements OnInit {
         return empty ;
       });
   }
+
 
 
 }
