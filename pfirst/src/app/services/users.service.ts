@@ -259,7 +259,7 @@ export class UserService {
       this.httpClient.get<any[]>(this.auth.backend + 'api/announce/' + announceId + '/helpers', {params})
         .subscribe(
           (response) => {
-            this.announceHelpers = response;
+            this.announceHelpers = response['helpers'];
             this.auth.setUserInfo(JSON.stringify(response['token']),'token');
             console.log('#getAnnounceHelpers : success', response);
             resolve(true);

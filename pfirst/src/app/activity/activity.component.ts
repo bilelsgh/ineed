@@ -47,15 +47,14 @@ export class ActivityComponent implements OnInit {
     }
   ];
 
-  selectedId: string;
+  selectedAnnounce: number; // index de l'annonce dans proposed_services
 
   helpers: any[];
 
   constructor(private httpClient: HttpClient,
               private authService: AuthService,
               private userService: UserService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     /*
@@ -79,18 +78,19 @@ export class ActivityComponent implements OnInit {
           serv.content = JSON.parse(serv.content);
         });
         console.log('#ACTIVIY : Récupération ok', 'announces in userServ :', this.userService.active_announces);
-        this.selectedId = this.proposed_services.length > 0 ? this.proposed_services[0]['idAnnounce'] : '0';
-        console.log("SELECTED ID : ", this.selectedId);
-        if (this.selectedId != '0') {  // vérifier avec le back que un id ne peut pas etre égal à 0
-          this.getHelpers(this.selectedId);
+        this.selectedAnnounce = this.proposed_services.length > 0 ? 0 : -1;
+        console.log("SELECTED INDEX : ", this.selectedAnnounce);
+        if (this.selectedAnnounce != -1) {
+          this.getHelpers(this.selectedAnnounce);
         }
+
       })
       .catch(
         (e) => {
         console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
       });
-  }
 
+  }
 
   sendToFirebase() {
     return new Promise((resolve, reject) => {
@@ -110,10 +110,10 @@ export class ActivityComponent implements OnInit {
   }
 
 
-  getHelpers(announceId: string){
-    this.userService.getAnnounceHelpersById(announceId)
+  getHelpers(announceIndex: number = this.selectedAnnounce){
+    this.userService.getAnnounceHelpersById(this.proposed_services[announceIndex]['idAnnounce'])
       .then(() => {
-        console.log("#Got helpers for announce of id = ", this.selectedId);
+        console.log("#Got helpers for announce of index = ", this.selectedAnnounce);
         console.log("Helpers = ", this.userService.announceHelpers);
         this.helpers = this.userService.announceHelpers;
       })

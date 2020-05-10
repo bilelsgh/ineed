@@ -5,17 +5,17 @@
         <h2 id="demandeTexte">Vos demandes en cours</h2>
         <div class="row">
           <ul class="list-group">
-                  <div *ngFor="let service of proposed_services,  let i =index,">
-                    <app-service
-                      [serviceName]="service.content.name"
-                      [serviceUser]="service.content.user"
-                      [serviceDescription]="service.content.description"
-                      [serviceImage]="service.content.image"
-                      [index]="i"
-                      [id]="service.id"
-                      [serviceDate]="service.content.datejour">
-                    </app-service>
-                  </div>
+            <div *ngFor="let service of proposed_services,  let i =index,">
+              <app-service
+                [serviceName]="service.content.name"
+                [serviceUser]="service.content.user"
+                [serviceDescription]="service.content.description"
+                [serviceImage]="service.content.image"
+                [index]="i"
+                [id]="service.id"
+                [serviceDate]="service.content.datejour">
+              </app-service>
+            </div>
           </ul>
         </div>
       </div>
@@ -24,14 +24,16 @@
     <td>
       <div id="helpersContainer">
         <h2>Détails</h2>
-        <mat-form-field>
-          <mat-label>Selectionner votre annonce</mat-label>
-          <mat-select placeholder="'1'">
-            <mat-option *ngFor="let announce of proposed_services, let i = index" [value]="i">
-              {{i+1}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div id="selectionContainer">
+          <p>Selectionner votre annonce</p>
+          <mat-form-field>
+            <mat-select [(value)]="selectedAnnounce" (selectionChange)="getHelpers(selectedAnnounce)">
+              <mat-option *ngFor="let announce of proposed_services, let i = index" [value]="i">
+                {{i + 1}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
         <div *ngFor="let helper of helpers">
           Nom : {{helper.firstName}}
         </div>
