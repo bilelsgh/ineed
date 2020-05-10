@@ -34,7 +34,7 @@
     <!-- ###################### LISTE DES PROPOSITIONS D'AIDES ###############################-->
     <td>
       <div id="helpersContainer">
-        <h2>Réactions</h2>
+        <h1>Réactions</h1>
         <div id="selectionContainer">
           <mat-form-field>
             <mat-label><span style="color: cornflowerblue">Quelle annonce ?</span></mat-label>
@@ -50,14 +50,14 @@
         <mat-toolbar-row *ngFor="let helper of helpers">
           <span>{{helper.firstName}} {{helper.lastName}} vous a proposé son aide.</span>
           <span class="spacer"></span>
-          <mat-icon (click)="router.navigate(['profil/'+helper.idUser])">face</mat-icon>
+          <mat-icon title="Voir le profil" class="icon" (click)="router.navigate(['profil/'+helper.idUser])">face</mat-icon>
           <!--<mat-icon [routerLink]=""> face </mat-icon>-->
-          <mat-icon *ngIf="response[selectedAnnounce] == undefined" (click)="this.response[selectedAnnounce] = helper.idUser"> done </mat-icon>
-          <mat-icon *ngIf="response[selectedAnnounce] == undefined"> highlight_off </mat-icon>
-          <mat-icon *ngIf="response[selectedAnnounce] != undefined && response[selectedAnnounce] != helper.idUser">
+          <mat-icon class="icon" *ngIf="response[selectedAnnounce] == undefined" (click)="this.response[selectedAnnounce] = helper.idUser"> done </mat-icon>
+          <mat-icon class="icon" *ngIf="response[selectedAnnounce] == undefined"> highlight_off </mat-icon>
+          <mat-icon class="icon" *ngIf="response[selectedAnnounce] != undefined && response[selectedAnnounce] != helper.idUser">
             not_interested
           </mat-icon>
-          <mat-icon *ngIf="response[selectedAnnounce] == helper.idUser"> done_all </mat-icon>
+          <mat-icon class="icon" *ngIf="response[selectedAnnounce] == helper.idUser"> done_all </mat-icon>
         </mat-toolbar-row>
         </mat-toolbar>
       </div>
