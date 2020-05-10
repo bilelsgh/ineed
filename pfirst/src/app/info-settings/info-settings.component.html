@@ -68,48 +68,14 @@
                        (change)="onFileSelected($event)"
                        ngModel>
                 <img src="../../assets/data/photo_undefined.png">
+
+                <img [src]="'data:image/png;base64,' + this.undefinedPic" alt="profil-pic">
                 <span>(en dur)</span>
               </div>
               <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
             </div>
           </form>
-          <!--
-          <form [formGroup]="userForm" (ngSubmit)="onSubmitNewInfos()" id="form">
-
-
-              <div class="form-group">
-                <div class="jumbotron" id="formulaire">
-
-                <label for="user"><h2>Email</h2></label>
-                <input type="text" id="user" class="form-control" formControlName="email">
-              </div>
-
-            </div>
-
-            <div class="form-group">
-              <div class="jumbotron" id="formulaire">
-
-                <label for="date"><h2>Votre bio</h2>
-                </label>
-                <input type="text" id="bio" formControlName="bio">
-              </div>
-
-              <div class="jumbotron" id="formulaire">
-                <div class="form-group">
-                  <label for="date"><h2>Votre photo de profil</h2>
-                  </label>
-                  <input type="file" id="date" formControlName="profil_pic">
-                </div>
-                <button type="submit" class="btn btn-primary">Soumettre</button>
-              </div>
-            </div>
-
-          </form>
-          -->
-
         </div>
-
-
       </table>
     </div>
   </div>
