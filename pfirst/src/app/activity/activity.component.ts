@@ -3,6 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/users.service";
 import {MatSelectModule} from "@angular/material/select";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-activity',
@@ -47,14 +50,19 @@ export class ActivityComponent implements OnInit {
     }
   ];
 
+
   selectedAnnounce: number; // index de l'annonce dans proposed_services
 
-  helpers: any[];
+  helpers: any[] = [];
+
+  response: number[];
 
   constructor(private httpClient: HttpClient,
               private authService: AuthService,
-              private userService: UserService
-  ) {}
+              private userService: UserService,
+              public router: Router
+  ) {
+  }
 
   ngOnInit(): void {
     /*
@@ -71,6 +79,9 @@ export class ActivityComponent implements OnInit {
         console.log('Failed to send actives to firebase');
       });
      */
+    this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
+
+    console.log('ID : ', JSON.parse(localStorage.getItem('user'))['idUser']);
     this.userService.getPostedAnnounces(JSON.parse(localStorage.getItem('user'))['idUser'])
       .then(() => {
         this.proposed_services = this.userService.active_announces;
@@ -87,8 +98,8 @@ export class ActivityComponent implements OnInit {
       })
       .catch(
         (e) => {
-        console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
-      });
+          console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
+        });
 
   }
 
@@ -110,7 +121,7 @@ export class ActivityComponent implements OnInit {
   }
 
 
-  getHelpers(announceIndex: number = this.selectedAnnounce){
+  getHelpers(announceIndex: number = this.selectedAnnounce) {
     this.userService.getAnnounceHelpersById(this.proposed_services[announceIndex]['idAnnounce'])
       .then(() => {
         console.log("#Got helpers for announce of index = ", this.selectedAnnounce);
@@ -122,6 +133,5 @@ export class ActivityComponent implements OnInit {
         this.helpers = [];
       });
   }
-
 
 }

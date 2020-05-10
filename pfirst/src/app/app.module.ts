@@ -51,6 +51,8 @@ import { DisplayProfilComponent } from './display-profil/display-profil.componen
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
 import { ActivityComponent } from './activity/activity.component';
 import {MatSelectModule} from "@angular/material/select";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -88,19 +90,21 @@ import {MatSelectModule} from "@angular/material/select";
     FiltreProposeComponent,
     ActivityComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatDialogModule,
-        NgbModule,
-        MatProgressSpinnerModule,
-        MatSelectModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule,
+    NgbModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatToolbarModule,
+    MatIconModule
+  ],
   providers: [ // on ajoute ici tous les services
     AuthService,
     AuthGuard,
