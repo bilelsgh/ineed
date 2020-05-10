@@ -9,8 +9,25 @@
           <form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">
 
 
-            <!-- ##################### MAIL ####################-->
             <div class="form-group">
+
+              <!-- ##################### Prénom ####################-->
+              <div class="jumbotron" id="formulaire">
+                <label for="firstName">Votre prénom</label>
+                <input type="text" class="form-control" id="firstName" name="firstName"
+                       ngModel>
+                <span class="current-info-indicator">{{this.info_user.firstName}}</span>
+              </div>
+
+              <!-- ##################### Nom ####################-->
+              <div class="jumbotron" id="formulaire">
+                <label for="lastName">Votre nom</label>
+                <input type="text" class="form-control" id="lastName" name="lastName"
+                       ngModel>
+                <span class="current-info-indicator">{{this.info_user.lastName}}</span>
+              </div>
+
+              <!-- ##################### MAIL ####################-->
               <div class="jumbotron" id="formulaire">
                 <label for="mail">Votre email</label>
                 <input type="text" class="form-control" id="mail" name="mail"
@@ -122,7 +139,6 @@
                 <label for="formerPassword">Mot de passe actuel</label>
                 <input type="password" class="form-control" id="formerPassword" name="formerPassword"
                        ngModel>
-                <span class="current-info-indicator">{{this.email}}</span>
               </div>
 
               <!-- ##################### New ####################-->

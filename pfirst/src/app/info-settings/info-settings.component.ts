@@ -28,7 +28,7 @@ export class InfoSettingsComponent implements OnInit {
   profil_pic: File;
   bio: string;
   phone: string;
-  info_user: any;
+  info_user: any = JSON.parse(localStorage.getItem('user'));
 
   notifs: any = {
     profilPic: 'Veuillez entrer une nouvelle pdp'
@@ -46,7 +46,7 @@ export class InfoSettingsComponent implements OnInit {
   ngOnInit(): void {
 
     this.userService.getProfilById('user').then(() => {
-        //this.info_user = localStorage.getItem('user');   /!\ asynchrone
+        //this.info_user = localStorage.getItem('user');
         this.info_user = this.userService.info_user;
         console.log('Init info-set : this.info_user : ', this.info_user);
         console.log(this.info_user["mail"]);
@@ -127,7 +127,18 @@ export class InfoSettingsComponent implements OnInit {
 
   onSubmitNewInfos(form: NgForm) {
     const form_value = form.value;
-    const user = JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(localStorage.getItem('user'));
+
+    if (form_value['firstName'] != undefined && form_value['firstName'].length > 0 ){
+      user['firstName'] = form_value['firstName'];
+      console.log("#form value fname : ", form_value['firstName']);
+    }
+
+    if (form_value['lastName'] != undefined && form_value['lastName'].length > 0 ){
+      user['lastName'] = form_value['lastName'];
+      console.log("#form value lname : ", form_value['lastName']);
+    }
+
     if (form_value['bio'] != undefined && form_value['bio'].length > 0 ){
       user['bio'] = form_value['bio'];
       console.log("#form value bio : ", form_value['bio']);
