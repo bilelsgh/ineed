@@ -1,7 +1,6 @@
 <div id="infoContainer">
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4" align="center">Mes informations</h1>
       <table align="center">
 
         <div class="col-sm-8 col-sm-offset-2">
@@ -78,18 +77,20 @@
     </div>
   </div>
 </div>
-
-<!-------------------------------- MOT DE PASSE------------------------->
-
-<div id="showMdpContainer">
-  <button class="btn btn-primary" (click)="changePassword=true" *ngIf="!changePassword">Modifier mon mot de passe
-  </button>
+<div id="infoHeader">
+  <mat-toolbar color="#ffffff" id="infoToolbar">
+    <mat-toolbar-row>
+      <span>Modifiez vos informations</span>
+      <span class="spacer"></span>
+      <mat-icon class="icon" (click)="f.reset()" title="vider le formulaire">restore_page</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </div>
+<!-------------------------------- MOT DE PASSE------------------------->
 
 <div id="mdpContainer" *ngIf="changePassword">
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4" align="center">Modifier mon mot de passe</h1>
       <table align="center">
 
         <div class="col-sm-8 col-sm-offset-2">
@@ -149,4 +150,14 @@
   </div>
 </div>
 
+<div id="showMdpContainer">
+  <mat-toolbar color="#ffffff" id="changePassword">
+    <mat-toolbar-row>
+      <span>Changez votre mot de passe</span>
+      <span class="spacer"></span>
+      <mat-icon (click)="changePassword=true" *ngIf="!changePassword" class="icon"> menu</mat-icon>
+      <mat-icon (click)="changePassword=false" *ngIf="changePassword" class="icon"> menu_open</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
 

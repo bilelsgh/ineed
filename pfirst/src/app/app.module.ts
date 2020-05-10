@@ -49,6 +49,8 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 import { InfoSettingsComponent } from './info-settings/info-settings.component';
 import { DisplayProfilComponent } from './display-profil/display-profil.component';
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -95,7 +97,9 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
     MatButtonModule,
     MatDialogModule,
     NgbModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [ // on ajoute ici tous les services
     AuthService,

@@ -165,7 +165,8 @@ export class InfoSettingsComponent implements OnInit {
     this.httpClient.put(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/pdp', {
       "token": JSON.parse(localStorage.getItem('token')),
       "file": this.profil_pic
-    }).subscribe(
+    })
+      .subscribe(
       (response) => {
         console.log("Changement de pdp accepté, response =", response);
         this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
