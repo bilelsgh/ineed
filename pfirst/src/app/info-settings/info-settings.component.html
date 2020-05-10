@@ -6,7 +6,7 @@
 
         <div class="col-sm-8 col-sm-offset-2">
 
-          <form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">
+          <form (ngSubmit)="onSubmitNewInfos(f); onSubmitNewPicture(f);" #f="ngForm">
 
 
             <div class="form-group">
@@ -67,8 +67,6 @@
                 <input type="file" class="form-control" id="profil-pic" name="profil-pic"
                        (change)="onFileSelected($event)"
                        ngModel>
-                <img src="../../assets/data/photo_undefined.png">
-
                 <img [src]="'data:image/png;base64,' + this.undefinedPic" alt="profil-pic">
                 <span>(en dur)</span>
               </div>

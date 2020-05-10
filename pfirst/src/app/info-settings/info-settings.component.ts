@@ -87,13 +87,6 @@ export class InfoSettingsComponent implements OnInit {
           this.authService.setUserInfo(JSON.stringify(response['token']), 'token'); // stocke le token dans le session/localStorage
           this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
 
-          /*const httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type': 'application/json',
-              'Authorization': response['token']
-            }),
-          };
-           */
           const myHeader = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': response['token']
@@ -109,6 +102,7 @@ export class InfoSettingsComponent implements OnInit {
               (resp) => {
                 console.log("#Modif : nouveau mdp accepté, nouveau token = ", typeof resp.headers.get('Authorization'));
                 this.authService.setUserInfo(JSON.stringify(resp.headers.get('Authorization')), 'token');
+                form.reset();
               },
               (e) => {
                 console.log("#Modif : nouveau mdp refusé", e);
@@ -158,11 +152,30 @@ export class InfoSettingsComponent implements OnInit {
           console.log("Nouvelles infos acceptées, new user :", response['user']);
           this.authService.setUserInfo(JSON.stringify(response['token']), 'token'); // stocke le token dans le session/localStorage
           this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
+          this.info_user = response['user'];
+          form.reset();
         },
         (error1)=>{
           console.log("#Nouvelles infos refusées", error1);
         }
       );
+  }
+
+  onSubmitNewPicture(form: NgForm){
+    this.httpClient.put(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/pdp', {
+      "token": JSON.parse(localStorage.getItem('token')),
+      "file": this.profil_pic
+    }).subscribe(
+      (response) => {
+        console.log("Changement de pdp accepté, response =", response);
+        this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
+        this.authService.setUserInfo(JSON.stringify(response['token']), 'token');
+        this.info_user = response['user'];
+      },
+      (e) => {
+        console.log("Changement de pdp refusé", e);
+      }
+    );
   }
 
 
