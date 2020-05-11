@@ -10,10 +10,10 @@
               <h2  id="demandeTexte">Vos demandes en cours</h2>
             </td>
             <td>
-              <img  *ngIf="!isCollapsed" (click)="isCollapsed = !isCollapsed"
+              <img  *ngIf="isCollapsed" (click)="isCollapsed = !isCollapsed"
                     [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
                 style="width:50px" src="../../assets/data/fleche.png" alt="">
-              <img  *ngIf="isCollapsed" (click)="isCollapsed = !isCollapsed"
+              <img  *ngIf="!isCollapsed" (click)="isCollapsed = !isCollapsed"
                     [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
                     style="width:50px" src="../../assets/data/fleche_up.png" alt="">
             </td>
