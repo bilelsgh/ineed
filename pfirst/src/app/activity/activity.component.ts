@@ -14,6 +14,8 @@ import {Router} from "@angular/router";
 })
 export class ActivityComponent implements OnInit {
 
+  public isCollapsed: boolean = true;
+
   proposed_services: any[] = [
     {
       content: {
