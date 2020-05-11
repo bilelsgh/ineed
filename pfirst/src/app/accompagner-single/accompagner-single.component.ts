@@ -14,6 +14,7 @@ import {Accompage} from "../models/Accompage.model";
 
 export class AccompagnerSingleComponent implements OnInit {
 
+  myService : boolean;
   applied : boolean;
   Name: string ;
   User: string = 'Utilisateur';
@@ -74,6 +75,8 @@ export class AccompagnerSingleComponent implements OnInit {
               this.applied = true;
             }
           }
+          this.service_descriptor.idUser === JSON.parse(localStorage.getItem('user'))['idUser'] ?
+            this.myService = true : this.myService = false;
         },
         (error) => {
           console.log("Erreur de récupération des helpers dans cuisine-single : " + error);

@@ -1,9 +1,18 @@
+
+<!-- BANDEAUX D'INFORMATIONS -->
 <div *ngIf="applied" class="alert alert-dismissable alert-success">
   <table align="center">
     Votre demande d'aide a bien été envoyé à <b>{{User}}</b>, attendez son acceptation.
   </table>
 </div>
 
+<div *ngIf="myService" class="alert alert-dismissable alert-warning">
+  <table align="center">
+    Il s'agit de <b>votre annonce</b>. <button class="btn btn-warning" (click)="router.navigate([''])">
+    Voir</button>
+  </table>
+</div>
+<!-- ----------------------------------------- -->
 <br>
 
 <table align="center">
@@ -55,12 +64,13 @@
     </div>
   </div>
 
+  <!-- PROPOSER SON AIDE -->
   <table align="center">
     <tr>
-      <button *ngIf="!applied" id="button_rendre" type="button" class="btn btn-warning" (click)="applyAccompagne()">
+      <button *ngIf="!applied && !myService" id="button_rendre" type="button" class="btn btn-warning" (click)="applyAccompagne()">
         <p style="font-size: larger">Aider {{User}} !</p></button>
 
-      <button *ngIf="applied" [disabled]="true" id="button_rendre" type="button" class="btn btn-warning" >
+      <button *ngIf="applied && !myService" [disabled]="true" id="button_rendre" type="button" class="btn btn-warning" >
         <p style="font-size: larger">Vous avez proposé votre aide.</p>
       </button>
     </tr>
