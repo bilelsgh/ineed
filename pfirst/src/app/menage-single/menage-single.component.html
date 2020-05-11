@@ -1,8 +1,17 @@
+<!-- BANDEAUX D'INFORMATIONS -->
 <div *ngIf="applied" class="alert alert-dismissable alert-success">
   <table align="center">
     Votre demande d'aide a bien été envoyé à <b>{{User}}</b>, attendez son acceptation.
   </table>
 </div>
+
+<div *ngIf="myService" class="alert alert-dismissable alert-warning">
+  <table align="center">
+    Il s'agit de <b>votre annonce</b>. <button class="btn btn-warning" (click)="router.navigate([''])">
+    Voir</button>
+  </table>
+</div>
+<!-- ----------------------------------------- -->
 
 <table align="center">
   <tr>

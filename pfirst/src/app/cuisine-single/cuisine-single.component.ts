@@ -13,6 +13,7 @@ import {Cuisine} from "../models/Cuisine.model";
 })
 export class CuisineSingleComponent implements OnInit {
 
+  myService : boolean;
   View : number;
   applied: boolean;
   Name: string = 'Courses';
@@ -72,6 +73,8 @@ export class CuisineSingleComponent implements OnInit {
               this.applied = true;
             }
           }
+          this.service_descriptor.idUser === JSON.parse(localStorage.getItem('user'))['idUser'] ?
+            this.myService = true : this.myService = false;
         },
         (error) => {
           console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
