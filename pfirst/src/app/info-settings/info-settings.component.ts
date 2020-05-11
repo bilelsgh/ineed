@@ -20,7 +20,7 @@ export class InfoSettingsComponent implements OnInit {
   badRegex = new RegExp('^[a-z]{6,}$');
   mediumRegex = new RegExp('^[a-zA-Z0-9]{8,}$');
   strongRegex = new RegExp('^.{9,}$');
-  same_password = true;
+  same_password = false;
 
   changePassword: boolean = false;
   notSamePasswords: boolean = true;
@@ -193,7 +193,7 @@ export class InfoSettingsComponent implements OnInit {
   }
 
   passwordComplexity(text: string) {
-
+    console.log('#PASSWORD COMPLEXITY, former_sp =',this.small_password, "text =", text);
     if (text.length < 6) {
       this.small_password = true;
       this.bad_password = false;
@@ -217,7 +217,7 @@ export class InfoSettingsComponent implements OnInit {
       this.bad_password = false;
       this.medium_password = false;
     }
-
+    console.log('new_sp =', this.small_password);
   }
 }
 
