@@ -4,8 +4,11 @@
   </tr>
   <tr>
     <td>
-      <button type="button" class="btn btn-info" (click)="goProfil()" )>Voir le profil</button>
-      <!-- <button type="button" class="btn btn-info" (click)="goProfil()">Voir le profil</button> -->
+     <!-- <button type="button" class="btn btn-info" (click)="goProfil()" )>Voir le profil</button>
+      <button type="button" class="btn btn-info" (click)="goProfil()">Voir le profil</button> -->
+      <button type="button" class="btn btn-dark"
+            (click)="goProfil('profil/'+this.service_descriptor.idUser)">Voir le profil</button>
+    <!-- <button type="button" class="btn btn-info" (click)="goProfil()">Voir le profil</button> -->
     </td>
   </tr>
 </table>
