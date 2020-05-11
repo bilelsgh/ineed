@@ -140,8 +140,8 @@
                 <i><strong><span *ngIf="!same_password"
                                  style="color:red">Les mots de passe ne sont pas identiques.</span></strong></i>
               </div>
-
-              <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
+              <div (click)="showStatus()">Show status</div>
+              <button style="margin-left: 330px" class="btn btn-primary" type="submit" [disabled]="(!same_password) || small_password">Valider</button>
             </div>
           </form>
         </div>
