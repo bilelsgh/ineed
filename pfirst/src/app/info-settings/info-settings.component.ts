@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {error} from "@angular/compiler/src/util";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-info-settings',
@@ -179,6 +180,38 @@ export class InfoSettingsComponent implements OnInit {
     );
   }
 
+  compress(file: File): Observable<any> {
+    const width = 600; // For scaling relative to width
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    return Observable.create(observer => {
+      reader.onload = ev => {
+        const img = new Image();
+        img.src = (ev.target as any).result;
+        (img.onload = () => {
+          const elem = document.createElement('canvas'); // Use Angular's Renderer2 method
+          const scaleFactor = width / img.width;
+          elem.width = width;
+          elem.height = img.height * scaleFactor;
+          const ctx = <CanvasRenderingContext2D>elem.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, img.height * scaleFactor);
+          ctx.canvas.toBlob(
+            blob => {
+              observer.next(
+                new File([blob], file.name, {
+                  type: 'image/jpeg',
+                  lastModified: Date.now(),
+                }),
+              );
+            },
+            'image/jpeg',
+            1,
+          );
+        }),
+          (reader.onerror = error => observer.error(error));
+      };
+    });
+  }
 
   quickCheckPassword(form: NgForm) {
     if (form.value.newPassword !== form.value.confirm_password) {
