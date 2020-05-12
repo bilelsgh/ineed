@@ -18,8 +18,11 @@
             <div class="text-right">
               <table>
                 <tr>
-                  <td><button class="btn btn-primary" [disabled] = "this.noHelper" >Propositions</button></td>
-                  <td><a href="#" class="btn btn-primary" [routerLink]="[id]" >Voir l'annonce</a></td>
+                  <td><button class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
+                              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                    Propositions</button></td>
+                  <td><button class="btn btn-primary" (click)="router.navigate(['propose/'+id])" >
+                    Voir l'annonce</button></td>
                 </tr>
               </table>
             </div>
@@ -28,4 +31,26 @@
 
       </div>
     </div>
+  </div>
+  <div id="collapseExample" [ngbCollapse]="isCollapsed">
+    <span *ngIf="noHelper">
+      <p style="font-size: large">Aucune ne s'est encore proposée pour réaliser ce service.</p>
+    </span>
+    <span>
+      <mat-toolbar color="#ffffff" *ngIf="helpers.length > 0"> <!-- color ne marche pas-->
+      <mat-toolbar-row *ngFor="let helper of helpers">
+        <span>{{helper.firstName}} {{helper.lastName}} vous a proposé son aide.</span>
+        <span class="spacer"></span>
+        <mat-icon title="Voir le profil" class="icon" (click)="router.navigate(['profil/'+helper.idUser])">face</mat-icon>
+        <!--<mat-icon [routerLink]=""> face </mat-icon>-->
+        <mat-icon class="icon" *ngIf="response[selectedAnnounce] == undefined" (click)="this.response[selectedAnnounce] = helper.idUser"> done </mat-icon>
+        <mat-icon class="icon" *ngIf="response[selectedAnnounce] == undefined"> highlight_off </mat-icon>
+        <mat-icon class="icon" *ngIf="response[selectedAnnounce] != undefined && response[selectedAnnounce] != helper.idUser">
+          not_interested
+        </mat-icon>
+        <mat-icon class="icon" *ngIf="response[selectedAnnounce] == helper.idUser"> done_all </mat-icon>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    </span>
+
   </div>

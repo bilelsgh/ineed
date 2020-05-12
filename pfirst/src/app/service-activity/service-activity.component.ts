@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../services/auth.service";
+import {Router} from "@angular/router";
+import {UserService} from "../services/users.service";
 
 @Component({
   selector: 'app-service-activity',
@@ -18,32 +20,37 @@ export class ServiceActivityComponent implements OnInit {
   @Input() index : number;
   @Input() id : number;
   noHelper : boolean;
+  public isCollapsed: boolean = true;
+  helpers: any[] = [];
+  response: number[];
 
 
-
-  constructor(private httpClient : HttpClient, private auth : AuthService) { }
+  constructor(private httpClient : HttpClient, private auth : AuthService, private router : Router,
+              private userService : UserService) { }
 
   ngOnInit(): void {
-    this.receiveHelpers();
+    this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
+    this.getHelpers(this.id);
   }
 
-  receiveHelpers(){
-    this.httpClient
-      .get<any[]>(this.auth.backend + "api/announce/" + this.id + "/helpers?token=" +
-        JSON.parse(localStorage.getItem('token')))
-      .subscribe(
-        (response) => {
-          response['helpers'].length === 0 ? this.noHelper = true : this.noHelper = false;
-        },
-        (error) => {
-          if(error['status'] === 401){
-            this.auth.removeUserInfo();
-            console.log("#TOKEN EXPIRED");
-          }
-          console.log("#DEBUG : Erreur lors de la réception des helpers (service-activity) : "+ error);
-        }
-      );
-  }
+  getHelpers(announceId: number = 0){
+    if (announceId === 0) {   //pas d'annonce selectionée
+      this.helpers = [];
+    }else{
+      this.userService.getAnnounceHelpersById(String(announceId) )
+      //this.userService.getAnnounceHelpersById(announceId)
+      .then(() => {
+        console.log("#Got helpers for announce of index = ", this.selectedAnnounce);
+        console.log("Helpers = ", this.userService.announceHelpers);
+        this.helpers = this.userService.announceHelpers;
+        this.helpers.length === 0 ? this.noHelper = true : this.noHelper = false;
+      })
+      .catch((e) => {
+        console.log("#getHelpers : erreur de recupération ", e);
+        this.helpers = [];
+      });
+}
+}
 
   getUser(){
     return this.serviceUser;
