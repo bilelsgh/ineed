@@ -137,7 +137,7 @@
                 <label for="confirm_password">Confirmez votre mot de passe <span style="color:red">*</span></label>
                 <input class="form-control" type="password" id="confirm_password" name="confirm_password"
                        (change)="quickCheckPassword(f)" ngModel required>
-                <i><strong><span *ngIf="!same_password"
+                <i><strong><span *ngIf="same_password == false"
                                  style="color:red">Les mots de passe ne sont pas identiques.</span></strong></i>
               </div>
               <div (click)="showStatus()">Show status</div>

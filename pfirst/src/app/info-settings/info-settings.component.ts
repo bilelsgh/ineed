@@ -20,7 +20,7 @@ export class InfoSettingsComponent implements OnInit {
   badRegex = new RegExp('^[a-z]{6,}$');
   mediumRegex = new RegExp('^[a-zA-Z0-9]{8,}$');
   strongRegex = new RegExp('^.{9,}$');
-  same_password = false;
+  same_password: boolean = true;
 
   changePassword: boolean = false;
   notSamePasswords: boolean = true;
@@ -59,7 +59,6 @@ export class InfoSettingsComponent implements OnInit {
         //this.userForm = this.initForm();
       }
     ).catch((e) => {
-      console.log('Init info-set : impossible de récupérer les infos users', e);
     });
   }
 
@@ -162,7 +161,7 @@ export class InfoSettingsComponent implements OnInit {
           this.info_user = response['user'];
           form.reset();
         },
-        (error1)=>{
+        (error1) => {
           console.log("#Nouvelles infos refusées", error1);
         }
       );
