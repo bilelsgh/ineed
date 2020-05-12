@@ -66,7 +66,8 @@
                 <input type="file" class="form-control" id="profil-pic" name="profil-pic"
                        (change)="onFileSelected($event)"
                        ngModel>
-                <img [src]="this.undefinedPicURL" alt="profil-pic">
+                <img [src]="'https://rpicloud.ddns.net/static/images/'+getPdpName()">
+                <!--<img [src]="this.undefinedPicURL" alt="profil-pic">-->
                 <span>(en dur)</span>
               </div>
               <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>

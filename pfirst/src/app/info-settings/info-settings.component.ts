@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/users.service";
 import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
-import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {error} from "@angular/compiler/src/util";
@@ -168,10 +168,13 @@ export class InfoSettingsComponent implements OnInit {
   }
 
   onSubmitNewPicture(form: NgForm) {
-    this.httpClient.put(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/pdp', {
-      "token": JSON.parse(localStorage.getItem('token')),
+
+    const params = new HttpParams().set('token',(JSON.parse(localStorage.getItem('token'))));
+    this.httpClient.put(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/photo',
+      {
       "file": this.profil_pic
-    })
+    },
+      {params})
       .subscribe(
         (response) => {
           console.log("Changement de pdp accepté, response =", response);
@@ -191,6 +194,10 @@ export class InfoSettingsComponent implements OnInit {
     } else {
       this.same_password = true;
     }
+  }
+
+  getPdpName(): string{
+    return JSON.parse(localStorage.getItem('user')).photo;
   }
 
   passwordComplexity(text: string) {
