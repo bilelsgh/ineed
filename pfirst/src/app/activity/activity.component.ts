@@ -67,22 +67,10 @@ export class ActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*
-    this.sendToFirebase().then(() => {
-      this.userService.getPostedAnnounces('user')
-        .then(() => {
-          this.proposed_services = this.userService.active_announces;
-        })
-        .catch((err) => {
-          console.log('#ACTIVITY: Erreur de récupération des services demandés', err);
-        });
-    })
-      .catch(() => {
-        console.log('Failed to send actives to firebase');
-      });
-     */
     this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
 
+    // Si tu fait avec les activite/id pour les propositions, il faut que tu mette la méthode getHelpers
+    // (en bas, modifs à faire en commentaires) avec l'id de l'url
     console.log('ID : ', JSON.parse(localStorage.getItem('user'))['idUser']);
     this.userService.getPostedAnnounces(JSON.parse(localStorage.getItem('user'))['idUser'])
       .then(() => {
@@ -103,6 +91,21 @@ export class ActivityComponent implements OnInit {
           console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
         });
 
+
+    /*   FIREBASE
+ this.sendToFirebase().then(() => {
+   this.userService.getPostedAnnounces('user')
+     .then(() => {
+       this.proposed_services = this.userService.active_announces;
+     })
+     .catch((err) => {
+       console.log('#ACTIVITY: Erreur de récupération des services demandés', err);
+     });
+ })
+   .catch(() => {
+     console.log('Failed to send actives to firebase');
+   });
+  */
   }
 
   sendToFirebase() {
@@ -122,9 +125,20 @@ export class ActivityComponent implements OnInit {
     });
   }
 
+  /* permet de récupérer la liste des helpers pour l'annonce indexée par announceIndex dans this.proposed_services
+  (d'ailleurs ca devrait s'appeler asked_services), pour adapter, tu peux garder ta structure qui redirige vers activite/id
+  et modifier cette fonction en mettant announceId en parametre (je te met les modifs a faire en commentées si tu veux faire ca)
+   */
 
   getHelpers(announceIndex: number = this.selectedAnnounce) {
+    /*
+  getHelpers(announceId: string = '0'){
+    if this.announceId == '0') {   //pas d'annonce selectionée
+       this.helpers = [];
+    }else{ // accolade a fermer
+    */
     this.userService.getAnnounceHelpersById(this.proposed_services[announceIndex]['idAnnounce'])
+      //this.userService.getAnnounceHelpersById(announceId)
       .then(() => {
         console.log("#Got helpers for announce of index = ", this.selectedAnnounce);
         console.log("Helpers = ", this.userService.announceHelpers);

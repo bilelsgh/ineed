@@ -49,6 +49,8 @@
     </td>
 
     <!-- ###################### LISTE DES PROPOSITIONS D'AIDES ###############################-->
+
+    <!-- Select pour choisir les propositions de quelle annonce afficher, a supprimer car pas ergo -->
     <td>
       <div id="helpersContainer">
         <h1>Réactions</h1>
@@ -62,6 +64,8 @@
             </mat-select>
           </mat-form-field>
         </div>
+
+        <!-- Liste des proposition pour l'annonce selectionnée, helper est mis a jour par le select-->
 
         <mat-toolbar color="#ffffff" *ngIf="helpers.length > 0"> <!-- color ne marche pas-->
         <mat-toolbar-row *ngFor="let helper of helpers">
