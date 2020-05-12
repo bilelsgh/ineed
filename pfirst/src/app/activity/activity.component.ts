@@ -117,7 +117,7 @@ export class ActivityComponent implements OnInit {
         JSON.parse(localStorage.getItem('user'))['idUser']+ "/helpers")
       .subscribe(
         (response) => {
-          this.proposed_services = response['voir quoi mettre'] //à compléter quand la route sera testée
+          this.proposed_services = response['undoneS'] //à compléter quand la route sera testée
           this.proposed_services.forEach((serv) => {
             serv.content = JSON.parse(serv.content);
           });

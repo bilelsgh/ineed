@@ -58,6 +58,9 @@ export class ServiceActivityComponent implements OnInit {
     return this.serviceDescription;
   }
 
+  acceptHelper(helperID : number){
+    //faire une requete sur la route de SIDI
+  }
 
 
 }

@@ -43,9 +43,9 @@
         <span class="spacer"></span>
         <mat-icon title="Voir le profil" class="icon" (click)="router.navigate(['profil/'+helper.idUser])">face</mat-icon>
         <!--<mat-icon [routerLink]=""> face </mat-icon>-->
-        <mat-icon class="icon" *ngIf="response[selectedAnnounce] == undefined" (click)="this.response[selectedAnnounce] = helper.idUser"> done </mat-icon>
-        <mat-icon class="icon" *ngIf="response[selectedAnnounce] == undefined"> highlight_off </mat-icon>
-        <mat-icon class="icon" *ngIf="response[selectedAnnounce] != undefined && response[selectedAnnounce] != helper.idUser">
+        <mat-icon class="icon" *ngIf="this.assignees[0] == 0" (click)="acceptHelper(helper.idUser)"> done </mat-icon>
+        <mat-icon class="icon" *ngIf="this.assignees[0] == 0"> highlight_off </mat-icon>
+        <mat-icon class="icon" *ngIf="this.assignees[0] == 0" && response[selectedAnnounce] != helper.idUser">
           not_interested
         </mat-icon>
         <mat-icon class="icon" *ngIf="response[selectedAnnounce] == helper.idUser"> done_all </mat-icon>

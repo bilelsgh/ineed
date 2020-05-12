@@ -9,7 +9,7 @@ export class Accompage{
               public viewNumber : number,
               /*brief_assignees :
               *   - Premier élément = 0 si l'annonce attend encore des helpers
-              *                   = 1 si le helped n'a plus besoin de helped, l'annonce est alors EN COURS
+              *                     = 1 si le helped n'a plus besoin de helpers, l'annonce est alors EN COURS
               *   - Les autres éléments sont les idUser des helpers qui se sont proposés pour ce service et qui
               *  ont été acceptés par le helped*/
               public assignees : number[],
