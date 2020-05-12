@@ -24,16 +24,18 @@ export class ServiceActivityComponent implements OnInit {
   constructor(private httpClient : HttpClient, private auth : AuthService) { }
 
   ngOnInit(): void {
-
-
+    this.receiveHelpers();
   }
 
   receiveHelpers(){
+    console.log("RECEIVE HELPERS");
     this.httpClient
       .get<any[]>(this.auth.backend + "api/announce/" + this.id + "/helpers?token=" +
         JSON.parse(localStorage.getItem('token')))
       .subscribe(
         (response) => {
+          console.log("#LENGTH : " + response.length);
+          console.table(response);
           response.length === 0 ? this.noHelper = true : this.noHelper = false;
         },
         (error) => {
