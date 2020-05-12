@@ -28,15 +28,12 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   receiveHelpers(){
-    console.log("RECEIVE HELPERS");
     this.httpClient
       .get<any[]>(this.auth.backend + "api/announce/" + this.id + "/helpers?token=" +
         JSON.parse(localStorage.getItem('token')))
       .subscribe(
         (response) => {
-          console.log("#LENGTH : " + response.length);
-          console.table(response);
-          response.length === 0 ? this.noHelper = true : this.noHelper = false;
+          response['helpers'].length === 0 ? this.noHelper = true : this.noHelper = false;
         },
         (error) => {
           if(error['status'] === 401){
