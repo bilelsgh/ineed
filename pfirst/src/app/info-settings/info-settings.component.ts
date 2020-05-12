@@ -24,7 +24,7 @@ export class InfoSettingsComponent implements OnInit {
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.userService.getProfilById('user').then(()=> {
+    this.userService.getProfilById('user').then(() => {
         this.info_user = localStorage.getItem('user');
         console.log("Init info-set : this.info_user : ", this.info_user);
         this.email = this.info_user['mail'];

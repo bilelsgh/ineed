@@ -81,8 +81,10 @@ export class ActivityComponent implements OnInit {
         console.log('#ACTIVIY : Récupération ok', 'announces in userServ :', this.userService.active_announces);
         this.selectedAnnounce = this.proposed_services.length > 0 ? 0 : -1;
         console.log("SELECTED INDEX : ", this.selectedAnnounce);
+        //a modifier aussi si modif getHelpers
         if (this.selectedAnnounce != -1) {
           this.getHelpers(this.selectedAnnounce);
+          //getHelpers(this.proposed_services[this.selectedAnnounce]['idAnnounce']);
         }
 
       })
@@ -90,7 +92,6 @@ export class ActivityComponent implements OnInit {
         (e) => {
           console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
         });
-
 
     /*   FIREBASE
  this.sendToFirebase().then(() => {
