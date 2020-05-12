@@ -63,10 +63,13 @@ export class InfoSettingsComponent implements OnInit {
     });
   }
 
+  // ----------------------DEBUG------------------
   showStatus(){
     console.log("same_password :", this.same_password,"small_password :", this.small_password, "!same||small =", !this.same_password || this.small_password);
   }
 
+
+  //-------------------------------------------------
   // Recuperation de la photo selectionnee
   onFileSelected(event) {
     this.profil_pic = event.target.files[0] as File;
@@ -193,7 +196,7 @@ export class InfoSettingsComponent implements OnInit {
   }
 
   passwordComplexity(text: string) {
-    console.log('#PASSWORD COMPLEXITY, former_sp =',this.small_password, "text =", text);
+    console.log('#PASSWORD COMPLEXITY, former_sp =',this.small_password, "text =", text,'text.length < 6 = ', text.length<6);
     if (text.length < 6) {
       this.small_password = true;
       this.bad_password = false;
@@ -216,6 +219,8 @@ export class InfoSettingsComponent implements OnInit {
       this.strong_password = true;
       this.bad_password = false;
       this.medium_password = false;
+    } else {
+      this.small_password = false;
     }
     console.log('new_sp =', this.small_password);
   }
