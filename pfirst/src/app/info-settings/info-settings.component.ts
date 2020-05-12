@@ -169,8 +169,8 @@ export class InfoSettingsComponent implements OnInit {
 
   onSubmitNewPicture(form: NgForm) {
 
-    const params = new HttpParams().set('token',(JSON.parse(localStorage.getItem('token'))));
-    this.httpClient.put(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/photo',
+    const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
+    this.httpClient.post(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/photo',
       {
       "file": this.profil_pic
     },
