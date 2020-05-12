@@ -2,11 +2,17 @@
 export class Accompage{
   constructor(public idUser : number,
               public content : { type : string, name : string, user : string, description : string,
-              kind : string, quand1 : string,quand2 : string, local : string, datejour : string,
+                kind : string, quand1 : string,quand2 : string, local : string, datejour : string,
                 image : string},
               public id : number,
               public price : number = 0,
-              viewNumber : number,
+              public viewNumber : number,
+              /*brief_assignees :
+              *   - Premier élément = 0 si l'annonce attend encore des helpers
+              *                   = 1 si le helped n'a plus besoin de helped, l'annonce est alors EN COURS
+              *   - Les autres éléments sont les idUser des helpers qui se sont proposés pour ce service et qui
+              *  ont été acceptés par le helped*/
+              public assignees : number[],
               public finished : boolean,
   ){}
 }
