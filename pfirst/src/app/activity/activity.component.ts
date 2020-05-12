@@ -14,9 +14,11 @@ import {Router} from "@angular/router";
 })
 export class ActivityComponent implements OnInit {
 
-  public isCollapsed: boolean = true;
+  public isCollapsedDemande: boolean = true;
+  public isCollapsedProposition : boolean = true;
 
-  proposed_services: any[] = [
+  proposed_services: any[];
+  asked_services: any[] = [
     {
       content: {
         budget: '98',
@@ -53,7 +55,7 @@ export class ActivityComponent implements OnInit {
   ];
 
 
-  selectedAnnounce: number; // index de l'annonce dans proposed_services
+  selectedAnnounce: number; // index de l'annonce dans asked_services
 
   helpers: any[] = [];
 
@@ -74,17 +76,17 @@ export class ActivityComponent implements OnInit {
     console.log('ID : ', JSON.parse(localStorage.getItem('user'))['idUser']);
     this.userService.getPostedAnnounces(JSON.parse(localStorage.getItem('user'))['idUser'])
       .then(() => {
-        this.proposed_services = this.userService.active_announces;
-        this.proposed_services.forEach((serv) => {
+        this.asked_services = this.userService.active_announces;
+        this.asked_services.forEach((serv) => {
           serv.content = JSON.parse(serv.content);
         });
         console.log('#ACTIVIY : Récupération ok', 'announces in userServ :', this.userService.active_announces);
-        this.selectedAnnounce = this.proposed_services.length > 0 ? 0 : -1;
+        this.selectedAnnounce = this.asked_services.length > 0 ? 0 : -1;
         console.log("SELECTED INDEX : ", this.selectedAnnounce);
         //a modifier aussi si modif getHelpers
         if (this.selectedAnnounce != -1) {
           this.getHelpers(this.selectedAnnounce);
-          //getHelpers(this.proposed_services[this.selectedAnnounce]['idAnnounce']);
+          //getHelpers(this.asked_services[this.selectedAnnounce]['idAnnounce']);
         }
 
       })
@@ -97,7 +99,7 @@ export class ActivityComponent implements OnInit {
  this.sendToFirebase().then(() => {
    this.userService.getPostedAnnounces('user')
      .then(() => {
-       this.proposed_services = this.userService.active_announces;
+       this.asked_services = this.userService.active_announces;
      })
      .catch((err) => {
        console.log('#ACTIVITY: Erreur de récupération des services demandés', err);
@@ -112,7 +114,7 @@ export class ActivityComponent implements OnInit {
   sendToFirebase() {
     return new Promise((resolve, reject) => {
       this.httpClient
-        .put(this.authService.backend_test + "actives.json", this.proposed_services)
+        .put(this.authService.backend_test + "actives.json", this.asked_services)
         .subscribe(
           () => {
             console.log("Enregistrement ok!");
@@ -126,19 +128,13 @@ export class ActivityComponent implements OnInit {
     });
   }
 
-  /* permet de récupérer la liste des helpers pour l'annonce indexée par announceIndex dans this.proposed_services
+  /* permet de récupérer la liste des helpers pour l'annonce indexée par announceIndex dans this.asked_services
   (d'ailleurs ca devrait s'appeler asked_services), pour adapter, tu peux garder ta structure qui redirige vers activite/id
   et modifier cette fonction en mettant announceId en parametre (je te met les modifs a faire en commentées si tu veux faire ca)
    */
 
   getHelpers(announceIndex: number = this.selectedAnnounce) {
-    /*
-  getHelpers(announceId: string = '0'){
-    if this.announceId == '0') {   //pas d'annonce selectionée
-       this.helpers = [];
-    }else{ // accolade a fermer
-    */
-    this.userService.getAnnounceHelpersById(this.proposed_services[announceIndex]['idAnnounce'])
+    this.userService.getAnnounceHelpersById(this.asked_services[announceIndex]['idAnnounce'])
       //this.userService.getAnnounceHelpersById(announceId)
       .then(() => {
         console.log("#Got helpers for announce of index = ", this.selectedAnnounce);
@@ -149,6 +145,10 @@ export class ActivityComponent implements OnInit {
         console.log("#getHelpers : erreur de recupération ", e);
         this.helpers = [];
       });
+  }
+
+  getProposition(){
+
   }
 
 }

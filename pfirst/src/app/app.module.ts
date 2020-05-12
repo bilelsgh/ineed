@@ -54,6 +54,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import { ServiceActivityComponent } from './service-activity/service-activity.component';
+import { ServiceProposedComponent } from './service-proposed/service-proposed.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { ServiceActivityComponent } from './service-activity/service-activity.co
     DisplayProfilComponent,
     FiltreProposeComponent,
     ActivityComponent,
-    ServiceActivityComponent
+    ServiceActivityComponent,
+    ServiceProposedComponent
   ],
   imports: [
     BrowserModule,

@@ -10,22 +10,22 @@
               <h2  id="demandeTexte">Vos demandes en cours</h2>
             </td>
             <td>
-              <img  *ngIf="isCollapsed" (click)="isCollapsed = !isCollapsed"
-                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
+              <img  *ngIf="isCollapsedDemande" (click)="isCollapsedDemande = !isCollapsedDemande"
+                    [attr.aria-expanded]="!isCollapsedDemande" aria-controls="collapseExample"
                 style="width:50px" src="../../assets/data/fleche.png" alt="">
-              <img  *ngIf="!isCollapsed" (click)="isCollapsed = !isCollapsed"
-                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
+              <img  *ngIf="!isCollapsedDemande" (click)="isCollapsedDemande = !isCollapsedDemande"
+                    [attr.aria-expanded]="!isCollapsedDemande" aria-controls="collapseExample"
                     style="width:50px" src="../../assets/data/fleche_up.png" alt="">
             </td>
           </tr>
         </table>
-        <div id="collapseExample" [ngbCollapse]="isCollapsed">
+        <div id="collapseExample" [ngbCollapse]="isCollapsedDemande">
         <div class="row">
           <ul class="list-group">
-            <div *ngFor="let service of proposed_services,  let i =index">
+            <div *ngFor="let service of asked_services,  let i =index">
               <table width="800px" border="0px solid">
                 <tr>
-                  <td width="95%">
+                  <td>
                     <app-service-activity
                       [serviceName]="service.content.name"
                       [serviceUser]="service.content.user"
@@ -45,6 +45,52 @@
           </ul>
         </div>
       </div>
+      </div>
+  </tr>
+
+  <!-- PROPOSITIONS EN COURS -->
+  <tr>
+
+    <table>
+      <tr>
+        <td>
+          <h2  id="demandeTexte">Vos demandes en cours</h2>
+        </td>
+        <td>
+          <img  *ngIf="isCollapsedProposition" (click)="isCollapsedProposition = !isCollapsedProposition"
+                [attr.aria-expanded]="!isCollapsedProposition" aria-controls="collapseExample"
+                style="width:50px" src="../../assets/data/fleche.png" alt="">
+          <img  *ngIf="!isCollapsedProposition" (click)="isCollapsedProposition = !isCollapsedProposition"
+                [attr.aria-expanded]="!isCollapsedProposition" aria-controls="collapseExample"
+                style="width:50px" src="../../assets/data/fleche_up.png" alt="">
+        </td>
+      </tr>
+    </table>
+    <div id="collapseExample" [ngbCollapse]="isCollapsedProposition">
+        <div class="row">
+          <ul class="list-group">
+            <div *ngFor="let service of proposed_services,  let i =index">
+              <table width="800px" border="0px solid">
+                <tr>
+                  <td>
+                    <app-service
+                      [serviceName]="service.content.name"
+                      [serviceUser]="service.content.user"
+                      [serviceDescription]="service.content.description"
+                      [serviceImage]="service.content.image"
+                      [index]="i"
+                      [id]="service.idAnnounce"
+                      [serviceDate]="service.content.datejour">
+                    </app-service>
+                  </td>
+                  <td width="5%">
+                    {{i+1}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </ul>
+        </div>
       </div>
   </tr>
 </table>

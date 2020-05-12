@@ -40,8 +40,6 @@ export class ServiceActivityComponent implements OnInit {
       this.userService.getAnnounceHelpersById(String(announceId) )
       //this.userService.getAnnounceHelpersById(announceId)
       .then(() => {
-        console.log("#Got helpers for announce of index = ", this.selectedAnnounce);
-        console.log("Helpers = ", this.userService.announceHelpers);
         this.helpers = this.userService.announceHelpers;
         this.helpers.length === 0 ? this.noHelper = true : this.noHelper = false ;
       })
