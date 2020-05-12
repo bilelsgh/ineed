@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-service-activity',
@@ -15,12 +17,33 @@ export class ServiceActivityComponent implements OnInit {
   @Input() serviceDate : string;
   @Input() index : number;
   @Input() id : number;
+  noHelper : boolean;
 
 
 
-  constructor() { }
+  constructor(private httpClient : HttpClient, private auth : AuthService) { }
 
   ngOnInit(): void {
+
+
+  }
+
+  receiveHelpers(){
+    this.httpClient
+      .get<any[]>(this.auth.backend + "api/announce/" + this.id + "/helpers?token=" +
+        JSON.parse(localStorage.getItem('token')))
+      .subscribe(
+        (response) => {
+          response.length === 0 ? this.noHelper = true : this.noHelper = false;
+        },
+        (error) => {
+          if(error['status'] === 401){
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
+          console.log("#DEBUG : Erreur lors de la réception des helpers (service-activity) : "+ error);
+        }
+      );
   }
 
   getUser(){
@@ -30,5 +53,7 @@ export class ServiceActivityComponent implements OnInit {
   getDescription(){
     return this.serviceDescription;
   }
+
+
 
 }
