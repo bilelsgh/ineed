@@ -147,7 +147,7 @@ export class InfoSettingsComponent implements OnInit {
       user['mail'] = form_value['email'];
     }
     console.log("Sending user : ", user);
-    console.log("Type of token ", typeof localStorage.getItem('token'), localStorage.getItem('token'));
+    console.log("Token before sending new infos ",JSON.parse(localStorage.getItem('token')));
     this.httpClient
       .put(this.authService.backend + 'api/user/' + user['idUser'], {
         "token": JSON.parse(localStorage.getItem('token')),
@@ -157,9 +157,17 @@ export class InfoSettingsComponent implements OnInit {
         (response) => {
           console.log("Nouvelles infos acceptées, new user :", response['user']);
           this.authService.setUserInfo(JSON.stringify(response['token']), 'token'); // stocke le token dans le session/localStorage
+          //localStorage.setItem('token', JSON.stringify(response['token']));
           this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
           this.info_user = response['user'];
-          form.reset();
+          console.log("Token recu apres info :", response['token']);
+          //setTimeout( ()=>{this.onSubmitNewPicture(form, response['token'])}, 5000);
+          this.onSubmitNewPicture(form).then( () =>{
+            form.reset();
+            }
+          ).catch( ()=>{
+            console.log("Impossible d'envoyer la photo");
+          });
         },
         (error1) => {
           console.log("#Nouvelles infos refusées", error1);
@@ -169,23 +177,34 @@ export class InfoSettingsComponent implements OnInit {
 
   onSubmitNewPicture(form: NgForm) {
 
+
+    return new Promise( (resolve,reject) => {
     const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'image/jpg',
+      }),
+      params
+    };
     this.httpClient.post(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/photo',
       {
       "file": this.profil_pic
     },
-      {params})
+      httpOptions)
       .subscribe(
         (response) => {
           console.log("Changement de pdp accepté, response =", response);
           this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
           this.authService.setUserInfo(JSON.stringify(response['token']), 'token');
           this.info_user = response['user'];
+          resolve(true);
         },
         (e) => {
           console.log("Changement de pdp refusé", e);
+          reject(true);
         }
       );
+    });
   }
 
   quickCheckPassword(form: NgForm) {
