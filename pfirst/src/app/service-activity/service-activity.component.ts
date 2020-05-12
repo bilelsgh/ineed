@@ -43,7 +43,7 @@ export class ServiceActivityComponent implements OnInit {
         console.log("#Got helpers for announce of index = ", this.selectedAnnounce);
         console.log("Helpers = ", this.userService.announceHelpers);
         this.helpers = this.userService.announceHelpers;
-        this.helpers.length === 0 ? this.noHelper = true : this.noHelper = false;
+        this.helpers.length === 0 ? this.noHelper = true : this.noHelper = false ;
       })
       .catch((e) => {
         console.log("#getHelpers : erreur de recupération ", e);
