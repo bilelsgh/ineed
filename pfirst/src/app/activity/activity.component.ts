@@ -64,7 +64,8 @@ export class ActivityComponent implements OnInit {
   constructor(private httpClient: HttpClient,
               private authService: AuthService,
               private userService: UserService,
-              public router: Router
+              public router: Router,
+              private auth : AuthService
   ) {
   }
 
@@ -94,44 +95,7 @@ export class ActivityComponent implements OnInit {
         (e) => {
           console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
         });
-
-    /*   FIREBASE
- this.sendToFirebase().then(() => {
-   this.userService.getPostedAnnounces('user')
-     .then(() => {
-       this.asked_services = this.userService.active_announces;
-     })
-     .catch((err) => {
-       console.log('#ACTIVITY: Erreur de récupération des services demandés', err);
-     });
- })
-   .catch(() => {
-     console.log('Failed to send actives to firebase');
-   });
-  */
   }
-
-  sendToFirebase() {
-    return new Promise((resolve, reject) => {
-      this.httpClient
-        .put(this.authService.backend_test + "actives.json", this.asked_services)
-        .subscribe(
-          () => {
-            console.log("Enregistrement ok!");
-            resolve(true);
-          },
-          (error) => {
-            console.log("Erreur : " + error);
-            reject(true);
-          }
-        );
-    });
-  }
-
-  /* permet de récupérer la liste des helpers pour l'annonce indexée par announceIndex dans this.asked_services
-  (d'ailleurs ca devrait s'appeler asked_services), pour adapter, tu peux garder ta structure qui redirige vers activite/id
-  et modifier cette fonction en mettant announceId en parametre (je te met les modifs a faire en commentées si tu veux faire ca)
-   */
 
   getHelpers(announceIndex: number = this.selectedAnnounce) {
     this.userService.getAnnounceHelpersById(this.asked_services[announceIndex]['idAnnounce'])
@@ -148,7 +112,24 @@ export class ActivityComponent implements OnInit {
   }
 
   getProposition(){
-
+    this.httpClient
+      .get<any[]>(this.auth.backend + 'api/undoneservices/' +
+        JSON.parse(localStorage.getItem('user'))['idUser']+ "/helpers")
+      .subscribe(
+        (response) => {
+          this.proposed_services = response['voir quoi mettre'] //à compléter quand la route sera testée
+          this.proposed_services.forEach((serv) => {
+            serv.content = JSON.parse(serv.content);
+          });
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
+          console.log("#getProposition() :Erreur de chargement : ", error);
+        }
+      );
   }
 
 }
