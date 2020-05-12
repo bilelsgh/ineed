@@ -24,7 +24,7 @@ export class InfoSettingsComponent implements OnInit {
 
   changePassword: boolean = false;
   notSamePasswords: boolean = true;
-  email: string;
+  //email: string;
   profil_pic: File;
   bio: string;
   phone: string;
@@ -50,9 +50,9 @@ export class InfoSettingsComponent implements OnInit {
         this.info_user = this.userService.info_user;
         console.log('Init info-set : this.info_user : ', this.info_user);
         console.log(this.info_user["mail"]);
-        this.email = this.info_user['mail'];
-        console.log("this.email : ", this.email);
-        console.table(this.email);
+        //this.email = this.info_user['mail'];
+        //console.log("this.email : ", this.email);
+        //console.table(this.email);
         this.bio = this.info_user['bio'];
         console.log(typeof (this.bio));
         this.profil_pic = this.info_user['profil_pic'];
@@ -143,9 +143,11 @@ export class InfoSettingsComponent implements OnInit {
       user['bio'] = form_value['bio'];
       console.log("#form value bio : ", form_value['bio']);
     }
+    /* pas possible de modifier email finalement
     if (form_value['email'] != undefined && form_value['email'].includes('@')){
       user['mail'] = form_value['email'];
     }
+     */
     console.log("Sending user : ", user);
     console.log("Type of token ", typeof localStorage.getItem('token'), localStorage.getItem('token'));
     this.httpClient
