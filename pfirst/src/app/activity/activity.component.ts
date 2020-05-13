@@ -70,6 +70,9 @@ export class ActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.getProposition(); //récupération des services pour lesquels j'ai postulés
+
     this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
 
     // Si tu fait avec les activite/id pour les propositions, il faut que tu mette la méthode getHelpers
@@ -113,14 +116,16 @@ export class ActivityComponent implements OnInit {
 
   getProposition(){
     this.httpClient
-      .get<any[]>(this.auth.backend + 'api/undoneservices/' +
-        JSON.parse(localStorage.getItem('user'))['idUser']+ "/helpers")
+      .get<any[]>(this.auth.backend + 'api/announce/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/done?token=' +
+        JSON.parse(localStorage.getItem('token')) )
       .subscribe(
         (response) => {
-          this.proposed_services = response['undoneS'] //à compléter quand la route sera testée
+          console.log("PROPOSITION");
+          console.table(response);
+         /* this.proposed_services = response['undones'] /
           this.proposed_services.forEach((serv) => {
             serv.content = JSON.parse(serv.content);
-          });
+          });*/
         },
         (error) => {
           if (error['status'] === 401) {

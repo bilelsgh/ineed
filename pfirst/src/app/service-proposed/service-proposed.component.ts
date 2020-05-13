@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-service-proposed',
@@ -18,7 +19,7 @@ export class ServiceProposedComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private httpClient : HttpClient) { }
 
   ngOnInit(): void {
     console.log("#IMAGE : " + this.serviceImage);
@@ -31,5 +32,7 @@ export class ServiceProposedComponent implements OnInit {
   getDescription(){
     return this.serviceDescription;
   }
+
+
 
 }
