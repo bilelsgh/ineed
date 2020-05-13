@@ -44,7 +44,8 @@
         <mat-icon title="Voir le profil" class="icon" (click)="router.navigate(['profil/'+helper.idUser])">face</mat-icon>
         <!--<mat-icon [routerLink]=""> face </mat-icon>-->
         <mat-icon class="icon" *ngIf="this.assignees[0] == 0" (click)="acceptHelper(helper.idUser)"> done </mat-icon>
-        <mat-icon class="icon" *ngIf="this.assignees[0] == 0"> highlight_off </mat-icon>
+        <mat-icon class="icon" *ngIf="amIaHelper()"> done </mat-icon>
+        <mat-icon class="icon" *ngIf="this.assignees[0] == 0 && !amIaHelper()"> highlight_off </mat-icon>
         <mat-icon class="icon" *ngIf="this.assignees[0] == 1 && !amIaHelper()"> <!-- Si l'annonce est en cours et que je ne suis pas dans les helpers -->
           not_interested
         </mat-icon>
