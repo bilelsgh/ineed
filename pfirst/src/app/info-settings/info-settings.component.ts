@@ -147,7 +147,7 @@ export class InfoSettingsComponent implements OnInit {
       user['mail'] = form_value['email'];
     }
     console.log("Sending user : ", user);
-    console.log("Token before sending new infos ",JSON.parse(localStorage.getItem('token')));
+    console.log("Token before sending new infos ", JSON.parse(localStorage.getItem('token')));
     this.httpClient
       .put(this.authService.backend + 'api/user/' + user['idUser'], {
         "token": JSON.parse(localStorage.getItem('token')),
@@ -162,12 +162,15 @@ export class InfoSettingsComponent implements OnInit {
           this.info_user = response['user'];
           console.log("Token recu apres info :", response['token']);
           //setTimeout( ()=>{this.onSubmitNewPicture(form, response['token'])}, 5000);
-          this.onSubmitNewPicture(form).then( () =>{
-            form.reset();
-            }
-          ).catch( ()=>{
-            console.log("Impossible d'envoyer la photo");
-          });
+
+          if (this.profil_pic != undefined) {
+            this.onSubmitNewPicture(form).then(() => {
+                form.reset();
+              }
+            ).catch(() => {
+              console.log("Impossible d'envoyer la photo");
+            });
+          }
         },
         (error1) => {
           console.log("#Nouvelles infos refusées", error1);
@@ -178,33 +181,38 @@ export class InfoSettingsComponent implements OnInit {
   onSubmitNewPicture(form: NgForm) {
 
 
-    return new Promise( (resolve,reject) => {
-    const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
-    //const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('login-token')));
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'image/jpg',
-      }),
-      params
-    };
-    this.httpClient.post(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/photo',
-      {
-      "file": this.profil_pic
-    },
-      httpOptions)
-      .subscribe(
-        (response) => {
-          console.log("Changement de pdp accepté, response =", response);
-          this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
-          this.authService.setUserInfo(JSON.stringify(response['token']), 'token');
-          this.info_user = response['user'];
-          resolve(true);
-        },
-        (e) => {
-          console.log("Changement de pdp refusé", e);
-          reject(true);
-        }
-      );
+    return new Promise((resolve, reject) => {
+      const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
+      //const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('login-token')));
+      /*
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'multipart/form-data',
+        }),
+        params
+      };
+       */
+
+      let fileData: FormData = new FormData();
+      fileData.append('file_upload', this.profil_pic, this.profil_pic.name);
+      //fileData.append('profil-pic', JSON.stringify(this.profil_pic));
+
+      this.httpClient.post(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/photo',
+        fileData,
+        {params})
+        .subscribe(
+          (response) => {
+            console.log("Changement de pdp accepté, response =", response);
+            this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
+            this.authService.setUserInfo(JSON.stringify(response['token']), 'token');
+            this.info_user = response['user'];
+            resolve(true);
+          },
+          (e) => {
+            console.log("Changement de pdp refusé", e);
+            reject(true);
+          }
+        );
     });
   }
 
@@ -216,7 +224,7 @@ export class InfoSettingsComponent implements OnInit {
     }
   }
 
-  getPdpName(): string{
+  getPdpName(): string {
     return JSON.parse(localStorage.getItem('user')).photo;
   }
 
