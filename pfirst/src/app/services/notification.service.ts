@@ -30,7 +30,8 @@ export class NotificationService {
   }
 
   uploadNotif(not: Notif) {
-    this.httpClient.put(this.authService.backend_test + 'notifications.json', not)
+    this.notifList.push(not);
+    this.httpClient.put(this.authService.backend_test + 'notifications.json', this.notifList)
       .subscribe(
         (resp) => {
           console.log('#Successfully added a new notif : ', not);
@@ -106,16 +107,17 @@ export class NotificationService {
       .then((msg) => {
         console.log(msg);
         if (this.hasNew) {
-          //this.addNotif(new Notif('Chargez une photo de profil', 'info', 'profilPic'));
+          //this.addNotif(new Notifx('Chargez une photo de profil', 'info', 'profilPic'));
           this.hasNew = false;
           this.getNoticationFromBack()
             .then((secondMsg) => {
-              this.notifList.forEach((elt) => {
-                if (!this.alreadyNotified.includes(elt)) {
-                  this.triggerNotif(elt);
+              console.log('notifList :', this.notifList);
+              for (let i in this.notifList){
+                if (!this.alreadyNotified.some( notif => notif.id = this.notifList[i].id)) {
+                  this.triggerNotif(this.notifList[i]);
                 }
-              });
-              this.alreadyNotified = this.notifList;
+              }
+              //this.alreadyNotified = this.notifList;
               console.log(secondMsg);
             })
             .catch((secondMsg) => {
