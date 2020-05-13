@@ -1,16 +1,3 @@
-/*export class Courses{
-    constructor(public id : number,
-        public image : string,
-        public type:string,
-        public name: string,
-        public user: string,
-        public description: string ,
-        public accompagner : string,
-        public budget : string,
-        public date: string,
-        public liste: Array<{produit: string, quantite: string}>,
-        public idUser : number,){}
-}}*/
 
 export class Courses{
   constructor(
@@ -19,7 +6,13 @@ export class Courses{
     name: string, description: any,type: string, user: any, image : string },
     public id : number,
     public price: number = 0,
-    viewNumber : number,
+    public viewNumber : number,
+    /*brief_assignees :
+              *   - Premier élément = 0 si l'annonce attend encore des helpers
+              *                     = 1 si le helped n'a plus besoin de helpers, l'annonce est alors EN COURS
+              *   - Les autres éléments sont les idUser des helpers qui se sont proposés pour ce service et qui
+              *  ont été acceptés par le helped*/
+    public assignees : number[],
     public finished : boolean,
   ) {
   }

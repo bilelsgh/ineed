@@ -33,7 +33,8 @@
                       [serviceImage]="service.content.image"
                       [index]="i"
                       [id]="service.idAnnounce"
-                      [serviceDate]="service.content.datejour">
+                      [serviceDate]="service.content.datejour"
+                      [assignees]="service.assignees">
                     </app-service-activity>
                   </td>
                   <td width="5%">
@@ -73,15 +74,16 @@
               <table width="800px" border="0px solid">
                 <tr>
                   <td>
-                    <app-service
+                    <app-service-activity
                       [serviceName]="service.content.name"
                       [serviceUser]="service.content.user"
                       [serviceDescription]="service.content.description"
                       [serviceImage]="service.content.image"
                       [index]="i"
                       [id]="service.idAnnounce"
-                      [serviceDate]="service.content.datejour">
-                    </app-service>
+                      [serviceDate]="service.content.datejour"
+                      [assignees]="service.assignees">
+                    </app-service-activity>
                   </td>
                   <td width="5%">
                     {{i+1}}

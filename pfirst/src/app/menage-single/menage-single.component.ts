@@ -13,7 +13,7 @@ import {Menage} from "../models/Menage.model";
 })
 export class MenageSingleComponent implements OnInit {
 
-  View : string;
+  View : number;
   Name: string = 'Courses';
   User: string = 'Utilisateur';
   Description: string = 'Description';

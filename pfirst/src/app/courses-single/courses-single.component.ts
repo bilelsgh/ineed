@@ -23,7 +23,7 @@ export class CoursesSingleComponent implements OnInit {
   DispoHeure: any;
   liste_a_copier : string = "LISTE : \n ";
   copied = false;
-  View: string;
+  View: number;
   @Input() service_descriptor: Courses;
 
 

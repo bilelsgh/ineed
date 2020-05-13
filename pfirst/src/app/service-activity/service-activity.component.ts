@@ -19,11 +19,12 @@ export class ServiceActivityComponent implements OnInit {
   @Input() serviceDate : string;
   @Input() index : number;
   @Input() id : number;
+  @Input() assignees : number[];
   noHelper : boolean;
   public isCollapsed: boolean = true;
   helpers: any[] = [];
   response: number[];
-  assignees : number[] = [0]; // à modifier
+
 
 
   constructor(private httpClient : HttpClient, private auth : AuthService, public router : Router,
