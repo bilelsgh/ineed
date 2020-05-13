@@ -180,6 +180,7 @@ export class InfoSettingsComponent implements OnInit {
 
     return new Promise( (resolve,reject) => {
     const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
+    //const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('login-token')));
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'image/jpg',
