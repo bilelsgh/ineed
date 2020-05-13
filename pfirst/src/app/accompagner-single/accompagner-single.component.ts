@@ -27,7 +27,7 @@ export class AccompagnerSingleComponent implements OnInit {
   View : number;
   @Input() service_descriptor: Accompage;
 
-  constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
+  constructor(private serviceService: ServiceService,  private route: ActivatedRoute, public router: Router,
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {

@@ -13,6 +13,7 @@ import {Courses} from "../models/Courses.model";
 })
 export class CoursesSingleComponent implements OnInit {
 
+  myService : boolean;
   applied: boolean;
   Name: string = 'Courses';
   User: string = 'Utilisateur';
@@ -28,7 +29,7 @@ export class CoursesSingleComponent implements OnInit {
   @Input() service_descriptor: Courses;
 
 
-  constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
+  constructor(private serviceService: ServiceService,  private route: ActivatedRoute, public router: Router,
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
@@ -103,6 +104,8 @@ export class CoursesSingleComponent implements OnInit {
               this.applied = true;
             }
           }
+          this.service_descriptor.idUser === JSON.parse(localStorage.getItem('user'))['idUser'] ?
+            this.myService = true : this.myService = false;
         },
         (error) => {
           console.log("Erreur de récupération des helpers dans cuisine-single : " + error);

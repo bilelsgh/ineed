@@ -124,8 +124,8 @@ export class ActivityComponent implements OnInit {
           console.table(response);
          /* this.proposed_services = response['undones'] /
           this.proposed_services.forEach((serv) => {
-            serv.content = JSON.parse(serv.content);
-          });*/
+          serv.content = JSON.parse(serv.content);
+        });*/
         },
         (error) => {
           if (error['status'] === 401) {

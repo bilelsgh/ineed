@@ -27,7 +27,7 @@ export class CuisineSingleComponent implements OnInit {
 
   @Input() service_descriptor: Cuisine;
 
-  constructor(private serviceService: ServiceService, private route: ActivatedRoute, private router: Router,
+  constructor(private serviceService: ServiceService, private route: ActivatedRoute, public router: Router,
               private httpClient: HttpClient, private auth: AuthService, private userserv: UserService) {
   }
 
