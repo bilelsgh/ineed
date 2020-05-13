@@ -20,9 +20,9 @@ export class InscriptionComponent implements OnInit {
   strong_password: boolean;
   bad_password: boolean;
   medium_password: boolean;
-  badRegex = new RegExp('^[a-z]{6,}$');
+  badRegex = new RegExp('^[a-zA-Z]{8,}$');
   mediumRegex = new RegExp('^[a-zA-Z0-9]{8,}$');
-  strongRegex = new RegExp('^.{9,}$');
+  strongRegex = new RegExp('^.{8,}$');
   same_password = true;
   info_mdp = false;
 
@@ -48,7 +48,7 @@ export class InscriptionComponent implements OnInit {
 
 
       // this.auth.isAuth = true;
-    } else if (form.value.password.length < 6) {
+    } else if (form.value.password.length < 8) {
       form.reset();
       this.strong_password = false;
       this.medium_password = false;
