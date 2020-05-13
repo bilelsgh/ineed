@@ -23,9 +23,10 @@ export class ServiceActivityComponent implements OnInit {
   public isCollapsed: boolean = true;
   helpers: any[] = [];
   response: number[];
+  assignees : number[] = [0]; // à modifier
 
 
-  constructor(private httpClient : HttpClient, private auth : AuthService, private router : Router,
+  constructor(private httpClient : HttpClient, private auth : AuthService, public router : Router,
               private userService : UserService) { }
 
   ngOnInit(): void {

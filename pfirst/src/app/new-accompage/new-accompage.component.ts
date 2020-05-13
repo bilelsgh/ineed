@@ -43,7 +43,7 @@ ngOnInit(): void {
     content.description=f.value['description'];
     content.user=f.value['user'];
     const newAccompage = new Accompage( JSON.parse(localStorage.getItem('user'))["idUser"], content,8,
-    0, 0, false);
+    0, 0, [0],false); //assignees ne contient pas encore de helpers et le service n'est pas en cours
     this.serviceService.addAccompage(newAccompage);
     this.router.navigate(['']);
 };

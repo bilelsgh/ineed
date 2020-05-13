@@ -22,7 +22,7 @@ export class AccompagnerSingleComponent implements OnInit {
   Quand1 : string;
   Quand2 : string;
   Kind: string = "non";
-  View : string;
+  View : number;
   @Input() service_descriptor: Accompage;
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
