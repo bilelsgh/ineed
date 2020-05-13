@@ -13,50 +13,43 @@ import {Cuisine} from "../models/Cuisine.model";
 })
 export class CuisineSingleComponent implements OnInit {
 
+  View : number;
   Name: string = 'Courses';
   User: string = 'Utilisateur';
   Description: string = 'Description';
   Sur_place:string = 'oui';
-  Dispo : string = 'oui';
+  DispoJour : string = 'oui';
+  DispoHeure : string = 'oui';
   Type_de_plat : string = "pas ouf";
+  Id : number;
+
   @Input() service_descriptor: Cuisine;
 
   constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
               private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
 
   ngOnInit() {
+    this.Id = this.service_descriptor.idUser;
     this.Name = this.service_descriptor.content.name;
     this.User=this.service_descriptor.content.user;
     this.Description = this.service_descriptor.content.description;
     this.Sur_place= this.service_descriptor.content.sur_place;
-    this.Dispo=this.service_descriptor.content.datejour;
+    this.DispoJour=this.service_descriptor.content.datejour;
+    this.DispoHeure=this.service_descriptor.content.dateheure;
     this.Type_de_plat=this.service_descriptor.content.type_de_plat;
-    /*
-    const id = this.route.snapshot.params['id'];
-    this.Name = this.serviceService.getServiceById(+id).name;
-    this.User=this.serviceService.getServiceById(+id).user;
-    this.Description = this.serviceService.getServiceById(+id).description;
-    this.Sur_place= this.serviceService.getServiceById(+id).sur_place;
-    this.Dispo=this.serviceService.getServiceById(+id).date;
-    this.Type_de_plat=this.serviceService.getServiceById(+id).type_de_plat;
-     */
+    this.View = this.service_descriptor['viewNumber'];
+
+
+    //GESTION DU NOMBRE DE VUS
+    //this.updateView();
+
   }
 
   /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
    EN QUESTION.
     */
-  goProfil(){
-    this.httpClient
-      .put(this.auth.backend_test+'other_user.json', this.service_descriptor.idUser)
-      .subscribe(
-        (token) => {
-          this.auth.setUserInfo(token, 'current_profil');
-          this.router.navigate(['profil']);
-
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-      );
+  goProfil(where : string){
+    this.router.navigate([where]);
   }
+
 }

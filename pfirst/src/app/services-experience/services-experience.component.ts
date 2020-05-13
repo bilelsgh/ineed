@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import { UserService} from '../services/users.service';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
@@ -18,6 +18,8 @@ export class ServicesExperienceComponent implements OnInit {
   showAllComments: boolean;
   last_for: number;
   last_by: number;
+  @Input() id_user: string;
+
 
   constructor(private datepipe: DatePipe, private usr_service : UserService, public matDialog: MatDialog) {
   }

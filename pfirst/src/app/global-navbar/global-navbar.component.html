@@ -80,6 +80,19 @@
     </tr>
   </table>
 </nav>
-<div [@reduceNotif]="stateNotif" *ngIf="this.hasNotif&&this.authService.isAuthenticated()" id="roundNotifIcon" (click)="openUserModal()">
-  {{this.notifs.length}}
-</div>
+  <div
+    [@notifAppearance]="stateNotif"
+    *ngIf="this.hasNotif&&this.authService.isAuthenticated()"
+    id="roundNotifIcon" (click)="openUserModal()">
+    {{this.notifs.length}}
+  </div>
+<!--
+<div class="roundNotifIcon" [ngStyle]="quart">1</div>
+<div class="roundNotifIcon" [ngStyle]="semi">1</div>
+<div class="roundNotifIcon" [ngStyle]="almost">1</div>
+<div class="roundNotifIcon" [ngStyle]="rotated">1</div>
+
+<div style="background-color: red" [@translation]="stateTranslate" (click)="stateTranslate = 'toLeft'">0000</div>
+
+-->
+
