@@ -13,7 +13,7 @@
         <div *ngIf="this.authService.isAuthenticated()"
              id="roundProfilPic" style="cursor:pointer"
              (click)="openUserModal()"
-             [ngStyle]="{'background-image':'url('+this.undefinedURL+')'}"
+             [ngStyle]="{'background-image':'url('+this.authService.backend + '/static/images/' + getPdpName() +')'}"
         ></div>
         <!--    A voir dropdown angular https://ng-bootstrap.github.io/#/components/dropdown/examples
         <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">

@@ -137,7 +137,7 @@ export class GlobalNavbarComponent implements OnInit {
   showProfilMenu: boolean; // a sup si dropdown
   notifs: string[];
 
-  undefinedURL: string;
+  //undefinedURL: string;
 
   constructor(public authService: AuthService,
               private actRoute: ActivatedRoute,
@@ -148,7 +148,7 @@ export class GlobalNavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.undefinedURL = this.compressorService.undefinedPicCompressedURL;
+    //this.undefinedURL = this.compressorService.undefinedPicCompressedURL;
     this.showProfilMenu = false;
     this.actRoute.url.subscribe(value => {
       this.path = value;
@@ -175,6 +175,11 @@ export class GlobalNavbarComponent implements OnInit {
     console.log("oninit fin ", this.path);
     const url: string = this.actRoute.snapshot.url.join('');
     console.log("url ", url);
+  }
+
+
+  getPdpName(): string {
+    return JSON.parse(localStorage.getItem('user')).photo;
   }
 
   triggerNotifAppeareance(delay: number) {

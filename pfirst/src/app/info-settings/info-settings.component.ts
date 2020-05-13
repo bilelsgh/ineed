@@ -184,6 +184,13 @@ export class InfoSettingsComponent implements OnInit {
       const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
 
       let fileData: FormData = new FormData();
+      /* a voir si on compresse plus tard
+      let compressed: any;
+      this.compressorService.compressFile(this.profil_pic).then(
+        ()=> {
+          compressed = this.compressorService.servCompressedURl;
+        });
+       */
       fileData.append('file', this.profil_pic);
 
       this.httpClient.post(this.authService.backend + 'api/user/' + JSON.parse(localStorage.getItem('user'))['idUser'] + '/photo',
@@ -248,6 +255,7 @@ export class InfoSettingsComponent implements OnInit {
   file: any;
   profilPicURL: any;
 
+  /* tests de compression & encodage
   selectFile(event: any) {
     let loadedUrl: any;
     this.file = event.target.files[0];
@@ -267,7 +275,7 @@ export class InfoSettingsComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
     }
   }
-
+   */
 }
 
 
