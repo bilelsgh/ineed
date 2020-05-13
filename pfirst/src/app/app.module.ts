@@ -98,7 +98,22 @@ import {NotifierModule} from 'angular-notifier';
     MatDialogModule,
     NgbModule,
     MatProgressSpinnerModule,
-    NotifierModule
+    NotifierModule.withConfig({
+      position:{
+        horizontal: {
+          position: 'right',
+          distance: 15
+        },
+        vertical:{
+          position: 'top',
+          distance: 130,
+          gap: 10
+        }
+      },
+      behaviour:{
+        autoHide: false
+      }
+    })
   ],
   providers: [ // on ajoute ici tous les services
     AuthService,
