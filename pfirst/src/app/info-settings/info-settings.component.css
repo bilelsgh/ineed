@@ -83,3 +83,16 @@
   top: 200px;
   left: 1200px;
 }
+
+#compress
+{
+  position: absolute;
+  top: 500px;
+  left: 1500px;
+}
+
+#pdpPrint
+{
+  height: 200px;
+  width: auto;
+}

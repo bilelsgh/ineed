@@ -8,6 +8,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ModalUserComponent} from "../modal-user/modal-user.component";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {transformAll} from "@angular/compiler/src/render3/r3_ast";
+import {ImageCompressorService} from "../services/image-compressor.service";
 
 @Component({
   selector: 'app-global-navbar',
@@ -136,10 +137,18 @@ export class GlobalNavbarComponent implements OnInit {
   showProfilMenu: boolean; // a sup si dropdown
   notifs: string[];
 
-  constructor(public authService: AuthService, private actRoute: ActivatedRoute, router: Router, public userService: UserService, public matDialog: MatDialog) {
+  //undefinedURL: string;
+
+  constructor(public authService: AuthService,
+              private actRoute: ActivatedRoute,
+              router: Router,
+              public userService: UserService,
+              public matDialog: MatDialog,
+              private compressorService: ImageCompressorService) {
   }
 
   ngOnInit() {
+    //this.undefinedURL = this.compressorService.undefinedPicCompressedURL;
     this.showProfilMenu = false;
     this.actRoute.url.subscribe(value => {
       this.path = value;
@@ -166,6 +175,11 @@ export class GlobalNavbarComponent implements OnInit {
     console.log("oninit fin ", this.path);
     const url: string = this.actRoute.snapshot.url.join('');
     console.log("url ", url);
+  }
+
+
+  getPdpName(): string {
+    return JSON.parse(localStorage.getItem('user')).photo;
   }
 
   triggerNotifAppeareance(delay: number) {

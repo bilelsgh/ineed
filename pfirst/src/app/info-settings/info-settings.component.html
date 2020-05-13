@@ -5,7 +5,8 @@
 
         <div class="col-sm-8 col-sm-offset-2">
 
-          <form (ngSubmit)="onSubmitNewInfos(f); onSubmitNewPicture(f);" #f="ngForm">
+          <!--<form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">-->
+          <form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">
 
 
             <div class="form-group">
@@ -66,8 +67,8 @@
                 <input type="file" class="form-control" id="profil-pic" name="profil-pic"
                        (change)="onFileSelected($event)"
                        ngModel>
-                <img [src]="'data:image/png;base64,' + this.undefinedPic" alt="profil-pic">
-                <span>(en dur)</span>
+                <img id="pdpPrint" [src]="'https://rpicloud.ddns.net/static/images/'+getPdpName()">
+                <!--<img [src]="this.undefinedPicURL" alt="profil-pic">-->
               </div>
               <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
             </div>
@@ -161,3 +162,16 @@
   </mat-toolbar>
 </div>
 
+<!--  Pour tests de compression (decommentez également variables dans fonctions de compression)
+<div id="compress">
+  <input type="file" accept=".jpg,.png,.jpeg" id="image-input" (change)="selectFile($event)"><br>
+  <br> Original: Size: {{sizeOfOriginalImage | number : '1.2-2'}}MB<br><img [src]="localUrl" height="200px"><br><br>
+  <br> Compressed: Size: {{sizeOFCompressedImage | number : '1.2-2'}}MB<br><img [src]="localCompressedURl" height="150px">
+</div>
+
+<div id="compress">
+  <input type="file" accept=".jpg,.png,.jpeg" (change)="selectFile($event)"><br>
+  <img [src]="profilPicURL" height="150px">
+  <span>New image</span>
+</div>
+-->

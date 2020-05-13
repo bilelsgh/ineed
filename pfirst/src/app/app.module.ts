@@ -36,7 +36,7 @@ import { AccompagnerSingleComponent } from './accompagner-single/accompagner-sin
 import { ServiceService } from './services/service.service';
 import { NewCoursesComponent } from './new-courses/new-courses.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {NgxImageCompressService} from 'ngx-image-compress';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -51,6 +51,7 @@ import { DisplayProfilComponent } from './display-profil/display-profil.componen
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
+import {ImageCompressorService} from "./services/image-compressor.service";
 
 @NgModule({
   declarations: [
@@ -107,6 +108,8 @@ import {MatIconModule} from "@angular/material/icon";
     InscriptionService,
     UserService,
     ServiceService,
+    NgxImageCompressService,
+    ImageCompressorService,
     Location
      // necessaire ?
   ],

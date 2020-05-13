@@ -45,7 +45,7 @@ export class InscriptionComponent implements OnInit {
       const mail = form.value.mail;
       const password = form.value.password;
       this.addUser(name, prenom, sexe, mail, password);
-
+      //this.onUpload(); // to check
 
       // this.auth.isAuth = true;
     } else if (form.value.password.length < 8) {
@@ -62,7 +62,6 @@ export class InscriptionComponent implements OnInit {
       this.bad_password = false;
       this.same_password = true;
       alert('Les mots de passe entrés ne sont pas identiques.');
-
     }
   }
 
@@ -142,6 +141,7 @@ export class InscriptionComponent implements OnInit {
       );
   }
 
+  /*
   onFileSelected(event) {
     this.picture_profil_file = event.target.files[0] as File
     console.log("PROFIL PIC :", this.picture_profil_file);
@@ -155,6 +155,7 @@ export class InscriptionComponent implements OnInit {
         console.log(res);
       });
   }
+   */
 
   updateSurname(text: string) {
     this.current_surname = text;
