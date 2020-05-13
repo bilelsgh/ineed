@@ -61,8 +61,33 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   acceptHelper(helperID : number){
-    //faire une requete sur la route de SIDI
-  }
+    let message = {helperID : helperID, helpedID: JSON.parse(localStorage.getItem('user'))['idUser'], token : JSON.parse(localStorage.getItem('token')),
+    announceID: this.id};
+
+    this.httpClient
+      .post(this.auth.backend+"api/announce", message)
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+
+        },
+        (error) => {
+          if(error['status'] === 401){
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
+          console.log("#DEBUG : Erreur lors de l'acceptation du helper [service-activity] "+ error);
+        }
+      );  }
+
+      amIaHelper(): boolean{
+        for(let helper of this.helpers){
+          if (helper['idUser'] === JSON.parse(localStorage.getItem('user'))['idUser'] ){
+            return true;
+          }
+        }
+        return false;
+      }
 
 
 }

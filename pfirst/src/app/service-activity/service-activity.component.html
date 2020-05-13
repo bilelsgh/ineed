@@ -45,12 +45,10 @@
         <!--<mat-icon [routerLink]=""> face </mat-icon>-->
         <mat-icon class="icon" *ngIf="this.assignees[0] == 0" (click)="acceptHelper(helper.idUser)"> done </mat-icon>
         <mat-icon class="icon" *ngIf="this.assignees[0] == 0"> highlight_off </mat-icon>
-        <!-- <mat-icon class="icon" *ngIf="this.assignees[0] == 0 && response[selectedAnnounce] != helper.idUser"> -->
-        <mat-icon class="icon" *ngIf="this.assignees[0] == 0 && this.id != helper.idUser">
+        <mat-icon class="icon" *ngIf="this.assignees[0] == 1 && !amIaHelper()"> <!-- Si l'annonce est en cours et que je ne suis pas dans les helpers -->
           not_interested
         </mat-icon>
         <mat-icon class="icon" *ngIf="this.id == helper.idUser"> done_all </mat-icon>
-        <!--<mat-icon class="icon" *ngIf="response[selectedAnnounce] == helper.idUser"> done_all </mat-icon>-->
 
       </mat-toolbar-row>
     </mat-toolbar>
