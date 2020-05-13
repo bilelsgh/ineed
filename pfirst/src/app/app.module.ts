@@ -49,7 +49,8 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 import { InfoSettingsComponent } from './info-settings/info-settings.component';
 import { DisplayProfilComponent } from './display-profil/display-profil.component';
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
-import {NotificationService} from "./services/notification.service";
+import {NotificationService} from './services/notification.service';
+import {NotifierModule} from 'angular-notifier';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import {NotificationService} from "./services/notification.service";
     MatButtonModule,
     MatDialogModule,
     NgbModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NotifierModule
   ],
   providers: [ // on ajoute ici tous les services
     AuthService,

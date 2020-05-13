@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.css';
 
+@import '~angular-notifier/styles.css';
+
 body{
 /*  background-position-y: 522px ;
   background-repeat: no-repeat;
