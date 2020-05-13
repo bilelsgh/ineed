@@ -49,6 +49,7 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 import { InfoSettingsComponent } from './info-settings/info-settings.component';
 import { DisplayProfilComponent } from './display-profil/display-profil.component';
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
+import {NotificationService} from "./services/notification.service";
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
     InscriptionService,
     UserService,
     ServiceService,
+    NotificationService,
     Location
      // necessaire ?
   ],

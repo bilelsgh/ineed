@@ -15,6 +15,8 @@ export class AppViewComponent implements OnInit {
     {user: "Test", date: "15/08", name: "Faire la cuisine", image:"../assets/data/V1/cuisine.jpg"},
     {user: "Test", date: "8/09", name: "Accompagner", image: "../assets/data/V1/accompagner.jpg"}]; //à aller chercher dans la base de données
   disconnected_message : boolean;
+
+
   constructor(private authService: AuthService, private serv: ServiceService) {}
 
   ngOnInit(){
@@ -24,8 +26,11 @@ export class AppViewComponent implements OnInit {
         () => {
           this.disconnected_message = false;},3000);
     }
+
     //faire une fonctionpour sélectionner les dernières annonces dans la DB
   }
+
+
 
 
 }
