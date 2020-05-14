@@ -15,23 +15,33 @@ export class NotificationService {
   //listObservable = from(this.notifList);
   notifSubject = new Subject<Notif[]>();
   lastNotifIndex: number = 0;
+  watcher: any;
 
   constructor(private httpClient: HttpClient,
               private notifierService: NotifierService,
               private authService: AuthService) {
     //trigger périodique de la fonction de récupération des notifs
-    let interval = setInterval(() => {
-       this.watchNotifs();
-     }, 5000);
+    this.wakeWatcher(5000);
 
     //installation des notifs firebase
     this.uploadNotif(new Notif("Notification de test firebase", "warning", "testFb"));
     this.updateNotifCache(true);
+    this.uploadNotif(new Notif("Notif 2", "info", "not2"));
+  }
+
+  wakeWatcher(freq: number) {
+    this.watcher = setInterval(() => {
+      this.watchNotifs();
+    }, freq);
+  }
+
+  sleepWatcher(){
+    clearInterval(this.watcher);
   }
 
   uploadNotif(not: Notif) {
-    this.notifList.push(not);
-    this.httpClient.put(this.authService.backend_test + 'notifications.json', this.notifList)
+    //this.notifList.push(not);
+    this.httpClient.post<Notif>(this.authService.backend_test + 'notifications.json', not)
       .subscribe(
         (resp) => {
           console.log('#Successfully added a new notif : ', not);
@@ -112,8 +122,8 @@ export class NotificationService {
           this.getNoticationFromBack()
             .then((secondMsg) => {
               console.log('notifList :', this.notifList);
-              for (let i in this.notifList){
-                if (!this.alreadyNotified.some( notif => notif.id = this.notifList[i].id)) {
+              for (let i in this.notifList) {
+                if (!this.alreadyNotified.some(notif => notif.id === this.notifList[i].id)) {
                   this.triggerNotif(this.notifList[i]);
                 }
               }
