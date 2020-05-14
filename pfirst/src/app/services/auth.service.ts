@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 })
 export class AuthService {
   who : string;
+  disconnected_message  : boolean;
   backend = "https://rpicloud.ddns.net/";
   backend_test = "https://ineed-1ce51.firebaseio.com/";
   loggedInUserInfo : {};
@@ -24,6 +25,11 @@ export class AuthService {
 
   public removeUserInfo(){
     localStorage.removeItem('token');
+    this.router.navigate(['']);
+    this.disconnected_message = true;
+    setTimeout(
+      () => {
+        this.disconnected_message = false;},3000);
   }
 
   //Permet de stocker dans le localStorage : /!\  'data' doit être JSON.stringify avant d'être placé en paramètre
