@@ -12,7 +12,8 @@ export class AuthService {
   backend = "https://rpicloud.ddns.net/";
   backend_test = "https://ineed-1ce51.firebaseio.com/";
   loggedInUserInfo : {};
-  constructor(private http : HttpClient, private router : Router) { }
+  constructor(private http : HttpClient,
+              private router : Router) { }
 
   public isAuthenticated() : Boolean {
     let userData = localStorage.getItem('token')

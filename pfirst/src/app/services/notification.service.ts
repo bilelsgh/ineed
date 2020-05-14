@@ -20,8 +20,8 @@ export class NotificationService {
   constructor(private httpClient: HttpClient,
               private notifierService: NotifierService,
               private authService: AuthService) {
-    //trigger périodique de la fonction de récupération des notifs
-    this.wakeWatcher(5000);
+    //trigger périodique de la fonction de récupération des notifs -> provoqué à la connexion
+    //this.wakeWatcher(5000);
 
     //installation des notifs firebase
     this.uploadNotif(new Notif("Notification de test firebase", "warning", "testFb"));

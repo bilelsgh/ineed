@@ -71,7 +71,7 @@
         </button>
       </td>
       <td>
-        <button (click)="this.authService.removeUserInfo()" *ngIf="this.authService.isAuthenticated()" class="btn btn-outline-danger" type="button">Se déconnecter
+        <button (click)="this.authService.removeUserInfo(); stopWatcher()" *ngIf="this.authService.isAuthenticated()" class="btn btn-outline-danger" type="button">Se déconnecter
         </button>
       </td>
       <td>

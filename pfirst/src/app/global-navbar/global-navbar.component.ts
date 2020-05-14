@@ -8,6 +8,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ModalUserComponent} from "../modal-user/modal-user.component";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {transformAll} from "@angular/compiler/src/render3/r3_ast";
+import {NotificationService} from "../services/notification.service";
 
 @Component({
   selector: 'app-global-navbar',
@@ -136,7 +137,12 @@ export class GlobalNavbarComponent implements OnInit {
   showProfilMenu: boolean; // a sup si dropdown
   notifs: string[];
 
-  constructor(public authService: AuthService, private actRoute: ActivatedRoute, router: Router, public userService: UserService, public matDialog: MatDialog) {
+  constructor(public authService: AuthService,
+              private actRoute: ActivatedRoute,
+              router: Router,
+              public userService: UserService,
+              public matDialog: MatDialog,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -172,17 +178,19 @@ export class GlobalNavbarComponent implements OnInit {
     setTimeout(() => {
       this.stateNotif = 'right';
     }, delay + 400);
-    /*
+
     setTimeout(() => {
       this.stateNotif = 'placed';
     }, delay+800);
+    /*
     setTimeout(() => {
       this.stateNotif = 'quartRotated';
     },delay+900);
-     */
+
     setTimeout(() => {
       this.stateNotif = 'semiRotated';
     }, delay + 1100);
+     */
     /*
 setTimeout(() => {
 this.stateNotif = 'almostRotated';
@@ -195,6 +203,10 @@ this.stateNotif = 'placed';
 }, delay+1600);
 */
 
+  }
+
+  stopWatcher(){
+    this.notificationService.sleepWatcher();
   }
 
   openUserModal() {

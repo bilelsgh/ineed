@@ -4,6 +4,8 @@ import {InscriptionService} from '../services/inscription.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {HttpClient} from '@angular/common/http';
+import {NotificationService} from "../services/notification.service";
+import {Notif} from "../models/notification.model";
 
 @Component({
   selector: 'app-inscription',
@@ -27,8 +29,11 @@ export class InscriptionComponent implements OnInit {
   info_mdp = false;
 
 
-  constructor(public subService: InscriptionService, private router: Router, private auth: AuthService,
-              private httpClient: HttpClient) {
+  constructor(public subService: InscriptionService,
+              private router: Router,
+              private auth: AuthService,
+              private httpClient: HttpClient,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -124,8 +129,10 @@ export class InscriptionComponent implements OnInit {
           this.alreadyExist = false;
           this.auth.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.auth.setUserInfo( JSON.stringify(response['user']), 'user');
+          this.notificationService.uploadNotif(new Notif('Chargez votre premieère photo de profil !', 'info', 'pdpUpdate'));
+          this.notificationService.uploadNotif(new Notif('Complétez votre profil en ajoutant une bio !', 'info', 'bioUpdate'));
+          this.notificationService.wakeWatcher(10000);
           this.router.navigate(['']);
-
         },
         (error) => {
           if(error['status'] === 400){
