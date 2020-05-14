@@ -178,6 +178,8 @@ export class InfoSettingsComponent implements OnInit {
             ).catch(() => {
               console.log("Impossible d'envoyer la photo");
             });
+          }else {
+            form.reset();
           }
         },
         (error1) => {
