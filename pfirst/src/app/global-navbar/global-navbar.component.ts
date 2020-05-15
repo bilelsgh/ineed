@@ -155,12 +155,12 @@ export class GlobalNavbarComponent implements OnInit, OnDestroy{
       console.log("oninit ext" + this.path);
     });
     this.notifList = this.notificationService.notifList;
-    this.hasNotif = this.notifList.length != null; // to see later
+    this.hasNotif = this.notifList.length > 0; // to see later
     this.notifSubscription = this.notificationService.notifSubject
       .subscribe(
         (list) => {
           this.notifList = list;
-          this.hasNotif = this.notifList.length != null;
+          this.hasNotif = this.notifList.length > 0;
         }
       );
 

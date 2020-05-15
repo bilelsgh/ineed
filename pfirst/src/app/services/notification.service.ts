@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Notif} from "../models/notification.model";
 import {NotifierService} from "angular-notifier";
 import {AuthService} from "./auth.service";
+import {keyframes} from "@angular/animations";
 
 @Injectable()
 export class NotificationService {
@@ -65,11 +66,17 @@ export class NotificationService {
   }
 
   getNoticationFromBack() {
+
+    /*
+    const options = {
+      responseType: 'arraybuffer' as const,
+    };
+     */
     return new Promise((resolve, reject) => {
-      this.httpClient.get<Notif []>(this.authService.backend_test + 'notifications.json')
+      this.httpClient.get<Notif[]>(this.authService.backend_test + 'notifications.json')
         .subscribe(
           (got) => {
-            this.notifList = got;
+            this.notifList = Object.keys(got).map(key => got[key]);
             this.emitNotifSubject();
             resolve('Got the notifications');
           },
