@@ -66,10 +66,11 @@ export class NotificationService {
 
   getNoticationFromBack() {
     return new Promise((resolve, reject) => {
-      this.httpClient.get<Notif[]>(this.authService.backend_test + 'notifications.json')
+      this.httpClient.get<Notif []>(this.authService.backend_test + 'notifications.json')
         .subscribe(
           (got) => {
             this.notifList = got;
+            this.emitNotifSubject();
             resolve('Got the notifications');
           },
           (err) => {

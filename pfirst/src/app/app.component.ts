@@ -9,7 +9,7 @@ import {Notif} from "./models/notification.model";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy{
   title = 'INEED';
   notifSubscription: Subscription;
   notifList: Notif[];
@@ -21,7 +21,7 @@ export class AppComponent {
     this.notifSubscription = this.notificationService.notifSubject.subscribe(
       (notifs) => {
         this.notifList = this.notificationService.notifList;
-        console.log(this.notifList);
+        //console.log(this.notifList);
       }
     );
   }

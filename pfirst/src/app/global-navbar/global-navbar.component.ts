@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {switchMap} from "rxjs/operators";
 import {UserService} from "../services/users.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
@@ -9,6 +9,7 @@ import {ModalUserComponent} from "../modal-user/modal-user.component";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {transformAll} from "@angular/compiler/src/render3/r3_ast";
 import {NotificationService} from "../services/notification.service";
+import {Notif} from "../models/notification.model";
 
 @Component({
   selector: 'app-global-navbar',
@@ -100,7 +101,7 @@ import {NotificationService} from "../services/notification.service";
   ]
 })
 
-export class GlobalNavbarComponent implements OnInit {
+export class GlobalNavbarComponent implements OnInit, OnDestroy{
 
   quart = {
     position: 'absolute',
@@ -130,12 +131,14 @@ export class GlobalNavbarComponent implements OnInit {
 
   stateNotif: string = 'right';
   hasNotif: boolean = false;
+  notifList: Notif[];
+  notifSubscription: Subscription;
+
   collapsed: boolean = false;
   route: Observable<UrlSegment[]>;
   path: UrlSegment[];
   hasUrl: boolean;
   showProfilMenu: boolean; // a sup si dropdown
-  notifs: string[];
 
   constructor(public authService: AuthService,
               private actRoute: ActivatedRoute,
@@ -151,10 +154,16 @@ export class GlobalNavbarComponent implements OnInit {
       this.path = value;
       console.log("oninit ext" + this.path);
     });
-    setTimeout(() => {
-      this.notifs = this.userService.notifications;
-      this.hasNotif = this.notifs.length > 0;
-    }, 1000);
+    this.notifList = this.notificationService.notifList;
+    this.hasNotif = this.notifList.length != null; // to see later
+    this.notifSubscription = this.notificationService.notifSubject
+      .subscribe(
+        (list) => {
+          this.notifList = list;
+          this.hasNotif = this.notifList.length != null;
+        }
+      );
+
     this.triggerNotifAppeareance(1000); //delay in ms
     /*
     this.route = this.actRoute.url.pipe(
@@ -172,6 +181,10 @@ export class GlobalNavbarComponent implements OnInit {
     console.log("oninit fin ", this.path);
     const url: string = this.actRoute.snapshot.url.join('');
     console.log("url ", url);
+  }
+
+  ngOnDestroy(){
+    this.notifSubscription.unsubscribe();
   }
 
   triggerNotifAppeareance(delay: number) {

@@ -84,7 +84,7 @@
     [@notifAppearance]="stateNotif"
     *ngIf="this.hasNotif&&this.authService.isAuthenticated()"
     id="roundNotifIcon" (click)="openUserModal()">
-    {{this.notifs.length}}
+    {{this.notifList.length}}
   </div>
 <!--
 <div class="roundNotifIcon" [ngStyle]="quart">1</div>
