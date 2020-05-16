@@ -8,7 +8,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-:host-context(.theme-light) #profilMain{
+:host-context(.theme-light) #profilMain {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
   color: #333;
@@ -16,6 +16,20 @@
   background-color: lightgrey;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.card{
+  width : 51rem;
+
+  box-shadow: 1px 1px 1px #aaa;
+}
+
+.lignesEspaces{
+  border-collapse : separate;
+  border-spacing : 15px;
+}
+
+#titre{
+  font-size: larger;
 }
 
 #myProfilEssentials
@@ -28,10 +42,18 @@
 #profil-pic
 {
   border-radius: 50%;
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 150px;
   background-image: url("../../assets/data/photo_undefined.png");
   background-size: cover;
+}
+
+:host-context(.theme-light) .card{
+  background-color: white;
+}
+
+:host-context(.theme-dark) .card{
+  background-color: grey;
 }
 
 .user_identifier
@@ -49,6 +71,7 @@
   width: 500px;
   height: auto;
 }
+
 app-services-experience
 {
   text-align: left;
