@@ -3,7 +3,11 @@
   <app-global-navbar></app-global-navbar>
 </div>
 
-<div id="main">
+<div *ngIf="light_theme && !dark_theme" class="theme-light">
+  <router-outlet></router-outlet>
+</div>
+
+<div *ngIf="dark_theme && !light_theme" class="theme-dark">
   <router-outlet></router-outlet>
 </div>
 </body>

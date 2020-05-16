@@ -53,12 +53,9 @@
     </tr>
   </table>
 
-  <!-- ##### PRENOM AU MILIEU #### -->
-  <table align="v">
-    <tr>
-      <td *ngIf="this.authService.isAuthenticated()" id="who">Bonjour *user* !</td>
-    </tr>
-  </table>
+  <button class="btn btn-light" (click)="this.userService.lightTheme()">LIGHT</button>
+  <button class="btn btn-light" (click)="this.userService.darkTheme()">DARK</button>
+
   <table align="right" id="buttons_connection" cellpadding="5">
     <tr>
 
