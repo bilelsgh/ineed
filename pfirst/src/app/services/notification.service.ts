@@ -67,11 +67,6 @@ export class NotificationService {
 
   getNoticationFromBack() {
 
-    /*
-    const options = {
-      responseType: 'arraybuffer' as const,
-    };
-     */
     return new Promise((resolve, reject) => {
       this.httpClient.get<Notif[]>(this.authService.backend_test + 'notifications.json')
         .subscribe(
