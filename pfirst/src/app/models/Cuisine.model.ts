@@ -5,6 +5,7 @@ export class Cuisine{
               , sur_place : string, datejour : string,dateheure : string, type_de_plat : string, image : string, contry: string, city:string, adress: string},
               public id : number,
               public price : number = 0,
+              viewNumber : number,
               public finished : boolean,){}
 }
 

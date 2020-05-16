@@ -50,7 +50,7 @@ ngOnInit(): void {
       content.materiel=this.liste_materiel
     const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
 
-    0, false);
+    0,0, false);
 
 
 
@@ -74,6 +74,9 @@ ngOnInit(): void {
       compteur++;
     }
    }
-}
 
+  successCallback(position){
+    alert("Latitude : " + position.coords.latitude + ", longitude : " + position.coords.longitude);
+};  
+}
 

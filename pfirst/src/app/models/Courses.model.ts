@@ -19,6 +19,7 @@ export class Courses{
     name: string, description: any,type: string, user: any, image : string, city: string, adress: string},
     public id : number,
     public price: number = 0,
+    viewNumber : number,
     public finished : boolean,
   ) {
   }
