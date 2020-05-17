@@ -383,6 +383,8 @@ def choose_helper(id):
     announce = Announce.query.filter_by(idAnnounce=id).first()
     if announce.idUser != user.idUser:
         abort(403)
+    if announce.status != 0:
+        abort(403)
     chosen_answer = Answer.query.filter_by(userID=request.json['helperID'], announceid=id).first()
     chosen_answer.accepted = True
     db.session.commit()
