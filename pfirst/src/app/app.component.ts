@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   light_theme_sub : Subscription;
   dark_theme_sub : Subscription;
   title = 'INEED';
+  myTheme : string ;
 
   constructor(private userServ : UserService, private elementRef: ElementRef) {
   }
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit, AfterViewInit{
           }
         );
         console.log('ok dark = ' + this.dark_theme + 'light = ' + this.light_theme);
+        this.dark_theme == true ? this.myTheme = 'theme-dark' : this.myTheme = 'theme-light';
         this.userServ.emitLightThemeSubject();
 
 

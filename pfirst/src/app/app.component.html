@@ -2,13 +2,11 @@
   <app-global-navbar></app-global-navbar>
 </div>
 
-<div *ngIf="light_theme && !dark_theme" class="theme-light">
+<div class="{{myTheme}}">
   <router-outlet></router-outlet>
 </div>
 
-<div *ngIf="dark_theme && !light_theme" class="theme-dark">
-  <router-outlet></router-outlet>
-</div>
+
 
 
 <!--
