@@ -1,0 +1,79 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4" align="center">Mes informations</h1>
+    <table align="center">
+
+      <div class="col-sm-8 col-sm-offset-2">
+
+        <form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">
+
+
+          <!-- ##################### MAIL ####################-->
+          <div class="form-group">
+            <div class="jumbotron" id="formulaire">
+              <label for="mail">Votre email</label>
+              <input type="text" class="form-control" id="mail" name="mail"
+                      ngModel>
+              <span class="current-info-indicator">{{this.email}}</span>
+            </div>
+
+            <!-- ##################### BIO ####################-->
+            <div class="jumbotron" id="formulaire">
+              <label for="bio">Votre bio</label>
+              <input type="text" class="form-control" id="bio" name="bio"
+                      ngModel>
+              <span *ngIf="this.bio!=null" class="current-info-indicator">{{this.bio}}</span>
+              <span *ngIf="this.bio==null" class="current-info-indicator">Décriver vous en quelques lignes</span>
+            </div>
+
+            <div class="jumbotron" id="formulaire">
+              <label for="profil-pic">Votre photo de profil</label>
+              <input type="file" class="form-control" id="profil-pic" name="profil-pic"
+                     ngModel>
+              <img src="../../assets/data/photo_undefined.png">
+              <span>(en dur)</span>
+            </div>
+           <button class="btn btn-primary" type="submit">Valider</button>
+          </div>
+        </form>
+        <!--
+        <form [formGroup]="userForm" (ngSubmit)="onSubmitNewInfos()" id="form">
+
+
+            <div class="form-group">
+              <div class="jumbotron" id="formulaire">
+
+              <label for="user"><h2>Email</h2></label>
+              <input type="text" id="user" class="form-control" formControlName="email">
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="jumbotron" id="formulaire">
+
+              <label for="date"><h2>Votre bio</h2>
+              </label>
+              <input type="text" id="bio" formControlName="bio">
+            </div>
+
+            <div class="jumbotron" id="formulaire">
+              <div class="form-group">
+                <label for="date"><h2>Votre photo de profil</h2>
+                </label>
+                <input type="file" id="date" formControlName="profil_pic">
+              </div>
+              <button type="submit" class="btn btn-primary">Soumettre</button>
+            </div>
+          </div>
+
+        </form>
+        -->
+
+      </div>
+
+
+    </table>
+  </div>
+</div>
+

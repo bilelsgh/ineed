@@ -1,0 +1,44 @@
+<div *ngIf="field_non_valid" class="alert alert-dismissable alert-danger">
+  L'adresse mail entrée est invalide.
+</div>
+<div *ngIf="bad_mail_password" class="alert alert-dismissable alert-danger">
+  Le mot de passe ou l'adresse mail est incorrecte.
+  <p><button id="myButton" type="button" routerLink="../inscription" class="btn btn-danger">S'inscrire</button></p>
+
+</div>
+<!-- ^ BANDEAUX D'ALERTE ^ -->
+
+<br>
+<h2 align="center">Connexion</h2>
+<br>
+
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <table align="center" cellpadding="5">
+    <tr>
+      <td>
+        <!--#####MAIL#####-->
+        <div class="form-group" [class.has-error]="mail.invalid && mail.touched">
+          <label for="mail">
+            Adresse mail
+          </label>
+          <input type="text" id="mail" class="form-control" name="mail" placeholder="name@example.com"
+                 #mail="ngModel" email ngModel>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <!--#####PASSWORD#####-->
+        <label for="password">Mot de passe</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" ngModel>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button type="submit" class="btn btn-success" *ngIf="!this.authService.isAuthenticated()">Se connecter</button>
+        <button class="btn btn-danger" *ngIf="this.authService.isAuthenticated()"
+                (click)="this.authService.removeUserInfo()">Se déconnecter</button>
+      </td>
+    </tr>
+  </table>
+</form>

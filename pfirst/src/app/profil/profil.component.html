@@ -1,0 +1,52 @@
+<div id="profilMain">
+
+  <table cellpadding="10" width="100%">
+    <tr>
+      <td rowspan="2" width="18%">
+        <div id="profil-pic"></div>
+      </td>
+      <td width="15%">
+        <span class="user_identifier">{{info_user['firstName']}} {{info_user['lastName']}}</span>
+      </td>
+      <td width="40%" rowspan="2">
+        <table>
+          <tr>
+            <td width="30%" align="center">
+              <img src="../../assets/data/progression.png" id="progress-img">
+            </td>
+          </tr>
+          <tr align="center">
+            <td align="center" colspan="2">
+              <app-niveau></app-niveau>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td align="center">
+        <img src="../../assets/data/rating.png" id="rating-img">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span id="aPropos">
+          A propos : {{info_user['bio']}}
+        </span>
+      </td>
+      <td align="center">
+        <p style="font-size: x-large">
+          (en dur){{4}}/5
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <div id="experience-wrapper">
+    <table width="1500px">
+      <tr align="center">
+        <td width="100%" align="center">
+          <app-services-experience [id_user]="this.id"></app-services-experience>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

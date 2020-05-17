@@ -1,0 +1,36 @@
+.flecheDown
+{
+  width: 40px;
+  height: auto;
+  border:  1px #8f2812 dotted;
+}
+
+.flecheUp
+{
+  width: 40px;
+  height: auto;
+  border: 1px #8f2812 dotted;
+}
+
+.icone-cat
+{
+  height: 60px;
+  width: auto;
+}
+
+#starIcon
+{
+  vertical-align: -115%;
+  height: 70px;
+  width: auto;
+}
+
+#commentParagraph
+{
+  text-align: center;
+}
+
+.formerServP
+{
+  font-size: 30px;
+}

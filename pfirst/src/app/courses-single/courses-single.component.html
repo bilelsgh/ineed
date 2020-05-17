@@ -1,0 +1,76 @@
+<br>
+<table align="center">
+  <tr><h1 class="display-4" align="center">{{User}} a besoin de toi</h1>
+  </tr>
+  <tr>
+    <button type="button" class="btn btn-dark"
+            (click)="goProfil('profil/'+this.service_descriptor.idUser)">Voir le profil</button>
+
+  </tr>
+</table>
+
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <table align="center" cellpadding="20">
+
+      <tr>
+        <td><h2>Service : </h2></td>
+        <td>Courses</td>
+      </tr>
+      <tr>
+        <td><h2>Quand :</h2></td>
+        <td>{{DispoJour}} a {{DispoHeure}}</td>
+      </tr>
+      <tr>
+        <td><h2>Souhaite être accompagné :</h2></td>
+        <td>{{Accompagne}}</td>
+      </tr>
+      <tr>
+        <td><h2>Liste des courses :</h2></td>
+        <td>
+          <ul class="list-group">
+            <div *ngFor="let element of this.Liste">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{element.produit}}
+                <span class="badge badge-primary">{{element.quantite}}</span>
+              </li>
+            </div>
+          </ul>
+
+          <button class="btn btn-secondary" (click)="copyToClipboard(this.liste_a_copier)" >
+            Copier la liste</button>
+        </td>
+        <td *ngIf="copied"><i>Liste copiée.</i></td>
+      </tr>
+      <tr>
+        <td><h2>Budget</h2></td>
+        <td><span id="budget" class="badge badge-warning"><p id="prix">{{Budget}}€</p></span></td>
+      </tr>
+      <tr>
+        <td><h2>Commentaire</h2>{{Description}}</td>
+      </tr>
+    </table>
+
+    <div class="text-right">
+      <a  class="btn btn-primary" routerLink="/propose">Retour à la liste</a>
+    </div>
+  </div>
+
+  <table align="center">
+    <tr><button id="button_rendre" type="button" class="btn btn-warning">Aider {{User}} !</button></tr>
+    <tr>
+      <!--#####NOMBRES DE VUES####-->
+      <div id="view" style="position: absolute;left: 500px;">
+        <td>
+          <img style="width:50px" id="viewPic" src="../../assets/data/view.png" alt="">
+        </td>
+        <td><span style="font-size: 25px">{{View}}</span></td>
+      </div>
+    </tr>
+  </table>
+
+</div>
+
+
+<!-- <img src="../../assets/data/menage.png" class="imageservice"/> -->

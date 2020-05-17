@@ -1,0 +1,38 @@
+<table width="80%" cellpadding="40" border="3px solid">
+  <tr>
+    <td align="center" colspan="2">
+      <img src="../../assets/data/last_services.png" id="last-serv-img">
+      <button mat-raised-button id="history-button" (click)="openHistoryModal()">Plus de services</button>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <span class="for-by-indicator">Pour vous</span>
+    </td>
+    <td align="center">
+      <span class="for-by-indicator">Par vous</span>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <app-former-service [helperLook]="false"
+                          [pour]="this.history_for[last_for].pour"
+                          [par]="this.history_for[last_for].par"
+                          [categorie]="this.history_for[last_for].categorie"
+                          [note]="this.history_for[last_for].note"
+                          [commentaire]="this.history_for[last_for].commentaire"
+                          [date]="this.history_for[last_for].date">
+      </app-former-service>
+    </td>
+    <td>
+      <app-former-service [helperLook]="true"
+                          [pour]="this.history_by[last_by].pour"
+                          [par]="this.history_by[last_by].par"
+                          [categorie]="this.history_by[last_by].categorie"
+                          [note]="this.history_by[last_by].note"
+                          [commentaire]="this.history_by[last_by].commentaire"
+                          [date]="this.history_by[last_by].date">
+      </app-former-service>
+    </td>
+  </tr>
+</table>

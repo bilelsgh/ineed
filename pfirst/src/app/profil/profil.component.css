@@ -1,0 +1,58 @@
+#myProfilEssentials
+{
+  height: 100%;
+  margin-left: 3%;
+  text-align: top left;
+}
+
+#profil-pic
+{
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  background-image: url("../../assets/data/photo_undefined.png");
+  background-size: cover;
+}
+
+.user_identifier
+{
+  font-size: 30px;
+}
+
+#aPropos
+{
+  margin-top: 30px;
+}
+
+#progress-img
+{
+  width: 500px;
+  height: auto;
+}
+app-services-experience
+{
+  text-align: left;
+}
+
+#nivTitle
+{
+  text-align: center;
+}
+
+#profilHead
+{
+  width:100%;
+}
+
+#experience-wrapper
+{
+  padding-top: 50px;
+  margin-left: 10%;
+  margin-right: auto;
+}
+
+#rating-img
+{
+  height: 150px;
+  width: auto;
+}

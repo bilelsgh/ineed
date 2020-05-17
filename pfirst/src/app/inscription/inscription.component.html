@@ -1,0 +1,136 @@
+<br>
+<div *ngIf="alreadyExist" class="alert alert-dismissable alert-danger">
+  Un compte existe déjà avec cette adresse mail.
+  <p><button id="myButton" type="button" routerLink="../auth" class="btn btn-danger">Se connecter</button></p>
+</div>
+
+<h2 align="center">Oh ! Un nouveau parmi nous ?</h2>
+
+<br>
+<body ng-app="inscriptionApp">
+  <table align="center">
+    <tr>
+      <div class="row">
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm"> <!-- #f passe une référence au formulaire (#x) -->
+
+          <!--############NOM############-->
+          <div class="form-group" [class.has-error]="lastName.invalid && lastName.touched">
+            <!-- Nom des champs -->
+            <label for="lastName" *ngIf="!(lastName.invalid && lastName.touched)">
+              Nom <span style="color:red">*</span>
+            </label>
+            <label for="lastName" style="color:red" *ngIf="lastName.invalid && lastName.touched">
+              Nom <span style="color:red">*</span>
+            </label>
+            <!-- -------------- -->
+            <input type="text" id="lastName" class="form-control" name="lastName" placeholder="ex: Dupont"
+                   #lastName="ngModel" ngModel required> <!-- ce champ est requis -->
+            <span class="help-block" *ngIf="lastName.invalid && lastName.touched" style="color:red">Un nom est requis.</span>
+          </div>
+
+            <br>
+
+          <!--############PRÉNOM############-->
+          <div class="form-group" [class.has-error]="firstName.invalid && firstName.touched">
+            <!-- Nom des champs -->
+            <label for="firstName" *ngIf="!(firstName.invalid && firstName.touched)">
+              Prénom <span style="color:red">*</span>
+            </label>
+            <!-- -------------- -->
+            <label for="firstName" style="color:red" *ngIf="firstName.invalid && firstName.touched" >
+              Prénom <span style="color:red">*</span>
+            </label>
+            <input type="text" id="firstName" class="form-control" name="firstName" placeholder="ex: Jean"
+                   (change) = "updateSurname(f.value['firstName'])" #firstName="ngModel" ngModel required> <!-- form-control revient à la ligne à chaque champ -->
+            <span class="help-block" *ngIf="firstName.invalid && firstName.touched" style="color:red">Un prénom est requis.</span>
+          </div>
+          <br>
+
+            <!--############MAIL############-->
+          <div class="form-group" [class.has-error]="mail.invalid && mail.touched">
+            <!-- Nom des champs -->
+            <label for="mail" class="control-label" *ngIf="!(mail.invalid && mail.touched)">
+              Adresse mail <span style="color:red">*</span>
+            </label>
+            <label for="mail" class="control-label" style="color:red" *ngIf="mail.invalid && mail.touched">
+              Adresse mail <span style="color:red">*</span>
+            </label>
+            <!-- -------------- -->
+            <input type="text" id="mail" class="form-control" name="mail" placeholder="example@example.com"
+                   #mail = "ngModel" ngModel required email>
+            <!-- Affichage des messages d'erreur si l'email entrée est invalide ou pas remplie -->
+            <span class="help-block" *ngIf="mail.errors?.required && mail.touched" style="color:red">
+              Une adresse mail est requise.</span>
+            <span class="help-block" *ngIf="mail.errors?.email && mail.touched" style="color:red">
+              L'adresse mail est invalide.</span>
+
+          </div>
+
+          <!--############SEXE############-->
+          <div class="form-group">
+            <label for="sex">
+              Sexe <span style="color:red">*</span>
+            </label>
+            <select id="sex" class="custom-select custom-select-lg mb-3" name="sex" ngModel required>
+              <option value="man">Homme</option>
+              <option value="woman">Femme</option>
+              <option value="other">Autres</option>
+            </select>
+          </div>
+
+          <!--############PASSWORD############-->
+          <div class="form-group" ng-controller="passwordCtrl">
+            <label for="password">Mot de passe <span style="color:red">*</span> </label>
+            <table>
+              <tr>
+                <td><input class="form-control" type="password" id="password" name="password"
+                           (change)="passwordComplexity(f.value['password'])" ngModel required>
+                </td>
+                <!-- ////POPOVER MOT DE PASSSE //// -->
+                <td><span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary" ngbPopover="Votre
+                mot de passe doit faire au moins 6 caractères. Utilisez des lettres majuscules et minuscules, des chiffres
+                 ou encore descaractères spéciaux pour rendre votre mot de passe plus sûr." triggers="mouseenter:mouseleave"
+                          popoverTitle="Un mot de passe c'est important !" placement="right">
+                  <p id="text_info">?</p></span></td>
+              </tr>
+            </table>
+
+            <i><p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p></i>
+            <span *ngIf="bad_password"  class="badge badge-pill badge-danger">Votre mot de passe est faible.</span>
+            <span *ngIf="medium_password"  class="badge badge-pill badge-warning">Votre mot de passe est correct.</span>
+            <span *ngIf="strong_password"  class="badge badge-pill badge-success">Votre mot de passe est fort.</span>
+          </div>
+
+          <!--############CONFIRMATION PASSWORD############-->
+          <div class="form-group">
+            <label for="confirm_password" >Confirmez votre mot de passe <span style="color:red">*</span></label>
+            <input class="form-control" type="password" id="confirm_password" name="confirm_password"
+                   (change)="quickCheckPassword(f)" ngModel required>
+            <i><strong><span *ngIf="!same_password" style="color:red">Les mots de passe ne sont pas identiques.</span></strong></i>
+          </div>
+          <br>
+
+          <!--############PHOTO DE PROFIL############-->
+          <div class="form-group">
+            <p>Photo de profil</p>
+            <input type="file" name="photo" id="photo" (change)="onFileSelected($event)" ngModel>
+          </div>
+
+          <br><br>
+
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="CGU" name="cgu" ngModel required>
+            <label for="CGU" class="form-check-label">J'accepte les <a routerLink="contact">Conditions Générales d'Utilisation.</a>
+              <span style="color:red"> *</span></label>
+          </div>
+
+          <br>
+          <br>
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">C'est parti {{current_surname}} !</button>
+          <i><p *ngIf="!f.valid" style="color:gray">Veuillez remplir tout les champs <span style="color:red">*</span></p></i>
+        </form>
+      </div>
+    </tr>
+  </table>
+
+

@@ -1,0 +1,33 @@
+#logo{
+  width: 150px;
+}
+
+.progress{
+  height: 20px;
+  width: 500px;
+  margin: 0 auto;
+
+}
+
+#info
+{
+  width: 25px;
+  height: 25px;
+}
+
+#text_info
+{
+  font-size: 20px;
+  font-weight: lighter;
+  font-family: -apple-system;
+}
+
+#info_mdp
+{
+  color: dimgray;
+}
+
+.ng-invalid.ng-touched {
+  border-color: red;
+}
+

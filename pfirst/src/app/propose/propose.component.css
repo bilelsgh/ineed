@@ -1,0 +1,57 @@
+.list-group{.jumbotron{
+  background-image: url("../../assets/data/banniere.jpg");
+  background-size: cover;
+  min-height: 100px;
+  height: 200px;
+}
+    text-align: center;
+}
+
+.jumbotron{
+  background-image: url("../../assets/data/banniere.jpg");
+  background-size: cover;
+  min-height: 100px;
+  height: 200px;
+}
+
+#logo {
+  width: 150px;
+}
+
+#accompagner_logo,#cuisine_logo,#menage_logo,#accompagner_logo1,#cuisine_logo1,#menage_logo1{
+  width: 130px;
+}
+
+slidecontainer {
+  width: 80%; /* Width of the outside container */
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 80%;
+  height: 10px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%; 
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}

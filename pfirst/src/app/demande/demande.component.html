@@ -1,0 +1,71 @@
+<div class="jumbotron text-center">
+  <h1 class="display-4 text-white">Demander un service</h1>
+  <h2 class="text-white">Vous avez besoin d'aide ? Faites le savoir et quelqu'un vous aidera.</h2>
+</div>
+
+<table align = "center" cellpadding="50">
+  <tr>
+    <td>
+      <div class="zoom">
+        <div class="icone">
+          <img *ngIf="menage" style="cursor:pointer" id="menage_logo" src="../assets/data/menage.png" alt=""
+               (click)="menage=true;accompagner=false;cuisine=false;course=false;">
+          <img *ngIf="!menage" style="cursor:pointer" id="menage_logo1" src="../assets/data/menage1.png" alt=""
+               (click)="menage=true;accompagner=false;cuisine=false;course=false;">
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="zoom">
+        <div class="icone">
+          <img *ngIf="cuisine" style="cursor:pointer" id="cuisine_logo" src="../assets/data/cuisine.png" alt=""
+               (click)="menage=false;accompagner=false;cuisine=true;course=false;">
+          <img *ngIf="!cuisine" style="cursor:pointer" id="cuisine_logo1" src="../assets/data/cuisine1.png" alt=""
+               (click)="menage=false;accompagner=false;cuisine=true;course=false;">
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="zoom">
+        <div class="icone">
+          <img *ngIf="accompagner" style="cursor:pointer" id="accompagner_logo" src="../assets/data/accompagner.png" alt=""
+               (click)="menage=false;accompagner=true;cuisine=false;course=false;">
+          <img *ngIf="!accompagner" style="cursor:pointer" id="accompagner_logo1" src="../assets/data/accompagner1.png" alt=""
+               (click)="menage=false;accompagner=true;cuisine=false;course=false;">
+        </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="zoom">
+        <div class="icone">
+          <img *ngIf="course" style="cursor:pointer" id="accompagner_logo" src="../assets/data/courses.png" alt=""
+               (click)="menage=false;accompagner=false;cuisine=false;course=true;">
+          <img *ngIf="!course" style="cursor:pointer" id="accompagner_logo1" src="../assets/data/courses1.png" alt=""
+               (click)="menage=false;accompagner=false;course=true;cuisine=false;">
+        </div>
+      </div>
+    </td>
+
+  </tr>
+</table>
+
+<div *ngIf="menage" id="menage">
+  <app-new-menage></app-new-menage>
+</div>
+
+<div *ngIf="cuisine" id="cuisine">
+<app-new-cuisine></app-new-cuisine>
+</div>
+
+<div *ngIf="accompagner" id="accompagner">
+<app-new-accompage></app-new-accompage>
+</div>
+
+<div *ngIf="course" id="course">
+  <app-new-courses></app-new-courses>
+</div>
+
+

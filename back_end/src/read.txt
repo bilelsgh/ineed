@@ -1,0 +1,9 @@
+dans loaddb.py on une petite base de donnees qui permettrait de verifier nos fonctionalités jusqu'à présent.
+ce fichier évoluera dans les jours avenir.
+
+Toute les routes ont été testées sur postman donc à priori pas de problème.
+
+// pour romina et allan //
+
+j'ai crée l'app dans models car mon python et celui d'allan n'a pas apprecié l'import circulaire.
+Merci de merge avec ma branch dans votre branch.

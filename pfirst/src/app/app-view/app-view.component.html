@@ -1,0 +1,64 @@
+<div *ngIf="disconnected_message" class="alert alert-dismissable alert-danger">
+  Vous avez été déconnecté.
+</div>
+
+<div class="jumbotron text-center">
+  <h1 class="display-4 text-white">"Un peu d'aide fait grand bien"</h1>
+  <h2 class="text-white">Dès maintenant, aide les personnes dans le besoin près de toi.</h2>
+  <table cellpadding="10px" align="center" id="buttons_action">
+    <div id="buttons_services">
+      <tr>
+        <td>
+          <button routerLink="demande" class="btn btn-outline-success" id="button1"><span id="text_demander">
+            Demander un service
+          </span></button>
+        </td>
+        <td>
+          <button routerLink="propose" class="btn btn-success" id="button2">
+            <span id="text_rendre">
+              Rendre service
+            </span></button>
+        </td>
+      </tr>
+    </div>
+  </table>
+</div>
+
+
+<!-- petites cartes résumé -->
+<div id="partie-inf">
+  <table align="center" cellpadding="100">
+    <div id="annonces">
+      <tr>
+        <td>
+          <app-annonce-courte
+            [image]="annonces[0]['image']"
+            [helped]="annonces[0]['user']"
+            [date]="annonces[0]['date']"
+            [service]="annonces[0]['name']">
+          </app-annonce-courte>
+        </td>
+        <td>
+          <app-annonce-courte
+            [image]="annonces[1]['image']"
+            [helped]="annonces[1]['user']"
+            [date]="annonces[1]['date']"
+            [service]="annonces[1]['service']">
+          </app-annonce-courte>
+        </td>
+        <td>
+              <app-annonce-courte
+                [image]="annonces[2]['image']"
+                [helped]="annonces[2]['user']"
+                [date]="annonces[2]['date']"
+                [service]="annonces[2]['service']">
+              </app-annonce-courte>
+        </td>
+      </tr>
+
+    </div>
+
+  </table>
+</div>
+
+

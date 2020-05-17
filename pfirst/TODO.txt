@@ -1,0 +1,5 @@
+ - page services : faire un tableau de service (créer une structure service), ngFor afficher tous les services
+
+ - page demande : formulaire dynamique avec icone
+
+bilel

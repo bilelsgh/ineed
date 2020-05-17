@@ -1,0 +1,91 @@
+<nav class="navbar navbar-dark bg-dark" id="globalNavbar">
+  <table align="left" id="left_side" cellpadding="10">
+    <tr>
+      <td>
+        <img src="../assets/data/logo2.png" alt="ineed" id="logo" routerLink="" style="cursor:pointer">
+      </td>
+        <!--
+        <button routerLink="profil" class="btn btn-outline-light" type="menu" *ngIf="this.authService.isAuthenticated()" aria-haspopup="true" aria-expanded="true">
+          Profil
+        </button>
+        -->
+      <td>
+        <div *ngIf="this.authService.isAuthenticated()" id="roundProfilPic" style="cursor:pointer"  (click)="openUserModal()"></div>
+        <!--    A voir dropdown angular https://ng-bootstrap.github.io/#/components/dropdown/examples
+        <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+          <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Toggle dropdown</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button ngbDropdownItem>Action - 1</button>
+            <button ngbDropdownItem>Another Action</button>
+            <button ngbDropdownItem>Something else is here</button>
+          </div>
+        </div>
+-->
+        <!-- ne s'affiche pas
+        <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent" style="border: 3px solid red">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item" ngbDropdown>
+              <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown1" role="button">
+                Static
+              </a>
+              <div ngbDropdownMenu aria-labelledby="navbarDropdown1" class="dropdown-menu">
+                <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Action</a>
+                <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Another action</a>
+                <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Something else here</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        -->
+        <!--
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{this.userService.getInitials()}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" routerLink="profil">Mon profil</a>
+            <a class="dropdown-item" routerLink="mes-infos">Modifier mes infos</a>
+            <a class="dropdown-item" routerLink="notifications">Mes notifications</a>
+          </div>
+        </div>
+        -->
+      </td>
+    </tr>
+  </table>
+
+  <!-- ##### PRENOM AU MILIEU #### -->
+  <table align="v">
+    <tr>
+      <td *ngIf="this.authService.isAuthenticated()" id="who">Bonjour *user* !</td>
+    </tr>
+  </table>
+  <table align="right" id="buttons_connection" cellpadding="5">
+    <tr>
+
+      <td>
+        <button routerLink="auth" *ngIf="!this.authService.isAuthenticated()" class="btn btn-outline-success" type="button">Se connecter
+        </button>
+      </td>
+      <td>
+        <button routerLink="inscription" *ngIf="!this.authService.isAuthenticated()" class="btn btn-outline-light" type="button">S'inscrire
+        </button>
+      </td>
+      <td>
+        <button (click)="this.authService.removeUserInfo()" *ngIf="this.authService.isAuthenticated()" class="btn btn-outline-danger" type="button">Se déconnecter
+        </button>
+      </td>
+      <td>
+        <button routerLink="contact" class="btn btn-outline-secondary" type="button">Contact</button>
+      </td>
+    </tr>
+  </table>
+</nav>
+  <div
+    [@rotatedState]="stateRotate"
+    [@reduceNotif]="stateNotif"
+    *ngIf="this.hasNotif&&this.authService.isAuthenticated()"
+    id="roundNotifIcon" (click)="openUserModal()">
+    {{this.notifs.length}}
+  </div>
+
+
