@@ -24,12 +24,29 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit() {
-    this.setTheme();
-    if(this.dark_theme && !this.light_theme){
-      this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#2e2e2e';
-    }else if(!this.dark_theme && this.light_theme){
-      this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'whitesmoke';
-    }
+    this.dark_theme_sub = this.userServ.darkThemeSubject.subscribe(
+      (response: boolean) => {
+        this.dark_theme = response;
+
+        this.light_theme_sub = this.userServ.lightThemeSubject.subscribe(
+          (response_bis: boolean) => {
+            this.light_theme = response_bis;
+          }
+        );
+        console.log('ok dark = ' + this.dark_theme + 'light = ' + this.light_theme);
+        this.dark_theme == true ? this.myTheme = 'theme-dark' : this.myTheme = 'theme-light';
+        if(this.dark_theme && !this.light_theme){
+          this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#2e2e2e';
+        }else if(!this.dark_theme && this.light_theme){
+          this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'whitesmoke';
+        }
+
+        this.userServ.emitLightThemeSubject();
+
+
+      }
+    );
+    this.userServ.emitDarkThemeSubject();
   }
 
 
