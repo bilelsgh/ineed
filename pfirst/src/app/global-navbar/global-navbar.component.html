@@ -53,12 +53,16 @@
     </tr>
   </table>
 
-  <button class="btn btn-light" (click)="this.userService.lightTheme()">LIGHT</button>
-  <button class="btn btn-light" (click)="this.userService.darkTheme()">DARK</button>
+
 
   <table align="right" id="buttons_connection" cellpadding="5">
     <tr>
-
+      <!-- dark ou light theme -->
+      <td>
+        <img style="cursor: pointer" id="theme_soleil" *ngIf="this.userService.dark_theme && !this.userService.light_theme" src="../../assets/data/light.png"
+             (click)="this.userService.lightTheme()" alt="">
+        <img style="cursor: pointer" id="theme_lune" *ngIf="!this.userService.dark_theme && this.userService.light_theme" src="../../assets/data/dark.png" (click)="this.userService.darkTheme()" alt="">
+      </td>
       <td>
         <button routerLink="auth" *ngIf="!this.authService.isAuthenticated()" class="btn btn-outline-success" type="button">Se connecter
         </button>

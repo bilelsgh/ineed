@@ -1,4 +1,5 @@
-<div class="jumbotron jumbotron-fluid">
+<body>
+<div id="jumb" class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4" align="center">Mes informations</h1>
     <table align="center">
@@ -13,7 +14,7 @@
             <div class="jumbotron" id="formulaire">
               <label for="mail">Votre email</label>
               <input type="text" class="form-control" id="mail" name="mail"
-                      ngModel>
+                     ngModel>
               <span class="current-info-indicator">{{this.email}}</span>
             </div>
 
@@ -21,7 +22,7 @@
             <div class="jumbotron" id="formulaire">
               <label for="bio">Votre bio</label>
               <input type="text" class="form-control" id="bio" name="bio"
-                      ngModel>
+                     ngModel>
               <span *ngIf="this.bio!=null" class="current-info-indicator">{{this.bio}}</span>
               <span *ngIf="this.bio==null" class="current-info-indicator">Décriver vous en quelques lignes</span>
             </div>
@@ -33,7 +34,7 @@
               <img src="../../assets/data/photo_undefined.png">
               <span>(en dur)</span>
             </div>
-           <button class="btn btn-primary" type="submit">Valider</button>
+            <button class="btn btn-primary" type="submit">Valider</button>
           </div>
         </form>
         <!--
@@ -76,4 +77,4 @@
     </table>
   </div>
 </div>
-
+</body>

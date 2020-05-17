@@ -13,17 +13,16 @@
   font-size: 14px;
   color: #333;
   box-sizing: border-box;
-  background-color: lightgrey;
+  background-color: whitesmoke;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.list-group{.jumbotron{
-  background-image: url("../../assets/data/banniere.jpg");
-  background-size: cover;
-  min-height: 100px;
-  height: 200px;
+:host-context(.theme-dark) .card{
+  background-color: grey;
 }
+
+.list-group{
     text-align: center;
 }
 
