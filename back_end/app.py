@@ -373,7 +373,7 @@ def get_undone(id):
     ).all()
     return jsonify({'token': user.generate_auth_token(),'undoneS' : [unn.to_json() for unn in undoneS]}), 200
 '''
-@app.route('/api/announce/<int: id>/helper', methods=['POST'])
+@app.route('/api/announce/<int:id>/helper', methods=['POST'])
 def choose_helper(id):
     if not request.json or not 'token' in request.json or not 'helperID' in request.json:
         abort(400)
