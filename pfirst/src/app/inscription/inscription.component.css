@@ -23,10 +23,18 @@
 }
 
 
-#info
+:host-context(.theme-dark) #info
 {
   width: 25px;
   height: 25px;
+  color: black;
+}
+
+:host-context(.theme-light) #info
+{
+  width: 25px;
+  height: 25px;
+
 }
 
 #text_info
@@ -44,4 +52,5 @@
 .ng-invalid.ng-touched {
   border-color: red;
 }
+
 
