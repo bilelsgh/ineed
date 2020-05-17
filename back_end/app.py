@@ -6,6 +6,8 @@ from sqlalchemy.orm import aliased
 from werkzeug.utils import secure_filename
 from datetime import date
 import bcrypt
+import random
+import string
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/ineed'
@@ -47,6 +49,7 @@ def register_user():
     u.lastName = user['lastName']
     u.sex = user['sex']
     u.mail = user['mail']
+    u.photo = 'photo_undefined.png'
     db.session.add(u)
     db.session.commit()
     created_user = User.query.filter_by(username=user['username']).first()
@@ -130,9 +133,11 @@ def change_password(id):
     else:
         abort(403)
 
-@app.route('/api/user/<int:id>/photo/<token>', methods=['POST'])
-def upload_photo(id, token):
+@app.route('/api/user/<int:id>/photo', methods=['POST'])
+def upload_photo(id):
     # check if the post request has the file part
+    if not 'token' in  request.args:
+        abort(400)
     if 'file' not in request.files:
         abort(401)
     file = request.files['file']
@@ -141,11 +146,12 @@ def upload_photo(id, token):
     if file.filename == '':
         abort(401)
     #authenticate and get the user
-    user = User.verify_auth_token(token)
+    user = User.verify_auth_token(request.args['token'])
     if user is None or user.idUser != int(id):
         abort(403)
     if file:
-        filename = secure_filename(file.filename)
+        filename_random = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
+        filename = secure_filename(filename_random + os.path.splitext(file.filename)[1])
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         user.photo = filename
         db.session.commit()
@@ -215,6 +221,7 @@ def update_announce(id):
             abort(403) # Forbidden
         announce.content = request.json['announce']['content']
         announce.price = float(request.json['announce']['price'])
+        announce.status = request.json['announce']['status']
         db.session.commit()
         return jsonify({'announce' : announce.to_json(), 'token' : user.generate_auth_token()}), 200
     abort(404) #Not Found
@@ -330,4 +337,68 @@ def get_announce_helpers(id):
     helpers = User.query.join(Answer, Answer.userID==User.idUser).\
         filter(Answer.announceid==id).\
         all()
-    return jsonify({'token' : user.generate_auth_token(), 'helpers' : [helper.to_json() for helper in helpers]}), 200    
+    return jsonify({'token' : user.generate_auth_token(), 'helpers' : [helper.to_json() for helper in helpers]}), 200
+'''
+@app.route('/api/announce/<int:id>/undone', methods=['GET'])
+def get_old_services(id):
+    if not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user is None:
+        abort(401)
+    doneS = Announce.query.join(Answer, Answer.userID == id,
+    ).filter(
+        Announce.finished == True,
+    ).filter(
+        Answer.announceid == Announce.idAnnounce,
+    ).filter(
+        Answer.accepted == True,
+    ).all()
+    return jsonify({'token': user.generate_auth_token(), 'doneS': [dnn.to_json() for dnn in doneS]}), 200
+
+@app.route('/api/announce/<int:id>/done', methods=['GET'])
+def get_undone(id):
+    if not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user is None:
+        abort(401)
+    undoneS = Announce.query.join(Answer, Answer.userID == id,
+    ).filter(
+        Announce.finished == False,
+    ).filter(
+        Answer.announceid == Announce.idAnnounce,
+    ).filter(
+        Answer.accepted == True,
+    ).all()
+    return jsonify({'token': user.generate_auth_token(),'undoneS' : [unn.to_json() for unn in undoneS]}), 200
+'''
+@app.route('/api/announce/<int: id>/helper', methods=['POST'])
+def choose_helper(id):
+    if not request.json or not 'token' in request.json or not 'helperID' in request.json:
+        abort(400)
+    user = User.verify_auth_token(request.json['token'])
+    if user is None:
+        abort(401)
+    announce = Announce.query.filter_by(idAnnounce=id).first()
+    if announce.idUser != user.idUser:
+        abort(403)
+    chosen_answer = Answer.query.filter_by(userID=request.json['helperID'], announceid=id).first()
+    chosen_answer.accepted = True
+    db.session.commit()
+    chosen_helper = User.query.filter_by(idUser=chosen_answer.userID).first()
+    return jsonify({'helper': chosen_helper.to_json(),'token': user.generate_auth_token()}), 201
+
+@app.route('/api/announce/<int:id>/accepted', methods=['GET'])
+def get_accepted(id):
+    if not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user is None:
+        abort(401)
+    announce = Announce.query.filter_by(idAnnounce=id).first()
+    if announce is None:
+        abort(404)
+    accepted_users = Answer.query.filter_by(announceid=id, accepted=True).all()
+    return jsonify({'token': user.generate_auth_token(), 'accepted': [answer.userID for answer in accepted_users], 'status': announce.status}), 200
+
