@@ -1,10 +1,17 @@
+#settingsContainer /*contains all html elems*/
+{
+  width: 100%;
+}
+
 #form{
   margin: 0 auto;
 }
+
 #formulaire{
   background-color: #ededed;
   box-shadow: 1px 1px 5px #c0c0c0;
-  width: 800px;
+  /*width: 800px;*/
+  width: 140%;
   height: auto;
 }
 
@@ -15,37 +22,56 @@
 
 #infoContainer
 {
+  /*new*/
+  width: 40%;
+  /**/
   position: absolute;
-  top: 200px;
-  left: 200px;
+  /*top: 200px;
+  left: 200px;*/
+  top: 30%;
+  left: 10%;
 }
 
 #infoHeader
 {
+  /*new*/
+  width: 40%;
+  /**/
   position: absolute;
-  top: 200px;
-  left: 200px;
+  /*top: 200px;
+  left: 200px;*/
+  top: 30%;
+  left: 10%;
 }
 
 #infoToolbar
 {
   height: 50px;
-  width: 860px;
+  /*width: 860px;*/
+  width: 100%;
 }
 #mdpContainer
 {
-  width: 460px;
+  /*width: 460px;*/
+  width: 30%;
   height: auto;
   position: absolute;
-  top: 200px;
-  left: 1200px;
+  /*top: 200px;
+  left: 1200px;*/
+  top: 30%;
+  left: 60%;
 }
 
 #showMdpContainer
 {
+  /*new*/
+  width: 30%;
+  /**/
   position: absolute;
-  top: 200px;
-  left: 1200px;
+  /*top: 200px;
+  left: 1200px;*/
+  top: 30%;
+  left: 60%;
 }
 #info
 {
@@ -62,7 +88,8 @@
 
 #changePassword
 {
-  width: 460px;
+  /*width: 460px;*/
+  width: 100%;
   height: 50px;
 }
 
@@ -76,13 +103,16 @@
 {
   cursor: pointer;
 }
-
+/*
 #showMdpContainer
 {
   position: absolute;
   top: 200px;
   left: 1200px;
+  top: 30%;
+  left: 10%;
 }
+ */
 
 #compress
 {
