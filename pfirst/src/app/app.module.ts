@@ -36,7 +36,7 @@ import { AccompagnerSingleComponent } from './accompagner-single/accompagner-sin
 import { ServiceService } from './services/service.service';
 import { NewCoursesComponent } from './new-courses/new-courses.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {NgxImageCompressService} from 'ngx-image-compress';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -49,6 +49,9 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 import { InfoSettingsComponent } from './info-settings/info-settings.component';
 import { DisplayProfilComponent } from './display-profil/display-profil.component';
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {ImageCompressorService} from "./services/image-compressor.service";
 
 @NgModule({
   declarations: [
@@ -95,7 +98,9 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
     MatButtonModule,
     MatDialogModule,
     NgbModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [ // on ajoute ici tous les services
     AuthService,
@@ -103,6 +108,8 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
     InscriptionService,
     UserService,
     ServiceService,
+    NgxImageCompressService,
+    ImageCompressorService,
     Location
      // necessaire ?
   ],

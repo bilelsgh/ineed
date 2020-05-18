@@ -1,79 +1,177 @@
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4" align="center">Mes informations</h1>
-    <table align="center">
+<div id="infoContainer">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <table align="center">
 
-      <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-sm-8 col-sm-offset-2">
 
-        <form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">
-
-
-          <!-- ##################### MAIL ####################-->
-          <div class="form-group">
-            <div class="jumbotron" id="formulaire">
-              <label for="mail">Votre email</label>
-              <input type="text" class="form-control" id="mail" name="mail"
-                      ngModel>
-              <span class="current-info-indicator">{{this.email}}</span>
-            </div>
-
-            <!-- ##################### BIO ####################-->
-            <div class="jumbotron" id="formulaire">
-              <label for="bio">Votre bio</label>
-              <input type="text" class="form-control" id="bio" name="bio"
-                      ngModel>
-              <span *ngIf="this.bio!=null" class="current-info-indicator">{{this.bio}}</span>
-              <span *ngIf="this.bio==null" class="current-info-indicator">Décriver vous en quelques lignes</span>
-            </div>
-
-            <div class="jumbotron" id="formulaire">
-              <label for="profil-pic">Votre photo de profil</label>
-              <input type="file" class="form-control" id="profil-pic" name="profil-pic"
-                     ngModel>
-              <img src="../../assets/data/photo_undefined.png">
-              <span>(en dur)</span>
-            </div>
-           <button class="btn btn-primary" type="submit">Valider</button>
-          </div>
-        </form>
-        <!--
-        <form [formGroup]="userForm" (ngSubmit)="onSubmitNewInfos()" id="form">
+          <!--<form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">-->
+          <form (ngSubmit)="onSubmitNewInfos(f)" #f="ngForm">
 
 
             <div class="form-group">
+
+              <!-- ##################### Prénom ####################-->
               <div class="jumbotron" id="formulaire">
-
-              <label for="user"><h2>Email</h2></label>
-              <input type="text" id="user" class="form-control" formControlName="email">
-            </div>
-
-          </div>
-
-          <div class="form-group">
-            <div class="jumbotron" id="formulaire">
-
-              <label for="date"><h2>Votre bio</h2>
-              </label>
-              <input type="text" id="bio" formControlName="bio">
-            </div>
-
-            <div class="jumbotron" id="formulaire">
-              <div class="form-group">
-                <label for="date"><h2>Votre photo de profil</h2>
-                </label>
-                <input type="file" id="date" formControlName="profil_pic">
+                <label for="firstName">Votre prénom</label>
+                <input type="text" class="form-control" id="firstName" name="firstName"
+                       ngModel>
+                <span class="current-info-indicator">{{this.info_user.firstName}}</span>
               </div>
-              <button type="submit" class="btn btn-primary">Soumettre</button>
+
+              <!-- ##################### Nom ####################-->
+              <div class="jumbotron" id="formulaire">
+                <label for="lastName">Votre nom</label>
+                <input type="text" class="form-control" id="lastName" name="lastName"
+                       ngModel>
+                <span class="current-info-indicator">{{this.info_user.lastName}}</span>
+              </div>
+
+              <!-- ##################### MAIL ####################
+              <div class="jumbotron" id="formulaire">
+                <label for="mail">Votre email</label>
+                <input type="text" class="form-control" id="mail" name="mail"
+                       ngModel>
+                <span class="current-info-indicator">{{this.email}}</span>
+              </div>
+-->
+              <!-- ##################### BIO ####################-->
+              <div class="jumbotron" id="formulaire">
+                <table width="100%">
+                  <td>
+                    <label for="bio">Votre bio</label>
+                  </td>
+                  <td align="right">
+                    <span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary"
+                          ngbPopover="150 caractères maximum"
+                          triggers="mouseenter:mouseleave"
+                          popoverTitle="Limite" placement="right">
+                      <p id="text_info">?</p>
+                    </span>
+                  </td>
+                </table>
+
+                <input type="text" class="form-control" id="bio" name="bio" maxlength="150"
+                       ngModel>
+                <span *ngIf="this.bio!=null" class="current-info-indicator">{{this.bio}}</span>
+                <span *ngIf="this.bio==null" class="current-info-indicator">Décriver vous en quelques lignes</span>
+              </div>
+
+              <!-- ##################### PDP ####################-->
+
+              <div class="jumbotron" id="formulaire">
+                <label for="profil-pic">
+                  <span *ngIf="this.notifs.profilPic == ''">Votre photo de profil</span>
+                  <span style="color: red" *ngIf="this.notifs.profilPic != ''">{{this.notifs.profilPic}}</span>
+                </label>
+                <input type="file" class="form-control" id="profil-pic" name="profil-pic"
+                       (change)="onFileSelected($event)"
+                       ngModel>
+                <img id="pdpPrint" [src]="'https://rpicloud.ddns.net/static/images/'+getPdpName()">
+                <!--<img [src]="this.undefinedPicURL" alt="profil-pic">-->
+              </div>
+              <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
             </div>
-          </div>
+          </form>
+        </div>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="infoHeader">
+  <mat-toolbar color="#ffffff" id="infoToolbar">
+    <mat-toolbar-row>
+      <span>Modifiez vos informations</span>
+      <span class="spacer"></span>
+      <mat-icon class="icon" (click)="f.reset()" title="vider le formulaire">restore_page</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+<!-------------------------------- MOT DE PASSE------------------------->
 
-        </form>
-        -->
+<div id="mdpContainer" *ngIf="changePassword">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <table align="center">
 
-      </div>
+        <div class="col-sm-8 col-sm-offset-2">
+
+          <form (ngSubmit)="onSubmitNewPassword(f)" #f="ngForm">
 
 
-    </table>
+            <!-- ##################### Former ####################-->
+            <div class="form-group">
+              <div class="jumbotron" id="formulaire" style="width: 400px">
+                <label for="formerPassword">Mot de passe actuel</label>
+                <input type="password" class="form-control" id="formerPassword" name="formerPassword"
+                       ngModel>
+              </div>
+
+              <!-- ##################### New ####################-->
+              <div class="jumbotron" id="formulaire" style="width: 400px">
+                <table>
+                  <td><label for="newPassword">Entrez votre nouveau mot de passe</label></td>
+                  <td> <!--#POPOVER INFO MDP#-->
+                    <span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary" ngbPopover="Votre
+                mot de passe doit faire au moins 8 caractères. Utilisez des lettres majuscules et minuscules, des chiffres
+                 ou encore descaractères spéciaux pour rendre votre mot de passe plus sûr."
+                          triggers="mouseenter:mouseleave"
+                          popoverTitle="Un mot de passe c'est important !" placement="right">
+                  <p id="text_info">?</p></span>
+                  </td>
+                </table>
+                <input type="password" class="form-control" id="newPassword" name="newPassword"
+                       (change)="passwordComplexity(f.value['newPassword'])"
+                       ngModel>
+
+                <i>
+                  <p *ngIf="small_password" style="color:gray">Votre mot de passe doit faire au moins 6 caractères.</p>
+                </i>
+                <span *ngIf="bad_password" class="badge badge-pill badge-danger">Votre mot de passe est faible.</span>
+                <span *ngIf="medium_password"
+                      class="badge badge-pill badge-warning">Votre mot de passe est correct.</span>
+                <span *ngIf="strong_password" class="badge badge-pill badge-success">Votre mot de passe est fort.</span>
+              </div>
+
+              <!-- NEW CONFIRMER -->
+              <div class="jumbotron" id="formulaire" style="width: 400px">
+                <label for="confirm_password">Confirmez votre mot de passe <span style="color:red">*</span></label>
+                <input class="form-control" type="password" id="confirm_password" name="confirm_password"
+                       (change)="quickCheckPassword(f)" ngModel required>
+                <i><strong><span *ngIf="same_password == false"
+                                 style="color:red">Les mots de passe ne sont pas identiques.</span></strong></i>
+              </div>
+              <div (click)="showStatus()">Show status</div>
+              <button style="margin-left: 330px" class="btn btn-primary" type="submit" [disabled]="(!same_password) || small_password">Valider</button>
+            </div>
+          </form>
+        </div>
+      </table>
+    </div>
   </div>
 </div>
 
+<div id="showMdpContainer">
+  <mat-toolbar color="#ffffff" id="changePassword">
+    <mat-toolbar-row>
+      <span>Changez votre mot de passe</span>
+      <span class="spacer"></span>
+      <mat-icon (click)="changePassword=true" *ngIf="!changePassword" class="icon"> menu</mat-icon>
+      <mat-icon (click)="changePassword=false" *ngIf="changePassword" class="icon"> menu_open</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+
+<!--  Pour tests de compression (decommentez également variables dans fonctions de compression)
+<div id="compress">
+  <input type="file" accept=".jpg,.png,.jpeg" id="image-input" (change)="selectFile($event)"><br>
+  <br> Original: Size: {{sizeOfOriginalImage | number : '1.2-2'}}MB<br><img [src]="localUrl" height="200px"><br><br>
+  <br> Compressed: Size: {{sizeOFCompressedImage | number : '1.2-2'}}MB<br><img [src]="localCompressedURl" height="150px">
+</div>
+
+<div id="compress">
+  <input type="file" accept=".jpg,.png,.jpeg" (change)="selectFile($event)"><br>
+  <img [src]="profilPicURL" height="150px">
+  <span>New image</span>
+</div>
+-->

@@ -14,7 +14,6 @@ export class UserService {
     'post-inscription'
   ];
 
-
   services_history_for = [
     {
       pour: "Gilbert",
@@ -162,10 +161,11 @@ export class UserService {
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
   getProfilById(id: string = 'user') {
+    console.log("#IDUSERgetProfil : " + id );
     return new Promise((resolve, reject) => {
-      if (id === "current_user") {
-        this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
-        console.table(this.info_user);
+      if (id === 'user') {
+        this.info_user = JSON.parse(localStorage.getItem('user'));
+        console.table("getProfilByID : ",this.info_user);
         if (this.info_user != null) {
           resolve(true);
         } else {
@@ -178,7 +178,7 @@ export class UserService {
           .subscribe(
             (response) => {
               console.log("#GETPROFILBYID");
-              console.table(response);
+              console.log(response);
               this.auth.setUserInfo(JSON.stringify(response['user']), 'current_profil'); //on stocke les infos de l'utilisateur récupérée dans le local storage
               this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
 
@@ -234,5 +234,5 @@ export class UserService {
           }
         );
     });
-  };
+  }
 }

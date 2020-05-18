@@ -20,9 +20,9 @@ export class InscriptionComponent implements OnInit {
   strong_password: boolean;
   bad_password: boolean;
   medium_password: boolean;
-  badRegex = new RegExp('^[a-z]{6,}$');
+  badRegex = new RegExp('^[a-zA-Z]{8,}$');
   mediumRegex = new RegExp('^[a-zA-Z0-9]{8,}$');
-  strongRegex = new RegExp('^.{9,}$');
+  strongRegex = new RegExp('^.{8,}$');
   same_password = true;
   info_mdp = false;
 
@@ -45,10 +45,10 @@ export class InscriptionComponent implements OnInit {
       const mail = form.value.mail;
       const password = form.value.password;
       this.addUser(name, prenom, sexe, mail, password);
-
+      //this.onUpload(); // to check
 
       // this.auth.isAuth = true;
-    } else if (form.value.password.length < 6) {
+    } else if (form.value.password.length < 8) {
       form.reset();
       this.strong_password = false;
       this.medium_password = false;
@@ -62,7 +62,6 @@ export class InscriptionComponent implements OnInit {
       this.bad_password = false;
       this.same_password = true;
       alert('Les mots de passe entrés ne sont pas identiques.');
-
     }
   }
 
@@ -85,22 +84,28 @@ export class InscriptionComponent implements OnInit {
 
     if (text.length < 6) {
       this.small_password = true;
+      this.bad_password = false;
+      this.medium_password = false;
+      this.strong_password = false;
+      console.log("MOT DE PASSE TAILLE PETITE")
     } else if ( this.badRegex.test(text) ) {
       this.small_password = false;
       this.bad_password = true;
       this.medium_password = false;
       this.strong_password = false;
-
+      console.log("MDP MAUVAIS");
     } else if ( this.mediumRegex.test(text) ) {
       this.small_password = false;
       this.medium_password = true;
       this.strong_password = false;
       this.bad_password = false;
+      console.log("MDP MOYEN")
     } else if ( this.strongRegex.test(text) ) {
       this.small_password = false;
       this.strong_password = true;
       this.bad_password = false;
       this.medium_password = false;
+      console.log("MDP FORT")
     }
 
   }
@@ -136,6 +141,7 @@ export class InscriptionComponent implements OnInit {
       );
   }
 
+  /*
   onFileSelected(event) {
     this.picture_profil_file = event.target.files[0] as File
     console.log("PROFIL PIC :", this.picture_profil_file);
@@ -149,6 +155,7 @@ export class InscriptionComponent implements OnInit {
         console.log(res);
       });
   }
+   */
 
   updateSurname(text: string) {
     this.current_surname = text;

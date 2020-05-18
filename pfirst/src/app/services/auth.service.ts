@@ -15,12 +15,13 @@ export class AuthService {
   constructor(private http : HttpClient, private router : Router) { }
 
   public isAuthenticated() : Boolean {
+
     let userData = localStorage.getItem('token')
     if(userData && JSON.parse(userData)){
       return true;
     }
     return false;
-  }
+    }
 
   public removeUserInfo(){
     localStorage.removeItem('token');
@@ -35,6 +36,7 @@ export class AuthService {
   public setUserInfo(data, where : string){
     localStorage.setItem(where, data);
   }
+
 
   public validate(email, password) {
     return this.http.post(this.backend_test+"user_co.json", {"mail" : email, "password" : password}).toPromise();

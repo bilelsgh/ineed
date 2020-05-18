@@ -18,10 +18,7 @@
         <td><h2>Service : </h2></td>
         <td>Courses</td>
       </tr>
-      <tr>
-        <td><h2>Ville</h2></td>
-        <td>{{City}}</td>
-      </tr>
+  
       <tr>
         <td><h2>Quand :</h2></td>
         <td>{{DispoJour}} a {{DispoHeure}}</td>
@@ -60,6 +57,20 @@
       <a  class="btn btn-primary" routerLink="/propose">Retour à la liste</a>
     </div>
   </div>
+
+  <table align="center">
+    <tr><button id="button_rendre" type="button" class="btn btn-warning">Aider {{User}} !</button></tr>
+    <tr>
+      <!--#####NOMBRES DE VUES####-->
+      <div id="view" style="position: absolute;left: 500px;">
+        <td>
+          <img style="width:50px" id="viewPic" src="../../assets/data/view.png" alt="">
+        </td>
+        <td><span style="font-size: 25px">{{View}}</span></td>
+      </div>
+    </tr>
+  </table>
+
 </div>
 
 

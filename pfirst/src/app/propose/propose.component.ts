@@ -13,8 +13,8 @@ import {Courses} from '../models/Courses.model';
 export class ServiceViewComponent implements OnInit {
   type: any[];
   types : any[];
-   servicesContent = new Array;
-  services_db : any[];
+  servicesContent = new Array;
+  services_db = new Array;
   content: any [];
   kms : number;
   public showncourses = false;
@@ -29,57 +29,28 @@ export class ServiceViewComponent implements OnInit {
 
   ngOnInit(){
 
-    //RÉCUPÈRE DEPUIS FIREBASE
-
-
-    this.httpClient
-
-
-      .get<any[]>(this.auth.backend_test+'services.json')
-      .subscribe(
-        (response) => {
-
-          this.services_db = response;
-          console.log("#OK");
-          console.log("#SERVICES : " + response);
-          console.log(this.services_db)
-          for (let j=0; j< this.services_db.length ; j++){
-            this.servicesContent.push(this.services_db[j].content);
-          }
-          for (let content of this.servicesContent){
-            console.log(content.user);}
-
-
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-
-      );
-
     //RÉCUPÈRE DEPUIS LE BACK
-    /*this.httpClient
-      .get<any[]>(this.auth.backend+'api/announce/user')
+    this.httpClient
+      .get<any[]>(this.auth.backend+'api/announce')
       .subscribe(
         (response) => {
-          console.log("#######ALL ANNOUNCES###########");
-          for (let j=0; j< this.response.length ; j++) {
-            console.table("##########ANNOUNCE " + (j+1) + "###########" );
-            this.servicesContent.push(
-              {idUser: response[j]['idUser'], content: JSON.parse(response[j]['content']),
-                id: response[j]['id'], price: response[j]['price']}
+          for (let j=0; j< Number(response['announces']['length']) ; j++) {
+            //this.services_db.push(response['announces'][j]);
+            this.services_db.push(
+              {idUser: response['announces'][j]['idUser'], content: JSON.parse(response['announces'][j]['content']),
+                id: response['announces'][j]['idAnnounce'], price: response['announces'][j]['price'],
+              viewNumber: response['announces']['viewNumber'], finished: response['announces']['finished']}
             );
           }
-
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
           }
-          console.log("Erreur de chargement : " + error);
+          console.log("Erreur lors de la récupération des services : " + error);
         }
 
-      );*/
+      );
 
 
 

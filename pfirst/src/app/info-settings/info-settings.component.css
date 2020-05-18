@@ -12,3 +12,87 @@
 {
   color: #3f77dc;
 }
+
+#infoContainer
+{
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}
+
+#infoHeader
+{
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}
+
+#infoToolbar
+{
+  height: 50px;
+  width: 860px;
+}
+#mdpContainer
+{
+  width: 460px;
+  height: auto;
+  position: absolute;
+  top: 200px;
+  left: 1200px;
+}
+
+#showMdpContainer
+{
+  position: absolute;
+  top: 200px;
+  left: 1200px;
+}
+#info
+{
+  width: 25px;
+  height: 25px;
+}
+
+#text_info
+{
+  font-size: 20px;
+  font-weight: lighter;
+  font-family: -apple-system;
+}
+
+#changePassword
+{
+  width: 460px;
+  height: 50px;
+}
+
+.spacer
+{
+  flex: 1 1 auto;
+  z-index: 10;
+}
+
+.icon
+{
+  cursor: pointer;
+}
+
+#showMdpContainer
+{
+  position: absolute;
+  top: 200px;
+  left: 1200px;
+}
+
+#compress
+{
+  position: absolute;
+  top: 500px;
+  left: 1500px;
+}
+
+#pdpPrint
+{
+  height: 200px;
+  width: auto;
+}

@@ -4,7 +4,8 @@
   <tr><h1 class="display-4" align="center">{{User}} a besoin de toi</h1>
   </tr>
   <tr>
-    <button type="button" class="btn btn-info" (click)="goProfil()">Voir le profil</button>
+    <button type="button" class="btn btn-info" (click)="goProfil('profil/'+this.service_descriptor.idUser)">
+      Voir le profil</button>
     <!-- <button type="button" class="btn btn-info" (click)="goProfil()">Voir le profil</button> -->
 
   </tr>
@@ -12,7 +13,7 @@
 
 
 
-
+<!-- #####ANNONCE##### -->
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <table align="center" cellpadding="20">
@@ -30,10 +31,7 @@
         <td><h2>A faire chez lui ?</h2></td>
         <td>{{Sur_place}}</td>
       </tr>
-      <tr>
-        <td><h2>Ville: </h2></td>
-        <td>{{City}}</td>
-      </tr>
+     
       <tr>
         <td><h2>Quand ?</h2></td>
         <td>{{DispoJour}} a {{DispoHeure}}</td>
@@ -42,14 +40,28 @@
         <td><h2>Commentaire</h2>{{Description}}</td>
       </tr>
     </table>
+
+    <!-- ###FOOTER ANNONCE### -->
     <div class="text-right">
       <a  class="btn btn-primary" routerLink="/propose">Retour à la liste</a>
     </div>
   </div>
 
   <table align="center">
-    <button id="button_rendre" type="button" class="btn btn-warning">Aider {{User}} !</button>
+    <tr><button id="button_rendre" type="button" class="btn btn-warning">Aider {{User}} !</button></tr>
+    <tr>
+      <!--#####NOMBRES DE VUES####-->
+      <div id="view" style="position: absolute;left: 500px;">
+        <td>
+          <img style="width:50px" id="viewPic" src="../../assets/data/view.png" alt="">
+        </td>
+        <td><span style="font-size: 25px">{{View}}</span></td>
+      </div>
+    </tr>
   </table>
+
+
+
 </div>
 
 
