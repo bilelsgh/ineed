@@ -52,7 +52,7 @@ export class NewCoursesComponent implements OnInit {
     content.description=f.value['description'];
     content.user=f.value['user'];
     const newCourses = new Courses( JSON.parse(localStorage.getItem('user'))["idUser"], content,5,0,
-      0,[0],false); //assignees ne contient pas encore de helpers et le service n'est pas en cours
+      0,0,false);
     this.serviceService.addCourses(newCourses);
     this.router.navigate(['']);
   }

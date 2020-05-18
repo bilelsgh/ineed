@@ -6,12 +6,12 @@ export class Menage{
               public id : number,
               public price : number = 0,
               public viewNumber : number,
-              /*brief_assignees :
-              *   - Premier élément = 0 si l'annonce attend encore des helpers
-              *                     = 1 si le helped n'a plus besoin de helpers, l'annonce est alors EN COURS
-              *   - Les autres éléments sont les idUser des helpers qui se sont proposés pour ce service et qui
-              *  ont été acceptés par le helped*/
-              public assignees : number[],
+              /*brief-status
+              0 : le service attend des helpers
+              1 : le service est en cours et n'accepte plus d'helpers
+              2 : le service est terminé
+               */
+              public status : number,
               public finished : boolean,
   ){}
 }
