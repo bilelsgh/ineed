@@ -129,8 +129,8 @@ export class InscriptionComponent implements OnInit {
           this.alreadyExist = false;
           this.auth.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.auth.setUserInfo( JSON.stringify(response['user']), 'user');
-          this.notificationService.uploadNotif(new Notif('Chargez votre premieère photo de profil !', 'info', 'pdpUpdate'));
-          this.notificationService.uploadNotif(new Notif('Complétez votre profil en ajoutant une bio !', 'info', 'bioUpdate'));
+          this.notificationService.uploadNotif(new Notif('Chargez votre première photo de profil !', 'info'));
+          this.notificationService.uploadNotif(new Notif('Complétez votre profil en ajoutant une bio !', 'info'));
           this.notificationService.wakeWatcher(10000);
           this.router.navigate(['']);
         },

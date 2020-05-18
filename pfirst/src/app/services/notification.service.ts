@@ -11,7 +11,7 @@ export class NotificationService {
 
   hasNew: boolean = true;
   notifList: Notif[] = new Array();
-  alreadyNotified: Notif[] = new Array();
+  alreadyNotified: Notif[];
   userId: string = '-1';
   //listObservable = from(this.notifList);
   notifSubject = new Subject<Notif[]>();
@@ -24,10 +24,11 @@ export class NotificationService {
     //trigger périodique de la fonction de récupération des notifs -> provoqué à la connexion
     //this.wakeWatcher(5000);
 
+    this.alreadyNotified = new Array();
     //installation des notifs firebase
-    this.uploadNotif(new Notif("Notification de test firebase", "warning", "testFb"));
+    this.uploadNotif(new Notif("Notification de test firebase", "warning"));
     this.updateNotifCache(true);
-    this.uploadNotif(new Notif("Notif 2", "info", "not2"));
+    this.uploadNotif(new Notif("Notif 2", "info"));
   }
 
   wakeWatcher(freq: number) {
@@ -77,6 +78,7 @@ export class NotificationService {
               elt.id = notifIds[idx];
             });
             this.emitNotifSubject();
+            console.log("GOT :",got);
             resolve('Got the notifications');
           },
           (err) => {
@@ -111,6 +113,11 @@ export class NotificationService {
       message: not.message,
       id: not.id
     });
+    console.log("Triggered notif because ",this.alreadyNotified,"doesnt contains ", not);
+    console.log("Proof this.alreadyNotified.some(notif => notif.id === not.id ):", this.alreadyNotified.some(notif => notif.id === not.id));
+    if (this.alreadyNotified.length > 0) {
+      console.log("Indeed indexable : this.alreadyNotified[0].id = ",this.alreadyNotified[0].id == not.id);
+    }
     this.alreadyNotified.push(not);
   }
 
