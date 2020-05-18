@@ -71,7 +71,7 @@ export class ActivityComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getProposition(); //récupération des services pour lesquels j'ai postulés
+//    this.getProposition(); //récupération des services pour lesquels j'ai postulés
 
     this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
 
@@ -91,8 +91,8 @@ export class ActivityComponent implements OnInit {
         if (this.selectedAnnounce != -1) {
           this.getHelpers(this.selectedAnnounce);
           //getHelpers(this.asked_services[this.selectedAnnounce]['idAnnounce']);
-        }
 
+        }
       })
       .catch(
         (e) => {

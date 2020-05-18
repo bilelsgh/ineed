@@ -23,6 +23,9 @@
                     Propositions</button></td>
                   <td><button class="btn btn-primary" (click)="router.navigate(['propose/'+id])" >
                     Voir l'annonce</button></td>
+                  <td><button class="btn btn-primary" (click)="isCollapsed_bis = !isCollapsed_bis"
+                              [attr.aria-expanded]="!isCollapsed_bis" aria-controls="collapseExample_bis">
+                    Participants</button></td>
                 </tr>
               </table>
             </div>
@@ -39,20 +42,27 @@
     <span>
       <mat-toolbar color="#ffffff" *ngIf="helpers.length > 0"> <!-- color ne marche pas-->
       <mat-toolbar-row *ngFor="let helper of helpers">
-        <span>{{helper.firstName}} {{helper.lastName}} vous a proposé son aide.</span>
-        <span class="spacer"></span>
-        <mat-icon title="Voir le profil" class="icon" (click)="router.navigate(['profil/'+helper.idUser])">face</mat-icon>
-        <!--<mat-icon [routerLink]=""> face </mat-icon>-->
-        <mat-icon class="icon" *ngIf="this.assignees[0] == 0" (click)="acceptHelper(helper.idUser)"> done </mat-icon>
-        <mat-icon class="icon" *ngIf="amIaHelper()"> done </mat-icon>
-        <mat-icon class="icon" *ngIf="this.assignees[0] == 0 && !amIaHelper()"> highlight_off </mat-icon>
-        <mat-icon class="icon" *ngIf="this.assignees[0] == 1 && !amIaHelper()"> <!-- Si l'annonce est en cours et que je ne suis pas dans les helpers -->
-          not_interested
-        </mat-icon>
-        <mat-icon class="icon" *ngIf="this.id == helper.idUser"> done_all </mat-icon>
-
+        <div id="Proposition" *ngIf="!amIanAssignee(helper.id)">
+          <span>{{helper.firstName}} {{helper.lastName}} vous a proposé son aide.</span>
+          <span class="spacer"></span>
+          <mat-icon style="cursor:pointer" title="Voir le profil" class="icon" (click)="router.navigate(['profil/'+helper.idUser])">face</mat-icon>
+          <mat-icon style="cursor:pointer" class="icon" *ngIf="this.status == 0" (click)="acceptHelper(helper.idUser)"> done </mat-icon>
+          <mat-icon style="cursor:pointer" class="icon" *ngIf="this.status == 0 "> highlight_off </mat-icon>
+          <mat-icon class="icon" *ngIf="this.status == 1"> <!-- Si l'annonce est en cours et que je ne suis pas dans les helpers -->
+            not_interested
+          </mat-icon>
+          <mat-icon class="icon" *ngIf="this.id == helper.idUser"> done_all </mat-icon>
+        </div>
       </mat-toolbar-row>
     </mat-toolbar>
     </span>
 
+  </div>
+
+  <div id="collapseExample_bis" [ngbCollapse]="isCollapsed_bis">
+    Les participants à votre annonces sont :
+    <div *ngFor="let assignee of this.assignees">
+      <span style="cursor: pointer" class="badge badge-pill badge-info"
+            (click)="router.navigate(['profil/'+ assignee])">{{assignee}}</span>
+    </div>
   </div>

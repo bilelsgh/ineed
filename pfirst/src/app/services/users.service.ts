@@ -220,23 +220,14 @@ export class UserService {
 
       this.httpClient
         .get<any[]>(this.auth.backend + 'api/announce/user/' + idUsr, {params})   //from backend
-        //.get<any[]>(this.auth.backend + 'api/announce/user/'+ idUsr +'?token='+ JSON.parse(localStorage.getItem('token')))
-        //.get(this.auth.backend_test + 'actives.json')     //from firebase
 
         .subscribe(
           (response) => {
             /*for backend*/
             this.active_announces = response['announces'];
-            console.log("ICI : ", typeof response['token'], JSON.stringify(response['token']));
-            console.log(response);
+            console.table(response['announces']);
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
 
-            /*for firebase
-            this.active_announces = <any[]> response;
-             */
-            /*this.info_user = response;
-            console.log("#OK");
-            console.log("#SERVICES : " + response);*/
             resolve(true);
           },
           (error) => {
@@ -274,4 +265,7 @@ export class UserService {
         );
     }));
   }
+
+
+
 }
