@@ -71,7 +71,11 @@ export class NotificationService {
       this.httpClient.get<Notif[]>(this.authService.backend_test + 'notifications.json')
         .subscribe(
           (got) => {
-            this.notifList = Object.keys(got).map(key => got[key]);
+            let notifIds = Object.keys(got);
+            this.notifList = notifIds.map(key => got[key]);
+            this.notifList.forEach((elt,idx)=>{
+              elt.id = notifIds[idx];
+            });
             this.emitNotifSubject();
             resolve('Got the notifications');
           },
@@ -105,7 +109,7 @@ export class NotificationService {
     this.notifierService.show({
       type: not.type,
       message: not.message,
-      idFront: not.idFront
+      id: not.id
     });
     this.alreadyNotified.push(not);
   }
@@ -126,7 +130,7 @@ export class NotificationService {
             .then((secondMsg) => {
               console.log('notifList :', this.notifList);
               for (let i in this.notifList) {
-                if (!this.alreadyNotified.some(notif => notif.idFront === this.notifList[i].idFront)) {
+                if (!this.alreadyNotified.some(notif => notif.id === this.notifList[i].id)) {
                   this.triggerNotif(this.notifList[i]);
                 }
               }
