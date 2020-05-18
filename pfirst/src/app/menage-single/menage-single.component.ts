@@ -42,23 +42,9 @@ export class MenageSingleComponent implements OnInit {
     this.View= this.service_descriptor['viewNumber'];
 
     this.Salle=this.service_descriptor.content.salle;
-    this.Localisation=this.service_descriptor.content.localisation;
+    
     this.writeList();
     this.copied = false;
-    /*
-    const id = this.route.snapshot.params['id'];
-    this.Name = this.serviceService.getServiceById(+id).name;
-    this.User=this.serviceService.getServiceById(+id).user;
-    this.Description = this.serviceService.getServiceById(+id).description;
-    this.Materiel= this.serviceService.getServiceById(+id).materiel;
-    this.Date=this.serviceService.getServiceById(+id).date;
-    this.Surface=this.serviceService.getServiceById(+id).surface;
-    this.Heure=this.serviceService.getServiceById(+id).heure;
-    this.Salle=this.serviceService.getServiceById(+id).salle;
-    this.Localisation=this.serviceService.getServiceById(+id).localisation;
-    this.writeList();
-    this.copied = false;
-     */
   }
 
   writeList(){

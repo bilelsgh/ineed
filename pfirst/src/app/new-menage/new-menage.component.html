@@ -33,9 +33,20 @@
                 <input type="text" id="salle"  class="form-control" formControlName="salle" >
               </div>
 
+              <label for ="ou" ><h2>Ou se ferra le service ? </h2></label>
+              <div class="col-sm-8 col-sm-offset-2">
               <div class="form-group">
-                <label for ="localisation" ><h2>Ville  </h2></label>
-                <input type="text" id="localisation" class="form-control" formControlName="localisation">
+               
+                <label for ="city" ><h3>Ville</h3></label>
+                <input type="text" id="city" class="form-control" formControlName="city">
+                <label for ="adress" ><h3>Adresse</h3></label>
+                <input type="text" id="adress" class="form-control" formControlName="adress">
+                <label for ="location" ><h3>Localisation</h3></label>
+                <button  type="button" id = "location-button"  (click)= "getLocation()"class="btn btn-secondary" >Get your position</button>
+                
+                  
+                
+              </div>
               </div>
 
 
@@ -50,7 +61,7 @@
                     </tr>
                     <tr>
                       <td><input type="text" id="liste" name="liste_materiel" ngModel></td>
-                      <td><button type="submit" class="btn btn-secondary">Ajouter</button></td>
+                      <td><button  class="btn btn-secondary">Ajouter</button></td>
                     </tr>
                     <tr>
                       <ul class="list-group">
@@ -95,7 +106,9 @@
   
         </table>
     </div>
-  </div>
+
+
+  
   
   
 

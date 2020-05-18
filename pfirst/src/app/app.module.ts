@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import{AgmCoreModule} from '@agm/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -49,6 +50,8 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 import { InfoSettingsComponent } from './info-settings/info-settings.component';
 import { DisplayProfilComponent } from './display-profil/display-profil.component';
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
+import { GeolocComponent } from './geoloc/geoloc.component';
+import { GeolocService } from './services/geoloc.service';
 
 @NgModule({
   declarations: [
@@ -83,7 +86,8 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
     NewAccompageComponent,
     InfoSettingsComponent,
     DisplayProfilComponent,
-    FiltreProposeComponent
+    FiltreProposeComponent,
+    GeolocComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +99,9 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
     MatButtonModule,
     MatDialogModule,
     NgbModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyBIh9TYl-xIbSabypO5hkQyNcZjRWSd0VI'}),
   ],
   providers: [ // on ajoute ici tous les services
     AuthService,
@@ -103,7 +109,8 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
     InscriptionService,
     UserService,
     ServiceService,
-    Location
+    Location,
+    GeolocService,
      // necessaire ?
   ],
   bootstrap: [AppComponent],
