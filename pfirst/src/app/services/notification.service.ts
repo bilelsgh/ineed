@@ -105,7 +105,7 @@ export class NotificationService {
     this.notifierService.show({
       type: not.type,
       message: not.message,
-      id: not.id
+      idFront: not.idFront
     });
     this.alreadyNotified.push(not);
   }
@@ -126,7 +126,7 @@ export class NotificationService {
             .then((secondMsg) => {
               console.log('notifList :', this.notifList);
               for (let i in this.notifList) {
-                if (!this.alreadyNotified.some(notif => notif.id === this.notifList[i].id)) {
+                if (!this.alreadyNotified.some(notif => notif.idFront === this.notifList[i].idFront)) {
                   this.triggerNotif(this.notifList[i]);
                 }
               }
