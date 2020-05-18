@@ -40,13 +40,14 @@ export class ServiceActivityComponent implements OnInit {
 
   getHelpers(announceId: number = 0) {
     console.log("HELPERS : " + announceId);
-    if (announceId === 0) {   //pas d'annonce selectionée
+    if (announceId === 0) {
       this.helpers = [];
     } else {
       this.userService.getAnnounceHelpersById(String(announceId))
         //this.userService.getAnnounceHelpersById(announceId)
         .then(() => {
           this.helpers = this.userService.announceHelpers;
+          console.table(this.userService.announceHelpers);
           this.helpers.length === 0 ? this.noHelper = true : this.noHelper = false;
         })
         .catch((e) => {
@@ -75,6 +76,7 @@ export class ServiceActivityComponent implements OnInit {
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          this.getAssignees(this.id);
           console.log("Acceptation ok!");
         },
         (error) => {
