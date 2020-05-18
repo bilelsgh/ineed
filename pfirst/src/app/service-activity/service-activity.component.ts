@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {UserService} from '../services/users.service';
+import {SuiviService} from '../services/suivi.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-service-activity',
@@ -26,35 +28,29 @@ export class ServiceActivityComponent implements OnInit {
   public helpers: any[] = [];
   public response: number[];
   public assignees: number[] = [];
+  assigneesSubscription: Subscription;
 
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
-              private userService: UserService) {
+              private userService: UserService, private suiviServ: SuiviService) {
   }
 
   ngOnInit(): void {
-    this.response = new Array(50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
     this.getHelpers(this.id);
     this.getAssignees(this.id);
   }
 
   getHelpers(announceId: number = 0) {
-    console.log("HELPERS : " + announceId);
-    if (announceId === 0) {
-      this.helpers = [];
-    } else {
-      this.userService.getAnnounceHelpersById(String(announceId))
-        //this.userService.getAnnounceHelpersById(announceId)
-        .then(() => {
-          this.helpers = this.userService.announceHelpers;
-          console.table(this.userService.announceHelpers);
-          this.helpers.length === 0 ? this.noHelper = true : this.noHelper = false;
-        })
-        .catch((e) => {
-          console.log('#getHelpers : erreur de recupération ', e);
-          this.helpers = [];
-        });
-    }
+    this.suiviServ.getHelpers(this.id)
+      .then( () => {
+        console.log("Récupération des helpers dans service-activity OK");
+        this.helpers = this.suiviServ.helpers;
+        this.noHelper = this.suiviServ.noHelper;
+      })
+      .catch((e) => {
+        console.log('#getHelpers - service-activity: erreur de recupération ', e);
+        this.helpers = [];
+      });
   }
 
   getUser() {
@@ -99,29 +95,22 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   getAssignees(id : number = 0) {
-    if (id === 0) {   //pas d'annonce selectionée
-      this.assignees = [];
-    }else{
-      console.log("GET ASSIGNEES : " + id);
-      this.httpClient
-        .get<any[]>(this.auth.backend + 'api/announce/' + id + '/accepted?token=' + JSON.parse(localStorage.getItem('token')))
-        .subscribe(
-          (response) => {
-            this.assignees = response['accepted'];
-            this.status = response['status'];
-            this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-            console.log("GET ASSIGNEES : " + id);
-            console.table(response['accepted']);
-          },
-          (error) => {
-            if (error['status'] === 401) {
-              this.auth.removeUserInfo();
-              console.log('#TOKEN EXPIRED');
-            }
-            console.log('#DEBUG : Erreur lors de la récupération des assignees [service-activity] ' + error);
+    this.response = new Array(50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
+    this.suiviServ.getAssignees(this.id)
+      .then( () => {
+        this.assigneesSubscription = this.suiviServ.assigneesSubject.subscribe(
+          (assignees: any[]) => {
+            this.assignees = assignees;
+            console.log("Récupération des assignees dans service-activity OK");
+            this.suiviServ.emitAssigneesSubject();
+            this.status = this.suiviServ.status;
           }
         );
-    }
+      })
+      .catch((e) => {
+        console.log('#getAssignees - service-activity: erreur de recupération ', e);
+        this.assignees = [];
+      });
   }
 
   amIanAssignee(id: number): boolean {

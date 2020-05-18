@@ -55,6 +55,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import { ServiceActivityComponent } from './service-activity/service-activity.component';
 import { ServiceProposedComponent } from './service-proposed/service-proposed.component';
+import { SuiviService } from './services/suivi.service';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { ServiceProposedComponent } from './service-proposed/service-proposed.co
     InscriptionService,
     UserService,
     ServiceService,
+    SuiviService,
     Location
      // necessaire ?
   ],
