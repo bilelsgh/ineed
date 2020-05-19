@@ -1,3 +1,18 @@
+.card{
+  width : 51rem;
+
+  box-shadow: 1px 1px 1px #aaa;
+}
+
+.lignesEspaces{
+  border-collapse : separate;
+  border-spacing : 15px;
+}
+
+#titre{
+  font-size: larger;
+}
+
 #myProfilEssentials
 {
   height: 100%;
@@ -8,8 +23,8 @@
 #profil-pic
 {
   border-radius: 50%;
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 150px;
   background-image: url("../../assets/data/photo_undefined.png");
   background-size: cover;
 }

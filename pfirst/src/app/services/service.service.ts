@@ -182,6 +182,7 @@ export class ServiceService{
   constructor(private httpClient : HttpClient, private auth : AuthService){
   }
 
+  //Récupérer une annonce par ID depuis firebase
   getServiceById(id: number) {
     console.log("#ID : " + id);
     return new Promise((resolve,reject)=> {
@@ -230,4 +231,5 @@ export class ServiceService{
         }
       );
   }
+
 }
