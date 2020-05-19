@@ -1,0 +1,34 @@
+<div id="infoContainer">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <table align="center">
+
+        <div class="col-sm-8 col-sm-offset-2">
+
+          <form (ngSubmit)="onSubmitReview(f)" #f="ngForm">
+
+
+            <div class="form-group">
+
+              <!-- ##################### Commentaire ####################-->
+              <div class="jumbotron" id="formulaire">
+                <label for="comment">Votre retour ?</label>
+                <input type="text" class="form-control" id="comment" name="comment"
+                       ngModel>
+              </div>
+
+              <!-- ##################### Note ####################-->
+              <div class="jumbotron" id="formulaire">
+                <p>Noter vptre helper/helped</p>
+                <ngb-rating max="5" [(rate)]="rate"></ngb-rating>
+              </div>
+
+
+              <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
+            </div>
+          </form>
+        </div>
+      </table>
+    </div>
+  </div>
+</div>
