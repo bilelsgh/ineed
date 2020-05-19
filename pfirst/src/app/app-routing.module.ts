@@ -26,7 +26,6 @@ const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path:'not-found', component: FourOhFourComponent},
   {path:'contact', component: ContactComponent},
   {path:'inscription', component: InscriptionComponent},
-//  {path: 'activite', component: ActivityComponent},
   {path: '', component: AppViewComponent}, //indique la page "d'accueil"
   //{path: '**', redirectTo:'/not-found'} //renvoie vers la page d'erreur si la route n'existe pas, à mettre à la fin
 

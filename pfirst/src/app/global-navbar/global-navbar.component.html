@@ -10,7 +10,11 @@
         </button>
         -->
       <td>
-        <div *ngIf="this.authService.isAuthenticated()" id="roundProfilPic" style="cursor:pointer"  (click)="openUserModal()"></div>
+        <div *ngIf="this.authService.isAuthenticated()"
+             id="roundProfilPic" style="cursor:pointer"
+             (click)="openUserModal()"
+             [ngStyle]="{'background-image':'url('+this.authService.backend + '/static/images/' + getPdpName() +')'}"
+        ></div>
         <!--    A voir dropdown angular https://ng-bootstrap.github.io/#/components/dropdown/examples
         <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
           <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Toggle dropdown</button>
@@ -65,6 +69,7 @@
       </td>
 
       <!-- BOUTONS DE CONNEXION -->
+
       <td>
         <button routerLink="auth" *ngIf="!this.authService.isAuthenticated()" class="btn btn-outline-success" type="button">Se connecter
         </button>
@@ -84,11 +89,19 @@
   </table>
 </nav>
   <div
-    [@rotatedState]="stateRotate"
-    [@reduceNotif]="stateNotif"
+    [@notifAppearance]="stateNotif"
     *ngIf="this.hasNotif&&this.authService.isAuthenticated()"
-    id="roundNotifIcon" (click)="openUserModal()">
+    id="roundNotifIcon"
+    (click)="openUserModal()">
     {{this.notifs.length}}
   </div>
+<!--
+<div class="roundNotifIcon" [ngStyle]="quart">1</div>
+<div class="roundNotifIcon" [ngStyle]="semi">1</div>
+<div class="roundNotifIcon" [ngStyle]="almost">1</div>
+<div class="roundNotifIcon" [ngStyle]="rotated">1</div>
 
+<div style="background-color: red" [@translation]="stateTranslate" (click)="stateTranslate = 'toLeft'">0000</div>
+
+-->
 

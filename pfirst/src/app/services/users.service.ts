@@ -21,7 +21,6 @@ export class UserService {
     'post-inscription'
   ];
 
-
   services_history_for = [
     {
       pour: "Gilbert",
@@ -171,9 +170,9 @@ export class UserService {
   getProfilById(id: string = 'user') {
     console.log("#IDUSERgetProfil : " + id );
     return new Promise((resolve, reject) => {
-      if (id === "current_user") {
-        this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
-        console.table(this.info_user);
+      if (id === 'user') {
+        this.info_user = JSON.parse(localStorage.getItem('user'));
+        console.table("getProfilByID : ",this.info_user);
         if (this.info_user != null) {
           resolve(true);
         } else {
