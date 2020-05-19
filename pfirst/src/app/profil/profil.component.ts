@@ -1,8 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {UserService} from '../services/users.service';
-import {ComponentPortal} from "@angular/cdk/portal";
-import {Overlay} from "@angular/cdk/overlay";
-import {catchError} from "rxjs/operators";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 
@@ -15,24 +12,24 @@ export class ProfilComponent implements OnInit {
 
   info_user: any;
   id: string;
-  fromSubscription: Subscription;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    /* a voir si on stocke dans variable ou localStrorage
-    this.userService.getProfilById(this.id).then( ()=>{
-      this.info_user = this.userService.info_user;
-      console.table('#infouser : ', this.info_user);
-      }
-    )
-      .catch( ()=>{
-        console.log("Erreur de recupération des infos profil");
-      });
-     */
+    this.route.params.subscribe( (pars)=> {
+      this.id = pars['id'];
+      this.userService.getProfilById(this.id).then(
+        ()=> {
+          this.info_user = this.userService.info_user;
+        })
+        .catch( () => {
+          console.log("#Erreur de chargement profil")
+        });
+    });
+
+    /*
     this.userService.getProfilById(this.id)
       .then(() => {
         this.info_user = this.userService.info_user;
@@ -40,7 +37,11 @@ export class ProfilComponent implements OnInit {
       .catch(() => {
         console.log("erreur de chargement profil");
       });
-    this.fromSubscription
+     */
+  }
+
+  getBio(){
+    return this.info_user.bio;
   }
 
   onSave() {

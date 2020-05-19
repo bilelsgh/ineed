@@ -40,7 +40,6 @@ export class ModalUserComponent implements OnInit {
   hasInfoNotif: boolean = false;
   hasProfilNotif: boolean = false;
   hasActivityNotif: boolean = false;
-  fromSubject = new Subject<string>();
 
   constructor(private userserv: UserService, public matDialogRef: MatDialogRef<ModalUserComponent>,
               private httpClient: HttpClient, private auth: AuthService, private router: Router){}
@@ -62,10 +61,6 @@ export class ModalUserComponent implements OnInit {
 
   getUserId():string{
     return JSON.parse(localStorage.getItem('user')).idUser;
-  }
-
-  emitFromSubject(){
-    this.fromSubject.next('modal_user');
   }
 
   goThenClose(where: string){
