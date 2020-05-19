@@ -1,13 +1,13 @@
 <table width="100%" cellpadding="3">
   <tr>
     <td>
-      <div *ngIf="hasProfilNotif" [@reduce]="stateReduce" id="notifIcon" (click)="goThenClose('mes-infos')">
-        2
+      <div *ngIf="numberOfProfilNotif>0" [@reduce]="stateReduce" id="notifIcon" (click)="goThenClose('mes-infos')">
+        {{numberOfProfilNotif}}
       </div>
     </td>
     <td align="center">
-      <button [@extend]="stateExtend"style="width: 150px" *ngIf="!hasProfilNotif" type="button" class="btn btn-outline-light" (click)="this.goThenClose('profil/current_user')">Mon profil</button>
-      <button [@extend]="stateExtend" *ngIf="hasProfilNotif" type="button" class="btn btn-light" (click)="this.goThenClose('profil/current_user')">Mon profil</button>
+      <button [@extend]="stateExtend"style="width: 150px" *ngIf="!(numberOfProfilNotif>0)" type="button" class="btn btn-outline-light" (click)="this.goThenClose('profil/current_user')">Mon profil</button>
+      <button [@extend]="stateExtend" *ngIf="numberOfProfilNotif>0" type="button" class="btn btn-light" (click)="this.goThenClose('profil/current_user')">Mon profil</button>
       <!--<button type="button" class="btn btn-dark" (click)="myProfil()">Mon profil</button> -->
 
       <br>
@@ -21,16 +21,16 @@
   </tr>
   <tr>
     <td>
-      <div *ngIf="hasInfoNotif" [@reduce]="stateReduce" id="notifIcon" (click)="goThenClose('mes-infos')">
-        1
+      <div *ngIf="numberOfInfoNotif>0" [@reduce]="stateReduce" id="notifIcon" (click)="goThenClose('mes-infos')">
+        {{numberOfInfoNotif}}
       </div>
     </td>
     <td align="center">
      <!-- <button type="button"
               [ngClass]="this.hasInfoNotif? 'btn btn-light':'btn btn-outline-light'"
               (click)="this.goThenClose('mes-infos')">Mes infos</button> -->
-      <button [@extend]="stateExtend" style="width: 150px" type="button" class="btn btn-outline-light" *ngIf="!hasInfoNotif" (click)="this.goThenClose('mes-infos')">Mes infos</button>
-      <button [@extend]="stateExtend" type="button" class="btn btn-light" *ngIf="hasInfoNotif" (click)="this.goThenClose('mes-infos')">Mes infos</button>
+      <button [@extend]="stateExtend" style="width: 150px" type="button" class="btn btn-outline-light" *ngIf="!(numberOfInfoNotif>0)" (click)="this.goThenClose('mes-infos')">Mes infos</button>
+      <button [@extend]="stateExtend" type="button" class="btn btn-light" *ngIf="numberOfInfoNotif>0" (click)="this.goThenClose('mes-infos')">Mes infos</button>
       <!--<button type="button"
               [ngClass]="{
                   'btn': true,
@@ -49,13 +49,13 @@
   </tr>
   <tr>
     <td>
-      <div *ngIf="hasActivityNotif" [@reduce]="stateReduce" id="notifIcon" (click)="goThenClose('activite')" title="En savoir plus">
-        10
+      <div *ngIf="numberOfActivityNotif>0" [@reduce]="stateReduce" id="notifIcon" (click)="goThenClose('activite')" title="En savoir plus">
+        {{numberOfActivityNotif}}
       </div>
     </td>
     <td align="center">
-      <button [@extend]="stateExtend" style="width: 150px" *ngIf="!hasActivityNotif" type="button" class="btn btn-outline-light" (click)="this.goThenClose('activite')">Mon activité</button>
-      <button [@extend]="stateExtend" *ngIf="hasActivityNotif" type="button" class="btn btn-light" (click)="this.goThenClose('activite')" >Mon activité</button>
+      <button [@extend]="stateExtend" style="width: 150px" *ngIf="!(numberOfActivityNotif>0)" type="button" class="btn btn-outline-light" (click)="this.goThenClose('activite')">Mon activité</button>
+      <button [@extend]="stateExtend" *ngIf="numberOfActivityNotif>0" type="button" class="btn btn-light" (click)="this.goThenClose('activite')" >Mon activité</button>
     </td>
   </tr>
   <tr>

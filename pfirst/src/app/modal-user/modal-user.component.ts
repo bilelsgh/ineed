@@ -6,6 +6,9 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {MatSpinner} from "@angular/material/progress-spinner";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {NotificationService} from "../services/notification.service";
+import {Subscription} from "rxjs";
+import {Notif} from "../models/notification.model";
 
 @Component({
   selector: 'app-modal-user',
@@ -36,17 +39,23 @@ export class ModalUserComponent implements OnInit {
   stateExtend: string = 'inactive';
   stateReduce: string = 'inactive';
   isLoading: boolean = true;
-  hasInfoNotif: boolean = false;
-  hasProfilNotif: boolean = false;
-  hasActivityNotif: boolean = false;
+  numberOfInfoNotif: number = 0;
+  numberOfProfilNotif: number = 0;
+  numberOfActivityNotif: number = 0;
+  notifSubscription: Subscription;
+  notifList: Notif[];
 
-  constructor(private userserv: UserService, public matDialogRef: MatDialogRef<ModalUserComponent>,
-              private httpClient: HttpClient, private auth: AuthService, private router: Router){}
+  constructor(private userserv: UserService,
+              public matDialogRef: MatDialogRef<ModalUserComponent>,
+              private httpClient: HttpClient,
+              private auth: AuthService,
+              private router: Router,
+              private notificationService : NotificationService){}
 
   ngOnInit(): void {
     setTimeout( ()=>{
       //this.hasInfoNotif = true;
-      this.hasProfilNotif = true;
+      this.numberOfProfilNotif = 0;
       this.isLoading = false;
       //this.hasActivityNotif = true;
     }, 500);
@@ -56,8 +65,30 @@ export class ModalUserComponent implements OnInit {
       this.stateExtend = 'active';
     },500);
 
+    this.notifSubscription = this.notificationService.notifSubject
+      .subscribe(
+        (list) => {
+          this.notifList = list;
+          this.numberOfProfilNotif = this.selectElementsforCategory(this.notifList, "profil").length;
+          this.numberOfInfoNotif = this.selectElementsforCategory(this.notifList, "infos").length;
+          this.numberOfActivityNotif = this.selectElementsforCategory(this.notifList, "activity").length;
+        }
+      );
+
   }
 
+  selectElementsforCategory(tab: Notif[], cat: string): Notif[]{
+    if (tab === undefined){
+      return [];
+    }
+    let res: Notif[] = new Array();
+    tab.forEach( (elt) => {
+      if (elt.category === cat){
+        res.push(elt);
+      }
+    });
+    return res;
+  }
   goThenClose(where: string){
     this.router.navigate([where]);
     this.matDialogRef.close();

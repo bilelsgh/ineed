@@ -144,6 +144,5 @@ export class NotificationService {
       .catch((secondMsg) => {
         console.log(secondMsg);
       });
-
   }
 }
