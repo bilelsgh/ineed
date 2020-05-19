@@ -74,6 +74,6 @@
     Les participants à votre annonces sont :
     <div *ngFor="let assignee of this.assignees">
       <span style="cursor: pointer" class="badge badge-pill badge-info"
-            (click)="router.navigate(['profil/'+ assignee])">{{assignee}}</span>
+            (click)="router.navigate(['profil/'+ assignee])">{{(assignee)}}</span>
     </div>
   </div>

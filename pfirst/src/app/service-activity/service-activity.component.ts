@@ -46,8 +46,8 @@ export class ServiceActivityComponent implements OnInit {
   getHelpers(announceId: number = 0) {
     this.suiviServ.getHelpers(this.id)
       .then( () => {
-        console.log("Récupération des helpers dans service-activity OK - " + announceId);
-        this.helpers = this.suiviServ.helpers;
+        //console.log("Récupération des helpers dans service-activity OK - " + announceId);
+        //this.helpers = this.suiviServ.helpers;
         console.table(this.helpers);
         this.noHelper = this.suiviServ.noHelper;
       })
@@ -57,13 +57,6 @@ export class ServiceActivityComponent implements OnInit {
       });
   }
 
-  getUser() {
-    return this.serviceUser;
-  }
-
-  getDescription() {
-    return this.serviceDescription;
-  }
 
   acceptHelper(helperID: number) {
     let message = {
@@ -149,7 +142,7 @@ export class ServiceActivityComponent implements OnInit {
     //L'annonce est terminée, le statut passe à 2
     let message = {token: JSON.parse(localStorage.getItem('token')),
       announce: {idUser: this.service_descriptor.idUser , content: JSON.stringify(this.service_descriptor.content), id: this.service_descriptor.id,
-        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: 2, finished: 0} };
+        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: 2, finished: 1} };
 
     this.httpClient
       .put(this.auth.backend + 'api/announce/' + this.id, message )
@@ -167,6 +160,27 @@ export class ServiceActivityComponent implements OnInit {
           }
         }
       );
+  }
+
+  getNameByID(id : number): string{
+    let res : string;
+    this.httpClient
+      .get<any[]>(this.auth.backend + 'api/user/' + id +
+        '?token=' + JSON.parse(localStorage.getItem('token')))
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
+          res = response['user'].firstName;
+          return res;
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            this.auth.removeUserInfo();
+            console.log("# TOKEN EXPIRED");
+          }
+          console.log("#getNameById : Erreur de chargement [service activity] : " + error);}
+      );
+    return res;
   }
 
 }
