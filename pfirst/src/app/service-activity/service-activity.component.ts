@@ -31,12 +31,14 @@ export class ServiceActivityComponent implements OnInit {
   public assignees: number[] = [];
   assigneesSubscription: Subscription;
   public noAssignees: boolean;
+  public finished : boolean;
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
               private userService: UserService, private suiviServ: SuiviService) {
   }
 
   ngOnInit(): void {
+    this.finished = false;
     this.getHelpers(this.id);
     this.getAssignees(this.id);
   }
@@ -44,8 +46,9 @@ export class ServiceActivityComponent implements OnInit {
   getHelpers(announceId: number = 0) {
     this.suiviServ.getHelpers(this.id)
       .then( () => {
-        console.log("Récupération des helpers dans service-activity OK");
+        console.log("Récupération des helpers dans service-activity OK - " + announceId);
         this.helpers = this.suiviServ.helpers;
+        console.table(this.helpers);
         this.noHelper = this.suiviServ.noHelper;
       })
       .catch((e) => {
@@ -155,7 +158,7 @@ export class ServiceActivityComponent implements OnInit {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
           //mise à jour du statut de cette annonce
-          this.status = response["announce"].status;
+          this.finished = true;
         },
         (error) => {
           if (error['status'] === 401) {
