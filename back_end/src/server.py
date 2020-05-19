@@ -280,6 +280,59 @@ def delete_announce():
         return jsonify({'response': "this announce was deleted successfully",'token': user.generate_auth_token()}), 201
     abort(403)
 
+@app.route('/api/notification', methods=['POST'])
+def create_notification():
+    if not request.json or not 'UserID' in request.json:
+        abort(400)  # Bad Request
+    notification = Notification(UserID=request.json['UserID'],
+                    content=request.json['content'],
+                    CreationDate=date.today(),
+                    context = request.json['context'],
+                    treated=False)
+    db.session.add(notification)
+    db.session.commit()
+    created_notif = Notification.query.filter_by(idNotification=notification.idNotification).first()
+    return jsonify({'notification': created_notif.to_json()}), 201
+
+@app.route('/api/notification/User', methods=['GET'])
+def get_notification():
+    if not request.json or not 'token' in request.json:
+        abort(400)
+    user = User.verify_auth_token(request.json['token'])
+    if user is None:
+        abort(401)
+    notification = Notification.query.filter_by(UserID=user.idUser).first()
+    if notification:
+        notifications = Notification.query.filter_by(UserID=user.idUser,treated=False)
+        return jsonify({'token': user.generate_auth_token(), 'notifications': [notif.to_json() for notif in notifications]}), 200
+    abort(404)
+
+@app.route('/api/notification', methods=['POST'])
+def create_notification():
+    if not request.json or not 'UserID' in request.json:
+        abort(400)  # Bad Request
+    notification = Notification(UserID=request.json['UserID'],
+                    content=request.json['content'],
+                    CreationDate=date.today(),
+                    context = request.json['context'],
+                    treated=False)
+    db.session.add(notification)
+    db.session.commit()
+    created_notif = Notification.query.filter_by(idNotification=notification.idNotification).first()
+    return jsonify({'notification': created_notif.to_json()}), 201
+
+@app.route('/api/notification/User', methods=['GET'])
+def get_notification():
+    if not request.json or not 'token' in request.json:
+        abort(400)
+    user = User.verify_auth_token(request.json['token']) #on verifie si le user exist
+    if user is None:
+        abort(401)
+    notification = Notification.query.filter_by(UserID=user.idUser).first()
+    if notification:
+        notifications = Notification.query.filter_by(UserID=user.idUser,treated=False)
+        return jsonify({'token': user.generate_auth_token(), 'notifications': [notif.to_json() for notif in notifications]}), 200
+    abort(404)
 
 
 if __name__ == '__main__':

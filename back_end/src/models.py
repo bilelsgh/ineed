@@ -160,3 +160,27 @@ class Review(db.Model):
             'grade': self.grade
         }
         return review
+
+class Notification(db.Model):
+
+    __tablename__ = 'Notification'
+
+    idNotification = db.Column(db.Integer, primary_key=True)
+    UserID = db.Column(db.Integer, db.ForeignKey('User.idUser'))
+    CreationDate = db.Column(db.Date)
+    content = db.Column(db.String(600))
+    context = db.Column(db.String(100))
+    treated = db.Column(db.Boolean)
+
+    def __repr__(self):
+        return '<notification {}>'.format(self.idnotation)
+
+    def to_json(self):
+        notification = {
+            'idNotification': self.idNotification,
+            'UserID': self.UserID,
+            'CreationDate': self.CreationDate,
+            'context': self.context,
+            'content': self.content
+        }
+        return notification
