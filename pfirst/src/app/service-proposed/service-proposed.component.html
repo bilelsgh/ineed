@@ -1,5 +1,5 @@
 
-<div class="card mb-3 rounded-lg rounded-lg" style="width:100%;">
+<div id="{{theme}}" class="card mb-3 rounded-lg rounded-lg" style="width:100%;">
   <div class="row no-gutters">
     <div class="col-md-2">
       <img [src]="serviceImage"  class="card-img-top" alt="...">
@@ -17,7 +17,9 @@
           </div>
         </div>
         <div id="badge">
-          <span class="badge badge-pill badge-success">Success</span>
+          <span *ngIf="amIanAssignee(myID) && this.status === 1" class="badge badge-pill badge-success">Acceptée</span>
+          <span *ngIf="enAttente" class="badge badge-pill badge-warning">En attente</span>
+          <span *ngIf="refuse" class="badge badge-pill badge-danger">Refusé</span>
         </div>
       </div>
     </div>
