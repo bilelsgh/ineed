@@ -29,12 +29,14 @@
                     <app-service-activity
                       [serviceName]="service.content.name"
                       [serviceUser]="service.content.user"
+                      [ServiceType]="service.content.type"
                       [serviceDescription]="service.content.description"
                       [serviceImage]="service.content.image"
                       [index]="i"
                       [id]="service.idAnnounce"
                       [serviceDate]="service.content.datejour"
-                      [status]="service.status">
+                      [status]="service.status"
+                      [service_descriptor]="service">
                     </app-service-activity>
                   </td>
                   <td width="5%">
@@ -77,12 +79,14 @@
                     <app-service-activity
                       [serviceName]="service.content.name"
                       [serviceUser]="service.content.user"
+                      [ServiceType]="service.content.type"
                       [serviceDescription]="service.content.description"
                       [serviceImage]="service.content.image"
                       [index]="i"
                       [id]="service.idAnnounce"
                       [serviceDate]="service.content.datejour"
-                      [status]="service.status">
+                      [status]="service.status"
+                      [service_descriptor]="service">
                     </app-service-activity>
                   </td>
                   <td width="5%">

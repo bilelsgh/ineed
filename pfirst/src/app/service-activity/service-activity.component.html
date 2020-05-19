@@ -2,7 +2,7 @@
 <div class="card mb-3 rounded-lg rounded-lg" style="width:100%;">
   <div class="row no-gutters">
     <div class="col-md-2">
-      <img [src]="serviceImage"  class="card-img-top" alt="...">
+      <img style="cursor: pointer" (click)="router.navigate(['propose/'+id])" [src]="serviceImage"  class="card-img-top" alt="...">
     </div>
     <div class="col-md-10">
       <div class="card-body">
@@ -18,15 +18,21 @@
             <div class="text-right">
               <table>
                 <tr>
-                  <td><button class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
+                  <!-- BOUTONS -->
+                  <td><button [disabled]="this.status != 0" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
                               [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
                     Propositions</button></td>
-                  <td><button class="btn btn-primary" (click)="router.navigate(['propose/'+id])" >
-                    Voir l'annonce</button></td>
                   <td><button class="btn btn-primary" (click)="isCollapsed_bis = !isCollapsed_bis"
                               [attr.aria-expanded]="!isCollapsed_bis" aria-controls="collapseExample_bis">
                     Participants</button></td>
-                </tr>
+                  <td>
+                    <button *ngIf="this.status == 0" [disabled]="noAssignees" (click)="startService()" class="btn btn-outline-success">
+                      Lancer</button>
+                  </td>
+                <td>
+                  <button *ngIf="this.status === 1" [disabled]="noAssignees" (click)="endService()" class="btn btn-outline-danger">
+                    Terminer</button>
+                </td>
               </table>
             </div>
           </div>
@@ -35,6 +41,11 @@
       </div>
     </div>
   </div>
+
+  <!-- STATUT DE L'ANNONCE -->
+  <a *ngIf = "this.status === 1" href="#" class="badge badge-pill badge-warning">En cours</a>
+  <a *ngIf = "this.status === 2" href="#" class="badge badge-pill badge-secondary">Terminée</a>
+
   <div id="collapseExample" [ngbCollapse]="isCollapsed">
     <span *ngIf="noHelper">
       <p style="font-size: large">Aucune ne s'est encore proposée pour réaliser ce service.</p>
@@ -42,7 +53,7 @@
     <span>
       <mat-toolbar color="#ffffff" *ngIf="helpers.length > 0"> <!-- color ne marche pas-->
       <mat-toolbar-row *ngFor="let helper of helpers">
-        <div id="Proposition" *ngIf="!amIanAssignee(helper.id)">
+        <div id="Proposition" *ngIf="!amIanAssignee(helper.id) && this.status != 0">
           <span>{{helper.firstName}} {{helper.lastName}} vous a proposé son aide.</span>
           <span class="spacer"></span>
           <mat-icon style="cursor:pointer" title="Voir le profil" class="icon" (click)="router.navigate(['profil/'+helper.idUser])">face</mat-icon>

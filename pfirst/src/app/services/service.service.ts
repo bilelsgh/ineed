@@ -99,7 +99,7 @@ export class ServiceService{
     this.emitCourses();
     //On convertit en string car c'est le format attendu dans le BACK
     let course_back = {idUser: courses["idUser"], content: JSON.stringify(courses["content"]), id: courses["id"],
-    price: courses['price'], viewNumber: courses['viewNumber'], status: 0, finished: courses['finished']}
+    price: courses['price'], viewNumber: courses['viewNumber'], status: 0, finished: courses['finished']};
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : course_back};

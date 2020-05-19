@@ -22,14 +22,15 @@ export class ServiceActivityComponent implements OnInit {
   @Input() index: number;
   @Input() id: number;
   @Input() status: number;
-  noHelper: boolean;
+  @Input() service_descriptor: any;
+  public noHelper: boolean;
   public isCollapsed: boolean = true;
   public isCollapsed_bis : boolean = true;
   public helpers: any[] = [];
   public response: number[];
   public assignees: number[] = [];
   assigneesSubscription: Subscription;
-
+  public noAssignees: boolean;
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
               private userService: UserService, private suiviServ: SuiviService) {
@@ -98,14 +99,9 @@ export class ServiceActivityComponent implements OnInit {
     this.response = new Array(50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
     this.suiviServ.getAssignees(this.id)
       .then( () => {
-        this.assigneesSubscription = this.suiviServ.assigneesSubject.subscribe(
-          (assignees: any[]) => {
-            this.assignees = assignees;
-            console.log("Récupération des assignees dans service-activity OK");
-            this.suiviServ.emitAssigneesSubject();
-            this.status = this.suiviServ.status;
-          }
-        );
+        this.assignees = this.suiviServ.assignees;
+        this.noAssignees = this.assignees.length === 0;
+        this.status = this.suiviServ.status;
       })
       .catch((e) => {
         console.log('#getAssignees - service-activity: erreur de recupération ', e);
@@ -120,6 +116,54 @@ export class ServiceActivityComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  startService(){
+    //L'annonce est en cours, le statut passe à 1
+    let message = {token: JSON.parse(localStorage.getItem('token')),
+      announce: {idUser: this.service_descriptor.idUser , content: JSON.stringify(this.service_descriptor.content), id: this.service_descriptor.id,
+        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: 1, finished: 1} };
+
+    this.httpClient
+      .put(this.auth.backend + 'api/announce/' + this.id, message )
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+
+          //mise à jour du statut de cette annonce
+          this.status = response["announce"].status;
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            this.auth.removeUserInfo();
+            console.log('#TOKEN EXPIRED');
+          }
+        }
+      );
+  }
+
+  endService(){
+    //L'annonce est terminée, le statut passe à 2
+    let message = {token: JSON.parse(localStorage.getItem('token')),
+      announce: {idUser: this.service_descriptor.idUser , content: JSON.stringify(this.service_descriptor.content), id: this.service_descriptor.id,
+        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: 2, finished: 1} };
+
+    this.httpClient
+      .put(this.auth.backend + 'api/announce/' + this.id, message )
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+
+          //mise à jour du statut de cette annonce
+          this.status = response["announce"].status;
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            this.auth.removeUserInfo();
+            console.log('#TOKEN EXPIRED');
+          }
+        }
+      );
   }
 
 }

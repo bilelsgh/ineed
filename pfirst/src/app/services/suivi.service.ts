@@ -7,7 +7,7 @@ import {Subject} from 'rxjs';
 @Injectable()
 export class SuiviService {
 
-  assigneesSubject = new Subject<any[]>();
+
   public noHelper: boolean;
   public helpers: any[] = [];
   public assignees: number[] = [];
@@ -18,14 +18,14 @@ export class SuiviService {
   getHelpers(announceId: number = 0) {
     return new Promise((resolve, reject) => {
 
-      console.log("HELPERS : " + announceId);
+      //console.log("HELPERS : " + announceId);
       if (announceId === 0) {
         this.helpers = [];
       } else {
         this.userService.getAnnounceHelpersById(String(announceId))
           .then(() => {
             this.helpers = this.userService.announceHelpers;
-            console.table(this.userService.announceHelpers);
+            //console.table(this.userService.announceHelpers);
             this.helpers.length === 0 ? this.noHelper = true : this.noHelper = false;
             resolve(true);
           })
@@ -45,17 +45,15 @@ export class SuiviService {
       if (id === 0) {
         this.assignees = [];
       }else{
-        console.log("GET ASSIGNEES : " + id);
         this.httpClient
           .get<any[]>(this.auth.backend + 'api/announce/' + id + '/accepted?token=' + JSON.parse(localStorage.getItem('token')))
           .subscribe(
             (response) => {
               this.assignees = response['accepted'];
-              this.emitAssigneesSubject();
               this.status = response['status'];
               this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-              console.log("GET ASSIGNEES : " + id);
-              console.table(response['accepted']);
+            //  console.log("GET ASSIGNEES : " + id);
+              //console.table(response['accepted']);
               resolve(true);
             },
             (error) => {
@@ -83,9 +81,7 @@ export class SuiviService {
     return false;
   }
 
-  emitAssigneesSubject() {
-    this.assigneesSubject.next(this.assignees.slice());
-  }
+
 
 }
 
