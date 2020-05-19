@@ -27,16 +27,6 @@ export class ProfilComponent implements OnInit {
           console.log("#Erreur de chargement profil")
         });
     });
-
-    /*
-    this.userService.getProfilById(this.id)
-      .then(() => {
-        this.info_user = this.userService.info_user;
-      })
-      .catch(() => {
-        console.log("erreur de chargement profil");
-      });
-     */
   }
 
 }
