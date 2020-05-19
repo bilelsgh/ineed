@@ -1,7 +1,6 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/users.service';
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-profil',
@@ -38,18 +37,6 @@ export class ProfilComponent implements OnInit {
         console.log("erreur de chargement profil");
       });
      */
-  }
-
-  getBio(){
-    return this.info_user.bio;
-  }
-
-  onSave() {
-    this.userService.saveUserInfosToServer();
-  }
-
-  onLoad() {
-    this.userService.getUserInfosFromServer();
   }
 
 }
