@@ -72,8 +72,6 @@ export class InfoSettingsComponent implements OnInit {
   showStatus(){
     console.log("same_password :", this.same_password,"small_password :", this.small_password, "!same||small =", !this.same_password || this.small_password);
   }
-
-
   //-------------------------------------------------
   // Recuperation de la photo selectionnee
   onFileSelected(event) {

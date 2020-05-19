@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/users.service';
 import {ComponentPortal} from "@angular/cdk/portal";
 import {Overlay} from "@angular/cdk/overlay";
@@ -12,10 +12,10 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ProfilComponent implements OnInit {
 
-  info_user : any;
+  info_user: any;
   id: string;
 
-  constructor(private userService : UserService,
+  constructor(private userService: UserService,
               private route: ActivatedRoute) {
   }
 
@@ -31,25 +31,22 @@ export class ProfilComponent implements OnInit {
         console.log("Erreur de recupération des infos profil");
       });
      */
-    if(this.id === 'current_user' || this.id === String(JSON.parse(localStorage.getItem('user'))["idUser"])){
-      this.info_user = JSON.parse(localStorage.getItem('user')) ;
+    this.userService.getProfilById(this.id)
+      .then(() => {
+        this.info_user = this.userService.info_user;
+      })
+      .catch(() => {
+        console.log("erreur de chargement profil");
+      });
 
-      //si on accède au profil ailleurs que depuis la modal, on va chercher dans le back les infos
-    }else{
-      this.userService.getProfilById(this.id)
-        .then(()=>{
-          this.info_user = JSON.parse(localStorage.getItem('current_profil')) ;
-        })
-        .catch(()=>{console.log("erreur de chargement profil");});
-    }
 
   }
 
-  onSave(){
+  onSave() {
     this.userService.saveUserInfosToServer();
   }
 
-  onLoad(){
+  onLoad() {
     this.userService.getUserInfosFromServer();
   }
 

@@ -6,7 +6,7 @@
         <div id="profil-pic"></div>
       </td>
       <td width="15%">
-        <span class="user_identifier">{{info_user['firstName']}} {{info_user['lastName']}}</span>
+        <span class="user_identifier" *ngIf="info_user!=undefined">{{info_user['firstName']}} {{info_user['lastName']}}</span>
       </td>
       <td width="40%" rowspan="2">
         <table>
@@ -28,7 +28,7 @@
     </tr>
     <tr>
       <td>
-        <span id="aPropos">
+        <span id="aPropos" *ngIf="info_user!=undefined">
           A propos : {{info_user['bio']}}
         </span>
       </td>

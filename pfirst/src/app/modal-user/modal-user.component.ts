@@ -58,6 +58,10 @@ export class ModalUserComponent implements OnInit {
 
   }
 
+  getUserId():string{
+    return JSON.parse(localStorage.getItem('user')).idUser;
+  }
+
   goThenClose(where: string){
     this.router.navigate([where]);
     this.matDialogRef.close();
