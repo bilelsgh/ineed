@@ -334,6 +334,38 @@ def get_notification():
         return jsonify({'token': user.generate_auth_token(), 'notifications': [notif.to_json() for notif in notifications]}), 200
     abort(404)
 
+@app.route('/api/announce/done', methods=['GET'])
+def get_old_services():
+    if not request.json or not 'token' in request.json :
+        abort(400)
+    user = User.verify_auth_token(request.json['token'])
+    if user is None:
+        abort(401)
+    doneS = Announce.query.join(Answer, Answer.UserID == user.idUser).filter(Announce.finished==True,
+    ).filter(
+        Answer.AnnounceID == Announce.idAnnounce,
+    ).filter(
+        Answer.Accepted == True,
+    ).all()
+    return jsonify({'token': user.generate_auth_token(), 'doneS': [dnn.to_json() for dnn in doneS]}), 200
+
+@app.route('/api/announce/undone', methods=['GET'])
+def get_undone():
+    if not request.json or not 'token' in request.json:
+        abort(400)
+    user = User.verify_auth_token(request.json['token'])
+    if user is None:
+        abort(401)
+    undoneS = Announce.query.join(Answer, Answer.UserID == user.idUser,
+    ).filter(
+        Announce.finished==False,
+    ).filter(
+        Answer.AnnounceID == Announce.idAnnounce,
+    ).filter(
+        Answer.Accepted == True,
+    ).all()
+    return jsonify({'token': user.generate_auth_token(),'undoneS' : [unn.to_json() for unn in undoneS]}), 200
+
 
 if __name__ == '__main__':
     app.run(debug=1)
