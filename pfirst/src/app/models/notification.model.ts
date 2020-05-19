@@ -5,3 +5,9 @@ export class Notif{
               public category: string = "profil") {
   }
 }
+
+export class NotifContext{
+  constructor(public emitterId: string,
+              public announceId: string = '-1') {
+  }
+}

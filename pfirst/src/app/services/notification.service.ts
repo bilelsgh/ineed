@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {from, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {Notif} from "../models/notification.model";
+import {Notif, NotifContext} from "../models/notification.model";
 import {NotifierService} from "angular-notifier";
 import {AuthService} from "./auth.service";
 import {keyframes} from "@angular/animations";
@@ -26,9 +26,17 @@ export class NotificationService {
 
     this.alreadyNotified = new Array();
     //installation des notifs firebase
-    this.uploadNotif(new Notif("Notification de test firebase", "warning"));
-    this.updateNotifCache(true);
-    this.uploadNotif(new Notif("Notif 2", "info"));
+    /*  upload auto pour tests
+    this.uploadNotif(
+      new Notif("Notification de test", "warning"),
+      new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
+      JSON.parse(localStorage.getItem('user')).idUser);
+    //this.updateNotifCache(true);
+    this.uploadNotif(
+      new Notif("Notif test 2", "info"),
+      new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
+        JSON.parse(localStorage.getItem('user')).idUser);
+     */
   }
 
   wakeWatcher(freq: number) {
@@ -41,8 +49,22 @@ export class NotificationService {
     clearInterval(this.watcher);
   }
 
-  uploadNotif(not: Notif) {
+  uploadNotif(not: Notif, context: NotifContext, userId: string) {
     //this.notifList.push(not);
+    this.httpClient.post(this.authService.backend + 'api/notification',{
+      'UserID':userId,
+      'content':JSON.stringify(context),
+      'context': JSON.stringify(not)
+    })
+      .subscribe(
+        (resp) => {
+          console.log("#Successfully added a new notif :", not);
+        },
+        (e) => {
+          console.log('#Unable to add a new notif', e);
+        }
+      );
+    /* version firebase
     this.httpClient.post<Notif>(this.authService.backend_test + 'notifications.json', not)
       .subscribe(
         (resp) => {
@@ -51,7 +73,7 @@ export class NotificationService {
         (err) => {
           console.log('#Unable to add a new notif', err);
         }
-      );
+      );*/
   }
 
   updateNotifCache(toCheck: boolean) {

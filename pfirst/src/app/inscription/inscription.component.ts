@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from "../services/notification.service";
-import {Notif} from "../models/notification.model";
+import {Notif, NotifContext} from "../models/notification.model";
 
 @Component({
   selector: 'app-inscription',
@@ -129,8 +129,14 @@ export class InscriptionComponent implements OnInit {
           this.alreadyExist = false;
           this.auth.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.auth.setUserInfo( JSON.stringify(response['user']), 'user');
-          this.notificationService.uploadNotif(new Notif('Chargez votre première photo de profil !', 'info'));
-          this.notificationService.uploadNotif(new Notif('Complétez votre profil en ajoutant une bio !', 'info'));
+          this.notificationService.uploadNotif(
+            new Notif('Chargez votre première photo de profil !', 'warning', '','infos'),
+            new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
+            JSON.parse(localStorage.getItem('user')).idUser);
+          this.notificationService.uploadNotif(
+            new Notif('Chargez votre première photo de profil !', 'warning', '','infos'),
+            new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
+            JSON.parse(localStorage.getItem('user')).idUser);
           this.notificationService.wakeWatcher(10000);
           this.router.navigate(['']);
         },

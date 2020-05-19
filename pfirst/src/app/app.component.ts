@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {AuthService} from "./services/auth.service";
 import {NotificationService} from "./services/notification.service";
 import {Subscription} from "rxjs";
-import {Notif} from "./models/notification.model";
+import {Notif, NotifContext} from "./models/notification.model";
 
 @Component({
   selector: 'app-root',
@@ -28,5 +28,13 @@ export class AppComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.notifSubscription.unsubscribe();
+  }
+
+  uploadTestNotif(){
+    this.notificationService.uploadNotif(
+      new Notif('notif de test 1', 'info', '', 'infos'),
+      new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
+      JSON.parse(localStorage.getItem('user')).idUser
+    );
   }
 }
