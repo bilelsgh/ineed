@@ -7,7 +7,7 @@
     </td>
     <td align="center">
       <button [@extend]="stateExtend"style="width: 150px" *ngIf="!hasProfilNotif" type="button" class="btn btn-outline-light" (click)="this.goThenClose('profil/current_user')">Mon profil</button>
-      <button [@extend]="stateExtend" *ngIf="hasProfilNotif" type="button" class="btn btn-light" (click)="this.goThenClose('profil/' + getUserId())">Mon profil</button>
+      <button [@extend]="stateExtend" *ngIf="hasProfilNotif" type="button" class="btn btn-light" (click)="this.goThenClose('profil/' + getUserId()); emitFromSubject()">Mon profil</button>
       <!--<button type="button" class="btn btn-dark" (click)="myProfil()">Mon profil</button> -->
 
       <br>

@@ -4,6 +4,7 @@ import {ComponentPortal} from "@angular/cdk/portal";
 import {Overlay} from "@angular/cdk/overlay";
 import {catchError} from "rxjs/operators";
 import {ActivatedRoute} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-profil',
@@ -14,6 +15,7 @@ export class ProfilComponent implements OnInit {
 
   info_user: any;
   id: string;
+  fromSubscription: Subscription;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute) {
@@ -38,8 +40,7 @@ export class ProfilComponent implements OnInit {
       .catch(() => {
         console.log("erreur de chargement profil");
       });
-
-
+    this.fromSubscription
   }
 
   onSave() {

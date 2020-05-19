@@ -6,6 +6,7 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {MatSpinner} from "@angular/material/progress-spinner";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-modal-user',
@@ -39,6 +40,7 @@ export class ModalUserComponent implements OnInit {
   hasInfoNotif: boolean = false;
   hasProfilNotif: boolean = false;
   hasActivityNotif: boolean = false;
+  fromSubject = new Subject<string>();
 
   constructor(private userserv: UserService, public matDialogRef: MatDialogRef<ModalUserComponent>,
               private httpClient: HttpClient, private auth: AuthService, private router: Router){}
@@ -60,6 +62,10 @@ export class ModalUserComponent implements OnInit {
 
   getUserId():string{
     return JSON.parse(localStorage.getItem('user')).idUser;
+  }
+
+  emitFromSubject(){
+    this.fromSubject.next('modal_user');
   }
 
   goThenClose(where: string){
