@@ -65,8 +65,7 @@
 
 /* INEED C'EST QUOI */
 #IneedCQ{
-
-  width: 230px;
+  width: 80%;
 }
 
 #pile{
@@ -75,7 +74,7 @@
 }
 #sep
 {
-  width: 1280px;
+  width: 100%;
 
 }
 #textIn{
@@ -86,7 +85,7 @@
 /*AIDER QLQ */
 
 #tuveux{
-  width: 320px;
+  width: 80%;
 }
 #jetCourse{
   width: 350px;
@@ -98,4 +97,9 @@
 #textTV{
   width: 300px;
   text-align: right;
+}
+
+#iNeedExplainedContainer
+{
+  width: 100%;
 }
