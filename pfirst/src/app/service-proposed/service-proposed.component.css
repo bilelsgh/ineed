@@ -5,3 +5,8 @@
 #accepted{
   background-color: #b6ffb8;
 }
+
+#icone-mail{
+  width: 40px;
+  cursor: pointer;
+}

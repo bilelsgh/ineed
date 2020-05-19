@@ -7,8 +7,12 @@
     <div class="col-md-10">
       <div class="card-body">
         <div class="text-left">
-          <h2 class="card-title">{{serviceName}} pour {{serviceUser}}</h2>
+          <h2 class="card-title">{{serviceName}} pour {{serviceUser}}<img *ngIf="amIanAssignee(myID)" (click)="getMailByID(myID)"
+            id="icone-mail" src="../../assets/data/icone-mail.png" alt="">
+          </h2>
+
         </div>
+
         <div class="row no-gutters">
           <div class="col-md-10">
             <div class="text-right">
@@ -16,11 +20,19 @@
             </div>
           </div>
         </div>
-        <div id="badge">
-          <span *ngIf="amIanAssignee(myID) && this.status === 1" class="badge badge-pill badge-success">Acceptée</span>
-          <span *ngIf="enAttente" class="badge badge-pill badge-warning">En attente</span>
-          <span *ngIf="refuse" class="badge badge-pill badge-danger">Refusé</span>
-        </div>
+        <table>
+          <tr>
+            <!-- STATUS -->
+            <td align="left">
+              <div id="badge">
+                <span *ngIf="amIanAssignee(myID) && this.status === 1" class="badge badge-pill badge-success">Acceptée</span>
+                <span *ngIf="enAttente" class="badge badge-pill badge-warning">En attente</span>
+                <span *ngIf="refuse" class="badge badge-pill badge-danger">Refusé</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+
       </div>
     </div>
   </div>
