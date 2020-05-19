@@ -15,6 +15,12 @@ export class ServiceComponent implements OnInit {
   @Input() serviceDate : string;
   @Input() index : number;
   @Input() id : number;
+  @Input() serviceLatitude: number;
+  @Input() serviceLongitude: number;
+  @Input() map =false;
+  latitude:number;
+  longitude: number;
+
 
 
 
@@ -22,6 +28,8 @@ export class ServiceComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("#IMAGE : " + this.serviceImage);
+    this.latitude=this.serviceLatitude;
+    this.longitude=this.serviceLongitude;
   }
 
   getUser(){

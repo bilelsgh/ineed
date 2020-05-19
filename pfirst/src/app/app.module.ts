@@ -52,6 +52,7 @@ import { DisplayProfilComponent } from './display-profil/display-profil.componen
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
 import { GeolocComponent } from './geoloc/geoloc.component';
 import { GeolocService } from './services/geoloc.service';
+import { MiniMapComponent } from './mini-map/mini-map.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { GeolocService } from './services/geoloc.service';
     InfoSettingsComponent,
     DisplayProfilComponent,
     FiltreProposeComponent,
-    GeolocComponent
+    GeolocComponent,
+    MiniMapComponent
   ],
   imports: [
     BrowserModule,
