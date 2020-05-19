@@ -9,7 +9,7 @@ import {keyframes} from "@angular/animations";
 @Injectable()
 export class NotificationService {
 
-  hasNew: boolean = true;
+  //hasNew: boolean = true;
   notifList: Notif[] = new Array();
   alreadyNotified: Notif[];
   userId: string = '-1';
@@ -37,7 +37,7 @@ export class NotificationService {
     }, freq);
   }
 
-  sleepWatcher(){
+  sleepWatcher() {
     clearInterval(this.watcher);
   }
 
@@ -74,11 +74,11 @@ export class NotificationService {
           (got) => {
             let notifIds = Object.keys(got);
             this.notifList = notifIds.map(key => got[key]);
-            this.notifList.forEach((elt,idx)=>{
+            this.notifList.forEach((elt, idx) => {
               elt.id = notifIds[idx];
             });
             this.emitNotifSubject();
-            console.log("GOT :",got);
+            console.log("GOT :", got);
             resolve('Got the notifications');
           },
           (err) => {
@@ -88,20 +88,21 @@ export class NotificationService {
     });
   }
 
-  checkNotifCache() {
-    return new Promise(((resolve, reject) => {
-      this.httpClient.get<boolean>(this.authService.backend_test + 'cacheNotif.json')
-        .subscribe(
-          (result) => {
-            this.hasNew = result;
-            resolve('Checked the cache');
-          },
-          (err) => {
-            reject('Unable to check the cache');
-          }
-        );
-    }));
-  }
+  /*
+    checkNotifCache() {
+      return new Promise(((resolve, reject) => {
+        this.httpClient.get<boolean>(this.authService.backend_test + 'cacheNotif.json')
+          .subscribe(
+            (result) => {
+              this.hasNew = result;
+              resolve('Checked the cache');
+            },
+            (err) => {
+              reject('Unable to check the cache');
+            }
+          );
+      }));
+    }*/
 
   emitNotifSubject() {
     this.notifSubject.next(this.notifList);
@@ -113,10 +114,10 @@ export class NotificationService {
       message: not.message,
       id: not.id
     });
-    console.log("Triggered notif because ",this.alreadyNotified,"doesnt contains ", not);
+    console.log("Triggered notif because ", this.alreadyNotified, "doesnt contains ", not);
     console.log("Proof this.alreadyNotified.some(notif => notif.id === not.id ):", this.alreadyNotified.some(notif => notif.id === not.id));
     if (this.alreadyNotified.length > 0) {
-      console.log("Indeed indexable : this.alreadyNotified[0].id = ",this.alreadyNotified[0].id == not.id);
+      console.log("Indeed indexable : this.alreadyNotified[0].id = ", this.alreadyNotified[0].id == not.id);
     }
     this.alreadyNotified.push(not);
   }
@@ -127,30 +128,22 @@ export class NotificationService {
   }
 
   watchNotifs() {
-    this.checkNotifCache()
-      .then((msg) => {
-        console.log(msg);
-        if (this.hasNew) {
-          //this.addNotif(new Notifx('Chargez une photo de profil', 'info', 'profilPic'));
-          this.hasNew = false;
-          this.getNoticationFromBack()
-            .then((secondMsg) => {
-              console.log('notifList :', this.notifList);
-              for (let i in this.notifList) {
-                if (!this.alreadyNotified.some(notif => notif.id === this.notifList[i].id)) {
-                  this.triggerNotif(this.notifList[i]);
-                }
-              }
-              //this.alreadyNotified = this.notifList;
-              console.log(secondMsg);
-            })
-            .catch((secondMsg) => {
-              console.log(secondMsg);
-            });
+    //this.addNotif(new Notifx('Chargez une photo de profil', 'info', 'profilPic'));
+    //this.hasNew = false;
+    this.getNoticationFromBack()
+      .then((secondMsg) => {
+        console.log('notifList :', this.notifList);
+        for (let i in this.notifList) {
+          if (!this.alreadyNotified.some(notif => notif.id === this.notifList[i].id)) {
+            this.triggerNotif(this.notifList[i]);
+          }
         }
+        //this.alreadyNotified = this.notifList;
+        console.log(secondMsg);
       })
-      .catch((msg) => {
-        console.log(msg);
+      .catch((secondMsg) => {
+        console.log(secondMsg);
       });
+
   }
 }
