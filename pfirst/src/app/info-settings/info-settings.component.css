@@ -18,7 +18,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 :host-context(.theme-dark) #jumb{
-  background-color: #2e2e2e;
+  background-color: #d2d2d2;
 }
 
 :host-context(.theme-dark) #formulaire{
