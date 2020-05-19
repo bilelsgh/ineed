@@ -7,6 +7,7 @@ import { google } from 'google-maps';
 @Injectable()
 
 export class GeolocService implements OnInit {
+  info ={latitude: 0, longitude:0, zoom:13, address:"" };
   title: string = 'AGM project';
   latitude: number;
   longitude: number;
@@ -55,28 +56,26 @@ export class GeolocService implements OnInit {
 
   // Get Current Location Coordinates
    setCurrentLocation() {
-
-    return new Promise(((resolve, reject) => {
-
+    
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.zoom = 13;
-        this.getAddress(this.latitude, this.longitude);
+        //this.getAddress(this.latitude, this.longitude);
+        this.info.latitude=position.coords.latitude;
+        this.info.longitude=position.coords.longitude;
+        this.info.zoom = 13;
+        //this.info.address=this.address;
         
-      });
-      resolve(true);
-    }
-    else{
-      reject(true);
-    }
-  }));
-}
 
-  geocoding(address){
-        
+      });
+
     }
+
+    }
+
+
 
 
   

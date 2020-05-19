@@ -17,12 +17,11 @@ import { GeolocComponent } from '../geoloc/geoloc.component';
 })
 export class NewMenageComponent implements OnInit {
   geoloc:GeolocComponent;
+  info : any;
   menageForm: FormGroup;
-  latitude : number=0;
-  longitude :number;
-  adress: string;
-  position= new Array;
+  
 
+  loca= false;
 
   liste_materiel= []; //A ENVOYER DANS LA DB
 
@@ -30,6 +29,8 @@ export class NewMenageComponent implements OnInit {
              private httpClient : HttpClient, private auth : AuthService ,private geolocService:GeolocService) { }
 
 ngOnInit(): void {
+
+  this.info=this.geolocService.info;
 
 
     this.initForm();
@@ -57,19 +58,15 @@ ngOnInit(): void {
       content.salle= f.value['salle'];
       content.surface=f.value['surface'];
       content.description=f.value['description'];
-
+      content.latitude=this.info.latitude;
+      content.longitude=this.info.longitude;
       content.user=f.value['user'];
       content.city=f.value['city'];
       content.adress=f.value['adress'];
       content.materiel=this.liste_materiel;
-      content.latitude=this.latitude;
-      content.longitude=this.longitude;
     const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
 
     0,0, false);
-
-
-
 
       this.serviceService.addMenage(newMenage);
       this.router.navigate(['']);
@@ -77,16 +74,11 @@ ngOnInit(): void {
 
   
     getLocation(){
-      /*console.log("coucou");
-      console.log(this.geoloc.latitude);
+      if(this.info.latitude==0){
       
-      //console.log(this.latitude);*/
-      this.geolocService.setCurrentLocation().then(() => {
-        console.log(this.geoloc.latitude);
-      })
-      .catch((e) => {
-        console.log("afficher l'erreur ", e);
-      });
+      this.geolocService.setCurrentLocation();
+      }
+      console.log(this.info);
     }
     
 

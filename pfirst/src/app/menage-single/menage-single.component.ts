@@ -25,6 +25,8 @@ export class MenageSingleComponent implements OnInit {
   Surface : number;
   liste_a_copier : string;
   copied = false;
+  Latitude: number;
+  Longitude : number;
   @Input() service_descriptor: Menage;
 
 
@@ -40,6 +42,8 @@ export class MenageSingleComponent implements OnInit {
     this.Heure = this.service_descriptor.content.dateheure;
     this.Surface=parseInt(this.service_descriptor.content.surface);
     this.View= this.service_descriptor['viewNumber'];
+    this.Longitude=this.service_descriptor.content.longitude;
+    this.Latitude= this.service_descriptor.content.latitude;
 
     this.Salle=this.service_descriptor.content.salle;
     

@@ -21,7 +21,7 @@ export class GeolocComponent implements OnInit {
   public searchElementRef: ElementRef;
 
 
-  constructor( private geolocService:GeolocService,
+  constructor( /*private geolocService:GeolocService,*/
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
   ) { }
@@ -29,11 +29,14 @@ export class GeolocComponent implements OnInit {
 
   ngOnInit() {
     //load Places Autocomplete
+    //this.geoCoder = new google.maps.Geocoder;
     this.mapsAPILoader.load().then(() => {
       
-      this.geoCoder = new google.maps.Geocoder;
+      this.geoCoder = new google.maps.Geocoder; }
+    )}
+    
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      /*let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
@@ -42,34 +45,32 @@ export class GeolocComponent implements OnInit {
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
-          }
+          }*/
 
           //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
+          /*this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.zoom = 12;
         });
       });
-    });
-  }
+    });*/
+  
 
   // Get Current Location Coordinates
    setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.geolocService.latitude=position.coords.latitude;
-        this.geolocService.longitude=position.coords.longitude;
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.zoom = 13;
         this.getAddress(this.latitude, this.longitude);
+        this.info.latitude=position.coords.latitude;
+        this.info.longitude=position.coords.longitude;
+        this.info.zoom = 13;
+        this.info.address=this.address;
       });
     }
   }
-
-
- 
-
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       console.log(results);
