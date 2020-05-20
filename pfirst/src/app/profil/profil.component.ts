@@ -19,10 +19,12 @@ export class ProfilComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe( (pars)=> {
       this.id = pars['id'];
+      console.log('ID : ', this.id);
       this.userService.getProfilById(this.id).then(
-        ()=> {
+        () => {
           this.info_user = this.userService.info_user;
-          this.myProfil = (this.id === JSON.parse(localStorage.getItem('user')).idUser);
+          this.myProfil = (this.id == JSON.parse(localStorage.getItem('user')).idUser);
+          console.log("myProfil : ", this.myProfil);
         })
         .catch( () => {
           console.log("#Erreur de chargement profil")
