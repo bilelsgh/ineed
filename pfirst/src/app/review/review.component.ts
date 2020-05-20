@@ -21,7 +21,7 @@ export class ReviewComponent implements OnInit {
   }
 
   onSubmitReview(form: NgForm) {
-    let comment: string = form.value.comment;
+    const comment: string = form.value.comment;
     this.httpClient.post(this.authService.backend + 'api/review', {
       'token': JSON.parse(localStorage.getItem('token')),
       'review': {
