@@ -31,7 +31,7 @@ export class ServiceViewComponent implements OnInit {
 
     //RÉCUPÈRE DEPUIS LE BACK
     this.httpClient
-      .get<any[]>(this.auth.backend+'api/announce')
+      .get<any[]>(this.auth.backend+'api/announce/helpers')
       .subscribe(
         (response) => {
           for (let j=0; j< Number(response['announces']['length']) ; j++) {
