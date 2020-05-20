@@ -120,23 +120,6 @@ export class ServiceProposedComponent implements OnInit {
     return false;
   }
 
-  getProposedAnnounce(id : number){
-    this.httpClient
-      .get<any[]>(this.auth.backend + 'api/announce/' + id + '/accepted?token=' + JSON.parse(localStorage.getItem('token')))
-      .subscribe(
-        (response) => {
-          console.table(response);
-          //this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); mise à jour du token
-        },
-        (error) => {
-          if (error['status'] === 401) {
-            this.auth.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
-          }
-          console.log('#DEBUG : Erreur lors de la récupération des assignees [service-activity] ' + error);
-        }
-      );
-  }
 
   getMailByID(id : number){
     this.httpClient

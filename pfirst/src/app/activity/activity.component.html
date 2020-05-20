@@ -1,13 +1,87 @@
 
 <table align="center" width="1800px">
   <tr>
-    <!-- ###################### LISTE DES SERVICES DEMANDES ############################""""-->
+    <!-- ###################### LISTE DES SERVICES EN COURS ############################""""-->
+
+    <div class="col-md-7" id="services-list">
+      <table>
+        <tr>
+          <td>
+            <h2  id="demandeTexte">En cours</h2>
+          </td>
+          <td>
+            <img  *ngIf="isCollapsedEnCours" (click)="isCollapsedEnCours = !isCollapsedEnCours"
+                  [attr.aria-expanded]="!isCollapsedEnCours" aria-controls="collapseExample"
+                  style="width:50px" src="../../assets/data/fleche.png" alt="">
+            <img  *ngIf="!isCollapsedEnCours" (click)="isCollapsedEnCours = !isCollapsedEnCours"
+                  [attr.aria-expanded]="!isCollapsedEnCours" aria-controls="collapseExample"
+                  style="width:50px" src="../../assets/data/fleche_up.png" alt="">
+          </td>
+        </tr>
+      </table>
+      <div id="collapseExample" [ngbCollapse]="isCollapsedEnCours">
+        <div class="row">
+          <ul class="list-group">
+            <div *ngFor="let service of en_cours_asked,  let i =index">
+              <table width="800px" border="0px solid">
+                <tr>
+                  <td>
+                    <app-service-activity
+                      [serviceName]="service.content.name"
+                      [serviceUser]="service.content.user"
+                      [ServiceType]="service.content.type"
+                      [serviceDescription]="service.content.description"
+                      [serviceImage]="service.content.image"
+                      [index]="i"
+                      [id]="service.idAnnounce"
+                      [serviceDate]="service.content.datejour"
+                      [status]="service.status"
+                      [service_descriptor]="service">
+                    </app-service-activity>
+                  </td>
+                  <td width="5%">
+                    {{i+1}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div *ngFor="let service of en_cours_proposed,  let i =index">
+              <table width="800px" border="0px solid">
+                <tr>
+                  <td>
+                    <app-service-activity
+                      [serviceName]="service.content.name"
+                      [serviceUser]="service.content.user"
+                      [ServiceType]="service.content.type"
+                      [serviceDescription]="service.content.description"
+                      [serviceImage]="service.content.image"
+                      [index]="i"
+                      [id]="service.idAnnounce"
+                      [serviceDate]="service.content.datejour"
+                      [status]="service.status"
+                      [service_descriptor]="service">
+                    </app-service-activity>
+                  </td>
+                  <td width="5%">
+                    {{i+1}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </tr>
+
+  <tr>
+    <!-- ###################### LISTE DES SERVICES DEMANDES EN ATTENTE ############################""""-->
 
       <div class="col-md-7" id="services-list">
         <table>
           <tr>
             <td>
-              <h2  id="demandeTexte">Vos demandes en cours</h2>
+              <h2  id="demandeTexte">Vos demandes en attente</h2>
             </td>
             <td>
               <img  *ngIf="isCollapsedDemande" (click)="isCollapsedDemande = !isCollapsedDemande"
@@ -51,13 +125,13 @@
       </div>
   </tr>
 
-  <!-- PROPOSITIONS EN COURS -->
+  <!-- ############### SERVICE PROPOSÉS EN ATTENTE #############-->
   <tr>
 
     <table>
       <tr>
         <td>
-          <h2  id="demandeTexte">Vos propositions en cours</h2>
+          <h2  id="demandeTexte">Vos propositions en attente</h2>
         </td>
         <td>
           <img  *ngIf="isCollapsedProposition" (click)="isCollapsedProposition = !isCollapsedProposition"

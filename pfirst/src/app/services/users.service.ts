@@ -225,7 +225,7 @@ export class UserService {
           (response) => {
             /*for backend*/
             this.active_announces = response['announces'];
-            console.table(response['announces']);
+            //console.table(response['announces']);
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
 
             resolve(true);
@@ -252,7 +252,7 @@ export class UserService {
           (response) => {
             this.announceHelpers = response['helpers'];
             this.auth.setUserInfo(JSON.stringify(response['token']),'token');
-            console.log('#getAnnounceHelpers : success', response);
+            //console.log('#getAnnounceHelpers : success', response);
             resolve(true);
           },
           (error) => {

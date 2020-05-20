@@ -47,7 +47,7 @@ export class ServiceActivityComponent implements OnInit {
       .then( () => {
         //console.log("Récupération des helpers dans service-activity OK - " + announceId);
         //this.helpers = this.suiviServ.helpers;
-        console.table(this.helpers);
+        //console.table(this.helpers);
         this.noHelper = this.suiviServ.noHelper;
       })
       .catch((e) => {

@@ -25,14 +25,18 @@
             <!-- STATUS -->
             <td align="left">
               <div id="badge">
-                <span *ngIf="amIanAssignee(myID) && this.status === 1" class="badge badge-pill badge-success">Acceptée</span>
+                <span *ngIf="amIanAssignee(myID) && this.status === 0" class="badge badge-pill badge-success">Acceptée</span>
+                <span *ngIf="amIanAssignee(myID) && this.status === 1" class="badge badge-pill badge-success">En cours
+                  <p>Vous rendez service à {{serviceUser}} en ce moment</p>
+                </span>
+                <span *ngIf="amIanAssignee(myID) && this.status === 2" class="badge badge-pill badge-secondary">Terminé</span>
                 <span *ngIf="enAttente" class="badge badge-pill badge-warning">En attente</span>
                 <span *ngIf="refuse" class="badge badge-pill badge-danger">Refusé</span>
               </div>
             </td>
           </tr>
         </table>
-
+      </div>
       </div>
     </div>
   </div>
