@@ -8,7 +8,11 @@
     <div class="card" >
       <table cellpadding="30">
         <tr>
-          <td align="center"><div id="profil-pic"></div></td>
+          <td align="center"><div
+            *ngIf="this.info_user != undefined"
+            id="profil-pic"
+            [ngStyle]="{'background-image':'url(' + getPdpPath() +')'}"
+          ></div></td>
           <td><span class="user_identifier" *ngIf="info_user != undefined">{{info_user['firstName']}} {{info_user['lastName']}}</span></td>
           <td><img style="width:50px" src="../../assets/data/star.png" alt=""> <span
             style="font-size: large;color: dimgray">4.8 <b>/5</b></span><i> (en dur)</i></td>

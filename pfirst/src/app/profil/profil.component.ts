@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/users.service';
 import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-profil',
@@ -13,7 +14,9 @@ export class ProfilComponent implements OnInit {
   id: string;
 
   constructor(private userService : UserService,
-              private route: ActivatedRoute, public router: Router) {
+              private route: ActivatedRoute,
+              public router: Router,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -30,6 +33,10 @@ export class ProfilComponent implements OnInit {
           console.log("#Erreur de chargement profil")
         });
     });
+  }
+
+  getPdpPath(): string{
+    return this.authService.backend + '/static/images/' + this.info_user.photo;
   }
 
   //Récupération des services demandés
