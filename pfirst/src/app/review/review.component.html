@@ -6,24 +6,20 @@
         <div class="col-sm-8 col-sm-offset-2">
 
           <form (ngSubmit)="onSubmitReview(f)" #f="ngForm">
-
-
             <div class="form-group">
-
               <!-- ##################### Commentaire ####################-->
               <div class="jumbotron" id="formulaire">
-                <label for="comment">Votre retour ?</label>
-                <input type="text" class="form-control" id="comment" name="comment"
+                <label for="comment">Qu'avez vous pensé de {{ratedName}} ?</label>
+                <input height="200" type="text" class="form-control" id="comment" name="comment"
                        ngModel>
               </div>
 
-              <!-- ##################### Note ####################-->
+              <!-- ##################### Note ##################s##-->
               <div class="jumbotron" id="formulaire">
-                <p>Noter vptre helper/helped</p>
-                <ngb-rating max="5" [(rate)]="rate"></ngb-rating>
+                <p>Complétez votre retour avec une note !</p>
+                <ngb-rating id="ratingInput" max="5" [(rate)]="rate"></ngb-rating>
               </div>
-
-              <button style="margin-left: 330px" class="btn btn-primary" type="submit">Valider</button>
+              <button style="margin-left: 330px" class="btn btn-primary" type="submit" [disabled]="successfullySended">Soumettre</button>
             </div>
           </form>
         </div>
