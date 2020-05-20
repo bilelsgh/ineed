@@ -38,9 +38,6 @@
                       [service_descriptor]="service">
                     </app-service-activity>
                   </td>
-                  <td width="5%">
-                    {{i + 1}}
-                  </td>
                 </tr>
               </table>
             </div>
@@ -60,9 +57,6 @@
                       [status]="service.status"
                       [service_descriptor]="service">
                     </app-service-proposed>
-                  </td>
-                  <td width="5%">
-                    {{i + 1}}
                   </td>
                 </tr>
               </table>
@@ -99,7 +93,7 @@
               <table width="800px" border="0px solid">
                 <tr>
                   <td>
-                    <app-service-activity
+                    <app-service-activity *ngIf="service.status != 2"
                       [serviceName]="service.content.name"
                       [serviceUser]="service.content.user"
                       [ServiceType]="service.content.type"
@@ -111,9 +105,6 @@
                       [status]="service.status"
                       [service_descriptor]="service">
                     </app-service-activity>
-                  </td>
-                  <td width="5%">
-                    {{i + 1}}
                   </td>
                 </tr>
               </table>
@@ -150,7 +141,7 @@
               <table width="800px" border="0px solid">
                 <tr>
                   <td>
-                    <app-service-proposed
+                    <app-service-proposed *ngIf="service.status != 2"
                       [serviceName]="service.content.name"
                       [serviceUser]="service.content.user"
                       [ServiceType]="service.content.type"
@@ -162,9 +153,6 @@
                       [status]="service.status"
                       [service_descriptor]="service">
                     </app-service-proposed>
-                  </td>
-                  <td width="5%">
-                    {{i + 1}}
                   </td>
                 </tr>
               </table>
