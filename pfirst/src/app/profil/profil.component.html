@@ -18,7 +18,12 @@
           utilisateur. Selon son investissement dans INEED, il sera Novice, Confirmé ou Expert."
                     triggers="mouseenter:mouseleave"
                     popoverTitle="Un rang c'est quoi ?" placement="right">
-                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-primary">Rang</span>
+                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-dark" *ngIf="rank == 'undefined'">{{rank}}</span>
+                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-secondary" *ngIf="rank == 'Débutant'">{{rank}}</span>
+                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-primary" *ngIf="rank == 'Confirmé'">{{rank}}</span>
+                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-warning" *ngIf="rank == 'Expert'">{{rank}}</span>
+
+
           </span>
         </tr>
       </table>
