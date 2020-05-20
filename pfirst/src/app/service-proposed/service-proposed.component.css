@@ -6,6 +6,14 @@
   background-color: #b6ffb8;
 }
 
+#basic{
+  background-color: #ffffff;
+}
+
+#enCours{
+  background-color: #ffdda4;
+}
+
 #icone-mail{
   width: 40px;
   cursor: pointer;

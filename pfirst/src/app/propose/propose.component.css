@@ -1,9 +1,4 @@
-.list-group{.jumbotron{
-  background-image: url("../../assets/data/banniere.jpg");
-  background-size: cover;
-  min-height: 100px;
-  height: 200px;
-}
+.list-group{
     text-align: center;
 }
 
@@ -30,7 +25,7 @@ slidecontainer {
   -webkit-appearance: none;
   width: 80%;
   height: 10px;
-  border-radius: 5px;  
+  border-radius: 5px;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
@@ -43,7 +38,7 @@ slidecontainer {
   appearance: none;
   width: 15px;
   height: 15px;
-  border-radius: 50%; 
+  border-radius: 50%;
   background: #4CAF50;
   cursor: pointer;
 }

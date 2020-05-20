@@ -49,6 +49,7 @@ export class ActivityComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProposedAnnounce();
+
     this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
 
     console.log('ID : ', JSON.parse(localStorage.getItem('user'))['idUser']);
@@ -64,11 +65,9 @@ export class ActivityComponent implements OnInit {
             this.asked_services.push(service);
           }
         }
-
-          //console.log('#ACTIVIY : Récupération ok', 'announces in userServ :', this.userService.active_announces);
           this.selectedAnnounce = this.asked_services.length > 0 ? 0 : -1;
-          //console.log("SELECTED INDEX : ", this.selectedAnnounce);
-          //a modifier aussi si modif getHelpers
+
+        //a modifier aussi si modif getHelpers
           if (this.selectedAnnounce != -1) {
             this.getHelpers(this.selectedAnnounce);
             //getHelpers(this.asked_services[this.selectedAnnounce]['idAnnounce']);
