@@ -2,12 +2,20 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {subscribeOn} from 'rxjs/operators';
 import {AuthService} from './auth.service';
+import {Subject} from "rxjs";
+
 
 @Injectable()
 export class UserService {
 
   constructor(private httpClient: HttpClient, private auth: AuthService) {
   }
+
+  dark_theme : boolean = false;
+  light_theme : boolean = true;
+  darkThemeSubject = new Subject<boolean>();
+  lightThemeSubject = new Subject<boolean>();
+
 
   info_user: any;
   notifications: string[] = [
@@ -160,43 +168,33 @@ export class UserService {
   }
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
-  getProfilById(id: string = 'user') {
-    console.log("#IDUSERgetProfil : " + id );
+  getProfilById(id: string) {
+    console.log("#IDUSERgetProfil : " + id);
     return new Promise((resolve, reject) => {
-      if (id === 'user') {
-        this.info_user = JSON.parse(localStorage.getItem('user'));
-        console.table("getProfilByID : ",this.info_user);
-        if (this.info_user != null) {
-          resolve(true);
-        } else {
-          reject(true);
-        }
-      } else {
-        this.httpClient
-          .get<any[]>(this.auth.backend + 'api/user/' + id +
-            '?token=' + JSON.parse(localStorage.getItem('token')))
-          .subscribe(
-            (response) => {
-              console.log("#GETPROFILBYID");
-              console.log(response);
-              this.auth.setUserInfo(JSON.stringify(response['user']), 'current_profil'); //on stocke les infos de l'utilisateur récupérée dans le local storage
-              this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
-
-              /*this.info_user = response;
-              console.log("#OK");
-              console.log("#SERVICES : " + response);*/
-              resolve(true);
-            },
-            (error) => {
-              if (error['status'] === 401) {
-                this.auth.removeUserInfo();
-                console.log("#TOKEN EXPIRED");
-              }
-              console.log("Erreur de chargement : " + error);
-              reject(true);
+      this.httpClient
+        .get<any[]>(this.auth.backend + 'api/user/' + id +
+          '?token=' + JSON.parse(localStorage.getItem('token')))
+        .subscribe(
+          (response) => {
+            console.log("#GETPROFILBYID");
+            console.log(response);
+            this.info_user = response['user'];
+            //this.auth.setUserInfo(JSON.stringify(response['user']), 'current_profil'); //on stocke les infos de l'utilisateur récupérée dans le local storage
+            this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
+            /*this.info_user = response;
+            console.log("#OK");
+            console.log("#SERVICES : " + response);*/
+            resolve(true);
+          },
+          (error) => {
+            if (error['status'] === 401) {
+              this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
             }
-          );
-      }
+            console.log("Erreur de chargement : " + error);
+            reject(true);
+          }
+        );
     });
   };
 
@@ -205,7 +203,7 @@ export class UserService {
 
       const httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type':  'application/json',
+          'Content-Type': 'application/json',
           'Authorization': localStorage.getItem('token')
         })
       };
@@ -234,5 +232,30 @@ export class UserService {
           }
         );
     });
+  };
+
+  lightTheme(){
+    this.dark_theme = false;
+    this.light_theme = true;
+    this.emitLightThemeSubject();
+    this.emitDarkThemeSubject();
+
   }
+  darkTheme(){
+    this.dark_theme = true;
+    this.light_theme = false;
+    this.emitLightThemeSubject();
+    this.emitDarkThemeSubject();
+  }
+
+  emitDarkThemeSubject(){
+    console.log('DARK');
+    this.darkThemeSubject.next(this.dark_theme);
+  }
+
+  emitLightThemeSubject(){
+    console.log('LIGHT');
+    this.lightThemeSubject.next(this.light_theme);
+  }
+
 }

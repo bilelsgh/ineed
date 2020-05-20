@@ -1,6 +1,11 @@
-#globalNavbar
-{
+#globalNavbar {
   width: 100%;
+}
+#theme_lune{
+  width: 30px;
+}
+#theme_soleil{
+  width: 50px;
 }
 
 #logo

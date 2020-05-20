@@ -1,7 +1,7 @@
 <body>
 <div id="settingsContainer">
   <div id="infoContainer">
-    <div class="jumbotron jumbotron-fluid">
+    <div id="jumb" class="jumbotron jumbotron-fluid">
       <div class="container">
         <table align="center">
 
@@ -44,6 +44,7 @@
                       <label for="bio">Votre bio</label>
                     </td>
                     <td align="right">
+
                     <span style="cursor:pointer" id="info" class="badge badge-pill badge-secondary"
                           ngbPopover="150 caractères maximum"
                           triggers="mouseenter:mouseleave"
@@ -175,6 +176,9 @@
   <br> Original: Size: {{sizeOfOriginalImage | number : '1.2-2'}}MB<br><img [src]="localUrl" height="200px"><br><br>
   <br> Compressed: Size: {{sizeOFCompressedImage | number : '1.2-2'}}MB<br><img [src]="localCompressedURl" height="150px">
 </div>
+<<<<<<< HEAD
+</body>
+=======
 
 <div id="compress">
   <input type="file" accept=".jpg,.png,.jpeg" (change)="selectFile($event)"><br>

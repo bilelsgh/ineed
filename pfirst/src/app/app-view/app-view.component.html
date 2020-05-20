@@ -1,20 +1,21 @@
-<div *ngIf="disconnected_message" class="alert alert-dismissable alert-danger">
-  Vous avez été déconnecté.
-</div>
+<div class="main-body">
+  <div *ngIf="disconnected_message" class="alert alert-dismissable alert-danger">
+    Vous avez été déconnecté.
+  </div>
 
-<div class="jumbotron text-center">
-  <h2 class="display-4 text-white">"Un peu d'aide fait grand bien"</h2>
-  <h3 class="text-white">Dès maintenant, aide les personnes dans le besoin près de toi.</h3>
-  <table cellpadding="10px" align="center" id="buttons_action">
-    <div id="buttons_services">
-      <tr>
-        <td>
-          <button routerLink="demande" class="btn btn-outline-success" id="button1"><span id="text_demander">
+  <div class="jumbotron text-center">
+    <h2 class="display-4 text-white">"Un peu d'aide fait grand bien"</h2>
+    <h3 class="text-white">Dès maintenant, aide les personnes dans le besoin près de toi.</h3>
+    <table cellpadding="10px" align="center" id="buttons_action">
+      <div id="buttons_services">
+        <tr>
+          <td>
+            <button routerLink="demande" class="btn btn-outline-success" id="button1"><span id="text_demander">
             Demander un service
           </span></button>
-        </td>
-        <td>
-          <button routerLink="propose" class="btn btn-success" id="button2">
+          </td>
+          <td>
+            <button routerLink="propose" class="btn btn-success" id="button2">
             <span id="text_rendre">
               Rendre service
             </span></button>

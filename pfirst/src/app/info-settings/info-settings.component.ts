@@ -51,7 +51,7 @@ export class InfoSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.undefinedPicURL = this.compressorService.undefinedPicCompressedURL;
 
-    this.userService.getProfilById('user').then(() => {
+    this.userService.getProfilById(JSON.parse(localStorage.getItem('user')).idUser).then(() => {
         //this.info_user = localStorage.getItem('user');
         this.info_user = this.userService.info_user;
         console.log('Init info-set : this.info_user : ', this.info_user);
@@ -72,8 +72,6 @@ export class InfoSettingsComponent implements OnInit {
   showStatus(){
     console.log("same_password :", this.same_password,"small_password :", this.small_password, "!same||small =", !this.same_password || this.small_password);
   }
-
-
   //-------------------------------------------------
   // Recuperation de la photo selectionnee
   onFileSelected(event) {

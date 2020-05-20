@@ -55,7 +55,7 @@ class Announce(db.Model):
     viewNumber = db.Column(db.Integer, default=0)
     price = db.Column(db.DECIMAL)
     idUser = db.Column(db.Integer, db.ForeignKey('Users.idUser'))
-    finished = db.Column(db.Boolean, default=0, nullable=False)
+    status = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return '<Announce {}>'.format(self.idAnnounce)
@@ -68,7 +68,7 @@ class Announce(db.Model):
             'viewNumber' : self.viewNumber,
             'price' : self.price,
             'creationDate' : self.creationDate,
-            'finished': self.finished
+            'status': self.status
         }
         return announce
 

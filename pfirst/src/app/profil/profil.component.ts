@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/users.service';
-import {ComponentPortal} from "@angular/cdk/portal";
-import {Overlay} from "@angular/cdk/overlay";
-import {catchError} from "rxjs/operators";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-profil',
@@ -11,46 +9,36 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
-
+  myProfil : boolean;
   info_user : any;
   id: string;
 
   constructor(private userService : UserService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              public router: Router,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    /* a voir si on stocke dans variable ou localStrorage
-    this.userService.getProfilById(this.id).then( ()=>{
-      this.info_user = this.userService.info_user;
-      console.table('#infouser : ', this.info_user);
-      }
-    )
-      .catch( ()=>{
-        console.log("Erreur de recupération des infos profil");
-      });
-     */
-    if(this.id === 'current_user' || this.id === String(JSON.parse(localStorage.getItem('user'))["idUser"])){
-      this.info_user = JSON.parse(localStorage.getItem('user')) ;
-
-      //si on accède au profil ailleurs que depuis la modal, on va chercher dans le back les infos
-    }else{
-      this.userService.getProfilById(this.id)
-        .then(()=>{
-          this.info_user = JSON.parse(localStorage.getItem('current_profil')) ;
+    this.route.params.subscribe( (pars)=> {
+      this.id = pars['id'];
+      console.log('ID : ', this.id);
+      this.userService.getProfilById(this.id).then(
+        () => {
+          this.info_user = this.userService.info_user;
+          this.myProfil = (this.id == JSON.parse(localStorage.getItem('user')).idUser);
+          console.log("myProfil : ", this.myProfil);
         })
-        .catch(()=>{console.log("erreur de chargement profil");});
-    }
-
+        .catch( () => {
+          console.log("#Erreur de chargement profil")
+        });
+    });
   }
 
-  onSave(){
-    this.userService.saveUserInfosToServer();
+  getPdpPath(): string{
+    return this.authService.backend + '/static/images/' + this.info_user.photo;
   }
 
-  onLoad(){
-    this.userService.getUserInfosFromServer();
-  }
+  //Récupération des services demandés
 
 }
