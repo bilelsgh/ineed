@@ -1,3 +1,8 @@
+<div *ngIf="successfullySended" class="alert alert-dismissable alert-success">
+  <table align="center">
+    Votre retour sur {{ratedName}} a bien été envoyé ! Rendez vous sur votre profil pour voir si le retour de {{ratedName}} dès que possible !
+  </table>
+</div>
 <div id="infoContainer">
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
@@ -10,7 +15,7 @@
               <!-- ##################### Commentaire ####################-->
               <div class="jumbotron" id="formulaire">
                 <label for="comment">Qu'avez vous pensé de {{ratedName}} ?</label>
-                <input height="200" type="text" class="form-control" id="comment" name="comment"
+                <input type="text" class="form-control" id="comment" name="comment"
                        ngModel>
               </div>
 
