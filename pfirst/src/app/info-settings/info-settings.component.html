@@ -1,7 +1,10 @@
+<body>
 <div id="infoContainer">
-  <div class="jumbotron jumbotron-fluid">
+  <div id="jumb" class="jumbotron jumbotron-fluid">
     <div class="container">
+      <h1 class="display-4" align="center">Mes informations</h1>
       <table align="center">
+
 
         <div class="col-sm-8 col-sm-offset-2">
 
@@ -168,6 +171,9 @@
   <br> Original: Size: {{sizeOfOriginalImage | number : '1.2-2'}}MB<br><img [src]="localUrl" height="200px"><br><br>
   <br> Compressed: Size: {{sizeOFCompressedImage | number : '1.2-2'}}MB<br><img [src]="localCompressedURl" height="150px">
 </div>
+<<<<<<< HEAD
+</body>
+=======
 
 <div id="compress">
   <input type="file" accept=".jpg,.png,.jpeg" (change)="selectFile($event)"><br>

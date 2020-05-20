@@ -1,75 +1,80 @@
-<div *ngIf="disconnected_message" class="alert alert-dismissable alert-danger">
-  Vous avez été déconnecté.
-</div>
+<div class="main-body">
+  <div *ngIf="disconnected_message" class="alert alert-dismissable alert-danger">
+    Vous avez été déconnecté.
+  </div>
 
-<div class="jumbotron text-center">
-  <h2 class="display-4 text-white">"Un peu d'aide fait grand bien"</h2>
-  <h3 class="text-white">Dès maintenant, aide les personnes dans le besoin près de toi.</h3>
-  <table cellpadding="10px" align="center" id="buttons_action">
-    <div id="buttons_services">
-      <tr>
-        <td>
-          <button routerLink="demande" class="btn btn-outline-success" id="button1"><span id="text_demander">
+  <div class="jumbotron text-center">
+    <h2 class="display-4 text-white">"Un peu d'aide fait grand bien"</h2>
+    <h3 class="text-white">Dès maintenant, aide les personnes dans le besoin près de toi.</h3>
+    <table cellpadding="10px" align="center" id="buttons_action">
+      <div id="buttons_services">
+        <tr>
+          <td>
+            <button routerLink="demande" class="btn btn-outline-success" id="button1"><span id="text_demander">
             Demander un service
           </span></button>
-        </td>
-        <td>
-          <button routerLink="propose" class="btn btn-success" id="button2">
+          </td>
+          <td>
+            <button routerLink="propose" class="btn btn-success" id="button2">
             <span id="text_rendre">
               Rendre service
             </span></button>
-        </td>
-      </tr>
-    </div>
+          </td>
+        </tr>
+      </div>
+    </table>
+  </div>
+
+
+  <!-- INEED C'EST QUOI ?-->
+  <table align="center" cellpadding="80">
+    <tr>
+      <td valign="top">
+        <table>
+          <tr>
+            <td><img id="IneedCQ" src="../../assets/data/ACCUEIL/ineedCQ.png" alt=""></td>
+          </tr>
+          <tr>
+            <p id="textIn"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie.
+              Sapristi, en voilà déjà un de mort. Chouette journée pour une petite gueuse ; et quant à ce que je compris
+              que j'avais remarquée.</p>
+          </tr>
+        </table>
+      </td>
+      <td align="right">
+        <img id="pile" src="../../assets/data/ACCUEIL/pile.png" alt="">
+      </td>
+    </tr>
+  </table>
+
+  <!-- SEPARATE-->
+  <table align="center">
+    <tr>
+      <img id="sep" src="../../assets/data/ACCUEIL/separ.png" alt="">
+    </tr>
+  </table>
+
+  <!-- AIDER QUELQUUN ?-->
+  <table align="center" cellpadding="80">
+    <tr>
+      <td align="right">
+        <img id="jetCourse" src="../../assets/data/ACCUEIL/jetonCourse.png" alt="">
+      </td>
+      <td valign="top">
+        <table>
+          <tr>
+            <td><img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt=""></td>
+          </tr>
+          <tr>
+            <p id="textTV"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie.
+              Sapristi, en voilà déjà un de mort. Chouette journée pour une petite gueuse ; et quant à ce que je compris
+              que j'avais remarquée.</p>
+          </tr>
+        </table>
+      </td>
+    </tr>
   </table>
 </div>
-
-
-<!-- INEED C'EST QUOI ?-->
-<table align="center" cellpadding="80">
-  <tr>
-    <td valign="top">
-      <table>
-        <tr>
-          <td><img id="IneedCQ" src="../../assets/data/ACCUEIL/ineedCQ.png" alt=""></td>
-        </tr>
-        <tr>
-          <p id="textIn"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie. Sapristi, en voilà déjà un de mort. Chouette journée pour une petite gueuse ; et quant à ce que je compris que j'avais remarquée.</p>
-        </tr>
-      </table>
-    </td>
-    <td align="right">
-      <img id="pile" src="../../assets/data/ACCUEIL/pile.png" alt="">
-    </td>
-  </tr>
-</table>
-
-<!-- SEPARATE-->
-<table align="center">
-  <tr>
-    <img id="sep" src="../../assets/data/ACCUEIL/separ.png" alt="">
-  </tr>
-</table>
-
-<!-- AIDER QUELQUUN ?-->
-<table align="center" cellpadding="80">
-  <tr>
-    <td align="right">
-      <img id="jetCourse" src="../../assets/data/ACCUEIL/jetonCourse.png" alt="">
-    </td>
-    <td valign="top">
-      <table>
-        <tr>
-          <td><img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt=""></td>
-        </tr>
-        <tr>
-          <p id="textTV"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie. Sapristi, en voilà déjà un de mort. Chouette journée pour une petite gueuse ; et quant à ce que je compris que j'avais remarquée.</p>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-
 
 <!-- AIDER QLQ
 <img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt="">

@@ -57,14 +57,19 @@
     </tr>
   </table>
 
-  <!-- ##### PRENOM AU MILIEU #### -->
-  <table align="v">
-    <tr>
-      <td *ngIf="this.authService.isAuthenticated()" id="who">Bonjour *user* !</td>
-    </tr>
-  </table>
+
+
   <table align="right" id="buttons_connection" cellpadding="5">
     <tr>
+      <!-- THEME LIGHT OU DARK-->
+      <td>
+        <img style="cursor: pointer" alt="Activer le thème clair." id="theme_soleil" *ngIf="this.userService.dark_theme && !this.userService.light_theme" src="../../assets/data/light.png"
+             (click)="this.userService.lightTheme()" alt="">
+        <img alt="Activer le thème sombre." style="cursor: pointer" id="theme_lune" *ngIf="!this.userService.dark_theme && this.userService.light_theme" src="../../assets/data/dark.png" (click)="this.userService.darkTheme()" alt="">
+      </td>
+
+      <!-- BOUTONS DE CONNEXION -->
+
       <td>
         <button routerLink="auth" *ngIf="!this.authService.isAuthenticated()" class="btn btn-outline-success" type="button">Se connecter
         </button>

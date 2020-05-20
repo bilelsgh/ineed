@@ -4,11 +4,18 @@ import {subscribeOn} from 'rxjs/operators';
 import {AuthService} from './auth.service';
 import {Subject} from "rxjs";
 
+
 @Injectable()
 export class UserService {
 
   constructor(private httpClient: HttpClient, private auth: AuthService) {
   }
+
+  dark_theme : boolean = false;
+  light_theme : boolean = true;
+  darkThemeSubject = new Subject<boolean>();
+  lightThemeSubject = new Subject<boolean>();
+
 
   info_user: any;
   notifications: string[] = [
@@ -225,5 +232,30 @@ export class UserService {
           }
         );
     });
+  };
+
+  lightTheme(){
+    this.dark_theme = false;
+    this.light_theme = true;
+    this.emitLightThemeSubject();
+    this.emitDarkThemeSubject();
+
   }
+  darkTheme(){
+    this.dark_theme = true;
+    this.light_theme = false;
+    this.emitLightThemeSubject();
+    this.emitDarkThemeSubject();
+  }
+
+  emitDarkThemeSubject(){
+    console.log('DARK');
+    this.darkThemeSubject.next(this.dark_theme);
+  }
+
+  emitLightThemeSubject(){
+    console.log('LIGHT');
+    this.lightThemeSubject.next(this.light_theme);
+  }
+
 }
