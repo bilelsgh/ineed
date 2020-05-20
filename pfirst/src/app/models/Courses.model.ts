@@ -13,7 +13,6 @@ export class Courses{
     2 : le service est terminé
      */
     public status : number,
-    public finished : boolean,
   ) {
   }
 }

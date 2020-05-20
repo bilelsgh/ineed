@@ -45,7 +45,7 @@ ngOnInit(): void {
       content.description=f.value['description'];
       content.user=f.value['user'];
     const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('user'))["idUser"], content,
-    0, 0, 0,0,false);
+    0, 0, 0,0);
       this.serviceService.addCuisine(newCuisine);
       this.router.navigate(['']);
     }

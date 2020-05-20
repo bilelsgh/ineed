@@ -26,7 +26,7 @@ export class ServiceService{
     this.emitCuisine();
     //On convertit en string car c'est le format attendu dans le BACK
     let cuisine_back = {idUser: cuisine["idUser"], content: JSON.stringify(cuisine["content"]), id: cuisine["id"],
-      price: cuisine['price'], viewNumber: cuisine['viewNumber'], status: 0, finished: cuisine['finished']}
+      price: cuisine['price'], viewNumber: cuisine['viewNumber'], status: 0}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : cuisine_back};
@@ -61,7 +61,7 @@ export class ServiceService{
     this.emitAccompage();
     //On convertit en string car c'est le format attendu dans le BACK
     let accompagne_back = {idUser: accompagne["idUser"], content: JSON.stringify(accompagne["content"]), id: accompagne["id"],
-      price: accompagne['price'], viewNumber: accompagne['viewNumber'], status: 0, finished: accompagne['finished']}
+      price: accompagne['price'], viewNumber: accompagne['viewNumber'], status: 0}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : accompagne_back};
@@ -99,7 +99,7 @@ export class ServiceService{
     this.emitCourses();
     //On convertit en string car c'est le format attendu dans le BACK
     let course_back = {idUser: courses["idUser"], content: JSON.stringify(courses["content"]), id: courses["id"],
-    price: courses['price'], viewNumber: courses['viewNumber'], status: 0, finished: courses['finished']};
+    price: courses['price'], viewNumber: courses['viewNumber'], status: 0};
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : course_back};
@@ -133,7 +133,7 @@ export class ServiceService{
     this.emitMenage();
     //On convertit en string car c'est le format attendu dans le BACK
     let menage_back = {idUser: menage["idUser"], content: JSON.stringify(menage["content"]), id: menage["id"],
-      price: menage['price'], viewNumber: menage["viewNumber"], status: 0, finished: menage['finished']}
+      price: menage['price'], viewNumber: menage["viewNumber"], status: 0}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : menage_back};
@@ -192,7 +192,7 @@ export class ServiceService{
           (response) => {
             this.current_service = {idUser: response['announce']['idUser'], content: JSON.parse(response['announce']['content']),
               id: response['announce']['idAnnounce'], price: response['announce']['price'],
-            viewNumber: response['announce']['viewNumber'], status: 0, finished: response['announce']['finished']};
+            viewNumber: response['announce']['viewNumber'], status: response['announce']['status']};
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
             console.log("#Récupération de current_service (getById) OK");

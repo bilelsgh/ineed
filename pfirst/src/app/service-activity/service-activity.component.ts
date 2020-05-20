@@ -38,7 +38,6 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.finished = false;
     this.getHelpers(this.id);
     this.getAssignees(this.id);
   }
@@ -118,7 +117,7 @@ export class ServiceActivityComponent implements OnInit {
     //L'annonce est en cours, le statut passe à 1
     let message = {token: JSON.parse(localStorage.getItem('token')),
       announce: {idUser: this.service_descriptor.idUser , content: JSON.stringify(this.service_descriptor.content), id: this.service_descriptor.id,
-        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: 1, finished: 1} };
+        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: 1} };
 
     this.httpClient
       .put(this.auth.backend + 'api/announce/' + this.id, message )
@@ -142,7 +141,7 @@ export class ServiceActivityComponent implements OnInit {
     //L'annonce est terminée, le statut passe à 2
     let message = {token: JSON.parse(localStorage.getItem('token')),
       announce: {idUser: this.service_descriptor.idUser , content: JSON.stringify(this.service_descriptor.content), id: this.service_descriptor.id,
-        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: 2, finished: 1} };
+        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: 2} };
 
     this.httpClient
       .put(this.auth.backend + 'api/announce/' + this.id, message )
@@ -151,7 +150,7 @@ export class ServiceActivityComponent implements OnInit {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
           //mise à jour du statut de cette annonce
-          this.finished = true;
+          this.status = 2;
         },
         (error) => {
           if (error['status'] === 401) {

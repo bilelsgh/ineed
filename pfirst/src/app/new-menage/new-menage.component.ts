@@ -49,7 +49,7 @@ ngOnInit(): void {
       content.user=f.value['user'];
       content.materiel=this.liste_materiel
     const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
-    0, 0,0,false);
+    0, 0,0);
 
 
 

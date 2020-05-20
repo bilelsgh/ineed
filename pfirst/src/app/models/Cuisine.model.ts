@@ -12,8 +12,7 @@ export class Cuisine{
               1 : le service est en cours et n'accepte plus d'helpers
               2 : le service est terminé
                */
-              public status : number,
-              public finished : boolean,){}
+              public status : number,){}
 }
 
 //il faut un champ "price" pour le back, donc on en met un à 0 quand y'a pas de prix
