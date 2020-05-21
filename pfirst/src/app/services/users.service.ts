@@ -3,12 +3,13 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {subscribeOn} from 'rxjs/operators';
 import {AuthService} from './auth.service';
 import {Subject} from "rxjs";
+import {MatSnackBarComponent} from '../mat-snack-bar/mat-snack-bar.component';
 
 
 @Injectable()
 export class UserService {
 
-  constructor(private httpClient: HttpClient, private auth: AuthService) {
+  constructor(private httpClient: HttpClient, private auth: AuthService, private snackBar : MatSnackBarComponent) {
   }
 
   dark_theme : boolean = false;
@@ -239,6 +240,7 @@ export class UserService {
     this.light_theme = true;
     this.emitLightThemeSubject();
     this.emitDarkThemeSubject();
+    this.snackBar.openSnackBar("Mode jour activé","","dark-mode",'bottom', 'end');
 
   }
   darkTheme(){
@@ -246,6 +248,8 @@ export class UserService {
     this.light_theme = false;
     this.emitLightThemeSubject();
     this.emitDarkThemeSubject();
+    this.snackBar.openSnackBar("Mode nuit activé","","light-mode", 'bottom', 'end');
+
   }
 
   emitDarkThemeSubject(){

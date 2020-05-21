@@ -52,6 +52,8 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {ImageCompressorService} from "./services/image-compressor.service";
+import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,8 @@ import {ImageCompressorService} from "./services/image-compressor.service";
     NewAccompageComponent,
     InfoSettingsComponent,
     DisplayProfilComponent,
-    FiltreProposeComponent
+    FiltreProposeComponent,
+    MatSnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +103,8 @@ import {ImageCompressorService} from "./services/image-compressor.service";
     NgbModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [ // on ajoute ici tous les services
     AuthService,
@@ -110,6 +114,7 @@ import {ImageCompressorService} from "./services/image-compressor.service";
     ServiceService,
     NgxImageCompressService,
     ImageCompressorService,
+    MatSnackBarComponent,
     Location
      // necessaire ?
   ],
