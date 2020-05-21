@@ -70,8 +70,8 @@ export class SuiviService {
     });
 
 
-
   }
+
 
   deleteAnnounce(announceId : number){
     let message = {idAnnounce : announceId, token: JSON.parse(localStorage.getItem('token'))};

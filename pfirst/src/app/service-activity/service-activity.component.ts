@@ -41,17 +41,28 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getHelpers(this.id);
     this.getAssignees(this.id);
+    this.getHelpers(this.id);
   }
 
   getHelpers(announceId: number = 0) {
     this.suiviServ.getHelpers(this.id)
       .then( () => {
-        //console.log("Récupération des helpers dans service-activity OK - " + announceId);
+        console.log("Récupération des helpers dans service-activity OK - " , announceId);
         this.helpers = this.suiviServ.helpers;
-        //console.table(this.helpers);
+        console.table(this.helpers);
         this.noHelper = this.suiviServ.noHelper;
+        let nb_assignees = 0;
+        for(let helper of this.helpers){
+          if(!this.amIanAssignee(helper.idUser)){
+            nb_assignees++;
+          }
+        }
+        console.log("Nb assignees : ", nb_assignees);
+        if(nb_assignees === 0){
+          this.noHelper = true;
+        }
+
       })
       .catch((e) => {
         console.log('#getHelpers - service-activity: erreur de recupération ', e);
@@ -126,12 +137,14 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   amIanAssignee(id: number): boolean {
+    let res = false;
     for (let assignee of this.assignees) {
-      if (assignee['idUser'] === id ) {
-        return true;
+      //console.log(assignee, " == ", id, " : ", assignee === id );
+      if (assignee === id ) {
+        res = true;
       }
     }
-    return false;
+    return res;
   }
 
   startService(){
