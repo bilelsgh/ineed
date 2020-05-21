@@ -98,7 +98,7 @@
 #tuveux{
   width: 80%;
 }
-#jetCourse{
+#jetCourse, #jetAccompagne, #jetCuisine, #jetMenage{
   width: 350px;
 }
 #aBesoin{

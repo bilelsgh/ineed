@@ -19,6 +19,7 @@ export class ServiceService{
   menageSubject = new Subject<Menage[]>();
   cuisineSubject = new Subject<Cuisine[]>();
   accompageSubject = new Subject<Accompage[]>();
+  lastAnnounces : any[];
 
   addCuisine(cuisine : Cuisine){
     cuisine.id=this.services[(this.services.length - 1)].id + 1
@@ -244,11 +245,13 @@ export class ServiceService{
 
     return new Promise((resolve,reject)=> {
       this.httpClient
-        .get(this.auth.backend+'api/announce/home/' + number + JSON.parse(localStorage.getItem('token')))
+        .get<any[]>(this.auth.backend+'api/announce/home/' + number )
         .subscribe(
           (response) => {
-
-            this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+            for(let annonce of response["announces"]){
+              annonce.content = JSON.parse(annonce.content);
+            }
+            this.lastAnnounces = response;
             resolve(true);
           },
           (error) => {
