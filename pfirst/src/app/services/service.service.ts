@@ -240,4 +240,27 @@ export class ServiceService{
     });
   }*/
 
+  getLastAnnounces(number : number){
+
+    return new Promise((resolve,reject)=> {
+      this.httpClient
+        .get(this.auth.backend+'api/announce/home/' + number + JSON.parse(localStorage.getItem('token')))
+        .subscribe(
+          (response) => {
+
+            this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+            resolve(true);
+          },
+          (error) => {
+            if(error['status'] === 401){
+              this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
+            console.log("Erreur de récupération des X dernières annonces : " + error);
+            reject(true);
+          }
+        );
+    });
+
+  }
 }
