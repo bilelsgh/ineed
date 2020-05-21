@@ -34,6 +34,7 @@ export class ServiceActivityComponent implements OnInit {
   assigneesSubscription: Subscription;
   public noAssignees: boolean;
   public finished : boolean;
+  name_assignees  = {};
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
               private userService: UserService, private suiviServ: SuiviService,public dialog: MatDialog) {
@@ -99,6 +100,24 @@ export class ServiceActivityComponent implements OnInit {
         this.assignees = this.suiviServ.assignees;
         this.noAssignees = this.assignees.length === 0;
         this.status = this.suiviServ.status;
+        for(let assignee of this.assignees){
+          //Récupération du nom de l'assignee
+          this.httpClient
+            .get<any[]>(this.auth.backend + 'api/user/' + assignee +
+              '?token=' + JSON.parse(localStorage.getItem('token')))
+            .subscribe(
+              (response) => {
+                this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
+                this.name_assignees[assignee] = response['user'].firstName;
+              },
+              (error) => {
+                if (error['status'] === 401) {
+                  this.auth.removeUserInfo();
+                  console.log("# TOKEN EXPIRED");
+                }
+                console.log("#getNameById : Erreur de chargement [service activity] : " + error);}
+            );
+        }
       })
       .catch((e) => {
         console.log('#getAssignees - service-activity: erreur de recupération ', e);
@@ -161,27 +180,6 @@ export class ServiceActivityComponent implements OnInit {
           }
         }
       );
-  }
-
-  getNameByID(id : number): string{
-    let res : string;
-    this.httpClient
-      .get<any[]>(this.auth.backend + 'api/user/' + id +
-        '?token=' + JSON.parse(localStorage.getItem('token')))
-      .subscribe(
-        (response) => {
-          this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
-          res = response['user'].firstName;
-          return res;
-        },
-        (error) => {
-          if (error['status'] === 401) {
-            this.auth.removeUserInfo();
-            console.log("# TOKEN EXPIRED");
-          }
-          console.log("#getNameById : Erreur de chargement [service activity] : " + error);}
-      );
-    return res;
   }
 
   openDialog(){

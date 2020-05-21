@@ -6,6 +6,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {Router} from "@angular/router";
+import {SuiviService} from '../services/suivi.service';
 
 @Component({
   selector: 'app-activity',
@@ -24,6 +25,7 @@ export class ActivityComponent implements OnInit {
   en_cours_proposed: any[] = [];
   proposed_services: any[] = [];
   public asked_services: any[] = [];
+  assignees : any[];
 
   indexes: any[] = [
     {
@@ -43,7 +45,8 @@ export class ActivityComponent implements OnInit {
               private authService: AuthService,
               private userService: UserService,
               public router: Router,
-              private auth : AuthService
+              private auth : AuthService,
+              private suiviServ : SuiviService
   ) {
   }
 
@@ -119,5 +122,4 @@ export class ActivityComponent implements OnInit {
         }
       );
   }
-
 }
