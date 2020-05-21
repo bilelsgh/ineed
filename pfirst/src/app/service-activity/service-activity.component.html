@@ -9,6 +9,8 @@
         <div class="text-left">
           <h2 class="card-title">{{serviceName}} pour {{serviceUser}}</h2>
         </div>
+        <!-- ## Supprimer l'annonce si il n'y a pas encore d'assignees ## -->
+        <span id="delete" *ngIf="this.assignees.length == 0" (click)="openDialog()">X</span>
         <div class="row no-gutters">
           <div class="col-md-2">
             <div class="text-left">

@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {UserService} from '../services/users.service';
 import {SuiviService} from '../services/suivi.service';
 import {Subscription} from 'rxjs';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {ModalAreYouSureComponent} from '../modal-are-you-sure/modal-are-you-sure.component';
 
 @Component({
   selector: 'app-service-activity',
@@ -34,7 +36,7 @@ export class ServiceActivityComponent implements OnInit {
   public finished : boolean;
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
-              private userService: UserService, private suiviServ: SuiviService) {
+              private userService: UserService, private suiviServ: SuiviService,public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -180,6 +182,17 @@ export class ServiceActivityComponent implements OnInit {
           console.log("#getNameById : Erreur de chargement [service activity] : " + error);}
       );
     return res;
+  }
+
+  openDialog(){
+    const dialogRef = this.dialog.open(ModalAreYouSureComponent, {
+      width: '650px',
+      data: {id : this.id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

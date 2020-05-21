@@ -72,13 +72,20 @@ export class SuiviService {
 
   }
 
-  amIanAssignee(id: number): boolean {
-    for (let assignee of this.assignees) {
-      if (assignee['idUser'] === id ) {
-        return true;
-      }
-    }
-    return false;
+  deleteAnnounce(announceId : number){
+    let message = {idAnnounce : announceId, token: JSON.parse(localStorage.getItem('token'))};
+    this.httpClient.delete(this.auth.backend + "ap/announce/id")
+      .subscribe(
+        (response) => {
+
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            this.auth.removeUserInfo();
+            console.log('#TOKEN EXPIRED');
+          }
+        }
+      )
   }
 
 

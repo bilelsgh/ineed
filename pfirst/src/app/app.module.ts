@@ -56,6 +56,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { ServiceActivityComponent } from './service-activity/service-activity.component';
 import { ServiceProposedComponent } from './service-proposed/service-proposed.component';
 import { SuiviService } from './services/suivi.service';
+import { ModalAreYouSureComponent } from './modal-are-you-sure/modal-are-you-sure.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { SuiviService } from './services/suivi.service';
     FiltreProposeComponent,
     ActivityComponent,
     ServiceActivityComponent,
-    ServiceProposedComponent
+    ServiceProposedComponent,
+    ModalAreYouSureComponent
   ],
   imports: [
     BrowserModule,
