@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {from, Subject} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Notif, NotifContext} from "../models/notification.model";
 import {NotifierService} from "angular-notifier";
 import {AuthService} from "./auth.service";
@@ -50,11 +50,15 @@ export class NotificationService {
   }
 
   uploadNotif(not: Notif, context: NotifContext, userId: string) {
-    //this.notifList.push(not);
+    /* params :
+        not -> la notification à ajouter
+        context -> spécifie l'id de celui qui emet la notification et l'id de l'annonce si ca en concerne une
+        userId -> l'id de l'user à qui s'adresse la notif
+     */
     this.httpClient.post(this.authService.backend + 'api/notification',{
       'UserID':userId,
-      'content':JSON.stringify(context),
-      'context': JSON.stringify(not)
+      'content':JSON.stringify(not),
+      'context': JSON.stringify(context)
     })
       .subscribe(
         (resp) => {
@@ -88,19 +92,50 @@ export class NotificationService {
       );
   }
 
+  // approche plus modulaire, pas utilisée pour l'instant
+  handleContext(not: Notif, myContext: NotifContext): Notif {
+    let res: Notif = not;
+    if ( myContext.emitterId != JSON.parse(localStorage.getItem('user')).idUser) {
+      //the notif has been uploaded by another user
+      if (myContext.announceId != '-1') {
+        //the notif is indeed about an announce
+        if (myContext.detail.split('By')[0] === 'helpProposed'){
+          //when proposing help, the notif detail is set to helpProposedBy<user.firstName>
+          res.message = myContext.detail.split('By')[1] + 'vous propose son aide !';
+        }
+      }
+    }
+    return not;
+  }
+
   getNoticationFromBack() {
 
     return new Promise((resolve, reject) => {
-      this.httpClient.get<Notif[]>(this.authService.backend_test + 'notifications.json')
+      //this.httpClient.get<Notif[]>(this.authService.backend_test + 'notifications.json')
+      this.httpClient.get(this.authService.backend + 'api/notification/User?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(
           (got) => {
+            const backNotifs = got['notifications'];
+            this.notifList.length = 0; //on vide les notifs pour faciliter l'adaptation des formats de notif back et front
+            backNotifs.forEach( (oneBackNotif) => {
+              const notifToPush = <Notif> JSON.parse(backNotifs.content);
+              notifToPush.idNot = oneBackNotif['idNotification'];
+              // const oneBackContext = <NotifContext> JSON.parse(oneBackNotif.context); // sera utilisé si on veut
+              // améliorer en ayant une approche plus modulaire
+              this.notifList.push(notifToPush);
+            });
+            this.emitNotifSubject();
+            this.authService.setUserInfo(got['token'], 'token');
+
+            /* firebase
             let notifIds = Object.keys(got);
             this.notifList = notifIds.map(key => got[key]);
             this.notifList.forEach((elt, idx) => {
-              elt.id = notifIds[idx];
+              elt.idNot = notifIds[idx];
             });
             this.emitNotifSubject();
-            console.log("GOT :", got);
+            console.log("GOT :", got);*/
+
             resolve('Got the notifications');
           },
           (err) => {
@@ -134,19 +169,14 @@ export class NotificationService {
     this.notifierService.show({
       type: not.type,
       message: not.message,
-      id: not.id
+      id: not.idNot
     });
     console.log("Triggered notif because ", this.alreadyNotified, "doesnt contains ", not);
-    console.log("Proof this.alreadyNotified.some(notif => notif.id === not.id ):", this.alreadyNotified.some(notif => notif.id === not.id));
+    console.log("Proof this.alreadyNotified.some(notif => notif.id === not.id ):", this.alreadyNotified.some(notif => notif.idNot === not.idNot));
     if (this.alreadyNotified.length > 0) {
-      console.log("Indeed indexable : this.alreadyNotified[0].id = ", this.alreadyNotified[0].id == not.id);
+      console.log("Indeed indexable : this.alreadyNotified[0].id = ", this.alreadyNotified[0].idNot == not.idNot);
     }
     this.alreadyNotified.push(not);
-  }
-
-  addNotif(not: Notif) {
-    this.notifList.push(not);
-    this.emitNotifSubject();
   }
 
   watchNotifs() {
@@ -156,11 +186,10 @@ export class NotificationService {
       .then((secondMsg) => {
         console.log('notifList :', this.notifList);
         for (let i in this.notifList) {
-          if (!this.alreadyNotified.some(notif => notif.id === this.notifList[i].id)) {
+          if (!this.alreadyNotified.some(notif => notif.idNot === this.notifList[i].idNot)) {
             this.triggerNotif(this.notifList[i]);
           }
         }
-        //this.alreadyNotified = this.notifList;
         console.log(secondMsg);
       })
       .catch((secondMsg) => {

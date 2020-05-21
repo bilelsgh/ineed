@@ -25,8 +25,8 @@ export class ModalHistoryComponent implements OnInit {
   ngOnInit(): void {
     this.history_by = this.userService.services_history_by;
     this.history_for = this.userService.services_history_for;
-    this.index_by = this.history_by.length-1;
-    this.index_for = this.history_for.length-1;
+    this.index_by = this.history_by.length - 1;
+    this.index_for = this.history_for.length - 1;
   }
 
   incIndex(){
@@ -46,12 +46,12 @@ export class ModalHistoryComponent implements OnInit {
   decIndex(){
     if (this.showFor) {
       this.index_for--;
-      if (this.index_for < 0){
-        this.index_for = this.history_for.length-1;
+      if (this.index_for < 0) {
+        this.index_for = this.history_for.length - 1;
       }
       console.log("categorie uodated : "+this.history_for[this.index_for].categorie);
 
-    }else{
+    } else {
       this.index_by--;
       if (this.index_by < 0) {
         this.index_by = this.history_by.length-1;
