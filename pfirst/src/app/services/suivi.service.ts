@@ -12,6 +12,7 @@ export class SuiviService {
   public helpers: any[] = [];
   public assignees: number[] = [];
   public status : number;
+  public serviceId_selected : number;
 
   constructor(private httpClient: HttpClient, private auth: AuthService, private userService : UserService) {}
 

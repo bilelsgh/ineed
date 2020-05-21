@@ -185,6 +185,7 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   openDialog(){
+    this.suiviServ.serviceId_selected =  this.id;
     const dialogRef = this.dialog.open(ModalAreYouSureComponent, {
       width: '650px',
       data: {id : this.id}
