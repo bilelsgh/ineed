@@ -96,16 +96,24 @@ export class UserService {
     "menage": "../../assets/data/menage.png"
   };
 
-  ngOnInit() {
-    this.getUserInfosFromServer();
-  }
-
   idx = 0;
 
   showAllComments: boolean = false;
 
   active_announces: any[];
 
+  getUserHistory(){
+    return new Promise( (resolve, reject) => {
+      this.httpClient.get(this.auth.backend + 'api/announce/historique?token=' + JSON.parse(localStorage.getItem('token')))
+        .subscribe(
+          (got) => {
+            this.services_history_by = got['historique'];
+            this.services_history_for = got['make'];
+            this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
+          }
+        );
+    });
+  }
   setShowAllComments() {
     this.showAllComments = true;
     console.log('userServ : showAll set a true');
@@ -153,18 +161,6 @@ export class UserService {
     let res: string = this.info_user['fname'][0].toUpperCase() + this.info_user['lname'][0].toUpperCase();
     console.log(res);
     return res;
-  }
-
-  getUserInfosFromToken() {
-    return new Promise((resolve, reject) => {
-      this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
-      console.log("GetfromToken : this.info_user =", this.info_user);
-      if (this.info_user != undefined) {
-        resolve(true);
-      } else {
-        reject(true);
-      }
-    });
   }
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
@@ -248,7 +244,7 @@ export class UserService {
     this.emitDarkThemeSubject();
   }
 
-  emitDarkThemeSubject(){
+  emitDarkThemeSubject() {
     console.log('DARK');
     this.darkThemeSubject.next(this.dark_theme);
   }

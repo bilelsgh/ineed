@@ -21,16 +21,20 @@ export class ServicesExperienceComponent implements OnInit {
   @Input() id_user: string;
 
 
-  constructor(private datepipe: DatePipe, private usr_service : UserService, public matDialog: MatDialog) {
+  constructor(private datepipe: DatePipe,
+              private usr_service : UserService,
+              public matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.history_for = this.usr_service.services_history_for;
-    this.last_for = this.history_for.length-1;
-    this.history_by = this.usr_service.services_history_by;
-    this.last_by = this.history_by.length-1;
-    this.idx=this.usr_service.idx;
-    this.showAllComments = this.usr_service.showAllComments;
+    this.usr_service.getUserHistory().then( () => {
+      this.history_for = this.usr_service.services_history_for;
+      this.last_for = this.history_for.length-1;
+      this.history_by = this.usr_service.services_history_by;
+      this.last_by = this.history_by.length-1;
+      this.idx=this.usr_service.idx;
+      this.showAllComments = this.usr_service.showAllComments;
+    }).catch( () => console.log("#Impossible de recuperer l historique"));
   }
 
   getAverageGrade() { // plus util normalement
