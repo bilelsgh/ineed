@@ -12,8 +12,8 @@ import {ModalHistoryComponent} from "../modal-history/modal-history.component";
 })
 export class ServicesExperienceComponent implements OnInit {
 
-  history_for: any[];
-  history_by: any[];
+  history_for: any[] =  new Array();
+  history_by: any[] = new Array();
   idx: number;
   showAllComments: boolean;
   last_for: number;
@@ -34,6 +34,7 @@ export class ServicesExperienceComponent implements OnInit {
       this.last_by = this.history_by.length-1;
       this.idx=this.usr_service.idx;
       this.showAllComments = this.usr_service.showAllComments;
+      console.log('Services exp : successfully got the services');
     }).catch( () => console.log("#Impossible de recuperer l historique"));
   }
 

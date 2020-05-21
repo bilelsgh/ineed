@@ -13,7 +13,7 @@
   </header>
 
   <section>
-    <div id="for-wrapper" *ngIf="showFor">
+    <div id="for-wrapper" *ngIf="showFor && (history_for.length > 0)">
       <app-former-service [helperLook]="false"
                           [pour]="this.history_for[index_for].pour"
                           [par]="this.history_for[index_for].par"
@@ -23,7 +23,7 @@
                           [date]="this.history_for[index_for].date">
       </app-former-service>
     </div>
-    <div id="by-wrapper" *ngIf="showBy">
+    <div id="by-wrapper" *ngIf="showBy && (history_by.length > 0)">
         <app-former-service [helperLook]="true"
                             [pour]="this.history_by[index_by].pour"
                             [par]="this.history_by[index_by].par"

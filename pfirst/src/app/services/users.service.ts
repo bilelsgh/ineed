@@ -107,9 +107,21 @@ export class UserService {
       this.httpClient.get(this.auth.backend + 'api/announce/historique?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(
           (got) => {
-            this.services_history_by = got['historique'];
-            this.services_history_for = got['make'];
+
+            let by = got['Historique'];
+            by.forEach( (serv) => {
+              serv.content = JSON.parse(serv.content);
+            });
+            this.services_history_for = by;
+            //this.services_history_by = got['Historique'];
+            console.log("HISTORIQUE : ", got['Historique']);
+            //this.services_history_for = got['make'];
             this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
+            resolve(true);
+          },
+          (e) => {
+            console.log("#User service : cant get the history");
+            reject(e);
           }
         );
     });

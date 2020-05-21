@@ -15,7 +15,8 @@
   </tr>
   <tr>
     <td>
-      <app-former-service [helperLook]="false"
+      <app-former-service *ngIf="last_for > -1"
+                          [helperLook]="false"
                           [pour]="this.history_for[last_for].pour"
                           [par]="this.history_for[last_for].par"
                           [categorie]="this.history_for[last_for].categorie"
@@ -25,7 +26,8 @@
       </app-former-service>
     </td>
     <td>
-      <app-former-service [helperLook]="true"
+      <app-former-service *ngIf="last_by > -1"
+                          [helperLook]="true"
                           [pour]="this.history_by[last_by].pour"
                           [par]="this.history_by[last_by].par"
                           [categorie]="this.history_by[last_by].categorie"

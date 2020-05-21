@@ -10,8 +10,8 @@ import {UserService} from "../services/users.service";
 })
 export class ModalHistoryComponent implements OnInit {
 
-  history_for: any[];
-  history_by: any[];
+  history_for: any[] = new Array();
+  history_by: any[] = new Array();
 
   showFor: boolean = true;
   showBy: boolean = false;
@@ -23,10 +23,19 @@ export class ModalHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.history_by = this.userService.services_history_by;
-    this.history_for = this.userService.services_history_for;
-    this.index_by = this.history_by.length-1;
-    this.index_for = this.history_for.length-1;
+    console.log('Entree ngOnInit modal history');
+    this.userService.getUserHistory()
+      .then( () => {
+        this.history_by = this.userService.services_history_by;
+        this.history_for = this.userService.services_history_for;
+        console.log('Modal history : history_by = ', this.history_by);
+        console.log('Modal history : history_for = ', this.history_for);
+        this.index_by = this.history_by.length-1;
+        this.index_for = this.history_for.length-1;
+      })
+      .catch( (e) => {
+        console.log('Erreur de recup des services dans modal history');
+      });
   }
 
   incIndex(){
