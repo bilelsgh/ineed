@@ -53,6 +53,7 @@ import { FiltreProposeComponent } from './filtre-propose/filtre-propose.componen
 import { GeolocComponent } from './geoloc/geoloc.component';
 import { GeolocService } from './services/geoloc.service';
 import { MiniMapComponent } from './mini-map/mini-map.component';
+import { DateService } from './services/date.service';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { MiniMapComponent } from './mini-map/mini-map.component';
     ServiceService,
     Location,
     GeolocService,
+    DateService,
      // necessaire ?
   ],
   bootstrap: [AppComponent],

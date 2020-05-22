@@ -8,7 +8,8 @@ import { Menage } from '../models/Menage.model';
 import { GeolocService } from '../services/geoloc.service';
 import { GeolocComponent } from '../geoloc/geoloc.component';
 import { Observable } from 'rxjs';
-import { Location } from '../models/location.model';
+
+import {  DateService } from '../services/date.service';
 
 
 
@@ -33,23 +34,14 @@ export class NewMenageComponent implements OnInit {
   liste_materiel= []; //A ENVOYER DANS LA DB
 
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
-             private httpClient : HttpClient, private auth : AuthService ,private geolocService:GeolocService) { }
+             private httpClient : HttpClient, private auth : AuthService ,private geolocService:GeolocService, private dateService: DateService) { }
 
 ngOnInit(): void {
 
   this.info=this.geolocService.info;
-  var date=new Date()
-  var day =date.getDate().toString();
-  var mm = date.getMonth()+1;
-  var mois= mm.toString();
-  var yr = date.getFullYear().toString();
-  if(day.length<2){
-    day="0"+day;
-  }
-  if(mois.length<2){
-    mois="0"+mm;
-  }
-  this.date=yr+"-"+ mois+"-"+ day;
+  this.date=this.dateService.actu;
+  console.log(this.date);
+  
 
     this.initForm();
   }
