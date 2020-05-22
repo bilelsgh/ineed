@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServiceViewComponent } from './service-view.component';
+//import { ServiceViewComponent } from './service-view.component';
+import { ServiceViewComponent } from './propose.component';
+
 
 describe('ServiceViewComponent', () => {
   let component: ServiceViewComponent;
@@ -10,7 +12,7 @@ describe('ServiceViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ServiceViewComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

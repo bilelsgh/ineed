@@ -1,5 +1,5 @@
 #button_rendre{
-  width: 150px;
+  width: 400px;
 }
 
 :host-context(.theme-dark) .main-body{

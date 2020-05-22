@@ -49,9 +49,16 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 import { InfoSettingsComponent } from './info-settings/info-settings.component';
 import { DisplayProfilComponent } from './display-profil/display-profil.component';
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
+
+import {ImageCompressorService} from "./services/image-compressor.service";
+import { ActivityComponent } from './activity/activity.component';
+import {MatSelectModule} from "@angular/material/select";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
-import {ImageCompressorService} from "./services/image-compressor.service";
+import { ServiceActivityComponent } from './service-activity/service-activity.component';
+import { ServiceProposedComponent } from './service-proposed/service-proposed.component';
+import { SuiviService } from './services/suivi.service';
+import { ModalAreYouSureComponent } from './modal-are-you-sure/modal-are-you-sure.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +93,11 @@ import {ImageCompressorService} from "./services/image-compressor.service";
     NewAccompageComponent,
     InfoSettingsComponent,
     DisplayProfilComponent,
-    FiltreProposeComponent
+    FiltreProposeComponent,
+    ActivityComponent,
+    ServiceActivityComponent,
+    ServiceProposedComponent,
+    ModalAreYouSureComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +110,7 @@ import {ImageCompressorService} from "./services/image-compressor.service";
     MatDialogModule,
     NgbModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     MatToolbarModule,
     MatIconModule
   ],
@@ -110,6 +122,7 @@ import {ImageCompressorService} from "./services/image-compressor.service";
     ServiceService,
     NgxImageCompressService,
     ImageCompressorService,
+    SuiviService,
     Location
      // necessaire ?
   ],

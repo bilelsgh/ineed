@@ -1,0 +1,81 @@
+
+<div class="card mb-3 rounded-lg rounded-lg" style="width:100%;">
+  <div class="row no-gutters">
+    <div class="col-md-2">
+      <img style="cursor: pointer" (click)="router.navigate(['propose/'+id])" [src]="serviceImage"  class="card-img-top" alt="...">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <div class="text-left">
+          <h2 class="card-title">{{serviceName}} pour {{serviceUser}}</h2>
+        </div>
+        <!-- ## Supprimer l'annonce si il n'y a pas encore d'assignees ## -->
+        <span id="delete" *ngIf="this.assignees.length == 0" (click)="openDialog()">X</span>
+        <div class="row no-gutters">
+          <div class="col-md-2">
+            <div class="text-left">
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="text-right">
+              <table>
+                <tr>
+                  <!-- BOUTONS -->
+                  <td><button [disabled]="this.status != 0" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
+                              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                    Propositions</button></td>
+                  <td><button class="btn btn-primary" (click)="isCollapsed_bis = !isCollapsed_bis"
+                              [attr.aria-expanded]="!isCollapsed_bis" aria-controls="collapseExample_bis">
+                    Participants</button></td>
+                  <td>
+                    <button *ngIf="this.status == 0" [disabled]="noAssignees" (click)="startService()" class="btn btn-outline-success">
+                      Lancer</button>
+                  </td>
+                <td>
+                  <button *ngIf="this.status === 1" [disabled]="noAssignees" (click)="endService()" class="btn btn-outline-danger">
+                    Terminer</button>
+                </td>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUT DE L'ANNONCE -->
+  <a *ngIf = "this.status === 1" href="#" class="badge badge-pill badge-warning">En cours</a>
+  <a *ngIf = "this.status === 2" href="#" class="badge badge-pill badge-secondary">Terminée</a>
+
+  <div id="collapseExample" [ngbCollapse]="isCollapsed">
+    <span *ngIf="noHelper">
+      <p style="font-size: large">Pas de nouveau helper !</p>
+    </span>
+    <span>
+      <div id="Proposition" *ngFor="let helper of helpers">
+        <mat-toolbar color="#ffffff" *ngIf="!noHelper"> <!-- color ne marche pas-->
+        <mat-toolbar-row *ngIf="!amIanAssignee(helper.idUser)">
+            <span>{{helper.firstName}} {{helper.lastName}} vous a proposé son aide.</span>
+            <span class="spacer"></span>
+            <mat-icon style="cursor:pointer" title="Voir le profil" class="icon" (click)="router.navigate(['profil/'+helper.idUser])">face</mat-icon>
+            <mat-icon style="cursor:pointer" class="icon" *ngIf="this.status == 0" (click)="acceptHelper(helper.idUser)"> done </mat-icon>
+            <!-- <mat-icon style="cursor:pointer" class="icon" *ngIf="this.status == 0 "> highlight_off </mat-icon>  -->
+            <!-- <mat-icon class="icon" *ngIf="this.status === 1">  Si l'annonce est en cours et que je ne suis pas dans les helpers
+              not_interested
+            </mat-icon> -->
+            <mat-icon class="icon" *ngIf="this.id == helper.idUser"> done_all </mat-icon>
+        </mat-toolbar-row>
+        </mat-toolbar>
+      </div>
+    </span>
+
+  </div>
+
+  <div id="collapseExample_bis" [ngbCollapse]="isCollapsed_bis">
+    Les participants à votre annonces sont :
+    <div *ngFor="let assignee of this.assignees">
+      <span style="cursor: pointer" class="badge badge-pill badge-info"
+            (click)="router.navigate(['profil/'+ assignee])">{{name_assignees[assignee]}}</span>
+    </div>
+  </div>

@@ -31,7 +31,7 @@ export class ServiceViewComponent implements OnInit {
 
     //RÉCUPÈRE DEPUIS LE BACK
     this.httpClient
-      .get<any[]>(this.auth.backend+'api/announce')
+      .get<any[]>(this.auth.backend+'api/announce/home')
       .subscribe(
         (response) => {
           for (let j=0; j< Number(response['announces']['length']) ; j++) {
@@ -39,7 +39,7 @@ export class ServiceViewComponent implements OnInit {
             this.services_db.push(
               {idUser: response['announces'][j]['idUser'], content: JSON.parse(response['announces'][j]['content']),
                 id: response['announces'][j]['idAnnounce'], price: response['announces'][j]['price'],
-              viewNumber: response['announces']['viewNumber'], finished: response['announces']['finished']}
+              viewNumber: response['announces']['viewNumber'], status: response['announces']['status']}
             );
           }
         },
@@ -47,7 +47,7 @@ export class ServiceViewComponent implements OnInit {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
           }
-          console.log("Erreur lors de la récupération des services : " + error);
+          console.log("Erreur lors de la récupération des services [propose.component]: " + error);
         }
 
       );

@@ -13,22 +13,27 @@ import {Cuisine} from "../models/Cuisine.model";
 })
 export class CuisineSingleComponent implements OnInit {
 
+  myService : boolean;
   View : number;
+  applied: boolean;
   Name: string = 'Courses';
   User: string = 'Utilisateur';
   Description: string = 'Description';
-  Sur_place:string = 'oui';
-  DispoJour : string = 'oui';
-  DispoHeure : string = 'oui';
-  Type_de_plat : string = "pas ouf";
+  Sur_place: string = 'oui';
+  DispoJour: string = 'oui';
+  DispoHeure: string = 'oui';
+  Type_de_plat: string = "pas ouf";
   Id : number;
 
   @Input() service_descriptor: Cuisine;
 
-  constructor(private serviceService: ServiceService,  private route: ActivatedRoute, private router: Router,
-              private httpClient : HttpClient, private auth : AuthService, private userserv : UserService) { }
+  constructor(private serviceService: ServiceService, private route: ActivatedRoute, public router: Router,
+              private httpClient: HttpClient, private auth: AuthService, private userserv: UserService) {
+  }
 
   ngOnInit() {
+
+    this.appliedOrNot();
     this.Id = this.service_descriptor.idUser;
     this.Name = this.service_descriptor.content.name;
     this.User=this.service_descriptor.content.user;
@@ -39,17 +44,42 @@ export class CuisineSingleComponent implements OnInit {
     this.Type_de_plat=this.service_descriptor.content.type_de_plat;
     this.View = this.service_descriptor['viewNumber'];
 
-
-    //GESTION DU NOMBRE DE VUS
-    //this.updateView();
-
   }
 
-  /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
-   EN QUESTION.
-    */
-  goProfil(where : string){
+
+  goProfil(where : string) {
     this.router.navigate([where]);
+  }
+
+  applyCuisine() {
+    if (!this.applied) {
+      this.serviceService.applyService(this.service_descriptor.id)
+      this.appliedOrNot();
+    }
+  }
+
+  //Indique si l'utilisateur s'est proposé pour cette annonce
+  /*brief Renvoie vrai si l'utilisateur a déjà proposé son aide pour cette annonce*/
+  appliedOrNot() {
+    this.httpClient
+      .get<any[]>(this.auth.backend + 'api/announce/' + this.service_descriptor.id + '/helpers?token=' +
+        JSON.parse(localStorage.getItem('token')))
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'current_profil'); //mise à jour du token
+          this.applied = false;
+          for (let helper of response['helpers']) {
+            if (helper['idUser'] === JSON.parse(localStorage.getItem('user'))['idUser']) {
+              this.applied = true;
+            }
+          }
+          this.service_descriptor.idUser === JSON.parse(localStorage.getItem('user'))['idUser'] ?
+            this.myService = true : this.myService = false;
+        },
+        (error) => {
+          console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
+        }
+      );
   }
 
 }

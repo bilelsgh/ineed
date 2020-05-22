@@ -15,6 +15,7 @@ export class ServiceComponent implements OnInit {
   @Input() serviceDate : string;
   @Input() index : number;
   @Input() id : number;
+  @Input() status : number;
 
 
 

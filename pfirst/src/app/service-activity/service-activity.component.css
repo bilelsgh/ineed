@@ -1,0 +1,8 @@
+#delete{
+  font-size: larger;
+  color: #aaaaaa;
+  position: absolute;
+  left: 640px;
+  top: 5px;
+  cursor: pointer;
+}

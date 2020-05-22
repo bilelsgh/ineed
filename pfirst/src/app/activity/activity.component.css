@@ -1,0 +1,39 @@
+#services-list
+{
+  padding-top: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+#demandeTexte
+{
+  font-weight: bold;
+  font-size: x-large;
+
+}
+
+.mat-select
+{
+   background-color: cornflowerblue;
+ }
+
+.spacer
+{
+  flex: 1 1 auto;
+}
+
+.icon
+{
+  cursor: pointer;
+}
+
+#sep{
+  height: 3px;
+  background-color: #aaaaaa;
+}
+
+.jumbotron{
+  background-image: url("../../assets/data/banniere.jpg");
+  background-size: cover;
+  min-height: 100px;
+  height: 200px;
+}

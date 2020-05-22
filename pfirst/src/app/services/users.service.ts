@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {subscribeOn} from 'rxjs/operators';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Subject} from "rxjs";
 
@@ -21,6 +20,11 @@ export class UserService {
   notifications: string[] = [
     'post-inscription'
   ];
+
+  active_announces: any[];
+  announceHelpers: any[];
+  public services_proposed_finished : any[] = [];
+
   categ_to_icon = {
     "accompagnement": "../../assets/data/accompagner.png",
     "course": "../../assets/data/courses.png",
@@ -35,9 +39,6 @@ export class UserService {
   idx = 0;
 
   showAllComments: boolean = false;
-
-  active_announces: any[];
-
   getParticipants(idAnnounce: number){
     let res: any[] =  new Array();
     res.push({'content':{
@@ -80,6 +81,7 @@ export class UserService {
         );
     });
   }
+
   setShowAllComments() {
     this.showAllComments = true;
     console.log('userServ : showAll set a true');
@@ -160,8 +162,13 @@ export class UserService {
     });
   };
 
-  getPostedAnnounces(id: string = 'user') {
+
+
+
+  getPostedAnnounces(idUsr: string) {
     return new Promise((resolve, reject) => {
+
+      /*
 
       const httpOptions = {
         headers: new HttpHeaders({
@@ -169,27 +176,29 @@ export class UserService {
           'Authorization': localStorage.getItem('token')
         })
       };
+*/
+      const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
+      //const usrId = JSON.parse(localStorage.getItem('user'))['idUser'];
 
       this.httpClient
-        .get<any[]>(this.auth.backend + '/api/announce/user/' + id, httpOptions)
+        .get<any[]>(this.auth.backend + 'api/announce/user/' + idUsr, {params})   //from backend
+
         .subscribe(
           (response) => {
-            console.log("#GETPOSTEDANNOUNCES");
-            console.table(response)
+            /*for backend*/
             this.active_announces = response['announces'];
+            //console.table(response['announces']);
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
 
-            /*this.info_user = response;
-            console.log("#OK");
-            console.log("#SERVICES : " + response);*/
             resolve(true);
           },
           (error) => {
             if (error['status'] === 401) {
-              //this.auth.removeUserInfo();
+              this.auth.removeUserInfo();
               console.log("#TOKEN EXPIRED");
             }
-            console.log("Erreur de chargement : " + error);
+            console.log("#getPostedA() :Erreur de chargement : ", error);
+
             reject(true);
           }
         );
@@ -203,6 +212,7 @@ export class UserService {
     this.emitDarkThemeSubject();
 
   }
+<<<<<<< HEAD
   darkTheme(){
     this.dark_theme = true;
     this.light_theme = false;
@@ -220,4 +230,55 @@ export class UserService {
     this.lightThemeSubject.next(this.light_theme);
   }
 
+=======
+
+  getAnnounceHelpersById(announceId: string) {
+    return new Promise(((resolve, reject) => {
+      const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
+
+      this.httpClient.get<any[]>(this.auth.backend + 'api/announce/' + announceId + '/helpers', {params})
+        .subscribe(
+          (response) => {
+            this.announceHelpers = response['helpers'];
+            this.auth.setUserInfo(JSON.stringify(response['token']),'token');
+            //console.log('#getAnnounceHelpers : success', response);
+            resolve(true);
+          },
+          (error) => {
+            if (error['status'] == 400){
+              console.log("BAD REQUEST : token expired or announce deleted")
+            }
+            console.log('#getAnnounceHelpers : failure');
+            reject(true);
+          }
+        );
+    }));
+  }
+
+  getServiceProposedAndFinished(){
+    return new Promise(((resolve, reject) => {
+      this.httpClient //checker si on met le helperID dans la route
+        .get<any[]>(this.auth.backend + 'api/announce/historique?token=' +
+          JSON.parse(localStorage.getItem('token'))) //route à vérifier
+        .subscribe(
+          (response) => {
+            console.log('Service proposed & finished');
+            console.table(response);
+            this.services_proposed_finished = response;
+            resolve(true);
+          },
+          (error) => {
+            reject(true);
+            if (error['status'] === 401) {
+              this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
+            console.log("Erreur récupération des services proposés #user.service");
+          }
+        );
+    }));
+  }
+
+
+>>>>>>> activity
 }

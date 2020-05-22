@@ -12,7 +12,8 @@ import {AppViewComponent} from './app-view/app-view.component';
 import { SingleServiceComponent } from './single-service/single-service.component';
 import {NewCoursesComponent} from './new-courses/new-courses.component';
 import {InfoSettingsComponent} from "./info-settings/info-settings.component";
-//import {ActivityComponent} from "./activity/activity.component";
+import {ActivityComponent} from "./activity/activity.component";
+
 
 
 const routes : Routes = [ //Racine de toutes les routes de l'applications
@@ -27,10 +28,10 @@ const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path:'contact', component: ContactComponent},
   {path:'inscription', component: InscriptionComponent},
   {path: '', component: AppViewComponent}, //indique la page "d'accueil"
+  {path: 'activite', canActivate:[AuthGuard], component: ActivityComponent},
   //{path: '**', redirectTo:'/not-found'} //renvoie vers la page d'erreur si la route n'existe pas, à mettre à la fin
 
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

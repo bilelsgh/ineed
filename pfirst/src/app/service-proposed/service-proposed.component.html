@@ -1,0 +1,41 @@
+<div id="{{theme}}" class="card mb-3 rounded-lg rounded-lg" style="width:100%;">
+  <div class="row no-gutters">
+    <div class="col-md-2">
+      <img [src]="serviceImage" class="card-img-top" alt="...">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <div class="text-left">
+          <h2 class="card-title">{{serviceName}} pour {{serviceUser}}<img *ngIf="accepted || enCours"
+                                                                          (click)="getMailByID(myID)"
+                                                                          id="icone-mail"
+                                                                          src="../../assets/data/icone-mail.png" alt="">
+          </h2>
+
+        </div>
+
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="text-right">
+              <a href="#" class="btn btn-primary" [routerLink]="[id]">Voir l'annonce</a>
+            </div>
+          </div>
+        </div>
+        <table>
+          <tr>
+            <!-- STATUS -->
+            <td align="left">
+
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- ###### STATUT DU SERVICE ##### -->
+    <span *ngIf="accepted" class="badge badge-pill badge-success">Acceptée</span>
+    <span *ngIf="enCours" class="badge badge-pill badge-warning">Vous rendez service à {{serviceUser}} en ce moment</span>
+    <span *ngIf="iAmAssignee && this.status === 2" class="badge badge-pill badge-secondary">Terminé</span>
+    <span *ngIf="enAttente" class="badge badge-pill badge-warning">En attente</span>
+    <span *ngIf="refuse" class="badge badge-pill badge-danger">Refusé</span>
+</div>
