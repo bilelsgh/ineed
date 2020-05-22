@@ -21,11 +21,9 @@ export class NewMenageComponent implements OnInit {
   geoloc:GeolocComponent;
   info : any;
   menageForm: FormGroup;
-  city: string;
-  adress: string;
-  latitude:number;
-  longitude: number;
-  loading: boolean;
+  adress:string;
+  city:string;
+
   
 
   loca= false;
@@ -72,12 +70,9 @@ ngOnInit(): void {
       content.user=f.value['user'];
       content.city=f.value['city'];
       content.adress=f.value['adress'];
-      /*if(this.info.longitude==0){
-        this.geolocService.getLatLong(content.adress+content.city);
-        content.latitude=this.info.latitude;
-        content.longitude=this.info.longitude;
-        console.log(this.info)
-      }*/
+      if(this.info.longitude==0){
+        this.getgetLatLong();
+      }
       content.materiel=this.liste_materiel;
     const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
 
@@ -92,6 +87,7 @@ ngOnInit(): void {
       this.adress=f.value['adress'];
       this.city=f.value['city'];
       this.geolocService.getLatLong(this.city+this.adress);
+      console.log(this.info)
 
     }
 
