@@ -134,7 +134,7 @@ export class InscriptionComponent implements OnInit {
             new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
             JSON.parse(localStorage.getItem('user')).idUser);
           this.notificationService.uploadNotif(
-            new Notif('Chargez votre première photo de profil !', 'warning', '','infos'),
+            new Notif('Complétez votre profil avec une courte bio !', 'warning', '','infos'),
             new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
             JSON.parse(localStorage.getItem('user')).idUser);
           this.notificationService.wakeWatcher(10000);
