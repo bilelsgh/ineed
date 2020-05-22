@@ -72,6 +72,7 @@ export class GeolocComponent implements OnInit {
     }
   }
   getAddress(latitude, longitude) {
+
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       console.log(results);
       console.log(status);

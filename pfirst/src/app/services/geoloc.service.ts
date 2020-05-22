@@ -1,102 +1,70 @@
-import { Component, OnInit, ViewChild,ElementRef,NgZone, Injectable } from '@angular/core';
-import{AgmCoreModule,MapsAPILoader} from '@agm/core';
-import { google } from 'google-maps';
+import { ViewChild,ElementRef, Injectable } from '@angular/core';
+import { AgmGeocoder, MapsAPILoader } from '@agm/core/';
+import { fromPromise } from 'rxjs/observable/fromPromise';
+import { tap, map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { Observable } from 'rxjs';
+import { Location } from '../models/location.model';
+
+
+
+
+
+
 
 
 
 @Injectable()
 
-export class GeolocService implements OnInit {
-  info ={latitude: 0, longitude:0, zoom:13, address:"" };
-  title: string = 'AGM project';
+export class GeolocService  {
+  
+  info ={latitude: 0, longitude:0, };
   latitude: number;
   longitude: number;
   zoom: number;
   address: string;
-  /*map = new google.maps.Map(document.getElementById("map"));
-  place=new google.maps.places.PlacesService(this.map);*/
-
-  private geoCoder;
+  google: any;
+  obs:any;
+  private geoCoder: any;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
 
-  constructor(
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
-  ) { }
+  constructor(private geocodeService: AgmGeocoder, private mapsAPILoader: MapsAPILoader){}
 
 
-  ngOnInit() {
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      
-      this.geoCoder = new google.maps.Geocoder;
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      });
-    });
-  }
-
-  // Get Current Location Coordinates
-   setCurrentLocation() {
-    
+  setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 13;
-        //this.getAddress(this.latitude, this.longitude);
         this.info.latitude=position.coords.latitude;
-        this.info.longitude=position.coords.longitude;
-        this.info.zoom = 13;
-        //this.info.address=this.address;
-        
-
+        this.info.longitude=position.coords.longitude
       });
-
     }
-
+  }
+ 
+  getLatLong(address :string){
+    const geocodeRequest = {
+      address: address,
+    };
+    this.geoCoder=this.geocodeService.geocode(geocodeRequest)
+    this.geoCoder
+    .subscribe((result ) => {this.info.latitude=result[0].geometry.location.lat();
+      this.info.longitude=result[0].geometry.location.lng();
+    },
+    (error)=>{
+      console.log('Uh-oh, an error occurred! : ' + error);
+    },
+    () => {
+      console.log('Observable complete!');
     }
-
-
-
-
+    );
+    console.log(this.info);
+  }
   
  
 
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
-      if (status === 'OK') {
-        if (results[0]) {
-          this.zoom = 12;
-          this.address = results[0].formatted_address;
-        } else {
-          window.alert('No results found');
-        }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-
-    });
-  }
+  
 
 }

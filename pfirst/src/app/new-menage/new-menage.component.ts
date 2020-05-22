@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { Menage } from '../models/Menage.model';
 import { GeolocService } from '../services/geoloc.service';
 import { GeolocComponent } from '../geoloc/geoloc.component';
+import { Observable } from 'rxjs';
+import { Location } from '../models/location.model';
 
 
 
@@ -19,6 +21,11 @@ export class NewMenageComponent implements OnInit {
   geoloc:GeolocComponent;
   info : any;
   menageForm: FormGroup;
+  city: string;
+  adress: string;
+  latitude:number;
+  longitude: number;
+  loading: boolean;
   
 
   loca= false;
@@ -58,11 +65,19 @@ ngOnInit(): void {
       content.salle= f.value['salle'];
       content.surface=f.value['surface'];
       content.description=f.value['description'];
+      
       content.latitude=this.info.latitude;
       content.longitude=this.info.longitude;
+      
       content.user=f.value['user'];
       content.city=f.value['city'];
       content.adress=f.value['adress'];
+      /*if(this.info.longitude==0){
+        this.geolocService.getLatLong(content.adress+content.city);
+        content.latitude=this.info.latitude;
+        content.longitude=this.info.longitude;
+        console.log(this.info)
+      }*/
       content.materiel=this.liste_materiel;
     const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
 
@@ -70,6 +85,14 @@ ngOnInit(): void {
 
       this.serviceService.addMenage(newMenage);
       this.router.navigate(['']);
+    }
+
+    getgetLatLong(){
+      const f = this.menageForm;
+      this.adress=f.value['adress'];
+      this.city=f.value['city'];
+      this.geolocService.getLatLong(this.city+this.adress);
+
     }
 
   
