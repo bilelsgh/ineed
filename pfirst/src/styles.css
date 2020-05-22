@@ -26,6 +26,7 @@ mat-dialog-container#modal-user-component{
 
 .light-mode{
   background-color: #aaaaaa;
+  color: black;
 }
 
 .dark-mode{
