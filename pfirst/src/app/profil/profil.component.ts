@@ -30,7 +30,7 @@ export class ProfilComponent implements OnInit {
           console.log("myProfil : ", this.myProfil);
         })
         .catch( () => {
-          console.log("#Erreur de chargement profil")
+          console.log("#Erreur de chargement profil");
         });
     });
   }

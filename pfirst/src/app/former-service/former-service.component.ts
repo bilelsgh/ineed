@@ -28,7 +28,6 @@ export class FormerServiceComponent implements OnInit {
   @Input() helperLook: boolean; // vrai si c'est celui qui aide visualise ce service
   @Input() pour: string;
   @Input() par: string;
-  @Input() categorie: string;
   @Input() note : any;
   @Input() date : any;
   @Input() commentaire : string;
@@ -38,14 +37,15 @@ export class FormerServiceComponent implements OnInit {
 
   ngOnInit(): void {
     //this.showComment=this.usr_serv.showAllComments;
+    /*
     this.img_paths = this.usr_serv.categ_to_icon;
     this.menage = (this.categorie === "menage");
     this.accompagnement = (this.categorie === "accompagnement");
     this.course = (this.categorie === "course");
     this.cuisine = this.categorie === "cuisine";
-    // this.setBool();
+    // this.setBool();*/
   }
-
+/*
   setBool(){
     if (this.categorie === "menage") {
       this.menage = true;
@@ -68,7 +68,7 @@ export class FormerServiceComponent implements OnInit {
       this.cuisine = false;
       this.course = false;
     }
-  }
+  }*/
   getDescript() {
     let date = '' + this.datepipe.transform(this.date, 'yyyy/MM/dd');
     let note = '' + this.note;
