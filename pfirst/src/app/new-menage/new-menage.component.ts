@@ -19,16 +19,11 @@ import {  DateService } from '../services/date.service';
   styleUrls: ['./new-menage.component.css']
 })
 export class NewMenageComponent implements OnInit {
-  geoloc:GeolocComponent;
   info : any;
   menageForm: FormGroup;
   adress:string;
   city:string;
   date:string;
-
-
-  
-
   loca= false;
 
   liste_materiel= []; //A ENVOYER DANS LA DB
@@ -40,7 +35,6 @@ ngOnInit(): void {
 
   this.info=this.geolocService.info;
   this.date=this.dateService.actu;
-  console.log(this.date);
   
 
     this.initForm();
