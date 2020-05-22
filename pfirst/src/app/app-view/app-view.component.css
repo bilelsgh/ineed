@@ -80,7 +80,7 @@
 }
 
 #pile{
-  width: 550px;
+  width: 600px;
 
 }
 #sep
@@ -96,10 +96,10 @@
 /*AIDER QLQ */
 
 #tuveux{
-  width: 80%;
+  width: 500px;
 }
 #jetCourse, #jetAccompagne, #jetCuisine, #jetMenage{
-  width: 350px;
+  width: 750px;
 }
 #aBesoin{
   font-size: large;

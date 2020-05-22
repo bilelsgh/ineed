@@ -34,8 +34,6 @@ export class AuthService {
   //Permet de stocker dans le localStorage : /!\  'data' doit être JSON.stringify avant d'être placé en paramètre
   public setUserInfo(data, where : string){
     localStorage.setItem(where, data);
-    this.snackBar.openSnackBar('Vous êtes connecté','OK', "blue-snackbar", 'top', 'center');
-
   }
 
 
