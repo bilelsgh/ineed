@@ -25,3 +25,15 @@
 {
   cursor: pointer;
 }
+
+#sep{
+  height: 3px;
+  background-color: #aaaaaa;
+}
+
+.jumbotron{
+  background-image: url("../../assets/data/banniere.jpg");
+  background-size: cover;
+  min-height: 100px;
+  height: 200px;
+}

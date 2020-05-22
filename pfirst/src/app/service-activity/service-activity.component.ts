@@ -159,6 +159,7 @@ export class ServiceActivityComponent implements OnInit {
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
+
           //mise à jour du statut de cette annonce
           this.status = response["announce"].status;
         },
