@@ -212,7 +212,6 @@ export class UserService {
     this.emitDarkThemeSubject();
 
   }
-<<<<<<< HEAD
   darkTheme(){
     this.dark_theme = true;
     this.light_theme = false;
@@ -230,7 +229,6 @@ export class UserService {
     this.lightThemeSubject.next(this.light_theme);
   }
 
-=======
 
   getAnnounceHelpersById(announceId: string) {
     return new Promise(((resolve, reject) => {
@@ -278,7 +276,4 @@ export class UserService {
         );
     }));
   }
-
-
->>>>>>> activity
 }
