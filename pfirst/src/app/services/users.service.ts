@@ -21,74 +21,6 @@ export class UserService {
   notifications: string[] = [
     'post-inscription'
   ];
-
-  services_history_for = [
-    {
-      pour: "Gilbert",
-      par: "Bibel",
-      categorie: "menage",
-      note: 4.3,
-      commentaire: 'Tres bon service pour vous',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Gilbert",
-      par: "Dhomas",
-      categorie: "cuisine",
-      note: 4.7,
-      commentaire: 'Au top',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Gilbert",
-      par: "Rafel",
-      categorie: "accompagnement",
-      note: 4.5,
-      commentaire: 'Super!',
-      date: new Date(),
-      showComment: false
-    }
-  ];
-  services_history_by = [
-    {
-      pour: "Bibel",
-      par: "Gilbert",
-      categorie: "course",
-      note: 4.2,
-      commentaire: 'Tres bon service par vous',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Bibel",
-      par: "Gilbert",
-      categorie: "menage",
-      note: 4.3,
-      commentaire: 'Tres bon service par vous',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Domas",
-      par: "Gilbert",
-      categorie: "cuisine",
-      note: 4.7,
-      commentaire: 'Au top',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Rafel",
-      par: "Gilbert",
-      categorie: "accompagnement",
-      note: 4.5,
-      commentaire: 'Super!',
-      date: new Date(),
-      showComment: false
-    }
-  ];
   categ_to_icon = {
     "accompagnement": "../../assets/data/accompagner.png",
     "course": "../../assets/data/courses.png",
@@ -96,11 +28,30 @@ export class UserService {
     "menage": "../../assets/data/menage.png"
   };
 
+
+  services_history_for: any[] = new Array();
+  services_history_by: any[] = new Array();
+
   idx = 0;
 
   showAllComments: boolean = false;
 
   active_announces: any[];
+
+  getParticipants(idAnnounce: number){
+    let res: any[] =  new Array();
+    res.push({'content':{
+        'fname': 'Participant1',
+        'idUser': 13
+      }
+    });
+    res.push({'content':{
+        'fname': 'Participant2',
+        'idUser': 14
+      }
+    });
+    return res;
+  }
 
   getUserHistory(){
     return new Promise( (resolve, reject) => {

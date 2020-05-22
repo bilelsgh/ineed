@@ -26,16 +26,21 @@ export class FormerServiceComponent implements OnInit {
     };
 
   @Input() helperLook: boolean; // vrai si c'est celui qui aide visualise ce service
+  @Input() participants: any;
   @Input() pour: string;
   @Input() par: string;
-  @Input() note : any;
-  @Input() date : any;
-  @Input() commentaire : string;
+  @Input() note: any;
+  @Input() date: any;
+  @Input() commentaire: string;
+  @Input() announceId: number;
   @Input() imgSrc:string;
+  forParticipants: any[];
+  byParticipants: any[]
 
   constructor(public datepipe : DatePipe, private usr_serv: UserService) { }
 
   ngOnInit(): void {
+
     //this.showComment=this.usr_serv.showAllComments;
     /*
     this.img_paths = this.usr_serv.categ_to_icon;
@@ -44,6 +49,10 @@ export class FormerServiceComponent implements OnInit {
     this.course = (this.categorie === "course");
     this.cuisine = this.categorie === "cuisine";
     // this.setBool();*/
+  }
+
+  getP(){
+    this.forParticipants = this.usr_serv.getParticipants(this.announceId);
   }
 /*
   setBool(){

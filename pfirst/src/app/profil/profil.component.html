@@ -55,6 +55,7 @@
             <td>
               <p>Dernier service rendu : <!-- type et date --></p>
               <p>Dernier service demandé : <!-- type et date --></p>
+              <app-services-experience [id_user]="this.id" style="width: 100%;"></app-services-experience>
             </td>
           </tr>
         </table>
@@ -68,7 +69,6 @@
     <table width="1500px">
       <tr align="center">
         <td width="100%" align="center">
-          <app-services-experience [id_user]="this.id"></app-services-experience>
         </td>
       </tr>
     </table>
