@@ -113,10 +113,12 @@ export class UserService {
               serv.content = JSON.parse(serv.content);
             });
             this.services_history_by = by;
-            //this.services_history_by = got['Historique'];
+            let histFor = got['make'];
+            histFor.forEach( (serv) => {
+              serv.content = JSON.parse(serv.content);
+            });
             console.log("HISTORIQUE : ", typeof got['Historique'][0]['content']);
-            this.services_history_for.length = 0;
-            //this.services_history_for = got['make'];
+            this.services_history_for = histFor;
             this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
             resolve(true);
           },
