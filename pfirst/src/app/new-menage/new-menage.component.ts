@@ -23,6 +23,8 @@ export class NewMenageComponent implements OnInit {
   menageForm: FormGroup;
   adress:string;
   city:string;
+  date:string;
+
 
   
 
@@ -36,7 +38,18 @@ export class NewMenageComponent implements OnInit {
 ngOnInit(): void {
 
   this.info=this.geolocService.info;
-
+  var date=new Date()
+  var day =date.getDate().toString();
+  var mm = date.getMonth()+1;
+  var mois= mm.toString();
+  var yr = date.getFullYear().toString();
+  if(day.length<2){
+    day="0"+day;
+  }
+  if(mois.length<2){
+    mois="0"+mm;
+  }
+  this.date=yr+"-"+ mois+"-"+ day;
 
     this.initForm();
   }
