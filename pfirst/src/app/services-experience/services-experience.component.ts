@@ -18,6 +18,9 @@ export class ServicesExperienceComponent implements OnInit {
   showAllComments: boolean;
   last_for: number;
   last_by: number;
+  myName: string;
+  reviewFor: any;
+  reviewBy: any;
   @Input() id_user: string;
 
 
@@ -27,6 +30,7 @@ export class ServicesExperienceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.myName = JSON.parse(localStorage.getItem('user')).firstName;
     this.usr_service.getUserHistory().then( () => {
       this.history_for = this.usr_service.services_history_for;
       this.last_for = this.history_for.length-1;
@@ -36,6 +40,7 @@ export class ServicesExperienceComponent implements OnInit {
       this.showAllComments = this.usr_service.showAllComments;
       console.log('Services exp : successfully got the services');
     }).catch( () => console.log("#Impossible de recuperer l historique"));
+    this.getReview();
   }
 
   getAverageGrade() { // plus util normalement
@@ -53,6 +58,16 @@ export class ServicesExperienceComponent implements OnInit {
     return res/10;
   }
 
+  getReview(){
+    this.reviewBy = {
+      'note': 5,
+      'comment': 'Au top'
+    };
+    this.reviewFor = {
+      'note': 5,
+      'comment': 'Au top'
+    };
+  }
   setAllComments(){
     /*this.history.forEach( serv => {
       serv.showComment = true;

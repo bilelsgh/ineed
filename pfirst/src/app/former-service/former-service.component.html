@@ -1,17 +1,10 @@
 <table cellpadding="5" width="100%">
   <tr>
     <td>
-      <p class="formerServP"> Le {{getDescript()[0]}}, {{par}} a aidé {{pour}} {{descriptCategorie[categorie]}} !</p>
+      <p class="formerServP"> Le {{datepipe.transform(date, 'yyyy/MM/dd')}}, {{par}} a aidé {{pour}} à {{categorie.toLowerCase()}} !</p>
     </td>
     <td align="right">
-      <!-- img se se rechargent pas -->
-      <img class="icone-cat" [src]="this.img_paths[this.categorie]">
-      <!-- alternative trouvée
-      <img class="icone-cat" *ngIf="menage" src="../../assets/data/menage.png">
-      <img class="icone-cat" *ngIf="accompagnement" src="../../assets/data/accompagner.png">
-      <img class="icone-cat" *ngIf="cuisine" src="../../assets/data/cuisine.png">
-      <img class="icone-cat" *ngIf="course" src="../../assets/data/cuisine.png">
-      -->
+      <img class="icone-cat" [src]="imgSrc">
     </td>
   </tr>
   <tr>

@@ -15,22 +15,24 @@
   <section>
     <div id="for-wrapper" *ngIf="showFor && (history_for.length > 0)">
       <app-former-service [helperLook]="false"
-                          [pour]="this.history_for[index_for].pour"
-                          [par]="this.history_for[index_for].par"
-                          [categorie]="this.history_for[index_for].categorie"
-                          [note]="this.history_for[index_for].note"
-                          [commentaire]="this.history_for[index_for].commentaire"
-                          [date]="this.history_for[index_for].date">
+                          [pour]="myName"
+                          [par]="this.history_for[index_for].content.user"
+                          [imgSrc]="history_for[index_for].content.image"
+                          [categorie]="this.history_for[index_for].content.name"
+                          [note]="review.note"
+                          [commentaire]="review.comment"
+                          [date]="this.history_for[index_for].content.datejour">
       </app-former-service>
     </div>
     <div id="by-wrapper" *ngIf="showBy && (history_by.length > 0)">
         <app-former-service [helperLook]="true"
-                            [pour]="this.history_by[index_by].pour"
-                            [par]="this.history_by[index_by].par"
-                            [categorie]="this.history_by[index_by].categorie"
-                            [note]="this.history_by[index_by].note"
-                            [commentaire]="this.history_by[index_by].commentaire"
-                            [date]="this.history_by[index_by].date">
+                            [pour]="this.history_by[index_by].content.user"
+                            [par]="myName"
+                            [imgSrc]="history_by[index_by].content.image"
+                            [categorie]="this.history_by[index_by].content.name"
+                            [note]="review.note"
+                            [commentaire]="review.comment"
+                            [date]="this.history_by[index_by].content.datejour">
         </app-former-service>
     </div>
   </section>
@@ -38,10 +40,10 @@
     <table cellpadding="10" width="1000px">
       <tr>
         <td align="left">
-          <button class="btn btn-primary" (click)="decIndex()">Précédent</button>
+          <button class="btn btn-primary" (click)="decIndex(); getReview()">Précédent</button>
         </td>
         <td align="right">
-          <button class="btn btn-primary" (click)="incIndex()">Suivant</button>
+          <button class="btn btn-primary" (click)="incIndex(); getReview()">Suivant</button>
         </td>
       </tr>
     </table>

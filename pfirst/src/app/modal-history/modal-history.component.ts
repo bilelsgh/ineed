@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //import { ViewChild } from '@angular/core';
 //import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from "../services/users.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-modal-history',
@@ -15,14 +16,20 @@ export class ModalHistoryComponent implements OnInit {
 
   showFor: boolean = true;
   showBy: boolean = false;
+  myName: string = '';
 
   index_for: number;
   index_by: number;
 
-  constructor(private userService: UserService) {
+  review: any;
+
+  constructor(private userService: UserService,
+              private httpClient: HttpClient) {
   }
 
   ngOnInit(): void {
+    this.myName = JSON.parse(localStorage.getItem('user')).firstName;
+    console.log("MYNAME : ", this.myName);
     console.log('Entree ngOnInit modal history');
     this.userService.getUserHistory()
       .then( () => {
@@ -32,10 +39,12 @@ export class ModalHistoryComponent implements OnInit {
         console.log('Modal history : history_for = ', this.history_for);
         this.index_by = this.history_by.length-1;
         this.index_for = this.history_for.length-1;
+        console.log("datejour : ", this.history_by[this.index_by].content.datejour);
       })
       .catch( (e) => {
-        console.log('Erreur de recup des services dans modal history');
+        console.log('Erreur de recup des services dans modal history', e);
       });
+    this.getReview();
   }
 
   incIndex(){
@@ -52,6 +61,14 @@ export class ModalHistoryComponent implements OnInit {
     }
   }
 
+  getReview(){
+    //a synchro avec le back
+    this.review = {
+      'note': 5,
+      'comment': 'Super'
+    };
+    console.log("got review");
+  }
   decIndex(){
     if (this.showFor) {
       this.index_for--;

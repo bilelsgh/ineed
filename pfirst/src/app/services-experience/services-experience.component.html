@@ -17,23 +17,25 @@
     <td>
       <app-former-service *ngIf="last_for > -1"
                           [helperLook]="false"
-                          [pour]="this.history_for[last_for].pour"
-                          [par]="this.history_for[last_for].par"
-                          [categorie]="this.history_for[last_for].categorie"
-                          [note]="this.history_for[last_for].note"
-                          [commentaire]="this.history_for[last_for].commentaire"
-                          [date]="this.history_for[last_for].date">
+                          [pour]="myName"
+                          [par]="history_for[last_for].content.user"
+                          [categorie]="this.history_for[last_for].content.name"
+                          [imgSrc]="history_for[last_for].content.image"
+                          [note]="reviewFor.note"
+                          [commentaire]="reviewBy.comment"
+                          [date]="this.history_for[last_for].content.datejour">
       </app-former-service>
     </td>
     <td>
       <app-former-service *ngIf="last_by > -1"
                           [helperLook]="true"
-                          [pour]="this.history_by[last_by].pour"
-                          [par]="this.history_by[last_by].par"
-                          [categorie]="this.history_by[last_by].categorie"
-                          [note]="this.history_by[last_by].note"
-                          [commentaire]="this.history_by[last_by].commentaire"
-                          [date]="this.history_by[last_by].date">
+                          [pour]="this.history_by[last_by].content.user"
+                          [par]="myName"
+                          [imgSrc]="history_by[last_by].content.image"
+                          [categorie]="this.history_by[last_by].content.name"
+                          [note]="reviewBy.note"
+                          [commentaire]="reviewBy.comment"
+                          [date]="this.history_by[last_by].content.datejour">
       </app-former-service>
     </td>
   </tr>

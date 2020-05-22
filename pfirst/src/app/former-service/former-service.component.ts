@@ -32,8 +32,9 @@ export class FormerServiceComponent implements OnInit {
   @Input() note : any;
   @Input() date : any;
   @Input() commentaire : string;
+  @Input() imgSrc:string;
 
-  constructor(private datepipe : DatePipe, private usr_serv: UserService) { }
+  constructor(public datepipe : DatePipe, private usr_serv: UserService) { }
 
   ngOnInit(): void {
     //this.showComment=this.usr_serv.showAllComments;
