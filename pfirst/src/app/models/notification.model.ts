@@ -10,6 +10,6 @@ export class Notif{
 export class NotifContext{
   constructor(public emitterId: string = JSON.parse(localStorage.getItem('user')).idUser,
               public announceId: string = '-1', // -1 signifie que la notif n'a pas de rapport avec une annonce
-              public detail: string = 'helpProposed'// 'helpProposed' | 'helpAccepted' | 'helpRefused' | 'serviceStart' | 'serviceOver'
+              public detail: string = 'helpProposed'// 'helpProposed' | 'helpAccepted' | 'helpRefused' | 'serviceStart' | 'serviceOver' | 'reviewExpected'
   ) {}
 }
