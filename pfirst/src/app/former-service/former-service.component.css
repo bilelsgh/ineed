@@ -35,7 +35,12 @@
   font-size: 30px;
 }
 
-#toolbarSpacer
+.spacer
 {
   flex: 1 1 auto;
+}
+
+.dateFormat
+{
+  font-size: large;
 }

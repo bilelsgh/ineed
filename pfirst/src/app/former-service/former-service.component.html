@@ -1,27 +1,32 @@
 <table cellpadding="5" width="100%">
   <tr>
     <td>
-      <mat-toolbar color="blue" style="width: 100%">
+      <mat-toolbar color="blue">
         <mat-toolbar-row>
           Participants
         </mat-toolbar-row>
-        <mat-toolbar-row *ngFor="let participant of participants">
-          <span>{{idToNames[participant]}}</span>
-          <span class="toolbarSpacer"></span>
-          <mat-icon (click)="goToProfil(participant)"> face </mat-icon>
-          <mat-icon (click)="idToShowReview[participant]=true; getReview(participant);"> library_add_check </mat-icon>
-          <span *ngIf="idToShowReview[participant]">{{idToReviews[participant].comment}}</span>
-        </mat-toolbar-row>
       </mat-toolbar>
+      <div *ngFor="let participant of participants">
+        <mat-toolbar style="border: 3px solid black; background-color: dodgerblue">
+          <mat-toolbar-row>
+            <span>{{idToNames[participant]}}</span>
+            <span class="spacer"></span>
+            <button style="margin-left: 30%" class="btn btn-primary" (click)="goToProfil(participant)">Profil</button>
+            <button style="margin-left: 30%" class="btn btn-primary" (click)="toggleShowReview(participant); getReview(participant);">Evaluation</button>
+          </mat-toolbar-row>
+          <mat-toolbar-row *ngIf="idToShowReview[participant]">{{idToReviews[participant].comment}}</mat-toolbar-row>
+        </mat-toolbar>
+      </div>
     </td>
-    <td align="right">
-      <p>{{datepipe.transform(date, 'yyyy/MM/dd')}}</p>
+    <td align="center">
+      <p class="dateFormat">{{datepipe.transform(date, 'yyyy/MM/dd')}}</p>
+      <p *ngIf="date==undefined" class="dateFormat">{{datepipe.transform(dateIfUndefined, 'yyyy/MM/dd')}}</p>
       <img class="icone-cat" [src]="imgSrc">
     </td>
   </tr>
   <tr>
     <td>
-        <img id="starIcon" src="../../assets/data/star.png">
+      <img id="starIcon" src="../../assets/data/star.png">
     </td>
   </tr>
   <tr>

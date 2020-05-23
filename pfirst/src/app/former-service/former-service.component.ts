@@ -4,7 +4,7 @@ import {UserService} from '../services/users.service';
 import {SuiviService} from "../services/suivi.service";
 import {AuthService} from "../services/auth.service";
 import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-former-service',
@@ -20,6 +20,7 @@ export class FormerServiceComponent implements OnInit {
   cuisine: boolean;
   course: boolean;
   img_paths: any;
+  dateIfUndefined = new Date();
 
   descriptCategorie =
     {
@@ -47,20 +48,28 @@ export class FormerServiceComponent implements OnInit {
               private suiviService: SuiviService,
               private auth: AuthService,
               private httpClient: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.getAssignees(this.announceId)
-      .then(() => {
-        this.participants.forEach((part) => {
-          this.getAssigneeName(part);
-          this.idToShowReview[part] = false;
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    this.route.params.subscribe(
+      (pars) => {
+        this.idToShowReview = {};
+        this.idToReviews = {};
+        this.idToNames = {};
+        this.getAssignees(this.announceId)
+          .then(() => {
+            this.participants.forEach((part) => {
+              this.getAssigneeName(part);
+              this.idToShowReview[part] = false;
+            });
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    )
 
     //this.showComment=this.usr_serv.showAllComments;
     /*
@@ -81,6 +90,13 @@ export class FormerServiceComponent implements OnInit {
     }
   }
 
+  toggleShowReview(idUser: number){
+    if (this.idToShowReview[idUser] == true){
+      this.idToShowReview[idUser] = false;
+    }else{
+      this.idToShowReview[idUser] = true;
+    }
+  }
 
   getAssignees(id: number = 0) {
     return new Promise((resolve, reject) => {

@@ -43,11 +43,11 @@ export class UserService {
 
   getUserHistory(userID: string = JSON.parse(localStorage.getItem('user')).idUser) {
     return new Promise( (resolve, reject) => {
-      this.httpClient.get(this.auth.backend + 'api/announce/historique?token=' + JSON.parse(localStorage.getItem('token')))
+      this.httpClient.get(this.auth.backend + 'api/announce/historique/' + userID +'?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(
           (got) => {
 
-            let by = got['Historique'];
+            let by = got['historique'];
             by.forEach( (serv) => {
               serv.content = JSON.parse(serv.content);
             });
@@ -56,7 +56,7 @@ export class UserService {
             histFor.forEach( (serv) => {
               serv.content = JSON.parse(serv.content);
             });
-            console.log("HISTORIQUE : ", typeof got['Historique'][0]['content']);
+            console.log("HISTORIQUE : ", typeof got['historique'][0]['content']);
             this.services_history_for = histFor;
             this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
 
