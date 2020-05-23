@@ -59,7 +59,6 @@ import { ServiceActivityComponent } from './service-activity/service-activity.co
 import { ServiceProposedComponent } from './service-proposed/service-proposed.component';
 import { SuiviService } from './services/suivi.service';
 import { ModalAreYouSureComponent } from './modal-are-you-sure/modal-are-you-sure.component';
-import {ImageCompressorService} from "./services/image-compressor.service";
 import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
@@ -100,7 +99,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ActivityComponent,
     ServiceActivityComponent,
     ServiceProposedComponent,
-    ModalAreYouSureComponent
+    ModalAreYouSureComponent,
     MatSnackBarComponent
   ],
   imports: [

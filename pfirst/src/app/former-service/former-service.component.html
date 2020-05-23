@@ -1,16 +1,16 @@
 <table cellpadding="5" width="100%">
   <tr>
     <td>
-      <mat-toolbar color="blue">
+      <mat-toolbar style="background-color: dodgerblue; color: black">
         <mat-toolbar-row *ngIf="!helperLook">
-          Participants
+          <b>Participants</b>
         </mat-toolbar-row>
         <mat-toolbar-row *ngIf="helperLook">
-          Auteur
+          <b>Auteur</b>
         </mat-toolbar-row>
       </mat-toolbar>
       <div *ngFor="let participant of participants">
-        <mat-toolbar style="border: 3px solid black; background-color: dodgerblue">
+        <mat-toolbar style="border: 3px solid black; background-color: dodgerblue; color: white">
           <mat-toolbar-row>
             <span>{{idToNames[participant]}}</span>
             <span class="spacer"></span>
