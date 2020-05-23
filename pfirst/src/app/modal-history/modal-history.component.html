@@ -17,9 +17,8 @@
       <app-former-service [helperLook]="false"
                           [pour]="myName"
                           [par]="this.history_for[index_for].content.user"
+                          [announceId]="history_for[index_for].idAnnounce"
                           [imgSrc]="history_for[index_for].content.image"
-                          [note]="review.note"
-                          [commentaire]="review.comment"
                           [date]="this.history_for[index_for].content.datejour">
       </app-former-service>
     </div>
@@ -27,9 +26,8 @@
         <app-former-service [helperLook]="true"
                             [pour]="this.history_by[index_by].content.user"
                             [par]="myName"
+                            [announceId]="history_by[index_by].idAnnounce"
                             [imgSrc]="history_by[index_by].content.image"
-                            [note]="review.note"
-                            [commentaire]="review.comment"
                             [date]="this.history_by[index_by].content.datejour">
         </app-former-service>
     </div>

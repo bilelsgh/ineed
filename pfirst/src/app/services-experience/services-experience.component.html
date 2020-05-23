@@ -11,9 +11,8 @@
                           [helperLook]="false"
                           [pour]="myName"
                           [par]="history_for[last_for].content.user"
+                          [announceId]="history_for[last_for].idAnnounce"
                           [imgSrc]="history_for[last_for].content.image"
-                          [note]="reviewFor.note"
-                          [commentaire]="reviewBy.comment"
                           [date]="this.history_for[last_for].content.datejour">
       </app-former-service>
     </td>
@@ -24,9 +23,8 @@
                           [helperLook]="true"
                           [pour]="this.history_by[last_by].content.user"
                           [par]="myName"
+                          [announceId]="history_by[last_by].idAnnounce"
                           [imgSrc]="history_by[last_by].content.image"
-                          [note]="reviewBy.note"
-                          [commentaire]="reviewBy.comment"
                           [date]="this.history_by[last_by].content.datejour">
       </app-former-service>
     </td>

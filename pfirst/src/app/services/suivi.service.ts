@@ -68,32 +68,6 @@ export class SuiviService {
           );
       }
     });
-
-
-  }
-  getAssigneesByResult(id : number = 0): number[] {
-      if (id === 0) {
-        return [];
-      }else{
-        this.httpClient
-          .get<any[]>(this.auth.backend + 'api/announce/' + id + '/accepted?token=' + JSON.parse(localStorage.getItem('token')))
-          .subscribe(
-            (response) => {
-              this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-              return response['accepted'];
-              //  console.log("GET ASSIGNEES : " + id);
-              //console.table(response['accepted']);
-            },
-            (error) => {
-              if (error['status'] === 401) {
-                this.auth.removeUserInfo();
-                console.log('#TOKEN EXPIRED');
-              }
-              console.log('#DEBUG : Erreur lors de la récupération des assignees [service-activity] ' + error);
-              return [];
-            }
-          );
-      }
   }
 
 

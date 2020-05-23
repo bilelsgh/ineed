@@ -1,27 +1,21 @@
 <table cellpadding="5" width="100%">
   <tr>
     <td>
-      <mat-toolbar color="primary">
+      <mat-toolbar color="blue" style="width: 60%">
         <mat-toolbar-row>
-          <span>Custom Toolbar</span>
+          Participants
         </mat-toolbar-row>
-
-        <mat-toolbar-row>
-          <span>Second Line</span>
-          <span class="example-spacer"></span>
-          <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">verified_user</mat-icon>
-        </mat-toolbar-row>
-
-        <mat-toolbar-row>
-          <span>Third Line</span>
-          <span class="example-spacer"></span>
-          <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-          <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+        <mat-toolbar-row *ngFor="let participant of participants">
+          <span>{{idToNames[participant]}}</span>
+          <span class="toolbarSpacer"></span>
+          <mat-icon (click)="goToProfil(participant)"> face </mat-icon>
+          <mat-icon (click)="idToShowReview[participant]=true; getReview(participant);"> library_add_check </mat-icon>
+          <span *ngIf="idToShowReview[participant]">{{idToReviews[participant].comment}}</span>
         </mat-toolbar-row>
       </mat-toolbar>
-      <p class="formerServP"> Le {{datepipe.transform(date, 'yyyy/MM/dd')}}, {{par}} a aidé {{pour}} !</p>
     </td>
     <td align="right">
+      <p>{{datepipe.transform(date, 'yyyy/MM/dd')}}</p>
       <img class="icone-cat" [src]="imgSrc">
     </td>
   </tr>
@@ -30,7 +24,7 @@
       <p class="formerServP">
         <span *ngIf="helperLook">{{pour}}</span>
         <span *ngIf="!helperLook">{{par}}</span>
-          a attribué une note de {{note}}/5
+        a attribué une note de {{note}}/5
         <img id="starIcon" src="../../assets/data/star.png">
       </p>
     </td>

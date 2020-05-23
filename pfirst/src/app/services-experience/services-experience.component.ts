@@ -4,6 +4,7 @@ import {UserService} from '../services/users.service';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ModalHistoryComponent} from "../modal-history/modal-history.component";
 import {Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-services-experience',
@@ -27,28 +28,48 @@ export class ServicesExperienceComponent implements OnInit, OnDestroy {
 
   constructor(private datepipe: DatePipe,
               private usr_service: UserService,
-              public matDialog: MatDialog) {
+              public matDialog: MatDialog,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.historySub = this.usr_service.history_subject.subscribe(
-      (newVal) => {
-        this.history_for = this.usr_service.services_history_for;
-        this.history_by = this.usr_service.services_history_by;
-        console.log('history for: ', this.history_for);
-        this.last_for = this.history_for.length - 1;
-        this.last_by = this.history_by.length - 1;
-        this.idx = this.usr_service.idx;
-        this.showAllComments = this.usr_service.showAllComments;
-        console.log(newVal);
+    this.activatedRoute.params.subscribe(
+      (pars) => {
+        this.usr_service.getUserHistory(pars['id'])
+          .then( () => {
+            this.id_user = pars['id'];
+            this.history_for = this.usr_service.services_history_for;
+            this.history_by = this.usr_service.services_history_by;
+            console.log('history for: ', this.history_for);
+            this.last_for = this.history_for.length - 1;
+            this.last_by = this.history_by.length - 1;
+            this.idx = this.usr_service.idx;
+            this.showAllComments = this.usr_service.showAllComments;
+          })
+          .catch( (e) => {
+            console.log('ERREUR RECUP HISTORY DANS SERV EXP',e);
+          });
+        this.myName = JSON.parse(localStorage.getItem('user')).firstName;
       }
     );
-    this.myName = JSON.parse(localStorage.getItem('user')).firstName;
     this.getReview();
+    /* ne marche pas
+this.historySub = this.usr_service.history_subject.subscribe(
+  (newVal) => {
+    this.history_for = this.usr_service.services_history_for;
+    this.history_by = this.usr_service.services_history_by;
+    console.log('history for: ', this.history_for);
+    this.last_for = this.history_for.length - 1;
+    this.last_by = this.history_by.length - 1;
+    this.idx = this.usr_service.idx;
+    this.showAllComments = this.usr_service.showAllComments;
+    console.log(newVal);
+  }
+);*/
   }
 
   ngOnDestroy() {
-    this.historySub.unsubscribe();
+    //this.historySub.unsubscribe();
   }
 
   getAverageGrade() { // plus util normalement

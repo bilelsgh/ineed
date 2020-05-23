@@ -40,22 +40,8 @@ export class UserService {
   idx = 0;
 
   showAllComments: boolean = false;
-  getParticipants(idAnnounce: number){
-    let res: any[] =  new Array();
-    res.push({'content':{
-        'fname': 'Participant1',
-        'idUser': 13
-      }
-    });
-    res.push({'content':{
-        'fname': 'Participant2',
-        'idUser': 14
-      }
-    });
-    return res;
-  }
 
-  getUserHistory(){
+  getUserHistory(userID: string = JSON.parse(localStorage.getItem('user')).idUser) {
     return new Promise( (resolve, reject) => {
       this.httpClient.get(this.auth.backend + 'api/announce/historique?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(

@@ -36,16 +36,16 @@ export class ProfilComponent implements OnInit {
         .catch( () => {
           console.log('#Erreur de chargement profil');
         });
+      this.userService.getUserHistory()
+        .then( () => {
+          this.services_history_by = this.userService.services_history_by;
+          this.services_history_for = this.userService.services_history_for;
+          this.getRank();
+        })
+        .catch( (e) => {
+          console.log('Erreur de récupération de l\'historique dans profil',e);
+        });
     });
-    this.userService.getUserHistory()
-      .then( () => {
-        this.services_history_by = this.userService.services_history_by;
-        this.services_history_for = this.userService.services_history_for;
-        this.getRank();
-      })
-      .catch( (e) => {
-        console.log('Erreur de récupération de l\'historique dans profil',e);
-      });
   }
 
   getPdpPath(): string{
