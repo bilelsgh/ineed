@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 //import { ViewChild } from '@angular/core';
 //import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from "../services/users.service";
@@ -30,30 +30,23 @@ export class ModalHistoryComponent implements OnInit {
   ngOnInit(): void {
     this.myName = JSON.parse(localStorage.getItem('user')).firstName;
     console.log("MYNAME : ", this.myName);
-    console.log('Entree ngOnInit modal history');
-    this.userService.getUserHistory()
-      .then( () => {
-        this.history_by = this.userService.services_history_by;
-        this.history_for = this.userService.services_history_for;
-        console.log('Modal history : history_by = ', this.history_by);
-        console.log('Modal history : history_for = ', this.history_for);
-        this.index_by = this.history_by.length-1;
-        this.index_for = this.history_for.length-1;
-        console.log("datejour : ", this.history_by[this.index_by].content.datejour);
-      })
-      .catch( (e) => {
-        console.log('Erreur de recup des services dans modal history', e);
-      });
+    this.history_by = this.userService.services_history_by;
+    this.history_for = this.userService.services_history_for;
+    console.log('Modal history : history_by = ', this.history_by);
+    console.log('Modal history : history_for = ', this.history_for);
+    this.index_by = this.history_by.length - 1;
+    this.index_for = this.history_for.length - 1;
+    console.log("datejour : ", this.history_by[this.index_by].content.datejour);
     this.getReview();
   }
 
-  incIndex(){
+  incIndex() {
     if (this.showFor) {
       this.index_for++;
-      if (this.index_for >= this.history_for.length){
+      if (this.index_for >= this.history_for.length) {
         this.index_for = 0;
       }
-    }else{
+    } else {
       this.index_by++;
       if (this.index_by >= this.history_by.length) {
         this.index_by = 0;
@@ -61,7 +54,7 @@ export class ModalHistoryComponent implements OnInit {
     }
   }
 
-  getReview(){
+  getReview() {
     //a synchro avec le back
     this.review = {
       'note': 5,
@@ -69,22 +62,24 @@ export class ModalHistoryComponent implements OnInit {
     };
     console.log("got review");
   }
-  decIndex(){
+
+  decIndex() {
     if (this.showFor) {
       this.index_for--;
-      if (this.index_for < 0){
-        this.index_for = this.history_for.length-1;
+      if (this.index_for < 0) {
+        this.index_for = this.history_for.length - 1;
       }
-      console.log("categorie uodated : "+this.history_for[this.index_for].categorie);
+      console.log("categorie uodated : " + this.history_for[this.index_for].categorie);
 
-    }else{
+    } else {
       this.index_by--;
       if (this.index_by < 0) {
-        this.index_by = this.history_by.length-1;
+        this.index_by = this.history_by.length - 1;
       }
-      console.log("categorie uodated : "+this.history_by[this.index_by].categorie);
+      console.log("categorie uodated : " + this.history_by[this.index_by].categorie);
     }
   }
+
   setFor() {
     this.showBy = false;
     this.showFor = true;

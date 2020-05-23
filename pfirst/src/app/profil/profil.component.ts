@@ -14,8 +14,8 @@ export class ProfilComponent implements OnInit {
   myProfil : boolean;
   info_user : any;
   id: string;
-  number_services_proposed : number;
-  number_services_asked : number = 0;
+  services_history_for: any[] = new Array();
+  services_history_by: any[] = new Array();
 
   constructor(private userService : UserService,
               private route: ActivatedRoute,
@@ -24,7 +24,7 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe( (pars)=> {
+    this.route.params.subscribe( (pars) => {
       this.id = pars['id'];
       console.log('ID : ', this.id);
       this.userService.getProfilById(this.id).then(
@@ -37,31 +37,25 @@ export class ProfilComponent implements OnInit {
           console.log('#Erreur de chargement profil');
         });
     });
-    this.getServiceProposedAndFinished();
-    this.getRank();
+    this.userService.getUserHistory()
+      .then( () => {
+        this.services_history_by = this.userService.services_history_by;
+        this.services_history_for = this.userService.services_history_for;
+        this.getRank();
+      })
+      .catch( (e) => {
+        console.log('Erreur de récupération de l\'historique dans profil',e);
+      });
   }
 
   getPdpPath(): string{
     return this.authService.backend + '/static/images/' + this.info_user.photo;
   }
 
-  getServiceProposedAndFinished(){
-    this.userService.getServiceProposedAndFinished()
-      .then( () => {
-        this.number_services_proposed = this.userService.services_proposed_finished.length;
-        this.getRank();
-      })
-      .catch( (e) => {
-        console.log("Erreur récupération des services proposés #profil-component");
-        this.number_services_proposed = -1;
-        this.getRank();
-      })
-  }
 
-  getServiceAskedAnfFinished(){};
 
   getRank(){
-    let number_services = this.number_services_proposed + this.number_services_asked;
+    let number_services = this.services_history_for.length + this.services_history_by.length;
     if( number_services < 0){
       this.rank = "undefined"
     }else if(number_services >= 0 && number_services <= 5){

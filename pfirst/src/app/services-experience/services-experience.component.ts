@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import { UserService} from '../services/users.service';
+import {UserService} from '../services/users.service';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ModalHistoryComponent} from "../modal-history/modal-history.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-services-experience',
@@ -10,9 +11,9 @@ import {ModalHistoryComponent} from "../modal-history/modal-history.component";
   styleUrls: ['./services-experience.component.css'],
   providers: [DatePipe, UserService]
 })
-export class ServicesExperienceComponent implements OnInit {
+export class ServicesExperienceComponent implements OnInit, OnDestroy {
 
-  history_for: any[] =  new Array();
+  history_for: any[] = new Array();
   history_by: any[] = new Array();
   idx: number;
   showAllComments: boolean;
@@ -21,26 +22,33 @@ export class ServicesExperienceComponent implements OnInit {
   myName: string;
   reviewFor: any;
   reviewBy: any;
-  @Input() id_user: string;
-
+  @Input() id_user: string; // a voir si change bien qd on change direct d'un profil a l'autre
+  historySub: Subscription;
 
   constructor(private datepipe: DatePipe,
-              private usr_service : UserService,
+              private usr_service: UserService,
               public matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    this.historySub = this.usr_service.history_subject.subscribe(
+      (newVal) => {
+        this.history_for = this.usr_service.services_history_for;
+        this.history_by = this.usr_service.services_history_by;
+        console.log('history for: ', this.history_for);
+        this.last_for = this.history_for.length - 1;
+        this.last_by = this.history_by.length - 1;
+        this.idx = this.usr_service.idx;
+        this.showAllComments = this.usr_service.showAllComments;
+        console.log(newVal);
+      }
+    );
     this.myName = JSON.parse(localStorage.getItem('user')).firstName;
-    this.usr_service.getUserHistory().then( () => {
-      this.history_for = this.usr_service.services_history_for;
-      this.last_for = this.history_for.length-1;
-      this.history_by = this.usr_service.services_history_by;
-      this.last_by = this.history_by.length-1;
-      this.idx=this.usr_service.idx;
-      this.showAllComments = this.usr_service.showAllComments;
-      console.log('Services exp : successfully got the services');
-    }).catch( () => console.log("#Impossible de recuperer l historique"));
     this.getReview();
+  }
+
+  ngOnDestroy() {
+    this.historySub.unsubscribe();
   }
 
   getAverageGrade() { // plus util normalement
@@ -53,12 +61,12 @@ export class ServicesExperienceComponent implements OnInit {
     this.history_by.forEach(elt => {
       sum = sum + elt.note , grades = grades + 1;
     });
-    res = (sum / grades)*10;
+    res = (sum / grades) * 10;
     res = Math.round(res);
-    return res/10;
+    return res / 10;
   }
 
-  getReview(){
+  getReview() {
     this.reviewBy = {
       'note': 5,
       'comment': 'Au top'
@@ -68,17 +76,18 @@ export class ServicesExperienceComponent implements OnInit {
       'comment': 'Au top'
     };
   }
-  setAllComments(){
+
+  setAllComments() {
     /*this.history.forEach( serv => {
       serv.showComment = true;
     });
     this.showAllComments = true;*/
     this.usr_service.setShowAllComments();
-    this.showAllComments=true;
+    this.showAllComments = true;
     console.log('servExp : showAll set a true');
   }
 
-  resetAllComments(){
+  resetAllComments() {
     /*this.history.forEach( serv => {
       serv.showComment = false;
     });
@@ -88,7 +97,7 @@ export class ServicesExperienceComponent implements OnInit {
     console.log('servExp : showAll reset a false');
   }
 
-  openHistoryModal(){
+  openHistoryModal() {
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = false;

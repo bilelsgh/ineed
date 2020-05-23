@@ -15,7 +15,6 @@ export class UserService {
   darkThemeSubject = new Subject<boolean>();
   lightThemeSubject = new Subject<boolean>();
 
-
   info_user: any;
   notifications: string[] = [
     'post-inscription'
@@ -35,6 +34,8 @@ export class UserService {
 
   services_history_for: any[] = new Array();
   services_history_by: any[] = new Array();
+  history_subject = new Subject<string>();
+
 
   idx = 0;
 
@@ -72,6 +73,9 @@ export class UserService {
             console.log("HISTORIQUE : ", typeof got['Historique'][0]['content']);
             this.services_history_for = histFor;
             this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
+
+              this.history_subject.next('newHistoryCheck');
+              console.log("HISTORYSUB EMITTED");
             resolve(true);
           },
           (e) => {
@@ -253,27 +257,4 @@ export class UserService {
     }));
   }
 
-  getServiceProposedAndFinished(){
-    return new Promise(((resolve, reject) => {
-      this.httpClient //checker si on met le helperID dans la route
-        .get<any[]>(this.auth.backend + 'api/announce/historique?token=' +
-          JSON.parse(localStorage.getItem('token'))) //route à vérifier
-        .subscribe(
-          (response) => {
-            console.log('Service proposed & finished');
-            console.table(response);
-            this.services_proposed_finished = response;
-            resolve(true);
-          },
-          (error) => {
-            reject(true);
-            if (error['status'] === 401) {
-              this.auth.removeUserInfo();
-              console.log("#TOKEN EXPIRED");
-            }
-            console.log("Erreur récupération des services proposés #user.service");
-          }
-        );
-    }));
-  }
 }
