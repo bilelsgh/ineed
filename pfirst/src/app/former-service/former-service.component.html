@@ -11,30 +11,28 @@
           <mat-toolbar-row>
             <span>{{idToNames[participant]}}</span>
             <span class="spacer"></span>
-            <button style="margin-left: 30%" class="btn btn-primary" (click)="goToProfil(participant)">Profil</button>
-            <button style="margin-left: 30%" class="btn btn-primary" (click)="toggleShowReview(participant); getReview(participant);">Evaluation</button>
+            <!--
+            <mat-icon class="actionIcon"> face </mat-icon>
+            <mat-icon class="actionIcon"> done</mat-icon>
+            -->
+            <button style="padding: 5px 14px; margin-left: 10px" class="btn btn-primary" (click)="goToProfil(participant)">Profil</button>
+            <button style="padding: 5px 14px; margin-left: 10px" class="btn btn-primary" (click)="toggleShowReview(participant); getReview(participant);">Evaluation</button>
           </mat-toolbar-row>
-          <mat-toolbar-row *ngIf="idToShowReview[participant]">{{idToReviews[participant].comment}}</mat-toolbar-row>
+          <mat-toolbar-row *ngIf="idToShowReview[participant]">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+            <span>{{idToReviews[participant].comment}}</span>
+            <span class="spacer"></span>
+            <span>{{idToReviews[participant].note}}</span>
+            <mat-icon>grade</mat-icon>
+          </mat-toolbar-row>
+
         </mat-toolbar>
       </div>
     </td>
     <td align="center">
       <p class="dateFormat">{{datepipe.transform(date, 'yyyy/MM/dd')}}</p>
-      <p *ngIf="date==undefined" class="dateFormat">{{datepipe.transform(dateIfUndefined, 'yyyy/MM/dd')}}</p>
+      <p *ngIf="date==undefined || date==''" class="dateFormat">{{datepipe.transform(dateIfUndefined, 'yyyy/MM/dd')}}</p>
       <img class="icone-cat" [src]="imgSrc">
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img id="starIcon" src="../../assets/data/star.png">
-    </td>
-  </tr>
-  <tr>
-    <td align="left">
-      <img height="50px" width="50px" src="../../assets/data/double_cote.png">
-    </td>
-    <td align="right">
-      <img height="50px" width="50px" src="../../assets/data/double_cote.png">
     </td>
   </tr>
 </table>

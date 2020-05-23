@@ -1,7 +1,7 @@
-<table width="100%" cellpadding="20" border="3px solid">
+<table width="100%" cellpadding="20">
   <tr>
     <td width="5%">
-      <p>Dernier service demandé :</p>
+      <p style="font-size: large">Dernier service demandé :</p>
     </td>
   </tr>
   <tr>
@@ -14,11 +14,13 @@
                           [imgSrc]="history_for[last_for].content.image"
                           [date]="this.history_for[last_for].content.datejour">
       </app-former-service>
+      <span style="font-size: medium" *ngIf="last_for<0">Pas encore de services demandés.</span>
+
     </td>
   </tr>
   <tr>
     <td>
-      <p>Dernier service rendu :</p>
+      <p style="font-size: large">Dernier service rendu :</p>
     </td>
   </tr>
   <tr>
@@ -31,11 +33,12 @@
                           [imgSrc]="history_by[last_by].content.image"
                           [date]="this.history_by[last_by].content.datejour">
       </app-former-service>
+      <span style="font-size: medium" *ngIf="last_by<0">Pas encore de services rendus.</span>
     </td>
   </tr>
   <tr>
-    <td colspan="2">
-      <button mat-raised-button id="history-button" (click)="openHistoryModal()">En voir plus</button>
+    <td colspan="2" align="left">
+      <button mat-raised-button *ngIf="(last_by>0)||(last_for>0)" id="history-button" (click)="openHistoryModal()">En voir plus</button>
     </td>
   </tr>
 </table>
