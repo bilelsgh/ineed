@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { GeolocService } from '../services/geoloc.service';
+import { DateService } from '../services/date.service';
 
 
 
@@ -17,15 +19,22 @@ import { Content } from '@angular/compiler/src/render3/r3_ast';
 export class NewCoursesComponent implements OnInit {
 
   Services: ServiceService;
+  info : any;
+  adress:string;
+  city:string;
+  date:string;
+  loca= false;
   /*content= new Array<{ jour: string, accompagner: any,budget: string, liste :any,
   name: string, description: any, id: number, type: string, user: any, image : string }>();*/
 
   liste_courses = new Array<{produit: string, quantite: string}>(); //A ENVOYER DANS LA DB
   coursesForm: FormGroup;
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
-              private httpClient : HttpClient, private auth : AuthService) { }
+              private httpClient : HttpClient, private auth : AuthService,private geolocService:GeolocService, private dateService: DateService) { }
 
   ngOnInit(): void {
+    this.info=this.geolocService.info;
+    this.date=this.dateService.actu;
     this.initForm();
   }
 
@@ -45,14 +54,25 @@ export class NewCoursesComponent implements OnInit {
   onSubmitForm() {
 
     const f = this.coursesForm;
-    const content=  { datejour: '',dateheure:'', accompagner:'',budget:'', liste: [],name:'Faire les courses', description: '',type:'service1',user:'', viewNumber : 0, image: '../../assets/data/courses.png',contry: '', city:'', adress: '' }
-    content.datejour=f.value['datejour'];
-    content.datejour=f.value['dateheure'];
+    const content=  { datejour: '',dateheure:'', accompagner:'',budget:'', liste: [],name:'Faire les courses', description: '',type:'service1',user:'', viewNumber : 0, image: '../../assets/data/courses.png',contry: '', city:'', adress: '',latitude:0, longitude:0 }
+    content.datejour=this.dateService.getDate(f);
+    content.dateheure=f.value['dateheure'];
     content.accompagner= f.value['accompagne'];
     content.budget= f.value['budget'];
     content.liste=this.liste_courses;
     content.description=f.value['description'];
-    content.user=f.value['user'];
+    content.latitude=this.info.latitude;
+    content.longitude=this.info.longitude;
+      
+      content.user=f.value['user'];
+      content.city=f.value['city'];
+      content.adress=f.value['adress'];
+      if(this.loca==false){
+        this.getgetLatLong();
+        content.latitude=this.info.latitude;
+        content.longitude=this.info.longitude;
+      }
+      
     const newCourses = new Courses( JSON.parse(localStorage.getItem('user'))["idUser"], content,5,0,
       0,false);
     this.serviceService.addCourses(newCourses);
@@ -76,5 +96,27 @@ export class NewCoursesComponent implements OnInit {
       }
       compteur++;
     }
+  }
+
+  getgetLatLong(){
+    if(this.info.latitude==0){
+    const f = this.coursesForm;
+    this.adress=f.value['adress'];
+    this.city=f.value['city'];
+    this.geolocService.getLatLong(this.city+this.adress)
+    console.log(this.info);}
+
+  }
+
+  
+
+
+  getLocation(){
+    if(this.info.latitude==0){
+    
+    this.geolocService.setCurrentLocation();
+    }
+    this.loca=true;
+    console.log(this.info);
   }
 }

@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { Accompage } from '../models/Accompage.model';
+import { GeolocService } from '../services/geoloc.service';
+import { DateService } from '../services/date.service';
 
 @Component({
   selector: 'app-new-accompage',
@@ -14,11 +16,18 @@ import { Accompage } from '../models/Accompage.model';
 export class NewAccompageComponent implements OnInit {
 
   accompagneForm: FormGroup;
+  info : any;
+  adress:string;
+  city:string;
+  date:string;
+  loca= false;
 
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
-             private httpClient : HttpClient, private auth : AuthService) { }
+             private httpClient : HttpClient, private auth : AuthService, private geolocService:GeolocService, private dateService: DateService) { }
 ngOnInit(): void {
     this.initForm();
+    this.info=this.geolocService.info;
+  this.date=this.dateService.actu;
   }
 
   initForm(){
@@ -51,4 +60,24 @@ ngOnInit(): void {
     this.serviceService.addAccompage(newAccompage);
     this.router.navigate(['']);
 };
+
+getgetLatLong(){
+  const f = this.accompagneForm;
+  this.adress=f.value['adress'];
+  this.city=f.value['city'];
+  this.geolocService.getLatLong(this.city+this.adress);
+  console.log(this.info)
+
+}
+
+
+
+
+getLocation(){
+  if(this.info.latitude==0){
+  
+  this.geolocService.setCurrentLocation();
+  }
+  console.log(this.info);
+}
 }

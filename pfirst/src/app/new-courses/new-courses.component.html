@@ -21,11 +21,11 @@
         <div class="form-group">
           <div class="jumbotron" id="formulaire">
             <div class="form-group">
-              <label for="datejour"><h2>Quand voulez vous que les courses soient faites au plus tard ? (Date et heure)</h2>
+              <label for="datejour"><h2>Selectionnez une Date et une Heure</h2>
               </label>
-              <label for="datejour">Jour</label>
-              <input type="date" id="datejour" class="form-control" formControlName="datejour" >
-              <label for="dateheure">Heure</label>
+              <p>Jour</p>
+              <input type="date" id="datejour" class="form-control" formControlName="datejour" [min]="this.date" >
+              <p>Heure</p>
                 <input type="time" id="dateheure" class="form-control" formControlName="dateheure" >
               
             </div>
@@ -36,8 +36,8 @@
             <div class="form-group">
               <label for="accompagne"><h2>Souhaitez vous que l'on vous accompagne ?</h2></label>
               <select id="accompagne" class="form-control" formControlName="accompagne">
-                <option value="Oui">Oui, je souhaite que l' on m'accompagne.</option>
-                <option value="Non">Non, j'aimerais que la personne qui vient m'aider y aille toute seule.</option>
+                <option value="Oui">Oui !</option>
+                <option value="Non">Non !</option>
               </select>
             </div>
           </div>
@@ -103,6 +103,8 @@
             
               <label for ="adress" ><h2>Votre adresse</h2></label>
               <input type="text" id="adress" class="form-control" formControlName="adress">
+              <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Get your POSITION</button>
+
             </div>
           </div>
 

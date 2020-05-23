@@ -29,23 +29,27 @@
               </div>
 
               <div class= "form-group">
-                <label for="datejour"> <h2>Quel date cela vous conviendrez-t-il></h2></label>
-                <input type="date" id="datejour" class="form-control" formControlName="datejour" >
+                <p>Quel jour ?</p>
+              <input type="date" id="datejour" class="form-control" formControlName="datejour" [min]="this.date" >
               </div>
 
-              <div class="form-group">
-                <label for ="local" ><h2>Ou shouaitez vous que l'on vous accompagne ?</h2></label>
-                <input type="text" id="local" class="form-control" formControlName="local">
-              </div>
-              <div class="jumbotron" id="formulaire">
+              <div class="col-sm-8 col-sm-offset-2">
                 <div class="form-group">
-                  <label for ="city" ><h2>Ville</h2></label>
-                  <input type="text" id="city" class="form-control" formControlName="city">
+                <label for ="local" ><h2>Ou shouaitez vous que l'on vous accompagne ?</h2></label>
+              
+              
+               
+                <label for ="city" ><h3>Ville</h3></label>
+                <input type="text" id="city" class="form-control" formControlName="city">
+                <label for ="adress" ><h3>Adresse</h3></label>
+                <input type="text" id="adress" class="form-control" formControlName="adress">
+                <label for ="location" ><h3>Localisation</h3></label>
+                <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Get your position</button>
+                
                   
-                    <label for ="adress" ><h2>Votre adresse</h2></label>
-                    <input type="text" id="adress" class="form-control" formControlName="adress">
-                  </div>
-                </div>
+                
+              </div>
+              </div>
       
 
               <div class="form group">

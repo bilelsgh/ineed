@@ -10,6 +10,7 @@ import { GeolocComponent } from '../geoloc/geoloc.component';
 import { Observable } from 'rxjs';
 
 import {  DateService } from '../services/date.service';
+import { AgmGeocoder } from '@agm/core';
 
 
 
@@ -20,16 +21,18 @@ import {  DateService } from '../services/date.service';
 })
 export class NewMenageComponent implements OnInit {
   info : any;
-  menageForm: FormGroup;
   adress:string;
   city:string;
   date:string;
   loca= false;
+  latitude : number;
+  longitude : number;
 
   liste_materiel= []; //A ENVOYER DANS LA DB
+  menageForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
-             private httpClient : HttpClient, private auth : AuthService ,private geolocService:GeolocService, private dateService: DateService) { }
+             private httpClient : HttpClient, private auth : AuthService ,private geolocService:GeolocService, private dateService: DateService,private geocodeService: AgmGeocoder) { }
 
 ngOnInit(): void {
 
@@ -56,8 +59,8 @@ ngOnInit(): void {
 
     onSubmitForm() {
       const f = this.menageForm;
-      const content=  {type:'service2', name:"Faire le menage", user:'',description: '', salle:'', surface: '', datejour: '',dateheure:'', materiel:[],  image: '../../assets/data/menage.png',contry:'France', city:'', adress: '', latitude:0, longitude:0  }
-      content.datejour=this.getDate();
+      const content=  {type:'service2', name:"Faire le menage", user:'',description: '', salle:'', surface: '', datejour: '',dateheure:'', materiel:[],  image: '../../assets/data/menage.png', city:'', latitude:0, longitude:0  }
+      content.datejour=this.dateService.getDate(f);
       content.dateheure=f.value['dateheure'];
       content.salle= f.value['salle'];
       content.surface=f.value['surface'];
@@ -68,10 +71,15 @@ ngOnInit(): void {
       
       content.user=f.value['user'];
       content.city=f.value['city'];
-      content.adress=f.value['adress'];
+      //content.adress=f.value['adress'];
       if(this.info.longitude==0){
-        this.getgetLatLong();
+        this.getgetLatLong(f.value['city']+f.value['adress']).subscribe((result ) => {content.latitude=result[0].geometry.location.lat();
+          content.longitude=result[0].geometry.location.lng();
+        });
       }
+      content.latitude=this.info.latitude;
+      content.longitude=this.info.longitude;
+
       content.materiel=this.liste_materiel;
     const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
 
@@ -81,28 +89,34 @@ ngOnInit(): void {
       this.router.navigate(['']);
     }
 
-    getgetLatLong(){
+    getgetLatLong(address:string){
+      return this.geocodeService.geocode({"address": address})
+      /*
       const f = this.menageForm;
       this.adress=f.value['adress'];
       this.city=f.value['city'];
-      this.geolocService.getLatLong(this.city+this.adress);
-      console.log(this.info)
-
-    }
-
-    getDate(){
+      if (this.city.length==0){
+        this.getLocation();
+      }
+      else{this.geolocService.getLatLong(this.city+this.adress);}
+      
+      console.log(this.geolocService.info.latitude);*/
+          }
+    getLatLng(){
       const f = this.menageForm;
-      console.log(f.value['datejour'])
-      var year=f.value['datejour'].slice(0,4);;
-
-      var month = f.value['datejour'].slice(5,7);
-      var day=f.value['datejour'].slice(8,10);
-      console.log(day+"/"+month+"/"+year);
-
-      return(day+"/"+month+"/"+year);
-
-
+      this.getgetLatLong(f.value['city']+f.value['adress']).subscribe((result ) => {/*this.latitude=result[0].geometry.location.lat();
+        this.longitude=result[0].geometry.location.lng();*/ console.log(result);
+      },
+      (error)=>{
+        console.log('Uh-oh, an error occurred! : ' + error);
+      },
+      () => {
+        console.log('Observable complete!');
+      });
+      console.log(this.longitude);
     }
+
+    
 
   
     getLocation(){
@@ -110,7 +124,7 @@ ngOnInit(): void {
       
       this.geolocService.setCurrentLocation();
       }
-      console.log(this.info);
+      //console.log(this.info);
     }
     
 

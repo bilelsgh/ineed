@@ -60,8 +60,8 @@ export class GeolocService  {
       console.log('Observable complete!');
     }
     );
-    //console.log(this.info);
-  }
+  
+}
   
  
 
