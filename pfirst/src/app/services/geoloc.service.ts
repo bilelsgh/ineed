@@ -45,6 +45,7 @@ export class GeolocService  {
   }
  
   getLatLong(address :string){
+    return new Promise((resolve,reject)=>{
     const geocodeRequest = {
       address: address,
     };
@@ -52,16 +53,19 @@ export class GeolocService  {
     this.geoCoder
     .subscribe((result ) => {this.info.latitude=result[0].geometry.location.lat();
       this.info.longitude=result[0].geometry.location.lng();
+      resolve(true);
     },
     (error)=>{
       console.log('Uh-oh, an error occurred! : ' + error);
+      reject(true)
     },
     () => {
       console.log('Observable complete!');
     }
     );
+  });
   
-}
+}  
   
  
 

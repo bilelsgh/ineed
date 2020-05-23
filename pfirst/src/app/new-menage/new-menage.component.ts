@@ -25,7 +25,7 @@ export class NewMenageComponent implements OnInit {
   city:string;
   date:string;
   loca= false;
-  latitude : number;
+  latitude : number=0;
   longitude : number;
 
   liste_materiel= []; //A ENVOYER DANS LA DB
@@ -72,13 +72,18 @@ ngOnInit(): void {
       content.user=f.value['user'];
       content.city=f.value['city'];
       //content.adress=f.value['adress'];
-      if(this.info.longitude==0){
-        this.getgetLatLong(f.value['city']+f.value['adress']).subscribe((result ) => {content.latitude=result[0].geometry.location.lat();
-          content.longitude=result[0].geometry.location.lng();
-        });
-      }
+      if(this.loca==false){
+        this.geolocService.getLatLong(f.value['city']+f.value['adress'])
+    .catch((value)=> {console.log(value)})
+    .then((e)=>{
       content.latitude=this.info.latitude;
       content.longitude=this.info.longitude;
+      console.log(content.latitude);
+      this.serviceService.addMenage(newMenage)
+    });
+
+      }
+      
 
       content.materiel=this.liste_materiel;
     const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
@@ -89,31 +94,16 @@ ngOnInit(): void {
       this.router.navigate(['']);
     }
 
-    getgetLatLong(address:string){
-      return this.geocodeService.geocode({"address": address})
-      /*
-      const f = this.menageForm;
-      this.adress=f.value['adress'];
-      this.city=f.value['city'];
-      if (this.city.length==0){
-        this.getLocation();
-      }
-      else{this.geolocService.getLatLong(this.city+this.adress);}
-      
-      console.log(this.geolocService.info.latitude);*/
-          }
-    getLatLng(){
-      const f = this.menageForm;
-      this.getgetLatLong(f.value['city']+f.value['adress']).subscribe((result ) => {/*this.latitude=result[0].geometry.location.lat();
-        this.longitude=result[0].geometry.location.lng();*/ console.log(result);
-      },
-      (error)=>{
-        console.log('Uh-oh, an error occurred! : ' + error);
-      },
-      () => {
-        console.log('Observable complete!');
+  getLatLng(){
+    const f = this.menageForm;
+    this.geolocService.getLatLong(f.value['city']+f.value['adress'])
+    .catch((value)=> {console.log(value)})
+    .then((e)=>{console.log(this.info);
+      this.latitude=this.info.latitude;
+      this.longitude=this.info.longitude;
       });
-      console.log(this.longitude);
+      console.log(this.latitude);
+
     }
 
     
@@ -123,8 +113,9 @@ ngOnInit(): void {
       if(this.info.latitude==0){
       
       this.geolocService.setCurrentLocation();
+      this.loca=true;
       }
-      //console.log(this.info);
+      
     }
     
 
