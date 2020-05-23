@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {UserService} from '../services/users.service';
 import {SuiviService} from "../services/suivi.service";
 import {AuthService} from "../services/auth.service";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-former-service',
@@ -12,7 +13,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./former-service.component.css'],
   providers: [DatePipe, UserService]
 })
-export class FormerServiceComponent implements OnInit {
+export class FormerServiceComponent implements OnInit, OnDestroy {
 
   showComment: boolean;
   menage: boolean;
@@ -38,10 +39,12 @@ export class FormerServiceComponent implements OnInit {
   @Input() commentaire: string;
   @Input() announceId: number;
   @Input() imgSrc: string;
-  participants: any[];
+  @Input() announceAuthorId: number;
+  participants: any[] = new Array();
   idToNames = {};
   idToShowReview = {};
   idToReviews = {};
+  modalSubscription: Subscription;
 
   constructor(public datepipe: DatePipe,
               private usr_serv: UserService,
@@ -49,7 +52,8 @@ export class FormerServiceComponent implements OnInit {
               private auth: AuthService,
               private httpClient: HttpClient,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -58,27 +62,68 @@ export class FormerServiceComponent implements OnInit {
         this.idToShowReview = {};
         this.idToReviews = {};
         this.idToNames = {};
-        this.getAssignees(this.announceId)
-          .then(() => {
-            this.participants.forEach((part) => {
-              this.getAssigneeName(part);
-              this.idToShowReview[part] = false;
+        if (!this.helperLook) {
+          this.getAssignees(this.announceId)
+            .then(() => {
+              this.participants.forEach((part) => {
+                this.getAssigneeName(part);
+                this.idToShowReview[part] = false;
+              });
+            })
+            .catch((e) => {
+              console.log(e);
             });
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+        } else {
+          /*
+          this.getAuthor(this.announceId)
+            .then(() => {
+              this.participants.forEach((part) => {
+                this.getAssigneeName(part);
+                this.idToShowReview[part] = false;
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            });*/
+          /*
+          console.log("FORMER ----");
+          console.log('ANNOUNCEID', this.announceId);
+          console.log('ANNOUNCEAUTHORID', this.announceAuthorId);*/
+          this.participants.push(this.announceAuthorId);
+          this.getAssigneeName(this.participants[0]);
+          this.idToShowReview[this.announceAuthorId] = false;
+        }
       }
-    )
+    );
 
-    //this.showComment=this.usr_serv.showAllComments;
-    /*
-    this.img_paths = this.usr_serv.categ_to_icon;
-    this.menage = (this.categorie === "menage");
-    this.accompagnement = (this.categorie === "accompagnement");
-    this.course = (this.categorie === "course");
-    this.cuisine = this.categorie === "cuisine";
-    // this.setBool();*/
+    this.modalSubscription = this.usr_serv.fromModalSubject.subscribe(
+      (next) => {
+        console.log('REACTION TO MODAL EMISSION');
+        this.idToShowReview = {};
+        this.idToReviews = {};
+        this.idToNames = {};
+        if (!this.helperLook) {
+          this.getAssignees(this.announceId)
+            .then(() => {
+              this.participants.forEach((part) => {
+                this.getAssigneeName(part);
+                this.idToShowReview[part] = false;
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        } else {
+          this.participants.push(this.announceAuthorId);
+          this.getAssigneeName(this.participants[0]);
+          this.idToShowReview[this.announceAuthorId] = false;
+        }
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.modalSubscription.unsubscribe();
   }
 
   getReview(idUsr) {
@@ -90,12 +135,27 @@ export class FormerServiceComponent implements OnInit {
     }
   }
 
-  toggleShowReview(idUser: number){
-    if (this.idToShowReview[idUser] == true){
+  toggleShowReview(idUser: number) {
+    if (this.idToShowReview[idUser] == true) {
       this.idToShowReview[idUser] = false;
-    }else{
+    } else {
       this.idToShowReview[idUser] = true;
     }
+  }
+
+  getAuthor(annId: number) {
+    return new Promise((resolve, reject) => {
+      this.httpClient.get(this.authService.backend + 'api/announce/' + annId + "?token=" + JSON.parse(localStorage.getItem('token')))
+        .subscribe((resp) => {
+            this.participants = new Array();
+            this.participants.push(resp['announce'].idUser);
+            this.authService.setUserInfo(JSON.stringify(resp['token']), 'token');
+            resolve(true);
+          },
+          (e) => {
+            resolve(e);
+          });
+    });
   }
 
   getAssignees(id: number = 0) {
@@ -109,9 +169,13 @@ export class FormerServiceComponent implements OnInit {
           .subscribe(
             (response) => {
               this.participants = response['accepted'];
-              if (!this.participants.includes(JSON.parse(localStorage.getItem('user')).idUser)) {
-                this.participants.push(JSON.parse(localStorage.getItem('user')).idUser);
-              }
+              console.log('ASSIGNEES FOR ANNOUNCE', this.announceId, ' : ', response['accepted']);
+              console.log('FORMER INFO USER', this.usr_serv.info_user);
+              //console.log(this.usr_serv.info_user.idUser);
+              /*
+              if (!this.participants.includes(this.usr_serv.info_user.idUser)){
+                this.participants.push(this.usr_serv.info_user.idUser);
+              }*/
               this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
               //  console.log("GET ASSIGNEES : " + id);
               //console.table(response['accepted']);

@@ -36,6 +36,7 @@ export class ModalHistoryComponent implements OnInit {
     console.log('Modal history : history_for = ', this.history_for);
     this.index_by = this.history_by.length - 1;
     this.index_for = this.history_for.length - 1;
+    console.log('Modal history : announceAuthorId', this.history_by[this.index_by].idUser);
     console.log("datejour : ", this.history_by[this.index_by].content.datejour);
     this.getReview();
   }
@@ -52,6 +53,7 @@ export class ModalHistoryComponent implements OnInit {
         this.index_by = 0;
       }
     }
+    this.userService.emitModalSubject();
   }
 
   getReview() {
@@ -78,6 +80,7 @@ export class ModalHistoryComponent implements OnInit {
       }
       console.log("categorie uodated : " + this.history_by[this.index_by].categorie);
     }
+    this.userService.emitLightThemeSubject();
   }
 
   setFor() {

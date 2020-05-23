@@ -24,6 +24,8 @@ export class UserService {
   announceHelpers: any[];
   public services_proposed_finished : any[] = [];
 
+  fromModalSubject = new Subject();
+
   categ_to_icon = {
     "accompagnement": "../../assets/data/accompagner.png",
     "course": "../../assets/data/courses.png",
@@ -119,6 +121,11 @@ export class UserService {
     let res: string = this.info_user['fname'][0].toUpperCase() + this.info_user['lname'][0].toUpperCase();
     console.log(res);
     return res;
+  }
+
+  emitModalSubject(){
+    this.fromModalSubject.next('indexChange');
+    console.log('MODAL EMITTED');
   }
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)

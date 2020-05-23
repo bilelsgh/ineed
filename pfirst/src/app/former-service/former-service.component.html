@@ -2,8 +2,11 @@
   <tr>
     <td>
       <mat-toolbar color="blue">
-        <mat-toolbar-row>
+        <mat-toolbar-row *ngIf="!helperLook">
           Participants
+        </mat-toolbar-row>
+        <mat-toolbar-row *ngIf="helperLook">
+          Auteur
         </mat-toolbar-row>
       </mat-toolbar>
       <div *ngFor="let participant of participants">

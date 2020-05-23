@@ -11,6 +11,7 @@
                           [pour]="myName"
                           [par]="history_for[last_for].content.user"
                           [announceId]="history_for[last_for].idAnnounce"
+                          [announceAuthorId]="history_for[last_for].idUser"
                           [imgSrc]="history_for[last_for].content.image"
                           [date]="this.history_for[last_for].content.datejour">
       </app-former-service>
@@ -30,6 +31,7 @@
                           [pour]="this.history_by[last_by].content.user"
                           [par]="myName"
                           [announceId]="history_by[last_by].idAnnounce"
+                          [announceAuthorId]="history_by[last_by].idUser"
                           [imgSrc]="history_by[last_by].content.image"
                           [date]="this.history_by[last_by].content.datejour">
       </app-former-service>

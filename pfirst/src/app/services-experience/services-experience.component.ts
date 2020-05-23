@@ -41,8 +41,10 @@ export class ServicesExperienceComponent implements OnInit, OnDestroy {
             this.history_for = this.usr_service.services_history_for;
             this.history_by = this.usr_service.services_history_by;
             console.log('history for: ', this.history_for);
+            console.log('history_by :', this.history_by);
             this.last_for = this.history_for.length - 1;
             this.last_by = this.history_by.length - 1;
+            console.log('ANNOUNCEAUTHORID', this.history_for[this.last_for].idUser);
             this.idx = this.usr_service.idx;
             this.showAllComments = this.usr_service.showAllComments;
           })
