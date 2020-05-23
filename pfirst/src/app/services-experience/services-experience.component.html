@@ -1,8 +1,7 @@
-<table width="80%" cellpadding="40" border="3px solid">
+<table width="100%" cellpadding="20" border="3px solid">
   <tr>
-    <td align="center" colspan="2">
-      <img src="../../assets/data/last_services.png" id="last-serv-img">
-      <button mat-raised-button id="history-button" (click)="openHistoryModal()">Plus de services</button>
+    <td width="5%">
+      <p>Dernier service demandé :</p>
     </td>
   </tr>
   <tr>
@@ -19,6 +18,11 @@
   </tr>
   <tr>
     <td>
+      <p>Dernier service rendu :</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <app-former-service *ngIf="last_by > -1"
                           [helperLook]="true"
                           [pour]="this.history_by[last_by].content.user"
@@ -27,6 +31,11 @@
                           [imgSrc]="history_by[last_by].content.image"
                           [date]="this.history_by[last_by].content.datejour">
       </app-former-service>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <button mat-raised-button id="history-button" (click)="openHistoryModal()">En voir plus</button>
     </td>
   </tr>
 </table>

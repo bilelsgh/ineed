@@ -1,7 +1,7 @@
 <table cellpadding="5" width="100%">
   <tr>
     <td>
-      <mat-toolbar color="blue" style="width: 60%">
+      <mat-toolbar color="blue" style="width: 100%">
         <mat-toolbar-row>
           Participants
         </mat-toolbar-row>
@@ -21,12 +21,7 @@
   </tr>
   <tr>
     <td>
-      <p class="formerServP">
-        <span *ngIf="helperLook">{{pour}}</span>
-        <span *ngIf="!helperLook">{{par}}</span>
-        a attribué une note de {{note}}/5
         <img id="starIcon" src="../../assets/data/star.png">
-      </p>
     </td>
   </tr>
   <tr>
@@ -35,13 +30,6 @@
     </td>
     <td align="right">
       <img height="50px" width="50px" src="../../assets/data/double_cote.png">
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <p id="commentParagraph" class="formerServP">
-        {{commentaire}}
-      </p>
     </td>
   </tr>
 </table>
