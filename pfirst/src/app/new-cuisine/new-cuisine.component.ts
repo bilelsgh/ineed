@@ -59,9 +59,17 @@ ngOnInit(): void {
       
       content.user=f.value['user'];
       content.city=f.value['city'];
-      content.adress=f.value['adress'];
-      if(this.info.longitude==0){
-        this.getgetLatLong();
+      
+      if(this.loca==false){
+        this.geolocService.getLatLong(f.value['city']+f.value['adress'])
+    .catch((value)=> {console.log(value)})
+    .then((e)=>{
+      content.latitude=this.info.latitude;
+      content.longitude=this.info.longitude;
+      //console.log(content.latitude);
+      this.serviceService.addCuisine(newCuisine);
+    });
+
       }
       content.adress=f.value['adress'];
     const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('user'))["idUser"], content,
@@ -70,20 +78,12 @@ ngOnInit(): void {
       this.router.navigate(['']);
     }
 
-    getgetLatLong(){
-      const f = this.cuisineForm;
-      this.adress=f.value['adress'];
-      this.city=f.value['city'];
-      this.geolocService.getLatLong(this.city+this.adress);
-      console.log(this.info)
-
-    }
-
   
     getLocation(){
       if(this.info.latitude==0){
       
       this.geolocService.setCurrentLocation();
+      this.loca=true;
       }
       console.log(this.info);
     }

@@ -66,17 +66,26 @@ export class NewCoursesComponent implements OnInit {
       
       content.user=f.value['user'];
       content.city=f.value['city'];
-      content.adress=f.value['adress'];
       if(this.loca==false){
-        this.getgetLatLong();
-        content.latitude=this.info.latitude;
-        content.longitude=this.info.longitude;
+        this.geolocService.getLatLong(f.value['city']+f.value['adress'])
+    .catch((value)=> {console.log(value)})
+    .then((e)=>{
+      content.latitude=this.info.latitude;
+      content.longitude=this.info.longitude;
+      const newCourses = new Courses( JSON.parse(localStorage.getItem('user'))["idUser"], content,5,0,
+      0,false);
+      this.serviceService.addCourses(newCourses);
+      this.router.navigate(['']);
+    });
+
       }
+      else{
       
     const newCourses = new Courses( JSON.parse(localStorage.getItem('user'))["idUser"], content,5,0,
       0,false);
     this.serviceService.addCourses(newCourses);
     this.router.navigate(['']);
+      }
   }
 
 
@@ -96,16 +105,6 @@ export class NewCoursesComponent implements OnInit {
       }
       compteur++;
     }
-  }
-
-  getgetLatLong(){
-    if(this.info.latitude==0){
-    const f = this.coursesForm;
-    this.adress=f.value['adress'];
-    this.city=f.value['city'];
-    this.geolocService.getLatLong(this.city+this.adress)
-    console.log(this.info);}
-
   }
 
   
