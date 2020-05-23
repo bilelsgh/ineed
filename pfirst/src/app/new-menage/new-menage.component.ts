@@ -47,7 +47,7 @@ ngOnInit(): void {
       description:['', Validators.required],
       materiel:['', Validators.required],
       surface :['', Validators.required],
-      datejour : ['', Validators.required],
+      datejour : '',
       dateheure:['', Validators.required],
       city: ['', Validators.required],
       adress: ['', Validators.required],
@@ -57,7 +57,7 @@ ngOnInit(): void {
     onSubmitForm() {
       const f = this.menageForm;
       const content=  {type:'service2', name:"Faire le menage", user:'',description: '', salle:'', surface: '', datejour: '',dateheure:'', materiel:[],  image: '../../assets/data/menage.png',contry:'France', city:'', adress: '', latitude:0, longitude:0  }
-      content.datejour=f.value['datejour'];
+      content.datejour=this.getDate();
       content.dateheure=f.value['dateheure'];
       content.salle= f.value['salle'];
       content.surface=f.value['surface'];
@@ -87,6 +87,20 @@ ngOnInit(): void {
       this.city=f.value['city'];
       this.geolocService.getLatLong(this.city+this.adress);
       console.log(this.info)
+
+    }
+
+    getDate(){
+      const f = this.menageForm;
+      console.log(f.value['datejour'])
+      var year=f.value['datejour'].slice(0,4);;
+
+      var month = f.value['datejour'].slice(5,7);
+      var day=f.value['datejour'].slice(8,10);
+      console.log(day+"/"+month+"/"+year);
+
+      return(day+"/"+month+"/"+year);
+
 
     }
 

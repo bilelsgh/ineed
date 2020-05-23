@@ -18,6 +18,8 @@
               <input type="date" id="datejour" class="form-control" formControlName="datejour" [min]="this.date" >
               <label for="dateheure">Heure</label>
                 <input type="time" id="dateheure" class="form-control" formControlName="dateheure" >
+
+                <button  type="button" id = "location-button"  (click)= "getDate()" class="btn btn-secondary" >Get date</button>
                 
               </div>
               

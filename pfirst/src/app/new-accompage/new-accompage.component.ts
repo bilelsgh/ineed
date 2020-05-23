@@ -30,6 +30,8 @@ ngOnInit(): void {
       quand2:"",
       local : "",
       datejour: "",
+      city:"",
+      adress:"",
     });}
 
     onSubmitForm() {

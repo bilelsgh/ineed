@@ -38,7 +38,7 @@ export class MenageSingleComponent implements OnInit {
     this.User=this.service_descriptor.content.user;
     this.Description = this.service_descriptor.content.description;
     this.Materiel= this.service_descriptor.content.materiel;
-    this.Date=new Date(this.service_descriptor.content.datejour);
+    this.Date=this.service_descriptor.content.datejour;
     this.Heure = this.service_descriptor.content.dateheure;
     this.Surface=parseInt(this.service_descriptor.content.surface);
     this.View= this.service_descriptor['viewNumber'];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, NgForm} from '@angular/forms';
+import {FormGroup, FormBuilder, NgForm, Validators} from '@angular/forms';
 import { Courses } from '../models/Courses.model';
 import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
@@ -31,13 +31,15 @@ export class NewCoursesComponent implements OnInit {
 
   initForm(){
     this.coursesForm=this.formBuilder.group({
-      user: "",
-      description:"" ,
-      liste:[],
-      accompagne : "",
-      budget : "",
-      datejour: "",
-      dateheure:"",
+      user: ['', Validators.required],
+      description:['', Validators.required],
+      liste:[[], Validators.required],
+      accompagne : ['', Validators.required],
+      budget : ['', Validators.required],
+      datejour: ['', Validators.required],
+      dateheure:['', Validators.required],
+      city:['', Validators.required],
+      adress:['', Validators.required],
     });}
 
   onSubmitForm() {
