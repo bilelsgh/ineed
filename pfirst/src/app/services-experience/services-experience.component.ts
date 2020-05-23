@@ -12,7 +12,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./services-experience.component.css'],
   providers: [DatePipe, UserService]
 })
-export class ServicesExperienceComponent implements OnInit, OnDestroy {
+export class ServicesExperienceComponent implements OnInit {
 
   history_for: any[] = new Array();
   history_by: any[] = new Array();
@@ -24,7 +24,6 @@ export class ServicesExperienceComponent implements OnInit, OnDestroy {
   reviewFor: any;
   reviewBy: any;
   @Input() id_user: string; // a voir si change bien qd on change direct d'un profil a l'autre
-  historySub: Subscription;
 
   constructor(private datepipe: DatePipe,
               private usr_service: UserService,
@@ -44,7 +43,7 @@ export class ServicesExperienceComponent implements OnInit, OnDestroy {
             console.log('history_by :', this.history_by);
             this.last_for = this.history_for.length - 1;
             this.last_by = this.history_by.length - 1;
-            console.log('ANNOUNCEAUTHORID', this.history_for[this.last_for].idUser);
+            //console.log('ANNOUNCEAUTHORID', this.history_for[this.last_for].idUser);
             this.idx = this.usr_service.idx;
             this.showAllComments = this.usr_service.showAllComments;
           })
@@ -68,10 +67,6 @@ this.historySub = this.usr_service.history_subject.subscribe(
     console.log(newVal);
   }
 );*/
-  }
-
-  ngOnDestroy() {
-    //this.historySub.unsubscribe();
   }
 
   getAverageGrade() { // plus util normalement

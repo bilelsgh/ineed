@@ -17,7 +17,7 @@ export class ProfilComponent implements OnInit {
   services_history_for: any[] = new Array();
   services_history_by: any[] = new Array();
 
-  constructor(private userService : UserService,
+  constructor(private userService: UserService,
               private route: ActivatedRoute,
               public router: Router,
               private authService: AuthService) {
@@ -36,7 +36,7 @@ export class ProfilComponent implements OnInit {
         .catch( () => {
           console.log('#Erreur de chargement profil');
         });
-      this.userService.getUserHistory()
+      this.userService.getUserHistory(this.id)
         .then( () => {
           this.services_history_by = this.userService.services_history_by;
           this.services_history_for = this.userService.services_history_for;

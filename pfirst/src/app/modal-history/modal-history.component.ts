@@ -3,13 +3,15 @@ import {Component, OnInit} from '@angular/core';
 //import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from "../services/users.service";
 import {HttpClient} from "@angular/common/http";
+import {MatDialogRef} from "@angular/material/dialog";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-modal-history',
   templateUrl: './modal-history.component.html',
   styleUrls: ['./modal-history.component.css']
 })
-export class ModalHistoryComponent implements OnInit {
+export class ModalHistoryComponent implements OnInit{
 
   history_for: any[] = new Array();
   history_by: any[] = new Array();
@@ -24,7 +26,9 @@ export class ModalHistoryComponent implements OnInit {
   review: any;
 
   constructor(private userService: UserService,
-              private httpClient: HttpClient) {
+              private httpClient: HttpClient,
+              private matDialogRef: MatDialogRef<ModalHistoryComponent>,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -39,6 +43,10 @@ export class ModalHistoryComponent implements OnInit {
     console.log('Modal history : announceAuthorId', this.history_by[this.index_by].idUser);
     console.log("datejour : ", this.history_by[this.index_by].content.datejour);
     this.getReview();
+    /*
+    this.route.params.subscribe( (whatever)=>{
+      this.matDialogRef.close();
+    });*/
   }
 
   incIndex() {
@@ -53,7 +61,6 @@ export class ModalHistoryComponent implements OnInit {
         this.index_by = 0;
       }
     }
-    this.userService.emitModalSubject();
   }
 
   getReview() {
@@ -71,22 +78,20 @@ export class ModalHistoryComponent implements OnInit {
       if (this.index_for < 0) {
         this.index_for = this.history_for.length - 1;
       }
-      console.log("categorie uodated : " + this.history_for[this.index_for].categorie);
 
     } else {
       this.index_by--;
       if (this.index_by < 0) {
         this.index_by = this.history_by.length - 1;
       }
-      console.log("categorie uodated : " + this.history_by[this.index_by].categorie);
     }
-    this.userService.emitModalSubject();
   }
 
   setFor() {
     this.showBy = false;
     this.showFor = true;
   }
+
 
   setBy() {
     this.showFor = false;

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Subject} from "rxjs";
@@ -24,8 +24,6 @@ export class UserService {
   announceHelpers: any[];
   public services_proposed_finished : any[] = [];
 
-  fromModalSubject = new Subject();
-
   categ_to_icon = {
     "accompagnement": "../../assets/data/accompagner.png",
     "course": "../../assets/data/courses.png",
@@ -36,7 +34,6 @@ export class UserService {
 
   services_history_for: any[] = new Array();
   services_history_by: any[] = new Array();
-  history_subject = new Subject<string>();
 
 
   idx = 0;
@@ -62,7 +59,6 @@ export class UserService {
             this.services_history_for = histFor;
             this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
 
-              this.history_subject.next('newHistoryCheck');
               console.log("HISTORYSUB EMITTED");
             resolve(true);
           },
@@ -123,10 +119,6 @@ export class UserService {
     return res;
   }
 
-  emitModalSubject() {
-    this.fromModalSubject.next('indexChange');
-    console.log('MODAL EMITTED');
-  }
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
   getProfilById(id: string) {

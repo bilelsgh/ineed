@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {UserService} from '../services/users.service';
 import {SuiviService} from "../services/suivi.service";
@@ -6,6 +6,8 @@ import {AuthService} from "../services/auth.service";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import {MatDialogRef} from "@angular/material/dialog";
+import {ModalHistoryComponent} from "../modal-history/modal-history.component";
 
 @Component({
   selector: 'app-former-service',
@@ -13,7 +15,7 @@ import {Subscription} from "rxjs";
   styleUrls: ['./former-service.component.css'],
   providers: [DatePipe, UserService]
 })
-export class FormerServiceComponent implements OnInit, OnDestroy {
+export class FormerServiceComponent implements OnInit, OnChanges {
 
   showComment: boolean;
   menage: boolean;
@@ -44,7 +46,6 @@ export class FormerServiceComponent implements OnInit, OnDestroy {
   idToNames = {};
   idToShowReview = {};
   idToReviews = {};
-  modalSubscription: Subscription;
 
   constructor(public datepipe: DatePipe,
               private usr_serv: UserService,
@@ -53,7 +54,8 @@ export class FormerServiceComponent implements OnInit, OnDestroy {
               private httpClient: HttpClient,
               private router: Router,
               private route: ActivatedRoute,
-              private authService: AuthService) {
+              private authService: AuthService
+              ) {
   }
 
   ngOnInit(): void {
@@ -89,31 +91,7 @@ export class FormerServiceComponent implements OnInit, OnDestroy {
           console.log("FORMER ----");
           console.log('ANNOUNCEID', this.announceId);
           console.log('ANNOUNCEAUTHORID', this.announceAuthorId);*/
-          this.participants.push(this.announceAuthorId);
-          this.getAssigneeName(this.participants[0]);
-          this.idToShowReview[this.announceAuthorId] = false;
-        }
-      }
-    );
-
-    this.modalSubscription = this.usr_serv.fromModalSubject.subscribe(
-      (myVal) => {
-        console.log('REACTION TO MODAL EMISSION');
-        this.idToShowReview = {};
-        this.idToReviews = {};
-        this.idToNames = {};
-        if (!this.helperLook) {
-          this.getAssignees(this.announceId)
-            .then(() => {
-              this.participants.forEach((part) => {
-                this.getAssigneeName(part);
-                this.idToShowReview[part] = false;
-              });
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        } else {
+          this.participants.length = 0;
           this.participants.push(this.announceAuthorId);
           this.getAssigneeName(this.participants[0]);
           this.idToShowReview[this.announceAuthorId] = false;
@@ -122,9 +100,30 @@ export class FormerServiceComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.modalSubscription.unsubscribe();
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('REACTION TO MODAL EMISSION');
+    this.idToShowReview = {};
+    this.idToReviews = {};
+    this.idToNames = {};
+    if (!this.helperLook) {
+      this.getAssignees(this.announceId)
+        .then(() => {
+          this.participants.forEach((part) => {
+            this.getAssigneeName(part);
+            this.idToShowReview[part] = false;
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      this.participants.length = 0;
+      this.participants.push(this.announceAuthorId);
+      this.getAssigneeName(this.participants[0]);
+      this.idToShowReview[this.announceAuthorId] = false;
+    }
   }
+
 
   getReview(idUsr) {
     if (!Object.keys(this.idToReviews).includes(idUsr)) {
