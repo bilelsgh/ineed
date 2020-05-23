@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, abort
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from datetime import date
@@ -30,27 +30,32 @@ def login():
         abort(401)
 
 
-@app.route('/api/Announce/helper', methods=['POST'])
-def choose_helper():
+@app.route('/api/announce/<int:id>/helper', methods=['POST'])
+def choose_helper(id):
     if not request.json or not 'token' in request.json or not 'helperID' in request.json:
         abort(400)
     user = User.verify_auth_token(request.json['token'])
-    if user.idUser:
-        chosen_answer = Answer.query.filter_by(UserID=request.json['helperID'], AnnounceID=request.json['announceID']).first()
-        chosen_answer.Accepted = True
-        db.session.commit()
-        chosen_helper = User.query.filter_by(idUser=chosen_answer.UserID).first()
-        return jsonify({'helper': chosen_helper.to_json(),'token': user.generate_auth_token()}), 201
-    abort(403)
+    if user is None:
+        abort(401)
+    announce = Announce.query.filter_by(idAnnounce=id).first()
+    if announce.idUser != user.idUser:
+        abort(403)
+    if announce.status != 0:
+        abort(403)
+    chosen_answer = Answer.query.filter_by(userID=request.json['helperID'], announceid=id).first()
+    chosen_answer.accepted = True
+    announce.status = 1
+    db.session.commit()
+    chosen_helper = User.query.filter_by(idUser=chosen_answer.userID).first()
+    return jsonify({'helper': chosen_helper.to_json(),'token': user.generate_auth_token()}), 201
 
-@app.route('/api/Announce/delete', methods=['DELETE'])
-def delete_announce():
-    if not request.json or not 'token' in request.json or not 'idAnnounce' in request.json:
+@app.route('/api/announce/delete/<int:id>', methods=['DELETE'])
+def delete_announce(id):
+    if not 'token' in request.args:
         abort(400)
-    user = User.verify_auth_token(request.json['token'])
+    user = User.verify_auth_token(request.args['token'])
     if user.idUser:
-        print("hi")
-        announce = Announce.query.filter_by(idAnnounce=request.json['idAnnounce'], author=user.idUser).first()
+        announce = Announce.query.filter_by(idAnnounce= int(id), author=user.idUser).first()
         answer = Answer.query.filter_by(AnnounceID=announce.idAnnounce).first()
         comment = Comment.query.filter_by(AnnounceID=announce.idAnnounce).first()
         if answer:
@@ -64,37 +69,6 @@ def delete_announce():
         return jsonify({'response': "this announce was deleted successfully",'token': user.generate_auth_token()}), 201
     abort(403)
 
-@app.route('/api/announce/done', methods=['GET'])
-def get_old_services():
-    if not request.json or not 'token' in request.json :
-        abort(400)
-    user = User.verify_auth_token(request.json['token'])
-    if user is None:
-        abort(401)
-    doneS = Announce.query.join(Answer, Answer.UserID == user.idUser).filter(Announce.finished==True,
-    ).filter(
-        Answer.AnnounceID == Announce.idAnnounce,
-    ).filter(
-        Answer.Accepted == True,
-    ).all()
-    return jsonify({'token': user.generate_auth_token(), 'doneS': [dnn.to_json() for dnn in doneS]}), 200
-
-@app.route('/api/announce/undone', methods=['GET'])
-def get_undone():
-    if not request.json or not 'token' in request.json:
-        abort(400)
-    user = User.verify_auth_token(request.json['token'])
-    if user is None:
-        abort(401)
-    undoneS = Announce.query.join(Answer, Answer.UserID == user.idUser,
-    ).filter(
-        Announce.finished==False,
-    ).filter(
-        Answer.AnnounceID == Announce.idAnnounce,
-    ).filter(
-        Answer.Accepted == True,
-    ).all()
-    return jsonify({'token': user.generate_auth_token(),'undoneS' : [unn.to_json() for unn in undoneS]}), 200
 
 @app.route('/api/notification', methods=['POST'])
 def create_notification():
@@ -110,11 +84,11 @@ def create_notification():
     created_notif = Notification.query.filter_by(idNotification=notification.idNotification).first()
     return jsonify({'notification': created_notif.to_json()}), 201
 
-@app.route('/api/notification/User', methods=['GET'])
+@app.route('/api/notification/user', methods=['GET'])
 def get_notification():
-    if not request.json or not 'token' in request.json:
+    if not 'token' in request.args:
         abort(400)
-    user = User.verify_auth_token(request.json['token'])
+    user = User.verify_auth_token(request.args['token'])
     if user is None:
         abort(401)
     notification = Notification.query.filter_by(UserID=user.idUser).first()
@@ -122,11 +96,6 @@ def get_notification():
         notifications = Notification.query.filter_by(UserID=user.idUser,treated=False)
         return jsonify({'token': user.generate_auth_token(), 'notifications': [notif.to_json() for notif in notifications]}), 200
     abort(404)
-
-
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=1)

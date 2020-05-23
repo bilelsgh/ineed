@@ -7,13 +7,15 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/Ineedtest'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'lesid'
+
 db = SQLAlchemy(app)
+
 app.config['UPLOAD_FOLDER'] = './static/images'
 
 
 class User(db.Model):
 
-    __tablename__ = 'User'
+    __tablename__ = 'Users'
 
     idUser = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(45), unique=True)
@@ -21,9 +23,8 @@ class User(db.Model):
     lastName = db.Column(db.String(45))
     passwordHash = db.Column(db.String(100))
     mail = db.Column(db.String(45), unique=True)
-    mobile = db.Column(db.String(45))
-    gender = db.Column(db.String(45))
-    address = db.Column(db.String(100))
+    photo = db.Column(db.String(200))
+    sex = db.Column(db.String(45))
     bio = db.Column(db.String(200))
 
     def __repr__(self):
@@ -36,9 +37,8 @@ class User(db.Model):
             'mail': self.mail,
             'firstName': self.firstName,
             'lastName': self.lastName,
-            'Address': self.address,
-            'mobile': self.mobile,
-            'gender': self.gender,
+            'photo': self.photo,
+            'sex': self.sex,
             'bio': self.bio,
         }
         return user
@@ -67,24 +67,22 @@ class Announce(db.Model):
     creationDate = db.Column(db.Date)
     content = db.Column(db.String(200))
     viewNumber = db.Column(db.Integer, default=0)
-    categorie = db.Column(db.String(50))
     price = db.Column(db.DECIMAL)
-    author = db.Column(db.Integer, db.ForeignKey('User.idUser'))
-    finished = db.Column(db.Boolean)
+    idUser = db.Column(db.Integer, db.ForeignKey('Users.idUser'))
+    status = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return '<Announce {}>'.format(self.idAnnounce)
 
     def to_json(self):
         announce = {
-            'categorie': self.categorie,
             'idAnnounce': self.idAnnounce,
             'content': self.content,
             'viewNumber': self.viewNumber,
             'price': self.price,
-            'author': self.author,
+            'idUser': self.idUser,
             'creationDate': self.creationDate,
-            'finished': self.finished
+            'status': self.status
         }
         return announce
 
@@ -95,9 +93,9 @@ class Comment(db.Model):
     __tablename__ = 'Comment'
 
     idComment = db.Column(db.Integer, primary_key=True)
-    AnnounceID = db.Column(db.Integer, db.ForeignKey('Announce.idAnnounce'))
-    author = db.Column(db.Integer, db.ForeignKey('User.idUser'))
-    Date = db.Column(db.Date)
+    announce = db.Column('idAnnounce',db.Integer, db.ForeignKey('Announce.idAnnounce'))
+    author = db.Column(db.Integer, db.ForeignKey('Users.idUser'))
+    creationDate = db.Column(db.Date)
     content = db.Column(db.String(500))
 
     def __repr__(self):
@@ -106,10 +104,10 @@ class Comment(db.Model):
     def to_json(self):
         comment = {
             'idComment': self.idComment,
-            'author' : self.author,
-            'AnnonceId': self.AnnonceId,
+            'author':self.author,
+            'announce': self.announce,
             'content': self.content,
-            'Date': self.Date
+            'creationDate': self.creationDate
         }
         return comment
 
@@ -118,46 +116,46 @@ class Answer(db.Model):
 
     __tablename__ = 'Answer'
 
-    idAnswer = db.Column(db.Integer, primary_key=True)
-    UserID = db.Column(db.Integer, db.ForeignKey('User.idUser'))
-    AnnounceID = db.Column(db.Integer, db.ForeignKey('Announce.idAnnounce'))
+    userID = db.Column(db.Integer, db.ForeignKey('Users.idUser'), primary_key=True)
+    announceid = db.Column(db.Integer, db.ForeignKey('Announce.idAnnounce'), primary_key=True)
     time = db.Column(db.Date)
-    Accepted = db.Column(db.Boolean, default=0)
+    accepted = db.Column(db.Boolean, default=0, nullable=False)
 
     def __repr__(self):
         return '<Answer {}, {}>'.format(self.userID, self.announceid)
 
     def to_json(self):
-        answer = {
+        answers = {
             'UserId': self.UserID,
-            'AnnounceId': self.AnnounceID,
+            'announceid': self.announceid,
             'time': self.time,
-            'Accepted': self.Accepted
+            'accepted': self.accepted
         }
-        return answer
-
+        return answers
 
 
 class Review(db.Model):
 
-    __tablename__ = 'review'
+    __tablename__ = 'Review'
 
     idReview = db.Column(db.Integer, primary_key=True)
-    CreationDate = db.Column(db.Date)
-    content = db.Column(db.String(600))
-    grade = db.Column(db.String(50))
-    author = db.Column(db.Integer, db.ForeignKey('User.idUser'))
+    author = db.Column(db.Integer, db.ForeignKey('Users.idUser'))
+    announce = db.Column(db.Integer, db.ForeignKey('Announce.idAnnounce'))
+    creationDate = db.Column(db.Date)
+    content = db.Column(db.String(200))
+    note = db.Column(db.Integer)
 
     def __repr__(self):
-        return '<notation {}>'.format(self.idnotation)
+        return '<Review {}>'.format(self.idReview)
 
     def to_json(self):
         review = {
-            'idnotation': self.idnotation,
-            'CreationDate': self.CreationDate,
-            'review': self.review,
+            'idReview': self.idReview,
             'author': self.author,
-            'grade': self.grade
+            'announce': self.announce,
+            'content': self.content,
+            'creationDate': self.creationDate,
+            'note': self.note
         }
         return review
 
@@ -166,7 +164,7 @@ class Notification(db.Model):
     __tablename__ = 'Notification'
 
     idNotification = db.Column(db.Integer, primary_key=True)
-    UserID = db.Column(db.Integer, db.ForeignKey('User.idUser'))
+    UserID = db.Column(db.Integer, db.ForeignKey('Users.idUser'))
     CreationDate = db.Column(db.Date)
     content = db.Column(db.String(600))
     context = db.Column(db.String(100))
