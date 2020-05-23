@@ -1,7 +1,4 @@
 <div class="main-body">
-  <div *ngIf="disconnected_message" class="alert alert-dismissable alert-danger">
-    Vous avez été déconnecté.
-  </div>
 
   <div class="jumbotron text-center">
     <h2 class="display-4 text-white">"Un peu d'aide fait grand bien"</h2>
@@ -42,7 +39,7 @@
         </table>
       </td>
       <td align="right">
-        <img id="pile" src="../../assets/data/ACCUEIL/pile.png" alt="">
+        <img style="cursor:pointer" id="pile" src="../../assets/data/ACCUEIL/pile.png" alt="">
       </td>
     </tr>
   </table>
@@ -58,12 +55,19 @@
   <table align="center" cellpadding="80" width="70%">
     <tr>
       <td align="right">
-        <img id="jetCourse" src="../../assets/data/ACCUEIL/jetonCourse.png" alt="">
+        <img style="cursor:pointer" id="jetCourse" src="../../assets/data/ACCUEIL/jetonCourse.png" alt=""
+             (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service1'">
+        <img style="cursor:pointer" id="jetMenage" src="../../assets/data/ACCUEIL/jetonMenage.png" alt=""
+             (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service2'">
+        <img style="cursor:pointer" id="jetCuisine" src="../../assets/data/ACCUEIL/jetonCuisine.png" alt=""
+             (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service3'">
+        <img style="cursor:pointer" id="jetAccompagne" src="../../assets/data/ACCUEIL/jetonAcc.png" alt=""
+             (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service4'">
       </td>
       <td valign="top">
         <table>
           <tr>
-            <td><img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt=""></td>
+            <td><img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt="" ></td>
           </tr>
           <tr>
             <p id="textTV"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie.
@@ -75,11 +79,5 @@
     </tr>
   </table>
 </div>
-<!-- AIDER QLQ
-<img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt="">
-<img id="jetCourse" src="../../assets/data/ACCUEIL/jetonCourse.png" alt="">
-<p id="aBesoin"><b>Gabriel a besoin de toi !</b></p>
-<p id="textTV"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie. Sapristi, en voilà déjà un de mort. Chouette journée pour une petite gueuse ; et quant à ce que je compris que j'avais remarquée.</p>
 
-<div id="space">.</div> -->
 

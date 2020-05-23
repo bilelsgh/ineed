@@ -59,6 +59,9 @@ import { ServiceActivityComponent } from './service-activity/service-activity.co
 import { ServiceProposedComponent } from './service-proposed/service-proposed.component';
 import { SuiviService } from './services/suivi.service';
 import { ModalAreYouSureComponent } from './modal-are-you-sure/modal-are-you-sure.component';
+import {ImageCompressorService} from "./services/image-compressor.service";
+import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -98,6 +101,7 @@ import { ModalAreYouSureComponent } from './modal-are-you-sure/modal-are-you-sur
     ServiceActivityComponent,
     ServiceProposedComponent,
     ModalAreYouSureComponent
+    MatSnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +116,8 @@ import { ModalAreYouSureComponent } from './modal-are-you-sure/modal-are-you-sur
     MatProgressSpinnerModule,
     MatSelectModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [ // on ajoute ici tous les services
     AuthService,
@@ -123,6 +128,7 @@ import { ModalAreYouSureComponent } from './modal-are-you-sure/modal-are-you-sur
     NgxImageCompressService,
     ImageCompressorService,
     SuiviService,
+    MatSnackBarComponent,
     Location
      // necessaire ?
   ],
