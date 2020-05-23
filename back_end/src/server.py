@@ -43,16 +43,15 @@ def choose_helper(id):
         abort(403)
     chosen_answer = Answer.query.filter_by(userID=request.json['helperID'], announceid=id).first()
     chosen_answer.accepted = True
-    announce.status = 1
     db.session.commit()
     chosen_helper = User.query.filter_by(idUser=chosen_answer.userID).first()
     return jsonify({'helper': chosen_helper.to_json(),'token': user.generate_auth_token()}), 201
 
 @app.route('/api/announce/<int:id>', methods=['DELETE'])
 def delete_announce(id):
-    if not request.json or not 'token' in request.json:
+    if not 'token' in request.args:
         abort(400)
-    user = User.verify_auth_token(request.json['token'])
+    user = User.verify_auth_token(request.args['token'])
     if user:
         announce = Announce.query.filter_by(idAnnounce=id, idUser=user.idUser).first()
         answer = Answer.query.filter_by(announceid=id).first()
@@ -97,7 +96,17 @@ def create_notification():
     return jsonify({'notification': created_notif.to_json()}), 201
 
 
-
+@app.route('/api/announce/review/<int:id>', methods=['GET'])
+def get_review(id):
+    if not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user is None:
+        abort(401)
+    if user:
+        review = Review.query.filter_by(announce=id).first()
+        return jsonify({'token': user.generate_auth_token(), 'review': review.to_json()}), 200
+    abort(404)
 
 if __name__ == '__main__':
     app.run(debug=1)
