@@ -80,7 +80,7 @@ export class ModalHistoryComponent implements OnInit {
       }
       console.log("categorie uodated : " + this.history_by[this.index_by].categorie);
     }
-    this.userService.emitLightThemeSubject();
+    this.userService.emitModalSubject();
   }
 
   setFor() {

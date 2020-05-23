@@ -97,7 +97,7 @@ export class FormerServiceComponent implements OnInit, OnDestroy {
     );
 
     this.modalSubscription = this.usr_serv.fromModalSubject.subscribe(
-      (next) => {
+      (myVal) => {
         console.log('REACTION TO MODAL EMISSION');
         this.idToShowReview = {};
         this.idToReviews = {};

@@ -123,7 +123,7 @@ export class UserService {
     return res;
   }
 
-  emitModalSubject(){
+  emitModalSubject() {
     this.fromModalSubject.next('indexChange');
     console.log('MODAL EMITTED');
   }
