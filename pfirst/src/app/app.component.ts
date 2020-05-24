@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy{
 
   uploadTestNotif(){
     let myNot: Notif = new Notif('notif de test 1', 'info', '', 'infos');
-    let myContext: NotifContext = new NotifContext(JSON.parse(localStorage.getItem('user')).idUser, 'TESTING1');
+    let myContext: NotifContext = new NotifContext('TESTING1');
     let myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
     this.notificationService.uploadNotif(
       myNot,
@@ -43,14 +43,14 @@ export class AppComponent implements OnInit, OnDestroy{
 
   updateNot(){
     let myNot: Notif = new Notif('Chargez votre première photo de profil !', 'info', '', 'infos');
-    let myContext: NotifContext = new NotifContext(JSON.parse(localStorage.getItem('user')).idUser, 'pdpUpload');
+    let myContext: NotifContext = new NotifContext('pdpUpload');
     let myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
     this.notificationService.updateToTreated(this.notificationService.buildUpdater(myNot, myContext, myUSRID));
   }
 
   buildUp(){
     let myNot: Notif = new Notif('Chargez votre première photo de profil !', 'info', '', 'infos');
-    let myContext: NotifContext = new NotifContext(JSON.parse(localStorage.getItem('user')).idUser, 'pdpUpload');
+    let myContext: NotifContext = new NotifContext('pdpUpload');
     let myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
     this.notificationService.buildUpdater(myNot, myContext, myUSRID);
   }
