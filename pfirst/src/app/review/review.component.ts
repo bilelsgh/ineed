@@ -27,11 +27,10 @@ export class ReviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.successfullySended = false;
     this.announceId = this.route.snapshot.params.idAnnounce;
     this.getAuthor(this.announceId)
       .then( () => {
-          if (!this.announceAuthor){
+          if (this.announceAuthor){
             this.suiviService.getAssignees(this.announceId)
               .then( () => {
                 this.participants = this.suiviService.assignees;
@@ -41,14 +40,13 @@ export class ReviewComponent implements OnInit {
               }).catch( (e) => {
               console.log('Erreur getAssignees', e);
             });
-          }else{
+          } else {
             this.getName(this.participants[0]);
           }
       })
       .catch( (e) => {
         console.log(e);
       });
-    //this.ratedName = this.route.snapshot.params.ratedName;
   }
 
   getName(idUsr: number){
@@ -65,7 +63,7 @@ export class ReviewComponent implements OnInit {
       this.httpClient.get(this.authService.backend + 'api/announce/' + annId + "?token=" + JSON.parse(localStorage.getItem('token')))
         .subscribe((resp) => {
             this.announceAuthor = JSON.parse(localStorage.getItem('user')).idUser == resp['announce'].idUser;
-            if (this.announceAuthor) {
+            if (!this.announceAuthor) {
               this.participants.push(resp['announce'].idUser);
             }
             this.authService.setUserInfo(JSON.stringify(resp['token']), 'token');

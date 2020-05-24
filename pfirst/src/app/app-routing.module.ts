@@ -16,7 +16,6 @@ import {ActivityComponent} from "./activity/activity.component";
 import {ReviewComponent} from "./review/review.component";
 
 
-
 const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path: 'propose', component: ServiceViewComponent},
   {path:'propose/:id', canActivate:[AuthGuard], component :  SingleServiceComponent},
@@ -28,7 +27,7 @@ const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path:'not-found', component: FourOhFourComponent},
   {path:'contact', component: ContactComponent},
   {path:'inscription', component: InscriptionComponent},
-  {path: 'review/:idAnnounce/:ratedName', canActivate: [AuthGuard], component: ReviewComponent},
+  {path: 'review/:idAnnounce', canActivate: [AuthGuard], component: ReviewComponent},
   {path: '', component: AppViewComponent}, //indique la page "d'accueil"
   {path: 'activite', canActivate:[AuthGuard], component: ActivityComponent},
   //{path: '**', redirectTo:'/not-found'} //renvoie vers la page d'erreur si la route n'existe pas, à mettre à la fin
