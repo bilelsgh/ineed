@@ -25,6 +25,7 @@ for i in range(len(usernames)):
     if i>3: # to make sure that an author doesn't propose to himself and for each announce we get 3 propositions
         for j in range(3):
             answer = Answer(userID= (user.idUser)-j,announceid=announce.idAnnounce,time = date.today(),accepted= False)
-            db.session.add(answer)
-            db.session.commit()
+            if announce.idUser != answer.userID:
+                db.session.add(answer)
+                db.session.commit()
 

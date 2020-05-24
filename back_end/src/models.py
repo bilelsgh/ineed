@@ -172,7 +172,7 @@ class Notification(db.Model):
     updater = db.Column(db.String(50))
 
     def __repr__(self):
-        return '<notification {}>'.format(self.idnotation)
+        return '<notification {}>'.format(self.idNotification)
 
     def to_json(self):
         notification = {
