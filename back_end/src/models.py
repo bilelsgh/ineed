@@ -169,6 +169,7 @@ class Notification(db.Model):
     content = db.Column(db.String(600))
     context = db.Column(db.String(100))
     treated = db.Column(db.Boolean)
+    updater = db.Column(db.String(50))
 
     def __repr__(self):
         return '<notification {}>'.format(self.idnotation)

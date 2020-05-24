@@ -81,6 +81,7 @@ def get_notification():
         return jsonify({'token': user.generate_auth_token(), 'notifications': [notif.to_json() for notif in notifications]}), 200
     abort(404)
 
+
 @app.route('/api/notification', methods=['POST'])
 def create_notification():
     if not request.json or not 'UserID' in request.json:
@@ -89,7 +90,8 @@ def create_notification():
                     content= request.json['content'],
                     CreationDate=date.today(),
                     context = request.json['context'],
-                    treated=False)
+                    treated=False,
+                    updater = request.json['updater'])
     db.session.add(notification)
     db.session.commit()
     created_notif = Notification.query.filter_by(idNotification=notification.idNotification).first()
@@ -104,9 +106,26 @@ def get_review(id):
     if user is None:
         abort(401)
     if user:
-        review = Review.query.filter_by(announce=id).first()
-        return jsonify({'token': user.generate_auth_token(), 'review': review.to_json()}), 200
+        reviews = Review.query.filter_by(announce=id)
+        return jsonify({'token': user.generate_auth_token(), 'reviews': [review.to_json() for review in reviews]}), 200
     abort(404)
+
+@app.route('/api/notification/update', methods=['PUT'])
+def update_notif():
+    if not request.json or not 'token' in request.json or not 'updater' in request.json:
+        abort(400)
+    user = User.verify_auth_token(request.json['token'])
+    if user is None:
+        abort(401)
+    if user:
+        notifications = Notification.query.filter_by(updater=request.json['updater'])
+        for notif in notifications:
+            notif.treated = True
+            db.session.commit()
+        updated_notifs = Notification.query.filter_by(updater=request.json['updater'])
+        return jsonify({'token': user.generate_auth_token(), 'updated_notifications': [notif.to_json() for notif in updated_notifs]}), 200
+    abort(404)
+
 
 if __name__ == '__main__':
     app.run(debug=1)
