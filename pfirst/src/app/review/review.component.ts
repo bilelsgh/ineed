@@ -12,7 +12,7 @@ import {SuiviService} from "../services/suivi.service";
 })
 export class ReviewComponent implements OnInit {
 
-  announceId: string;
+  announceId: number;
   rate = 0;
   successfullySended = {};
   ratedNames: string[] = new Array();
