@@ -13,3 +13,13 @@
   font-size: 200%;
   color: goldenrod;
 }
+
+.pdpIcon {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  left: 65%;
+  background-size: cover;
+  cursor: pointer;
+}

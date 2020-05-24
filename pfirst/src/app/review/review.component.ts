@@ -19,6 +19,7 @@ export class ReviewComponent implements OnInit {
   announceAuthor: boolean;
   participants: number[] = new Array();
   idToName = {};
+  idToImageNames = {};
 
   constructor(private httpClient: HttpClient,
               private route: ActivatedRoute,
@@ -53,6 +54,7 @@ export class ReviewComponent implements OnInit {
     this.httpClient.get(this.authService.backend + 'api/user/' + idUsr + '?token=' + JSON.parse(localStorage.getItem('token')))
       .subscribe( (resp) => {
         this.idToName[idUsr] = resp['user'].firstName;
+        this.idToImageNames[idUsr] = resp['user'].photo;
         this.successfullySended[idUsr] = false;
         this.authService.setUserInfo(JSON.stringify(resp['token']), 'token');
       });
@@ -73,6 +75,11 @@ export class ReviewComponent implements OnInit {
             resolve(e);
           });
     });
+  }
+
+  getPdpPath(idUsr: number): string{
+    const res = this.authService.backend + 'static/images/' + this.idToImageNames[idUsr];
+    return res;
   }
 
   onSubmitReview(form: NgForm, idRated: number) {
