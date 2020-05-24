@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 app.config['UPLOAD_FOLDER'] = './static/images'
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-from models import User, Announce, Comment, Review, Answer
+from models import User, Announce, Comment, Review, Answer, Notification
 
 @app.route('/api/hello', methods=['GET'])
 def hello():
@@ -176,11 +176,6 @@ def create_announce():
         return jsonify({'announce' : created_announce.to_json(), 'token' : user.generate_auth_token()}), 201
     abort(403) # Forbidden
 
-@app.route('/api/announce', methods=['GET'])
-def get_all_announces():
-    announces = Announce.query.order_by(Announce.creationDate).all()
-    return jsonify({'announces': [ann.to_json() for ann in announces]})
-
 @app.route('/api/announce/<int:id>', methods=['GET'])
 def get_announce(id):
     if not 'token' in request.args:
@@ -215,7 +210,7 @@ def update_announce(id):
     user = User.verify_auth_token(request.json['token'])
     if user is None:
         abort(401) # Non authorized
-    announce = Announce.query.filter_by(idAnnounce=int(id)).first()
+    announce = Announce.query.filter_by(idAnnounce=id).first()
     if announce:
         if announce.idUser != user.idUser:
             abort(403) # Forbidden
@@ -225,6 +220,26 @@ def update_announce(id):
         db.session.commit()
         return jsonify({'announce' : announce.to_json(), 'token' : user.generate_auth_token()}), 200
     abort(404) #Not Found
+
+@app.route('/api/announce/<int:id>', methods=['DELETE'])
+def delete_announce(id):
+    if not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user:
+        announce = Announce.query.filter_by(idAnnounce=id, idUser=user.idUser).first()
+        if announce is None:
+            abort(404)
+        answers = Answer.query.filter_by(announceid=id).all()
+        comments = Comment.query.filter_by(announce=id).all()
+        for answer in answers:
+            db.session.delete(answer)
+        for comment in comments:
+            db.session.delete(comment)
+        db.session.delete(announce)
+        db.session.commit()
+        return jsonify({'response': "this announce was deleted successfully", 'token': user.generate_auth_token()}), 204
+    abort(403)
 
 @app.route('/api/comment', methods=['POST'])
 def create_comment():
@@ -282,10 +297,9 @@ def create_review():
     user = User.verify_auth_token(request.json['token'])
     if user is None:
         abort(401) # Non authorized
-    if user is None:
-        abort(401)
     if user.idUser == request.json['review']['author']:
         review = Review(author=request.json['review']['author'], \
+            receiver=request.json['review']['receiver'], \
             content=request.json['review']['content'], \
             creationDate=date.today(), \
             announce=request.json['review']['announce'], \
@@ -295,6 +309,16 @@ def create_review():
         created_review = Review.query.filter_by(idReview=review.idReview).first()
         return jsonify({'review' : created_review.to_json(), 'token' : user.generate_auth_token()}), 201
     abort(403) # Forbidden
+
+@app.route('/api/review/user/<int:id>', methods=['GET'])
+def get_reviews(id):
+    if not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user is None:
+        abort(401)
+    reviews = Review.query.filter_by(receiver=id).all()
+    return jsonify({'token': user.generate_auth_token(), 'reviews': [review.to_json() for review in reviews]}), 200
 
 @app.route('/api/announce/<int:id>/apply', methods=['POST'])
 def apply_to_announce(id):
@@ -338,41 +362,7 @@ def get_announce_helpers(id):
         filter(Answer.announceid==id).\
         all()
     return jsonify({'token' : user.generate_auth_token(), 'helpers' : [helper.to_json() for helper in helpers]}), 200
-'''
-@app.route('/api/announce/<int:id>/undone', methods=['GET'])
-def get_old_services(id):
-    if not 'token' in request.args:
-        abort(400)
-    user = User.verify_auth_token(request.args['token'])
-    if user is None:
-        abort(401)
-    doneS = Announce.query.join(Answer, Answer.userID == id,
-    ).filter(
-        Announce.finished == True,
-    ).filter(
-        Answer.announceid == Announce.idAnnounce,
-    ).filter(
-        Answer.accepted == True,
-    ).all()
-    return jsonify({'token': user.generate_auth_token(), 'doneS': [dnn.to_json() for dnn in doneS]}), 200
 
-@app.route('/api/announce/<int:id>/done', methods=['GET'])
-def get_undone(id):
-    if not 'token' in request.args:
-        abort(400)
-    user = User.verify_auth_token(request.args['token'])
-    if user is None:
-        abort(401)
-    undoneS = Announce.query.join(Answer, Answer.userID == id,
-    ).filter(
-        Announce.finished == False,
-    ).filter(
-        Answer.announceid == Announce.idAnnounce,
-    ).filter(
-        Answer.accepted == True,
-    ).all()
-    return jsonify({'token': user.generate_auth_token(),'undoneS' : [unn.to_json() for unn in undoneS]}), 200
-'''
 @app.route('/api/announce/<int:id>/helper', methods=['POST'])
 def choose_helper(id):
     if not request.json or not 'token' in request.json or not 'helperID' in request.json:
@@ -404,3 +394,91 @@ def get_accepted(id):
     accepted_users = Answer.query.filter_by(announceid=id, accepted=True).all()
     return jsonify({'token': user.generate_auth_token(), 'accepted': [answer.userID for answer in accepted_users], 'status': announce.status}), 200
 
+@app.route('/api/announce/historique/<int:id>', methods=['GET'])
+def get_old_services(id):
+    if not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user is None:
+        abort(401)
+    doneS = Announce.query.join(Answer, Answer.userID == id,
+    ).filter(
+        Announce.status==2,
+    ).filter(
+        Answer.announceid == Announce.idAnnounce,
+    ).filter(
+        Answer.accepted == True,
+    ).all()
+    make = Announce.query.filter(Announce.idUser == id, Announce.status == 2).all()
+    return jsonify({'token': user.generate_auth_token(), 'historique': [dnn.to_json() for dnn in doneS], 'make': [mnn.to_json() for mnn in make] }), 200
+
+@app.route('/api/announce/undone', methods=['GET'])
+def get_undone():
+    if not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user is None:
+        abort(401)
+    undoneS = Announce.query.join(Answer, Answer.userID == user.idUser,
+    ).filter(
+        Announce.status != 2,
+    ).filter(
+        Answer.announceid == Announce.idAnnounce,
+    ).all()
+    return jsonify({'token': user.generate_auth_token(),'undoneS' : [unn.to_json() for unn in undoneS]}), 200
+
+@app.route('/api/announce/helpers', methods=['GET'])
+def get_announces_need_more_helpers():
+    announces = Announce.query.filter(Announce.status != 2).order_by(Announce.creationDate.desc()).all()
+    return jsonify({'announces': [ann.to_json() for ann in announces]}), 200
+
+@app.route('/api/announce/home', methods=['GET'])
+def get_all_announces():
+    announces = Announce.query.filter_by(status=0).order_by(Announce.creationDate.desc()).all()
+    return jsonify({'announces': [ann.to_json() for ann in announces]}), 200
+
+@app.route('/api/announce/home/<int:x>', methods=['GET'])
+def get_recent_announces(x):
+    announces = Announce.query.filter_by(status=0).order_by(Announce.creationDate.desc()).limit(x).all()
+    return jsonify({'announces': [ann.to_json() for ann in announces]}), 200
+
+@app.route('/api/notification', methods=['POST'])
+def create_notification():
+    if not request.json or not 'userId' in request.json or not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user is None:
+        abort(401)
+    notification = Notification(userId=request.json['userId'], \
+                     content=request.json['content'], \
+                     creationDate=date.today(), \
+                     context=request.json['context'], \
+                     treated=False, \
+                     updater=request.json['updater'])
+    db.session.add(notification)
+    db.session.commit()
+    created_notif = Notification.query.filter_by(idNotification=notification.idNotification).first()
+    return jsonify({'notification': created_notif.to_json()}), 201
+
+@app.route('/api/notification/user', methods=['GET'])
+def get_notification_for_user():
+    if not 'token' in request.args:
+        abort(400)
+    user = User.verify_auth_token(request.args['token'])
+    if user is None:
+        abort(401)
+    notifications = Notification.query.filter_by(userId=user.idUser, treated=False).all()
+    return jsonify({'token': user.generate_auth_token(), 'notifications': [notif.to_json() for notif in notifications]}), 200
+
+@app.route('/api/notification/update', methods=['PUT'])
+def update_notif():
+    if not request.json or not 'token' in request.json or not 'updater' in request.json:
+        abort(400)
+    user = User.verify_auth_token(request.json['token'])
+    if user is None:
+        abort(401)
+    notifications = Notification.query.filter_by(updater=request.json['updater'], treated=False)
+    for notif in notifications:
+        notif.treated = True
+    db.session.commit()
+    return jsonify({'token': user.generate_auth_token(), 'updated_notifications': [notif.to_json() for notif in notifications]}), 200
