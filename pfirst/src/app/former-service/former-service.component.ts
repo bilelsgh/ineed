@@ -130,6 +130,7 @@ export class FormerServiceComponent implements OnInit, OnChanges {
     this.httpClient.get(this.authService.backend + 'api/announce/review/' + this.announceId + '?token=' + JSON.parse(localStorage.getItem('token')))
       .subscribe( (got) => {
         console.log("REVIEW TESTING? GOT =", got);
+        this.authService.setUserInfo(JSON.stringify(resp['token']), 'token');
       });
      */
     if (!Object.keys(this.idToReviews).includes(idUsr)) {
