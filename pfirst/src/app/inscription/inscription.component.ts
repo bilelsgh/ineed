@@ -131,11 +131,11 @@ export class InscriptionComponent implements OnInit {
           this.auth.setUserInfo( JSON.stringify(response['user']), 'user');
           this.notificationService.uploadNotif(
             new Notif('Chargez votre première photo de profil !', 'warning', '','infos'),
-            new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
+            new NotifContext(JSON.parse(localStorage.getItem('user')).idUser, 'pdpUpload'),
             JSON.parse(localStorage.getItem('user')).idUser);
           this.notificationService.uploadNotif(
             new Notif('Complétez votre profil avec une courte bio !', 'warning', '','infos'),
-            new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
+            new NotifContext(JSON.parse(localStorage.getItem('user')).idUser, 'bioUpload'),
             JSON.parse(localStorage.getItem('user')).idUser);
           this.notificationService.wakeWatcher(10000);
           this.router.navigate(['']);

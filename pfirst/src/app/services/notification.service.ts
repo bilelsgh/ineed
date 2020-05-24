@@ -4,14 +4,13 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Notif, NotifContext} from "../models/notification.model";
 import {NotifierService} from "angular-notifier";
 import {AuthService} from "./auth.service";
-import {keyframes} from "@angular/animations";
 
 @Injectable()
 export class NotificationService {
 
   //hasNew: boolean = true;
   notifList: Notif[] = new Array();
-  alreadyNotified: Notif[];
+  alreadyNotified: Notif[] = new Array();
   userId: string = '-1';
   //listObservable = from(this.notifList);
   notifSubject = new Subject<Notif[]>();
@@ -24,7 +23,6 @@ export class NotificationService {
     //trigger périodique de la fonction de récupération des notifs -> provoqué à la connexion
     //this.wakeWatcher(5000);
 
-    this.alreadyNotified = new Array();
     //installation des notifs firebase
     /*  upload auto pour tests
     this.uploadNotif(
@@ -49,16 +47,18 @@ export class NotificationService {
     clearInterval(this.watcher);
   }
 
-  uploadNotif(not: Notif, context: NotifContext, userId: string) {
+  uploadNotif(not: Notif, context: NotifContext, userId: number) {
     /* params :
         not -> la notification à ajouter
         context -> spécifie l'id de celui qui emet la notification et l'id de l'annonce si ca en concerne une
         userId -> l'id de l'user à qui s'adresse la notif
+        notUpdater -> une string unique pour chaque notif permettant de l'identifier dans la db
      */
     this.httpClient.post(this.authService.backend + 'api/notification',{
       'UserID':userId,
       'content':JSON.stringify(not),
-      'context': JSON.stringify(context)
+      'context': JSON.stringify(context),
+      'updater': this.buildUpdater(not, context, userId)
     })
       .subscribe(
         (resp) => {
@@ -80,34 +80,25 @@ export class NotificationService {
       );*/
   }
 
-  updateNotifCache(toCheck: boolean) {
-    this.httpClient.put(this.authService.backend_test + 'cacheNotif.json', toCheck)
-      .subscribe(
-        (resp) => {
-          console.log('#Successfully set the cache', resp);
-        },
-        (err) => {
-          console.log('#Unable to set the cache', err);
-        }
-      );
+  buildUpdater(not: Notif, notContext: NotifContext, idUsr: number){
+    /* Méthode de construction de l'updater (identie une notif de manière):
+      <emitterId> + <detail> + <idUser> + announce + <announceId>
+     */
+    let res: string = '';
+    res += notContext.emitterId;
+    res += notContext.detail;
+    res += idUsr;
+    res += 'announce';
+    res += notContext.announceId;
+    console.log('Constructed updater with not =', not, '; notContext = ', notContext, '; idUsr = ', idUsr);
+    console.log('Resulting updater = ', res);
+    return res;
   }
 
-  // approche plus modulaire, pas utilisée pour l'instant
-  handleContext(not: Notif, myContext: NotifContext): Notif {
-    let res: Notif = not;
-    if ( myContext.emitterId != JSON.parse(localStorage.getItem('user')).idUser) {
-      //the notif has been uploaded by another user
-      if (myContext.announceId != '-1') {
-        //the notif is indeed about an announce
-        if (myContext.detail.split('By')[0] === 'helpProposed'){
-          //when proposing help, the notif detail is set to helpProposedBy<user.firstName>
-          res.message = myContext.detail.split('By')[1] + 'vous propose son aide !';
-        }
-      }
-    }
-    return not;
+  updateToTreated(notUpdater: string){
+    console.log('ABOUT TO UPDATE WIH NOTUPDATER =', notUpdater);
+    return;
   }
-
   getNoticationFromBack() {
 
     return new Promise((resolve, reject) => {
@@ -126,7 +117,6 @@ export class NotificationService {
             });
             this.emitNotifSubject();
             this.authService.setUserInfo(got['token'], 'token');
-
             /* firebase
             let notifIds = Object.keys(got);
             this.notifList = notifIds.map(key => got[key]);
@@ -143,6 +133,34 @@ export class NotificationService {
           }
         );
     });
+  }
+
+  updateNotifCache(toCheck: boolean) {
+    this.httpClient.put(this.authService.backend_test + 'cacheNotif.json', toCheck)
+      .subscribe(
+        (resp) => {
+          console.log('#Successfully set the cache', resp);
+        },
+        (err) => {
+          console.log('#Unable to set the cache', err);
+        }
+      );
+  }
+
+  // approche plus modulaire, pas utilisée pour l'instant
+  handleContext(not: Notif, myContext: NotifContext): Notif {
+    let res: Notif = not;
+    if ( myContext.emitterId != JSON.parse(localStorage.getItem('user')).idUser) {
+      //the notif has been uploaded by another user
+      if (myContext.announceId != -1) {
+        //the notif is indeed about an announce
+        if (myContext.detail.split('By')[0] === 'helpProposed'){
+          //when proposing help, the notif detail is set to helpProposedBy<user.firstName>
+          res.message = myContext.detail.split('By')[1] + 'vous propose son aide !';
+        }
+      }
+    }
+    return not;
   }
 
   /*
