@@ -3,7 +3,8 @@
 
   <!-- NOM PRENOM PHOTO -->
   <tr align="right"><button class="btn btn-primary" *ngIf="myProfil"
-                            (click)="router.navigate(['mes-infos'])">MODIFIER</button></tr>
+                            (click)="router.navigate(['mes-infos'])">MODIFIER</button>
+  </tr>
   <tr>
     <div class="card" >
       <table cellpadding="30">
@@ -15,14 +16,17 @@
           ></div></td>
           <td><span class="user_identifier" *ngIf="info_user != undefined">{{info_user['firstName']}} {{info_user['lastName']}}</span></td>
           <td><img style="width:50px" src="../../assets/data/star.png" alt=""> <span
-            style="font-size: large;color: dimgray">4.8 <b>/5</b></span><i> (en dur)</i></td>
+            style="font-size: large;color: dimgray">{{averageGrade}} <b>/5</b></span><i></i></td>
         </tr>
         <tr align="center">
           <span style="cursor:pointer" id="info" ngbPopover="Un rang permet de juger de l'expérience d'un
           utilisateur. Selon son investissement dans INEED, il sera Novice, Confirmé ou Expert."
                     triggers="mouseenter:mouseleave"
                     popoverTitle="Un rang c'est quoi ?" placement="right">
-                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-primary">Rang</span>
+                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-dark" *ngIf="rank == 'undefined'">{{rank}}</span>
+                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-secondary" *ngIf="rank == 'Débutant'">{{rank}}</span>
+                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-primary" *ngIf="rank == 'Confirmé'">{{rank}}</span>
+                  <span id="text_info" style="width: 200px" class="badge badge-pill badge-warning" *ngIf="rank == 'Expert'">{{rank}}</span>
           </span>
         </tr>
       </table>
@@ -47,14 +51,15 @@
   <tr>
     <div class="card">
       <td>
-        <table cellpadding="20">
+        <table cellpadding="20" width="100%">
           <tr>
             <td><span id="titre"><b>Dernière activité</b></span></td>
           </tr>
           <tr>
             <td>
-              <p>Dernier service rendu : <!-- type et date --></p>
-              <p>Dernier service demandé : <!-- type et date --></p>
+              <app-services-experience [allReviews]="dicoReviews"
+                                       style="width: 100%;">
+              </app-services-experience>
             </td>
           </tr>
         </table>
@@ -62,17 +67,4 @@
     </div>
   </tr>
 </table>
-
-  <!-- pour les anciens services
-    <div id="experience-wrapper">
-    <table width="1500px">
-      <tr align="center">
-        <td width="100%" align="center">
-          <app-services-experience [id_user]="this.id"></app-services-experience>
-        </td>
-      </tr>
-    </table>
-  </div>
-  -->
-
 </div>

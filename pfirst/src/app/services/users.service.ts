@@ -1,6 +1,5 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {subscribeOn} from 'rxjs/operators';
+import {EventEmitter, Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Subject} from "rxjs";
 import {MatSnackBarComponent} from '../mat-snack-bar/mat-snack-bar.component';
@@ -17,79 +16,16 @@ export class UserService {
   darkThemeSubject = new Subject<boolean>();
   lightThemeSubject = new Subject<boolean>();
 
-
   info_user: any;
   notifications: string[] = [
     'post-inscription'
   ];
 
-  services_history_for = [
-    {
-      pour: "Gilbert",
-      par: "Bibel",
-      categorie: "menage",
-      note: 4.3,
-      commentaire: 'Tres bon service pour vous',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Gilbert",
-      par: "Dhomas",
-      categorie: "cuisine",
-      note: 4.7,
-      commentaire: 'Au top',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Gilbert",
-      par: "Rafel",
-      categorie: "accompagnement",
-      note: 4.5,
-      commentaire: 'Super!',
-      date: new Date(),
-      showComment: false
-    }
-  ];
-  services_history_by = [
-    {
-      pour: "Bibel",
-      par: "Gilbert",
-      categorie: "course",
-      note: 4.2,
-      commentaire: 'Tres bon service par vous',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Bibel",
-      par: "Gilbert",
-      categorie: "menage",
-      note: 4.3,
-      commentaire: 'Tres bon service par vous',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Domas",
-      par: "Gilbert",
-      categorie: "cuisine",
-      note: 4.7,
-      commentaire: 'Au top',
-      date: new Date(),
-      showComment: false
-    },
-    {
-      pour: "Rafel",
-      par: "Gilbert",
-      categorie: "accompagnement",
-      note: 4.5,
-      commentaire: 'Super!',
-      date: new Date(),
-      showComment: false
-    }
-  ];
+
+  active_announces: any[];
+  announceHelpers: any[];
+  public services_proposed_finished : any[] = [];
+
   categ_to_icon = {
     "accompagnement": "../../assets/data/accompagner.png",
     "course": "../../assets/data/courses.png",
@@ -97,15 +33,48 @@ export class UserService {
     "menage": "../../assets/data/menage.png"
   };
 
-  ngOnInit() {
-    this.getUserInfosFromServer();
-  }
+
+  //historique des services
+  services_history_for: any[] = new Array();
+  services_history_by: any[] = new Array();
+  announceAndAuthorToReview = {};
+  currentReviews: any[] = new Array();
+
+
 
   idx = 0;
 
   showAllComments: boolean = false;
 
-  active_announces: any[];
+  getUserHistory(userID: string = JSON.parse(localStorage.getItem('user')).idUser) {
+    return new Promise( (resolve, reject) => {
+      this.httpClient.get(this.auth.backend + 'api/announce/historique/' + userID +'?token=' + JSON.parse(localStorage.getItem('token')))
+        .subscribe(
+          (got) => {
+
+            let by = got['historique'];
+            by.forEach( (serv) => {
+              serv.content = JSON.parse(serv.content);
+            });
+            this.services_history_by = by;
+            let histFor = got['make'];
+            histFor.forEach( (serv) => {
+              serv.content = JSON.parse(serv.content);
+            });
+            console.log("HISTORIQUE : ", typeof got['historique'][0]['content']);
+            this.services_history_for = histFor;
+            this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
+
+              console.log("HISTORYSUB EMITTED");
+            resolve(true);
+          },
+          (e) => {
+            console.log("#User service : cant get the history");
+            reject(e);
+          }
+        );
+    });
+  }
 
   setShowAllComments() {
     this.showAllComments = true;
@@ -150,23 +119,48 @@ export class UserService {
       );
   }
 
+  // -----------------REVIEWS--------------
+  getReviews(idReceiver: number) {
+    return new Promise( (resolve, reject) => {
+      this.httpClient.get(this.auth.backend + 'api/review/user/' + idReceiver + '?token=' + JSON.parse(localStorage.getItem('token')))
+        .subscribe(
+          (got) => {
+            console.log("GOT REVIEWS FOR RECEIVER = ", idReceiver, ' : ', got);
+            this.currentReviews = got['reviews'];
+            console.log('set currentreviews', this.currentReviews);
+            this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
+            resolve('Got the reviews');
+          },
+          (e) => {
+            console.log('COULDNT GET THE REVIEWS', e);
+            this.currentReviews.length = 0;
+            reject(e);
+          }
+        );
+    });
+  }
+
+  setDicoAnnounceIds(){
+    this.services_history_by.forEach( (oneServ) => {
+      this.announceAndAuthorToReview[oneServ.idAnnounce] = {};
+    });
+    this.services_history_for.forEach( (oneServ) => {
+      this.announceAndAuthorToReview[oneServ.idAnnounce] = {};
+    });
+  }
+
+  associateReviewToAuthorAndAnnounce(){
+    this.currentReviews.forEach( (oneRev) => {
+      this.announceAndAuthorToReview[oneRev.announce][oneRev.author] = oneRev;
+    });
+  }
+
   public getInitials() {
     let res: string = this.info_user['fname'][0].toUpperCase() + this.info_user['lname'][0].toUpperCase();
     console.log(res);
     return res;
   }
 
-  getUserInfosFromToken() {
-    return new Promise((resolve, reject) => {
-      this.info_user = JSON.parse(localStorage.getItem('token'))['user'];
-      console.log("GetfromToken : this.info_user =", this.info_user);
-      if (this.info_user != undefined) {
-        resolve(true);
-      } else {
-        reject(true);
-      }
-    });
-  }
 
   // variante avec id en param pour différents users -> besoin de differentes url pr differents profils (PLUS UTILE)
   getProfilById(id: string) {
@@ -199,8 +193,13 @@ export class UserService {
     });
   };
 
-  getPostedAnnounces(id: string = 'user') {
+
+
+
+  getPostedAnnounces(idUsr: string) {
     return new Promise((resolve, reject) => {
+
+      /*
 
       const httpOptions = {
         headers: new HttpHeaders({
@@ -208,27 +207,29 @@ export class UserService {
           'Authorization': localStorage.getItem('token')
         })
       };
+*/
+      const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
+      //const usrId = JSON.parse(localStorage.getItem('user'))['idUser'];
 
       this.httpClient
-        .get<any[]>(this.auth.backend + '/api/announce/user/' + id, httpOptions)
+        .get<any[]>(this.auth.backend + 'api/announce/user/' + idUsr, {params})   //from backend
+
         .subscribe(
           (response) => {
-            console.log("#GETPOSTEDANNOUNCES");
-            console.table(response)
+            /*for backend*/
             this.active_announces = response['announces'];
+            //console.table(response['announces']);
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
 
-            /*this.info_user = response;
-            console.log("#OK");
-            console.log("#SERVICES : " + response);*/
             resolve(true);
           },
           (error) => {
             if (error['status'] === 401) {
-              //this.auth.removeUserInfo();
+              this.auth.removeUserInfo();
               console.log("#TOKEN EXPIRED");
             }
-            console.log("Erreur de chargement : " + error);
+            console.log("#getPostedA() :Erreur de chargement : ", error);
+
             reject(true);
           }
         );
@@ -252,7 +253,7 @@ export class UserService {
 
   }
 
-  emitDarkThemeSubject(){
+  emitDarkThemeSubject() {
     console.log('DARK');
     this.darkThemeSubject.next(this.dark_theme);
   }
@@ -260,6 +261,30 @@ export class UserService {
   emitLightThemeSubject(){
     console.log('LIGHT');
     this.lightThemeSubject.next(this.light_theme);
+  }
+
+
+  getAnnounceHelpersById(announceId: string) {
+    return new Promise(((resolve, reject) => {
+      const params = new HttpParams().set('token', JSON.parse(localStorage.getItem('token')));
+
+      this.httpClient.get<any[]>(this.auth.backend + 'api/announce/' + announceId + '/helpers', {params})
+        .subscribe(
+          (response) => {
+            this.announceHelpers = response['helpers'];
+            this.auth.setUserInfo(JSON.stringify(response['token']),'token');
+            //console.log('#getAnnounceHelpers : success', response);
+            resolve(true);
+          },
+          (error) => {
+            if (error['status'] == 400){
+              console.log("BAD REQUEST : token expired or announce deleted")
+            }
+            console.log('#getAnnounceHelpers : failure');
+            reject(true);
+          }
+        );
+    }));
   }
 
 }

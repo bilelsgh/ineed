@@ -5,8 +5,13 @@ export class Menage{
                 materiel : string[], image : string},
               public id : number,
               public price : number = 0,
-              viewNumber : number,
-              public finished : boolean,
+              public viewNumber : number,
+              /*brief-status
+              0 : le service attend des helpers
+              1 : le service est en cours et n'accepte plus d'helpers
+              2 : le service est terminé
+               */
+              public status : number,
   ){}
 }
 

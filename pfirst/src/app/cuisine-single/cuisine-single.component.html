@@ -1,3 +1,17 @@
+<!-- BANDEAUX D'INFORMATIONS -->
+<div *ngIf="applied" class="alert alert-dismissable alert-success">
+  <table align="center">
+    Votre demande d'aide a bien été envoyé à <b>{{User}}</b>, attendez son acceptation.
+  </table>
+</div>
+
+<div *ngIf="myService" class="alert alert-dismissable alert-warning">
+  <table align="center">
+    Il s'agit de <b>votre annonce</b>. <button class="btn btn-warning" (click)="router.navigate([''])">
+    Voir</button>
+  </table>
+</div>
+<!-- ----------------------------------------- -->
 <br>
 <div class="main-body">
 <table align="center">
@@ -46,9 +60,18 @@
     </div>
   </div>
 
+  <!-- ###PROPOSER SON AIDE### -->
   <table align="center">
-    <tr><button id="button_rendre" type="button" class="btn btn-warning">Aider {{User}} !</button></tr>
     <tr>
+      <button *ngIf="!applied" id="button_rendre" type="button" class="btn btn-warning" (click)="applyCuisine()">
+        <p style="font-size: larger">Aider {{User}} !</p></button>
+
+      <button *ngIf="applied" [disabled]="true" id="button_rendre" type="button" class="btn btn-warning" (click)="applyCuisine()">
+        <p style="font-size: larger">Vous avez proposé votre aide.</p>
+      </button>
+    </tr>
+    <tr>
+
       <!--#####NOMBRES DE VUES####-->
       <div id="view" style="position: absolute;left: 500px;">
         <td>

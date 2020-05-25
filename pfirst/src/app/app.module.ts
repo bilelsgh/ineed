@@ -51,11 +51,18 @@ import { DisplayProfilComponent } from './display-profil/display-profil.componen
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
 import {NotificationService} from './services/notification.service';
 import {NotifierModule} from 'angular-notifier';
+import {ImageCompressorService} from "./services/image-compressor.service";
+import { ActivityComponent } from './activity/activity.component';
+import {MatSelectModule} from "@angular/material/select";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
-import {ImageCompressorService} from "./services/image-compressor.service";
+import { ServiceActivityComponent } from './service-activity/service-activity.component';
+import { ServiceProposedComponent } from './service-proposed/service-proposed.component';
+import { SuiviService } from './services/suivi.service';
+import { ModalAreYouSureComponent } from './modal-are-you-sure/modal-are-you-sure.component';
 import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +98,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     InfoSettingsComponent,
     DisplayProfilComponent,
     FiltreProposeComponent,
-    MatSnackBarComponent
+    ActivityComponent,
+    ServiceActivityComponent,
+    ServiceProposedComponent,
+    ModalAreYouSureComponent,
+    MatSnackBarComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +132,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         autoHide: false
       }
     }),
+    MatSelectModule,
     MatToolbarModule,
     MatIconModule,
     MatSnackBarModule
@@ -133,6 +146,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     NotificationService,
     NgxImageCompressService,
     ImageCompressorService,
+    SuiviService,
     MatSnackBarComponent,
     Location
      // necessaire ?

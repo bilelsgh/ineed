@@ -1,0 +1,43 @@
+<div *ngFor="let oneParticipant of participants">
+  <div *ngIf="successfullySended[oneParticipant]" class="alert alert-dismissable alert-success">
+    <table align="center">
+      Votre retour sur {{ratedNames[oneParticipant]}} a bien été envoyé ! Rendez vous sur votre profil pour voir si le retour
+      de {{ratedNames[oneParticipant]}} dès que possible !
+    </table>
+  </div>
+  <div id="infoContainer">
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <table align="center">
+
+          <div class="col-sm-8 col-sm-offset-2">
+
+            <form (ngSubmit)="onSubmitReview(f,oneParticipant)" #f="ngForm">
+              <div class="pdpIcon"
+                   [ngStyle]="{'background-image':'url('+getPdpPath(oneParticipant) +')'}">
+              </div>
+
+              <div class="form-group">
+                <!-- ##################### Commentaire ####################-->
+                <div class="jumbotron" id="formulaire">
+                  <label for="comment">Qu'avez vous pensé de {{idToName[oneParticipant]}} ?</label>
+                  <input type="text" class="form-control" id="comment" name="comment"
+                         ngModel>
+                </div>
+
+                <!-- ##################### Note ##################s##-->
+                <div class="jumbotron" id="formulaire">
+                  <p>Complétez votre retour avec une note !</p>
+                  <ngb-rating id="ratingInput" max="5" [(rate)]="rate"></ngb-rating>
+                </div>
+                <button style="margin-left: 330px" class="btn btn-primary" type="submit"
+                        [disabled]="successfullySended[oneParticipant]">Soumettre
+                </button>
+              </div>
+            </form>
+          </div>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -34,3 +34,19 @@
 {
   font-size: 30px;
 }
+
+.spacer
+{
+  flex: 1 1 auto;
+}
+
+.actionIcon
+{
+  padding: 0 14px;
+}
+
+.dateFormat
+{
+  font-size: large;
+  color: black;
+}

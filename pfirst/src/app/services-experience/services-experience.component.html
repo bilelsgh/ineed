@@ -1,38 +1,48 @@
-<table width="80%" cellpadding="40" border="3px solid">
+<table width="100%" cellpadding="20">
   <tr>
-    <td align="center" colspan="2">
-      <img src="../../assets/data/last_services.png" id="last-serv-img">
-      <button mat-raised-button id="history-button" (click)="openHistoryModal()">Plus de services</button>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <span class="for-by-indicator">Pour vous</span>
-    </td>
-    <td align="center">
-      <span class="for-by-indicator">Par vous</span>
+    <td width="5%">
+      <p style="font-size: large">Dernier service demandé :</p>
     </td>
   </tr>
   <tr>
     <td>
-      <app-former-service [helperLook]="false"
-                          [pour]="this.history_for[last_for].pour"
-                          [par]="this.history_for[last_for].par"
-                          [categorie]="this.history_for[last_for].categorie"
-                          [note]="this.history_for[last_for].note"
-                          [commentaire]="this.history_for[last_for].commentaire"
-                          [date]="this.history_for[last_for].date">
+      <app-former-service *ngIf="last_for > -1 && allReviews != undefined"
+                          [helperLook]="false"
+                          [pour]="myName"
+                          [par]="history_for[last_for].content.user"
+                          [announceId]="history_for[last_for].idAnnounce"
+                          [announceAuthorId]="history_for[last_for].idUser"
+                          [imgSrc]="history_for[last_for].content.image"
+                          [announceReviews]="allReviews[history_for[last_for].idAnnounce]"
+                          [date]="this.history_for[last_for].content.datejour">
       </app-former-service>
+      <span style="font-size: medium" *ngIf="last_for<0">Pas encore de services demandés.</span>
+
     </td>
+  </tr>
+  <tr>
     <td>
-      <app-former-service [helperLook]="true"
-                          [pour]="this.history_by[last_by].pour"
-                          [par]="this.history_by[last_by].par"
-                          [categorie]="this.history_by[last_by].categorie"
-                          [note]="this.history_by[last_by].note"
-                          [commentaire]="this.history_by[last_by].commentaire"
-                          [date]="this.history_by[last_by].date">
+      <p style="font-size: large">Dernier service rendu :</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <app-former-service *ngIf="last_by > -1 && allReviews != undefined"
+                          [helperLook]="true"
+                          [pour]="this.history_by[last_by].content.user"
+                          [par]="myName"
+                          [announceId]="history_by[last_by].idAnnounce"
+                          [announceAuthorId]="history_by[last_by].idUser"
+                          [imgSrc]="history_by[last_by].content.image"
+                          [announceReviews]="allReviews[history_by[last_by].idAnnounce]"
+                          [date]="this.history_by[last_by].content.datejour">
       </app-former-service>
+      <span style="font-size: medium" *ngIf="last_by<0">Pas encore de services rendus.</span>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left">
+      <button mat-raised-button *ngIf="(last_by>0)||(last_for>0)" id="history-button" (click)="openHistoryModal()">En voir plus</button>
     </td>
   </tr>
 </table>

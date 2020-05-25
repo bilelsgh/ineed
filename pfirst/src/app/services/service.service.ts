@@ -27,7 +27,7 @@ export class ServiceService{
     this.emitCuisine();
     //On convertit en string car c'est le format attendu dans le BACK
     let cuisine_back = {idUser: cuisine["idUser"], content: JSON.stringify(cuisine["content"]), id: cuisine["id"],
-      price: cuisine['price'], viewNumber: cuisine['viewNumber'], finished: cuisine['finished']}
+      price: cuisine['price'], viewNumber: cuisine['viewNumber'], status: 0}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : cuisine_back};
@@ -62,7 +62,7 @@ export class ServiceService{
     this.emitAccompage();
     //On convertit en string car c'est le format attendu dans le BACK
     let accompagne_back = {idUser: accompagne["idUser"], content: JSON.stringify(accompagne["content"]), id: accompagne["id"],
-      price: accompagne['price'], viewNumber: accompagne['viewNumber'], finished: accompagne['finished']}
+      price: accompagne['price'], viewNumber: accompagne['viewNumber'], status: 0}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : accompagne_back};
@@ -100,7 +100,7 @@ export class ServiceService{
     this.emitCourses();
     //On convertit en string car c'est le format attendu dans le BACK
     let course_back = {idUser: courses["idUser"], content: JSON.stringify(courses["content"]), id: courses["id"],
-    price: courses['price'], viewNumber: courses['viewNumber'], finished: courses['finished']}
+    price: courses['price'], viewNumber: courses['viewNumber'], status: 0};
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : course_back};
@@ -134,7 +134,7 @@ export class ServiceService{
     this.emitMenage();
     //On convertit en string car c'est le format attendu dans le BACK
     let menage_back = {idUser: menage["idUser"], content: JSON.stringify(menage["content"]), id: menage["id"],
-      price: menage['price'], viewNumber: menage["viewNumber"], finished: menage['finished']}
+      price: menage['price'], viewNumber: menage["viewNumber"], status: 0}
 
     //Création de l'objet contenant l'annonce et le token pour l'envoyer au BACK
     let message = {"token" : JSON.parse(localStorage.getItem('token')), "announce" : menage_back};
@@ -193,7 +193,7 @@ export class ServiceService{
           (response) => {
             this.current_service = {idUser: response['announce']['idUser'], content: JSON.parse(response['announce']['content']),
               id: response['announce']['idAnnounce'], price: response['announce']['price'],
-            viewNumber: response['announce']['viewNumber'], finished: response['announce']['finished']};
+            viewNumber: response['announce']['viewNumber'], status: response['announce']['status']};
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
             console.log("#Récupération de current_service (getById) OK");
@@ -212,34 +212,26 @@ export class ServiceService{
     });
   }
 
-  //Récupérer une annonce par ID depuis le BACK
-  /*getServiceById(id: number) {
-    return new Promise((resolve,reject)=> {
-      this.httpClient
-        .get<any[]>(this.auth.backend + 'api/announce/' + id +
-          'token=' + JSON.parse(localStorage.getItem('token'))["token"])
-        .subscribe(
-          (response) => { //on récupère le service mais 'content' est une string ...
-            let final_service = {idUser: response["announce"]['idUser'], content: JSON.parse(response["announce"]['content']),
-            id: response["announce"]['id'], price: response["announce"]['price']}; //...on le parse donc
-            this.service = final_service;
+  //Ajoute un service dans services_provided de helper & dans services_asked de helped
+  applyService(announceID : number){
+    let message = {helperID: JSON.parse(localStorage.getItem('user'))['idUser']};
 
-            console.log("#SERVICE-SERVICE : current_service :", this.current_service);
-            console.log("#OK");
-            console.log("#SERVICES : " + response);
-            resolve(true);
+    this.httpClient //checker si on met le helperID dans la route
+      .post(this.auth.backend + 'api/announce/' + announceID + '/apply?token=' +
+        JSON.parse(localStorage.getItem('token')), message)
+      .subscribe(
+        (response) => {
+
           },
-          (error) => {
-            if(error['status'] === 401){
-              this.auth.removeUserInfo();
-              console.log("#TOKEN EXPIRED");
-            }
-            console.log("Erreur de chargement : " + error);
-            reject(true);
+        (error) => {
+          if(error['status'] === 401){
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
           }
-        );
-    });
-  }*/
+          console.log("#Erreur lors de ApplyService");
+        }
+      );
+  }
 
   getLastAnnounces(number : number){
 

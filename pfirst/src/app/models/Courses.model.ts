@@ -1,16 +1,3 @@
-/*export class Courses{
-    constructor(public id : number,
-        public image : string,
-        public type:string,
-        public name: string,
-        public user: string,
-        public description: string ,
-        public accompagner : string,
-        public budget : string,
-        public date: string,
-        public liste: Array<{produit: string, quantite: string}>,
-        public idUser : number,){}
-}}*/
 
 export class Courses{
   constructor(
@@ -19,8 +6,13 @@ export class Courses{
     name: string, description: any,type: string, user: any, image : string },
     public id : number,
     public price: number = 0,
-    viewNumber : number,
-    public finished : boolean,
+    public viewNumber : number,
+    /*brief-status
+    0 : le service attend des helpers
+    1 : le service est en cours et n'accepte plus d'helpers
+    2 : le service est terminé
+     */
+    public status : number,
   ) {
   }
 }

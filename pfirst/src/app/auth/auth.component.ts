@@ -36,6 +36,7 @@ export class AuthComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log("#Connexion réussie : " + response);
+
           this.authService.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.authService.setUserInfo( JSON.stringify(response['user']), 'user');
           //this.notificationService.wakeWatcher(10000);
@@ -43,13 +44,11 @@ export class AuthComponent implements OnInit {
           this.router.navigate(['']);
         },
         (error) => {
-          if(error['status'] === 401){
+          if (error['status'] === 401) {
             this.bad_mail_password = true;
           }
-
         }
       );
-
   }
 
   onSubmit(form: NgForm) {
@@ -60,7 +59,6 @@ export class AuthComponent implements OnInit {
       this.field_non_valid = true;
       form.reset();
     }
-
 
   }
 

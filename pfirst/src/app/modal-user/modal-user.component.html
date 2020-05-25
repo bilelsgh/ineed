@@ -1,7 +1,7 @@
 <table width="100%" cellpadding="3">
   <tr>
     <td>
-      <div *ngIf="numberOfProfilNotif>0" [@reduce]="stateReduce" id="notifIcon" (click)="goThenClose('mes-infos')">
+      <div *ngIf="numberOfProfilNotif>0" [@reduce]="stateReduce" id="notifIcon" (click)="goThenClose('profil/'+ getUserId())">
         {{numberOfProfilNotif}}
       </div>
     </td>
