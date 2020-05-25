@@ -90,7 +90,8 @@ export class ReviewComponent implements OnInit {
         announce: this.announceId,
         content: comment,
         author: JSON.parse(localStorage.getItem('user')).idUser,
-        note: this.rate
+        note: this.rate,
+        receiver: idRated
       }
     }).subscribe(
       (resp) => {
