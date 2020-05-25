@@ -1,8 +1,8 @@
-<div class="jumbotron jumbotron-fluid">
+<div id="jumb" class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4" align="center">Menage !</h1>
         <table align="center">
-  
+
           <!--#############PRENOM######################-->
           <div class="col-sm-8 col-sm-offset-2">
             <form [formGroup]="menageForm" (ngSubmit)="onSubmitForm()" id="form">
@@ -10,7 +10,7 @@
                 <label for ="user" ><h2>Prénom</h2></label>
                 <input type="text" id="user" class="form-control" formControlName="user">
               </div>
-  
+
               <!--#############DISPO######################-->
               <div class= "form-group">
                 <label for="datejour"> <h2>Quand souhaitez vous que quelqu'un vienne vous aider a faire le menage (Date et heure)</h2></label>
@@ -40,7 +40,7 @@
               <!--#############LISTE DE MATERIEL######################-->
             <div class= "form-group">
                 <label for="liste"><h2>Liste du materiel qui est a votre disposition</h2></label>
-  
+
                 <form (ngSubmit)="ajouterListe(liste)" #liste="ngForm">
                   <table>
                     <tr>
@@ -84,16 +84,16 @@
                         formControlName="description"></textarea>
               </div>
               <br>
-  
+
               <button type="submit" class="btn btn-primary"  >Soumettre</button>
             </form>
-  
+
           </div>
-  
-  
+
+
         </table>
     </div>
   </div>
-  
-  
+
+
 

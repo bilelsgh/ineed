@@ -36,7 +36,7 @@ import { AccompagnerSingleComponent } from './accompagner-single/accompagner-sin
 import { ServiceService } from './services/service.service';
 import { NewCoursesComponent } from './new-courses/new-courses.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {NgxImageCompressService} from 'ngx-image-compress';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -51,6 +51,11 @@ import { DisplayProfilComponent } from './display-profil/display-profil.componen
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
 import {NotificationService} from './services/notification.service';
 import {NotifierModule} from 'angular-notifier';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {ImageCompressorService} from "./services/image-compressor.service";
+import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -85,7 +90,8 @@ import {NotifierModule} from 'angular-notifier';
     NewAccompageComponent,
     InfoSettingsComponent,
     DisplayProfilComponent,
-    FiltreProposeComponent
+    FiltreProposeComponent,
+    MatSnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +119,10 @@ import {NotifierModule} from 'angular-notifier';
       behaviour:{
         autoHide: false
       }
-    })
+    }),
+    MatToolbarModule,
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [ // on ajoute ici tous les services
     AuthService,
@@ -122,6 +131,9 @@ import {NotifierModule} from 'angular-notifier';
     UserService,
     ServiceService,
     NotificationService,
+    NgxImageCompressService,
+    ImageCompressorService,
+    MatSnackBarComponent,
     Location
      // necessaire ?
   ],

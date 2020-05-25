@@ -1,8 +1,19 @@
-:host {
+:host-context(.theme-dark) .main-body{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: white;
+  box-sizing: border-box;
+  background-color: #2e2e2e;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:host-context(.theme-light) .main-body{
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
   color: #333;
   box-sizing: border-box;
+  background-color: whitesmoke;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -65,17 +76,16 @@
 
 /* INEED C'EST QUOI */
 #IneedCQ{
-
-  width: 230px;
+  width: 80%;
 }
 
 #pile{
-  width: 550px;
+  width: 600px;
 
 }
 #sep
 {
-  width: 1280px;
+  width: 100%;
 
 }
 #textIn{
@@ -86,10 +96,10 @@
 /*AIDER QLQ */
 
 #tuveux{
-  width: 320px;
+  width: 500px;
 }
-#jetCourse{
-  width: 350px;
+#jetCourse, #jetAccompagne, #jetCuisine, #jetMenage{
+  width: 750px;
 }
 #aBesoin{
   font-size: large;
@@ -98,4 +108,9 @@
 #textTV{
   width: 300px;
   text-align: right;
+}
+
+#iNeedExplainedContainer
+{
+  width: 100%;
 }

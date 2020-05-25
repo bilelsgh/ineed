@@ -1,15 +1,14 @@
-<body>
 <div>
   <app-global-navbar></app-global-navbar>
 </div>
 
 <notifier-container></notifier-container>
-<div id="main">
+<div class="{{myTheme}}">
   <router-outlet></router-outlet>
 </div>
-</body>
 
-<div id="space"></div>
+
+
 
 <button class="btn btn-primary" (click)="handleRev()"> handle Rev</button>
 <button class="btn btn-primary" (click)="buildUp()"> Build Updater</button>

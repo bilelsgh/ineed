@@ -3,15 +3,6 @@
 
 @import '~angular-notifier/styles.css';
 
-body{
-/*  background-position-y: 522px ;
-  background-repeat: no-repeat;
-  background-image: url("/assets/data/fond.png");*/
-  background-image: url("assets/data/inf.png");
-
-
-}
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -22,4 +13,24 @@ mat-dialog-container#modal-history-component {
 
 mat-dialog-container#modal-user-component{
   background-color: #343a40;
+}
+
+.red-snackbar{
+  background-color: #ff3352;
+  color: white;
+}
+
+.blue-snackbar{
+  background-color: dodgerblue;
+  color: white;
+}
+
+.light-mode{
+  background-color: #aaaaaa;
+  color: black;
+}
+
+.dark-mode{
+  background-color: #2e2e2e;
+  color: white;
 }

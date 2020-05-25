@@ -5,6 +5,7 @@ import {NgForm} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from "../services/notification.service";
 import {Notif} from "../models/notification.model";
+import {MatSnackBarComponent} from '../mat-snack-bar/mat-snack-bar.component';
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +18,9 @@ export class AuthComponent implements OnInit {
   constructor(public authService: AuthService,
               private router: Router,
               private httpClient: HttpClient,
-              private notificationService: NotificationService) {}
+              private notificationService: NotificationService,
+              public snackBar: MatSnackBarComponent) {}
+
   field_non_valid : boolean = false;
   bad_mail_password : boolean = false;
 
@@ -36,6 +39,7 @@ export class AuthComponent implements OnInit {
           this.authService.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.authService.setUserInfo( JSON.stringify(response['user']), 'user');
           //this.notificationService.wakeWatcher(10000);
+          this.snackBar.openSnackBar('Vous êtes connecté','', "blue-snackbar", 'top', 'center');
           this.router.navigate(['']);
         },
         (error) => {

@@ -9,6 +9,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {NotificationService} from "../services/notification.service";
 import {Subscription} from "rxjs";
 import {Notif} from "../models/notification.model";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-modal-user',
@@ -50,7 +51,7 @@ export class ModalUserComponent implements OnInit {
               private httpClient: HttpClient,
               private auth: AuthService,
               private router: Router,
-              private notificationService : NotificationService){}
+              private notificationService: NotificationService){}
 
   ngOnInit(): void {
     setTimeout( ()=>{
@@ -89,6 +90,11 @@ export class ModalUserComponent implements OnInit {
     });
     return res;
   }
+
+  getUserId():string{
+    return JSON.parse(localStorage.getItem('user')).idUser;
+  }
+
   goThenClose(where: string){
     this.router.navigate([where]);
     this.matDialogRef.close();

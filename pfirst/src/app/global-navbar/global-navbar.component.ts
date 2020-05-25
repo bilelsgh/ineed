@@ -10,6 +10,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {transformAll} from "@angular/compiler/src/render3/r3_ast";
 import {NotificationService} from "../services/notification.service";
 import {Notif} from "../models/notification.model";
+import {ImageCompressorService} from "../services/image-compressor.service";
 
 @Component({
   selector: 'app-global-navbar',
@@ -145,10 +146,12 @@ export class GlobalNavbarComponent implements OnInit, OnDestroy{
               router: Router,
               public userService: UserService,
               public matDialog: MatDialog,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private compressorService: ImageCompressorService) {
   }
 
   ngOnInit() {
+    //this.undefinedURL = this.compressorService.undefinedPicCompressedURL;
     this.showProfilMenu = false;
     this.actRoute.url.subscribe(value => {
       this.path = value;
@@ -183,8 +186,11 @@ export class GlobalNavbarComponent implements OnInit, OnDestroy{
     console.log("url ", url);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.notifSubscription.unsubscribe();
+  }
+  getPdpName(): string {
+    return JSON.parse(localStorage.getItem('user')).photo;
   }
 
   triggerNotifAppeareance(delay: number) {
