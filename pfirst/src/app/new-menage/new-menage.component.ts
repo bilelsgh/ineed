@@ -25,6 +25,7 @@ export class NewMenageComponent implements OnInit {
   city:string;
   date:string;
   loca= false;
+  add=false;
   latitude : number=0;
   longitude : number;
 
