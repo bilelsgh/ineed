@@ -128,6 +128,9 @@ this.historySub = this.usr_service.history_subject.subscribe(
     dialogConfig.id = "modal-history-component";
     dialogConfig.width = "60%";
     dialogConfig.height = "60%";
+    dialogConfig.data = {
+      allReviews: this.allReviews
+    };
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(ModalHistoryComponent, dialogConfig);
   }

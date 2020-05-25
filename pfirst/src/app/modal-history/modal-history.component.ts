@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 //import { ViewChild } from '@angular/core';
 //import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from "../services/users.service";
 import {HttpClient} from "@angular/common/http";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -24,11 +24,14 @@ export class ModalHistoryComponent implements OnInit{
   index_by: number;
 
   review: any;
+  allReviews: any;
 
   constructor(private userService: UserService,
               private httpClient: HttpClient,
               private matDialogRef: MatDialogRef<ModalHistoryComponent>,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              @Inject(MAT_DIALOG_DATA) data){
+    this.allReviews = data.allReviews;
   }
 
   ngOnInit(): void {
