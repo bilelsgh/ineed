@@ -17,6 +17,7 @@ export class ProfilComponent implements OnInit {
   services_history_for: any[] = new Array();
   services_history_by: any[] = new Array();
   dicoReviews: any;
+  averageGrade: number;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -44,6 +45,7 @@ export class ProfilComponent implements OnInit {
           this.userService.setDicoAnnounceIds();
           this.getRank();
           this.userService.getReviews(+this.id).then( () => {
+            this.getAverageGrade(this.userService.currentReviews);
             this.userService.associateReviewToAuthorAndAnnounce();
             this.dicoReviews = this.userService.announceAndAuthorToReview;
           }).catch( (e) => {
@@ -72,4 +74,18 @@ export class ProfilComponent implements OnInit {
       this.rank = "Expert";
     }
   }
+
+  getAverageGrade(reviews: any[]) {
+    let grades = 0;
+    let sum = 0;
+    let res: number;
+    reviews.forEach( (oneRev) => {
+      sum = sum + oneRev.note ;
+      grades = grades + 1;
+    });
+    res = (sum / grades) * 10;
+    res = Math.round(res);
+    this.averageGrade = res/10;
+  }
+
 }

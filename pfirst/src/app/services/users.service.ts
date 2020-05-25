@@ -21,7 +21,6 @@ export class UserService {
     'post-inscription'
   ];
 
-  currentReviews: any[] = new Array();
 
   active_announces: any[];
   announceHelpers: any[];
@@ -35,9 +34,12 @@ export class UserService {
   };
 
 
+  //historique des services
   services_history_for: any[] = new Array();
   services_history_by: any[] = new Array();
   announceAndAuthorToReview = {};
+  currentReviews: any[] = new Array();
+
 
 
   idx = 0;

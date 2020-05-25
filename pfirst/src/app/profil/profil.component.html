@@ -15,7 +15,7 @@
           ></div></td>
           <td><span class="user_identifier" *ngIf="info_user != undefined">{{info_user['firstName']}} {{info_user['lastName']}}</span></td>
           <td><img style="width:50px" src="../../assets/data/star.png" alt=""> <span
-            style="font-size: large;color: dimgray">4.8 <b>/5</b></span><i> (en dur)</i></td>
+            style="font-size: large;color: dimgray">{{averageGrade}} <b>/5</b></span><i></i></td>
         </tr>
         <tr align="center">
           <span style="cursor:pointer" id="info" ngbPopover="Un rang permet de juger de l'expérience d'un
