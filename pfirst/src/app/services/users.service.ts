@@ -21,6 +21,8 @@ export class UserService {
     'post-inscription'
   ];
 
+  currentReviews: any[] = new Array();
+
   active_announces: any[];
   announceHelpers: any[];
   public services_proposed_finished : any[] = [];
@@ -35,6 +37,7 @@ export class UserService {
 
   services_history_for: any[] = new Array();
   services_history_by: any[] = new Array();
+  announceAndAuthorToReview = {};
 
 
   idx = 0;
@@ -112,6 +115,41 @@ export class UserService {
           console.log("Erreur de récupération" + err);
         }
       );
+  }
+
+  // -----------------REVIEWS--------------
+  getReviews(idReceiver: number) {
+    return new Promise( (resolve, reject) => {
+      this.httpClient.get(this.auth.backend + 'api/review/user/' + idReceiver + '?token=' + JSON.parse(localStorage.getItem('token')))
+        .subscribe(
+          (got) => {
+            console.log("GOT REVIEWS FOR RECEIVER = ", idReceiver, ' : ', got);
+            this.currentReviews = got['reviews'];
+            this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
+            resolve('Got the reviews');
+          },
+          (e) => {
+            console.log('COULDNT GET THE REVIEWS', e);
+            this.currentReviews.length = 0;
+            reject(e);
+          }
+        );
+    });
+  }
+
+  setDicoAnnounceIds(){
+    this.services_history_by.forEach( (oneServ) => {
+      this.announceAndAuthorToReview[oneServ.idAnnounce] = {};
+    });
+    this.services_history_for.forEach( (oneServ) => {
+      this.announceAndAuthorToReview[oneServ.idAnnounce] = {};
+    });
+  }
+
+  associateReviewToAuthorAndAnnounce(){
+    this.currentReviews.forEach( (oneRev) => {
+      this.announceAndAuthorToReview[oneRev.announce][oneRev.author] = oneRev;
+    });
   }
 
   public getInitials() {

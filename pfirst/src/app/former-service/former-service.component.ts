@@ -123,16 +123,11 @@ export class FormerServiceComponent implements OnInit, OnChanges {
       this.idToShowReview[this.announceAuthorId] = false;
     }
   }
-
+  logDICOREV(){
+    console.log("DICO :", this.usr_serv.announceAndAuthorToReview);
+  }
 
   getReview(idUsr) {
-    /* pas encore sur server
-    this.httpClient.get(this.authService.backend + 'api/announce/review/' + this.announceId + '?token=' + JSON.parse(localStorage.getItem('token')))
-      .subscribe( (got) => {
-        console.log("REVIEW TESTING? GOT =", got);
-        this.authService.setUserInfo(JSON.stringify(resp['token']), 'token');
-      });
-     */
     if (!Object.keys(this.idToReviews).includes(idUsr)) {
       this.idToReviews[idUsr] = {
         'note': 5,

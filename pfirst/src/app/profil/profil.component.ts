@@ -40,7 +40,13 @@ export class ProfilComponent implements OnInit {
         .then( () => {
           this.services_history_by = this.userService.services_history_by;
           this.services_history_for = this.userService.services_history_for;
+          this.userService.setDicoAnnounceIds();
           this.getRank();
+          this.userService.getReviews(+this.id).then( () => {
+            this.userService.associateReviewToAuthorAndAnnounce();
+          }).catch( (e) => {
+            console.log(e);
+          });
         })
         .catch( (e) => {
           console.log('Erreur de récupération de l\'historique dans profil',e);
@@ -51,8 +57,6 @@ export class ProfilComponent implements OnInit {
   getPdpPath(): string{
     return this.authService.backend + '/static/images/' + this.info_user.photo;
   }
-
-
 
   getRank(){
     let number_services = this.services_history_for.length + this.services_history_by.length;
