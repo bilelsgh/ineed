@@ -65,7 +65,7 @@
     <span>
       <div id="Proposition" *ngFor="let helper of helpers">
         <mat-toolbar color="#ffffff" *ngIf="!noHelper"> <!-- color ne marche pas-->
-        <mat-toolbar-row *ngIf="!amIanAssignee(helper.idUser)">
+        <mat-toolbar-row *ngIf="!amIanAssignee(helper.idUser) && !amIrejected(helper.idUser)">
             <span>{{helper.firstName}} {{helper.lastName}} vous a proposé son aide.</span>
             <span class="spacer"></span>
             <mat-icon style="cursor:pointer" title="Voir le profil" class="icon"

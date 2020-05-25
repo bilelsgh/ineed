@@ -34,7 +34,8 @@ ngOnInit(): void {
 
     onSubmitForm() {
     const f = this.accompagneForm;
-    const content=  {id: 5, type:'service4', name:"Accompagner quelqu'un", user:'',description: '', kind:'',quand1:'',quand2 : '', local:'', datejour: '', viewNumber : 0, image: '../../assets/data/accompagner.png' }
+    const content=  {id: 5, type:'service4', name:"Accompagner quelqu'un", user:'',description: '', kind:'',quand1:'',quand2 : '', local:'',
+      datejour: '', viewNumber : 0, image: '../../assets/data/accompagner.png', rejected: [] }
     content.datejour=f.value['datejour'];
     content.kind= f.value['kind'];
     content.quand1= f.value['quand1'];

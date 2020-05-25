@@ -38,7 +38,7 @@ ngOnInit(): void {
     onSubmitForm() {
       const f = this.menageForm;
       const content=  { type:'service2', name:"Faire le menage", user:'',description: '', salle:'',localisation:'',
-        surface: '', datejour: '',dateheure:'', materiel:[], viewNumber: 0,  image: '../../assets/data/menage.png' }
+        surface: '', datejour: '',dateheure:'', materiel:[], viewNumber: 0,  image: '../../assets/data/menage.png', rejected: [] }
       content.datejour=f.value['datejour'];
       content.datejour=f.value['dateheure'];
       content.salle= f.value['salle'];

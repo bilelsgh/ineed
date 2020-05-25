@@ -52,14 +52,19 @@ export class ServiceActivityComponent implements OnInit {
         this.helpers = this.suiviServ.helpers;
         console.table(this.helpers);
         this.noHelper = this.suiviServ.noHelper;
-        let nb_assignees = 0;
+        let nb_noHelpers = 0;
         for(let helper of this.helpers){
+          console.log("#ID: ", helper.idUser, " -> amIassigne : ", this.amIanAssignee(helper.idUser) , ", amIrejected : ", this.amIrejected(helper.idUser));
           if(!this.amIanAssignee(helper.idUser)){
-            nb_assignees++;
+            nb_noHelpers++;
           }
+          else if(!this.amIrejected(helper.idUser)){
+            nb_noHelpers++;
+          }
+
         }
-        console.log("Nb assignees : ", nb_assignees);
-        if(nb_assignees === 0){
+        console.log("Nb assignees : ", nb_noHelpers);
+        if(nb_noHelpers != 0){
           this.noHelper = true;
         }
 
@@ -209,7 +214,39 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   refuse(id : number){
+    let content = this.service_descriptor.content;
+    content["rejected"].push(id);
 
+    //L'annonce est terminée, le statut passe à 2
+    let message = {token: JSON.parse(localStorage.getItem('token')),
+      announce: {idUser: this.service_descriptor.idUser , content: JSON.stringify(content), id: this.service_descriptor.id,
+        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: this.service_descriptor.status} };
+
+    this.httpClient
+      .put(this.auth.backend + 'api/announce/' + this.id, message )
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          console.log("ID : ", id, " refusé !");
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            this.auth.removeUserInfo();
+            console.log(' #TOKEN EXPIRED');
+          }
+        }
+      );
+  }
+
+  amIrejected(id : number) : boolean{
+    let rejected = this.service_descriptor.content['rejected'];
+
+    for(let elt of rejected){
+      if(elt === id){
+        return true;
+      }
+    }
+    return false;
   }
 
 }
