@@ -61,6 +61,7 @@ import { SuiviService } from './services/suivi.service';
 import { ModalAreYouSureComponent } from './modal-are-you-sure/modal-are-you-sure.component';
 import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ServiceActivityComponent,
     ServiceProposedComponent,
     ModalAreYouSureComponent,
-    MatSnackBarComponent
+    MatSnackBarComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,

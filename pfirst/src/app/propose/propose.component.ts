@@ -34,6 +34,7 @@ export class ServiceViewComponent implements OnInit {
       .get<any[]>(this.auth.backend+'api/announce/home')
       .subscribe(
         (response) => {
+          console.log(response);
           for (let j=0; j< Number(response['announces']['length']) ; j++) {
             //this.services_db.push(response['announces'][j]);
             this.services_db.push(
