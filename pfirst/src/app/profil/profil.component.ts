@@ -62,15 +62,15 @@ export class ProfilComponent implements OnInit {
     return this.authService.backend + '/static/images/' + this.info_user.photo;
   }
 
-  getRank(){
+  getRank() {
     let number_services = this.services_history_for.length + this.services_history_by.length;
-    if( number_services < 0){
+    if( number_services < 0) {
       this.rank = "undefined"
-    }else if(number_services >= 0 && number_services <= 5){
+    } else if(number_services >= 0 && number_services <= 5) {
       this.rank = "Débutant";
-    }else if(number_services > 5 && number_services <= 10){
+    } else if(number_services > 5 && number_services <= 15) {
       this.rank = "Confirmé";
-    }else if(number_services > 10){
+    } else if(number_services > 30) {
       this.rank = "Expert";
     }
   }
