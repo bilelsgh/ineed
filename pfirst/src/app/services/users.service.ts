@@ -289,5 +289,23 @@ export class UserService {
     }));
   }
 
+  getMailByID(id : number){
+    this.httpClient
+      .get<any[]>(this.auth.backend + 'api/user/' + id +
+        '?token=' + JSON.parse(localStorage.getItem('token')))
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
+          window.open('mailto:' + response['user'].mail);
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
+          console.log("Erreur de chargement du mail : " + error);
+        }
+      );
+  }s
 
 }

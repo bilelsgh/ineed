@@ -37,7 +37,7 @@ export class ServiceActivityComponent implements OnInit {
   name_assignees  = {};
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
-              private userService: UserService, private suiviServ: SuiviService,public dialog: MatDialog) {
+              public userService: UserService, private suiviServ: SuiviService,public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -206,6 +206,10 @@ export class ServiceActivityComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  refuse(id : number){
+
   }
 
 }

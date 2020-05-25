@@ -23,6 +23,7 @@ export class ServiceProposedComponent implements OnInit {
   @Input() id: number;
   @Input() status: number;
   @Input() service_descriptor: any;
+  @Input() idAuthor : number;
   public noHelper: boolean;
   public isCollapsed: boolean = true;
   public isCollapsed_bis : boolean = true;
@@ -41,7 +42,7 @@ export class ServiceProposedComponent implements OnInit {
   public enCours : boolean;
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
-              private userService: UserService, private suiviServ: SuiviService) {
+              public userService: UserService, private suiviServ: SuiviService) {
   }
 
   ngOnInit(): void {
@@ -136,24 +137,7 @@ export class ServiceProposedComponent implements OnInit {
   }
 
 
-  getMailByID(id : number){
-    this.httpClient
-      .get<any[]>(this.auth.backend + 'api/user/' + id +
-        '?token=' + JSON.parse(localStorage.getItem('token')))
-      .subscribe(
-        (response) => {
-          this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
-          window.open('mailto:' + response['user'].mail);
-        },
-        (error) => {
-          if (error['status'] === 401) {
-            this.auth.removeUserInfo();
-            console.log("#TOKEN EXPIRED");
-          }
-          console.log("Erreur de chargement du mail : " + error);
-        }
-      );
-  }
+
 
 
 }
