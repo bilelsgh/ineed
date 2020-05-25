@@ -47,6 +47,7 @@ export class GeolocService  {
             }}
             
         });
+        console.log(this.info.latitude);
         
       });
       

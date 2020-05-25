@@ -26,6 +26,7 @@ export class NewMenageComponent implements OnInit {
   date:string;
   loca= false;
   add=false;
+  map=false;
   latitude : number=0;
   longitude : number;
 
@@ -125,6 +126,8 @@ ngOnInit(): void {
       
       this.geolocService.setCurrentLocation();
       this.loca=true;
+      this.map=true;
+      console.log(this.info.latitude);
       }
       
     }
