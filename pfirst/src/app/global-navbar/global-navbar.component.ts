@@ -197,6 +197,10 @@ this.stateNotif = 'placed';
 
   }
 
+  getFirstName(){
+    return JSON.parse(localStorage.getItem('user')).firstName;
+  }
+
   openUserModal() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
