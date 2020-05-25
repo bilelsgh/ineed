@@ -9,7 +9,7 @@ export class Notif{
 
 export class NotifContext{
   constructor(public detail: string,              // 'helpProposed' | 'helpAccepted' | 'helpRefused' | 'serviceStart'
-                                                  // | 'serviceOver' | 'reviewExpected' | 'pdpUpload' | 'bioUpload'
+                                                  // | 'reviewExpected' | 'pdpUpload' | 'bioUpload'
               public emitterId: number = JSON.parse(localStorage.getItem('user')).idUser,
               public announceId: number = -1 // -1 signifie que la notif n'a pas de rapport avec une annonce
 

@@ -31,9 +31,9 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
   uploadTestNotif(){
-    let myNot: Notif = new Notif('notif de test 1', 'info', '', 'infos');
-    let myContext: NotifContext = new NotifContext('TESTING1');
-    let myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
+    const myNot: Notif = new Notif('notif de test 1', 'info', '', 'infos');
+    const myContext: NotifContext = new NotifContext('TESTING1');
+    const myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
     this.notificationService.uploadNotif(
       myNot,
       myContext,
@@ -41,9 +41,12 @@ export class AppComponent implements OnInit, OnDestroy{
     );
   }
 
+  handleRev(){
+    console.log(this.notificationService.handleReviews('12reviewExpected13announce10'));
+  }
   updateNot(){
-    let myNot: Notif = new Notif('Chargez votre première photo de profil !', 'info', '', 'infos');
-    let myContext: NotifContext = new NotifContext('pdpUpload');
+    let myNot: Notif = new Notif('notif de test 1', 'info', '', 'infos');
+    let myContext: NotifContext = new NotifContext('TESTING1');
     let myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
     this.notificationService.updateToTreated(this.notificationService.buildUpdater(myNot, myContext, myUSRID));
   }

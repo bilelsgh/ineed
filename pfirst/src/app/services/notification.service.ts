@@ -16,6 +16,7 @@ export class NotificationService {
   notifSubject = new Subject<Notif[]>();
   lastNotifIndex: number = 0;
   watcher: any;
+  reviewNeededIds: number[];
 
   constructor(private httpClient: HttpClient,
               private notifierService: NotifierService,
@@ -54,8 +55,8 @@ export class NotificationService {
         userId -> l'id de l'user à qui s'adresse la notif
         notUpdater -> une string unique pour chaque notif permettant de l'identifier dans la db
      */
-    this.httpClient.post(this.authService.backend + 'api/notification',{
-      'UserID':userId,
+    this.httpClient.post(this.authService.backend + 'api/notification?token=' + JSON.parse(localStorage.getItem('token')),{
+      'userId':userId,
       'content':JSON.stringify(not),
       'context': JSON.stringify(context),
       'updater': this.buildUpdater(not, context, userId)
@@ -84,7 +85,8 @@ export class NotificationService {
     /* Méthode de construction de l'updater (identie une notif de manière):
       <emitterId> + <detail> + <idUser> + announce + <announceId>
      */
-    let res: string = '';
+    let res: string;
+    res = '';
     res += notContext.emitterId;
     res += notContext.detail;
     res += idUsr;
@@ -97,26 +99,38 @@ export class NotificationService {
 
   updateToTreated(notUpdater: string){
     console.log('ABOUT TO UPDATE WIH NOTUPDATER =', notUpdater);
-    return;
+    this.httpClient.put(this.authService.backend + 'api/notification/update', {
+      'token': JSON.parse(localStorage.getItem('token')),
+      'updater': notUpdater
+    }).subscribe(
+      (resp) => {
+        console.log("Successfully updated notif",resp);
+        this.authService.setUserInfo(JSON.stringify(resp['token']), 'token');
+      },
+      (e) => {
+        console.log('couldnt update notif', e);
+      }
+    );
   }
   getNoticationFromBack() {
-
     return new Promise((resolve, reject) => {
       //this.httpClient.get<Notif[]>(this.authService.backend_test + 'notifications.json')
-      this.httpClient.get(this.authService.backend + 'api/notification/User?token=' + JSON.parse(localStorage.getItem('token')))
+      this.httpClient.get(this.authService.backend + 'api/notification/user?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(
           (got) => {
+            this.authService.setUserInfo(JSON.stringify(got['token']), 'token');
             const backNotifs = got['notifications'];
             this.notifList.length = 0; //on vide les notifs pour faciliter l'adaptation des formats de notif back et front
             backNotifs.forEach( (oneBackNotif) => {
-              const notifToPush = <Notif> JSON.parse(backNotifs.content);
+              const notifToPush = <Notif> JSON.parse(oneBackNotif.content);
+              console.log('notifToPush', notifToPush);
+              this.handleReviews(this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser));
               notifToPush.idNot = oneBackNotif['idNotification'];
               // const oneBackContext = <NotifContext> JSON.parse(oneBackNotif.context); // sera utilisé si on veut
               // améliorer en ayant une approche plus modulaire
               this.notifList.push(notifToPush);
             });
             this.emitNotifSubject();
-            this.authService.setUserInfo(got['token'], 'token');
             /* firebase
             let notifIds = Object.keys(got);
             this.notifList = notifIds.map(key => got[key]);
@@ -133,6 +147,14 @@ export class NotificationService {
           }
         );
     });
+  }
+
+  handleReviews(myUpdater: string){
+    if (myUpdater.includes('reviewExpected')) {
+      let separated: string[] = myUpdater.split('reviewExpected');
+      let sepAgain = separated[1].split('announce');
+      this.reviewNeededIds.push(+sepAgain[1]);
+    }
   }
 
   updateNotifCache(toCheck: boolean) {
