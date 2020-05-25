@@ -58,7 +58,7 @@ ngOnInit(): void {
       content.longitude=this.info.longitude;
       
       content.user=f.value['user'];
-      content.city=f.value['city'];
+      
       
       if(this.loca==false){
         this.geolocService.getLatLong(f.value['city']+f.value['adress'])
@@ -66,6 +66,7 @@ ngOnInit(): void {
     .then((e)=>{
       content.latitude=this.info.latitude;
       content.longitude=this.info.longitude;
+      content.city=f.value['city'];
       const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('user'))["idUser"], content,
     0, 0, 0,false);
       this.serviceService.addCuisine(newCuisine);
@@ -74,6 +75,7 @@ ngOnInit(): void {
 
       }
       else{
+        content.city=this.info.city;
     const newCuisine= new Cuisine( JSON.parse(localStorage.getItem('user'))["idUser"], content,
     0, 0, 0,false);
       this.serviceService.addCuisine(newCuisine);

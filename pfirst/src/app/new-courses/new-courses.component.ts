@@ -71,6 +71,7 @@ export class NewCoursesComponent implements OnInit {
     .catch((value)=> {console.log(value)})
     .then((e)=>{
       content.latitude=this.info.latitude;
+      content.city=f.value['city'];
       content.longitude=this.info.longitude;
       const newCourses = new Courses( JSON.parse(localStorage.getItem('user'))["idUser"], content,5,0,
       0,false);
@@ -80,6 +81,7 @@ export class NewCoursesComponent implements OnInit {
 
       }
       else{
+        content.city=this.info.city;
       
     const newCourses = new Courses( JSON.parse(localStorage.getItem('user'))["idUser"], content,5,0,
       0,false);

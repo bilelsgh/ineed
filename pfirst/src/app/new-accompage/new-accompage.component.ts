@@ -53,7 +53,6 @@ ngOnInit(): void {
     content.local=f.value['local'];
     content.description=f.value['description'];
     content.user=f.value['user'];
-    content.city=f.value['city'];
     content.latitude=this.info.latitude;
     content.longitude=this.info.longitude;
     
@@ -64,6 +63,7 @@ ngOnInit(): void {
   .then((e)=>{
     content.latitude=this.info.latitude;
     content.longitude=this.info.longitude; 
+    content.city=f.value['city'];
     const newAccompage = new Accompage( JSON.parse(localStorage.getItem('user'))["idUser"], content,8,
     0, 0, false);
     this.serviceService.addAccompage(newAccompage);
@@ -71,6 +71,7 @@ ngOnInit(): void {
   }
   );}
   else{
+    content.city=this.info.city;
     const newAccompage = new Accompage( JSON.parse(localStorage.getItem('user'))["idUser"], content,8,
     0, 0, false);
     this.serviceService.addAccompage(newAccompage);

@@ -70,7 +70,7 @@ ngOnInit(): void {
       content.longitude=this.info.longitude;
       
       content.user=f.value['user'];
-      content.city=f.value['city'];
+      
       content.materiel=this.liste_materiel;
 
       if(this.loca==false){
@@ -79,7 +79,7 @@ ngOnInit(): void {
     .then((e)=>{
       content.latitude=this.info.latitude;
       content.longitude=this.info.longitude;
-      
+      content.city=f.value['city'];
       const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
 
     0,0, false);
@@ -89,9 +89,11 @@ ngOnInit(): void {
 
       }
       else{
+        content.city=this.info.city;
         const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
 
     0,0, false);
+    
 
       this.serviceService.addMenage(newMenage);
       this.router.navigate(['']);

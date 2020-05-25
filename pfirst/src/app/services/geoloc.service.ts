@@ -1,5 +1,5 @@
 import { ViewChild,ElementRef, Injectable } from '@angular/core';
-import { AgmGeocoder, MapsAPILoader } from '@agm/core/';
+import { AgmGeocoder, MapsAPILoader, GeocoderRequest} from '@agm/core/';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { tap, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
@@ -18,13 +18,8 @@ import { Location } from '../models/location.model';
 
 export class GeolocService  {
   
-  info ={latitude: 0, longitude:0, };
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  address: string;
+  info ={latitude: 0, longitude:0,city:"" };
   google: any;
-  obs:any;
   private geoCoder: any;
 
   @ViewChild('search')
@@ -38,11 +33,29 @@ export class GeolocService  {
   setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+        
         this.info.latitude=position.coords.latitude;
-        this.info.longitude=position.coords.longitude
+        this.info.longitude=position.coords.longitude;
+        this.geoCoder = new google.maps.Geocoder;
+        this.geoCoder.geocode({ 'location': { lat: this.info.latitude, lng: this.info.longitude } }, (results, status) => {
+          console.log(results);
+          console.log(status);
+          if (status === 'OK') {
+            if (results[0]) {
+              const adrr = results[4].formatted_address;
+              this.info.city= adrr.split(",")[0].split(" ")[1];
+            }}
+            
+        });
+        
       });
+      
+
+      
+      
     }
   }
+
  
   getLatLong(address :string){
     return new Promise((resolve,reject)=>{
