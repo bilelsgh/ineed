@@ -42,6 +42,7 @@ export class FormerServiceComponent implements OnInit, OnChanges {
   @Input() announceId: number;
   @Input() imgSrc: string;
   @Input() announceAuthorId: number;
+  @Input() announceReviews: any;
   participants: any[] = new Array();
   idToNames = {};
   idToShowReview = {};
@@ -124,7 +125,7 @@ export class FormerServiceComponent implements OnInit, OnChanges {
     }
   }
   logDICOREV(){
-    console.log("DICO :", this.usr_serv.announceAndAuthorToReview);
+    console.log(this.announceReviews);
   }
 
   getReview(idUsr) {

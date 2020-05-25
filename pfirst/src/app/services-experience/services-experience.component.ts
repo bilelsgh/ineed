@@ -23,13 +23,15 @@ export class ServicesExperienceComponent implements OnInit {
   myName: string;
   reviewFor: any;
   reviewBy: any;
-  @Input() id_user: string; // a voir si change bien qd on change direct d'un profil a l'autre
+  id_user: number;
+  @Input() allReviews: any;
 
   constructor(private datepipe: DatePipe,
               private usr_service: UserService,
               public matDialog: MatDialog,
               private activatedRoute: ActivatedRoute) {
   }
+
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
@@ -67,6 +69,10 @@ this.historySub = this.usr_service.history_subject.subscribe(
     console.log(newVal);
   }
 );*/
+  }
+
+  logUsrRev(){
+    console.log(this.allReviews);
   }
 
   getAverageGrade() { // plus util normalement

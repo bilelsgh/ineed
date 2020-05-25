@@ -16,6 +16,7 @@ export class ProfilComponent implements OnInit {
   id: string;
   services_history_for: any[] = new Array();
   services_history_by: any[] = new Array();
+  dicoReviews: any;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -44,6 +45,7 @@ export class ProfilComponent implements OnInit {
           this.getRank();
           this.userService.getReviews(+this.id).then( () => {
             this.userService.associateReviewToAuthorAndAnnounce();
+            this.dicoReviews = this.userService.announceAndAuthorToReview;
           }).catch( (e) => {
             console.log(e);
           });

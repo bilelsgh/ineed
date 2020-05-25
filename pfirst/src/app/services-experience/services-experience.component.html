@@ -1,4 +1,5 @@
 <table width="100%" cellpadding="20">
+  <button class="btn btn-primary" (click)="logUsrRev()">LOG REV</button>
   <tr>
     <td width="5%">
       <p style="font-size: large">Dernier service demandé :</p>
@@ -6,13 +7,14 @@
   </tr>
   <tr>
     <td>
-      <app-former-service *ngIf="last_for > -1"
+      <app-former-service *ngIf="last_for > -1 && allReviews != undefined"
                           [helperLook]="false"
                           [pour]="myName"
                           [par]="history_for[last_for].content.user"
                           [announceId]="history_for[last_for].idAnnounce"
                           [announceAuthorId]="history_for[last_for].idUser"
                           [imgSrc]="history_for[last_for].content.image"
+                          [announceReviews]="allReviews[history_for[last_for].idAnnounce]"
                           [date]="this.history_for[last_for].content.datejour">
       </app-former-service>
       <span style="font-size: medium" *ngIf="last_for<0">Pas encore de services demandés.</span>
@@ -26,13 +28,14 @@
   </tr>
   <tr>
     <td>
-      <app-former-service *ngIf="last_by > -1"
+      <app-former-service *ngIf="last_by > -1 && allReviews != undefined"
                           [helperLook]="true"
                           [pour]="this.history_by[last_by].content.user"
                           [par]="myName"
                           [announceId]="history_by[last_by].idAnnounce"
                           [announceAuthorId]="history_by[last_by].idUser"
                           [imgSrc]="history_by[last_by].content.image"
+                          [announceReviews]="allReviews[history_by[last_by].idAnnounce]"
                           [date]="this.history_by[last_by].content.datejour">
       </app-former-service>
       <span style="font-size: medium" *ngIf="last_by<0">Pas encore de services rendus.</span>

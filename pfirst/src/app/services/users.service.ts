@@ -125,6 +125,7 @@ export class UserService {
           (got) => {
             console.log("GOT REVIEWS FOR RECEIVER = ", idReceiver, ' : ', got);
             this.currentReviews = got['reviews'];
+            console.log('set currentreviews', this.currentReviews);
             this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
             resolve('Got the reviews');
           },
