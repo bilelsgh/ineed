@@ -27,6 +27,7 @@ export class ModalAreYouSureComponent implements OnInit {
         (response) => {
           console.log("suppression ok");
           console.table(response);
+          this.suiviServ.deleted();
           this.matDialogRef.close();
         },
         (error) => {

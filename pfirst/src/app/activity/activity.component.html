@@ -147,7 +147,7 @@
               <table width="800px" border="0px solid">
                 <tr>
                   <td>
-                    <app-service-proposed *ngIf="service.status != 2"
+                    <app-service-proposed *ngIf="service.status != 2 && !amIrejected(myID, service.content['rejected'])"
                       [serviceName]="service.content.name"
                       [serviceUser]="service.content.user"
                       [ServiceType]="service.content.type"

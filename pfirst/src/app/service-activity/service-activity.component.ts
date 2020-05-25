@@ -35,14 +35,24 @@ export class ServiceActivityComponent implements OnInit {
   public noAssignees: boolean;
   public finished : boolean;
   name_assignees  = {};
+  public deleted : boolean;
+  deleteSubscription : Subscription;
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
               public userService: UserService, private suiviServ: SuiviService,public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    this.deleted = false;
     this.getAssignees(this.id);
     this.getHelpers(this.id);
+    this.deleteSubscription = this.suiviServ.deleteSubject.subscribe(
+      (response: boolean) => {
+        this.deleted = response;
+      }
+    );
+    this.suiviServ.emiteDeleteSubject();
+
   }
 
   getHelpers(announceId: number = 0) {
@@ -55,10 +65,7 @@ export class ServiceActivityComponent implements OnInit {
         let nb_noHelpers = 0;
         for(let helper of this.helpers){
           console.log("#ID: ", helper.idUser, " -> amIassigne : ", this.amIanAssignee(helper.idUser) , ", amIrejected : ", this.amIrejected(helper.idUser));
-          if(!this.amIanAssignee(helper.idUser)){
-            nb_noHelpers++;
-          }
-          else if(!this.amIrejected(helper.idUser)){
+          if(this.amIanAssignee(helper.idUser) || this.amIrejected(helper.id)){
             nb_noHelpers++;
           }
 
@@ -216,6 +223,7 @@ export class ServiceActivityComponent implements OnInit {
   refuse(id : number){
     let content = this.service_descriptor.content;
     content["rejected"].push(id);
+    console.log(this.deleted);
 
     //L'annonce est terminée, le statut passe à 2
     let message = {token: JSON.parse(localStorage.getItem('token')),
