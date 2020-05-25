@@ -66,6 +66,12 @@ export class ModalUserComponent implements OnInit {
       this.stateExtend = 'active';
     },500);
 
+    this.notifList = this.notificationService.notifList;
+    this.numberOfProfilNotif = this.selectElementsforCategory(this.notifList, "profil").length;
+    this.numberOfInfoNotif = this.selectElementsforCategory(this.notifList, "infos").length;
+    this.numberOfActivityNotif = this.selectElementsforCategory(this.notifList, "activity").length;
+
+    /*
     this.notifSubscription = this.notificationService.notifSubject
       .subscribe(
         (list) => {
@@ -74,7 +80,7 @@ export class ModalUserComponent implements OnInit {
           this.numberOfInfoNotif = this.selectElementsforCategory(this.notifList, "infos").length;
           this.numberOfActivityNotif = this.selectElementsforCategory(this.notifList, "activity").length;
         }
-      );
+      );*/
 
   }
 

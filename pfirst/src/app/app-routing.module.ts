@@ -31,7 +31,6 @@ const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path: '', component: AppViewComponent}, //indique la page "d'accueil"
   {path: 'activite', canActivate:[AuthGuard], component: ActivityComponent},
   //{path: '**', redirectTo:'/not-found'} //renvoie vers la page d'erreur si la route n'existe pas, à mettre à la fin
-
 ];
 
 @NgModule({
