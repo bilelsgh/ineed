@@ -46,7 +46,6 @@ export class FormerServiceComponent implements OnInit, OnChanges {
   participants: any[] = new Array();
   idToNames = {};
   idToShowReview = {};
-  idToReviews = {};
 
   constructor(public datepipe: DatePipe,
               private usr_serv: UserService,
@@ -63,7 +62,6 @@ export class FormerServiceComponent implements OnInit, OnChanges {
     this.route.params.subscribe(
       (pars) => {
         this.idToShowReview = {};
-        this.idToReviews = {};
         this.idToNames = {};
         if (!this.helperLook) {
           this.getAssignees(this.announceId)
@@ -104,7 +102,6 @@ export class FormerServiceComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     console.log('REACTION TO MODAL EMISSION');
     this.idToShowReview = {};
-    this.idToReviews = {};
     this.idToNames = {};
     if (!this.helperLook) {
       this.getAssignees(this.announceId)
@@ -122,18 +119,6 @@ export class FormerServiceComponent implements OnInit, OnChanges {
       this.participants.push(this.announceAuthorId);
       this.getAssigneeName(this.participants[0]);
       this.idToShowReview[this.announceAuthorId] = false;
-    }
-  }
-  logDICOREV(){
-    console.log(this.announceReviews);
-  }
-
-  getReview(idUsr) {
-    if (!Object.keys(this.idToReviews).includes(idUsr)) {
-      this.idToReviews[idUsr] = {
-        'note': 5,
-        'comment': 'Au top'
-      };
     }
   }
 

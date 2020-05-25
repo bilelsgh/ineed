@@ -55,7 +55,6 @@ export class ServicesExperienceComponent implements OnInit {
         this.myName = JSON.parse(localStorage.getItem('user')).firstName;
       }
     );
-    this.getReview();
     /* ne marche pas
 this.historySub = this.usr_service.history_subject.subscribe(
   (newVal) => {
@@ -69,10 +68,6 @@ this.historySub = this.usr_service.history_subject.subscribe(
     console.log(newVal);
   }
 );*/
-  }
-
-  logUsrRev(){
-    console.log(this.allReviews);
   }
 
   getAverageGrade() { // plus util normalement
@@ -90,16 +85,6 @@ this.historySub = this.usr_service.history_subject.subscribe(
     return res / 10;
   }
 
-  getReview() {
-    this.reviewBy = {
-      'note': 5,
-      'comment': 'Au top'
-    };
-    this.reviewFor = {
-      'note': 5,
-      'comment': 'Au top'
-    };
-  }
 
   setAllComments() {
     /*this.history.forEach( serv => {
