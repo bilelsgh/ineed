@@ -21,14 +21,17 @@
             <button style="padding: 5px 14px; margin-left: 10px" class="btn btn-primary" (click)="goToProfil(participant)">Profil</button>
             <button style="padding: 5px 14px; margin-left: 10px" class="btn btn-primary" (click)="toggleShowReview(participant); getReview(participant); logDICOREV()">Evaluation</button>
           </mat-toolbar-row>
-          <mat-toolbar-row *ngIf="idToShowReview[participant]">
+          <mat-toolbar-row *ngIf="idToShowReview[participant] && announceReviews[participant] !== undefined">
             <mat-icon>keyboard_arrow_right</mat-icon>
-            <span>{{idToReviews[participant].comment}}</span>
+            <span>{{announceReviews[participant].content}}</span>
             <span class="spacer"></span>
-            <span>{{idToReviews[participant].note}}</span>
+            <span>{{announceReviews[participant].note}}</span>
             <mat-icon>grade</mat-icon>
           </mat-toolbar-row>
-
+          <mat-toolbar-row *ngIf="idToShowReview[participant] && announceReviews[participant] === undefined">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+            <span>Pas encore d'évaluation</span>
+          </mat-toolbar-row>
         </mat-toolbar>
       </div>
     </td>
