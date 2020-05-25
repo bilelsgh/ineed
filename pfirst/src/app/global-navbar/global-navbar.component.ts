@@ -228,6 +228,10 @@ this.stateNotif = 'placed';
     this.notificationService.sleepWatcher();
   }
 
+  hideAllNotifs(){
+    this.notificationService.hideEachAndEveryNotif();
+  }
+
   openUserModal() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;

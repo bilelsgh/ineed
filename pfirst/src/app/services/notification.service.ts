@@ -158,6 +158,9 @@ export class NotificationService {
     }
   }
 
+  hideEachAndEveryNotif(){
+    this.notifierService.hideAll();
+  }
   updateNotifCache(toCheck: boolean) {
     this.httpClient.put(this.authService.backend_test + 'cacheNotif.json', toCheck)
       .subscribe(
