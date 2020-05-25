@@ -3,8 +3,7 @@ export class Notif{
               public type: string,
               public idNot: string = '', //id dans le back, mis a jour lors du GET mais pas utilisé pour l'instant
               public category: string = 'profil' // 'activity' | 'profil | 'infos'
-  ) {
-  }
+  ) {}
 }
 
 export class NotifContext{

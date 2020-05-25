@@ -83,9 +83,11 @@ export class ProfilComponent implements OnInit {
       sum = sum + oneRev.note ;
       grades = grades + 1;
     });
-    res = (sum / grades) * 10;
-    res = Math.round(res);
-    this.averageGrade = res/10;
+    if (grades != 0){
+      res = (sum / grades) * 10;
+      res = Math.round(res);
+      this.averageGrade = res/10;
+    }
   }
 
 }

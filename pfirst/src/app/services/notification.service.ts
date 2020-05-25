@@ -112,6 +112,7 @@ export class NotificationService {
       }
     );
   }
+
   getNoticationFromBack() {
     return new Promise((resolve, reject) => {
       //this.httpClient.get<Notif[]>(this.authService.backend_test + 'notifications.json')
