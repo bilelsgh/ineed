@@ -6,6 +6,7 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {MatSpinner} from "@angular/material/progress-spinner";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-modal-user',
@@ -56,6 +57,10 @@ export class ModalUserComponent implements OnInit {
       this.stateExtend = 'active';
     },500);
 
+  }
+
+  getUserId():string{
+    return JSON.parse(localStorage.getItem('user')).idUser;
   }
 
   goThenClose(where: string){

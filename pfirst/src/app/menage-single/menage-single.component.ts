@@ -46,8 +46,9 @@ export class MenageSingleComponent implements OnInit {
     this.Latitude= this.service_descriptor.content.latitude;
     this.City=this.service_descriptor.content.city;
 
+
     this.Salle=this.service_descriptor.content.salle;
-    
+
     this.writeList();
     this.copied = false;
   }

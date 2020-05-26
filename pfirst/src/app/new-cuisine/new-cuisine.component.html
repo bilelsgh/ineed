@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
+<div id="jumb" class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4" align="center">Faire la cuisine</h1>
         <table align="center">
@@ -16,7 +16,7 @@
                   <input type="date" id="datejour" class="form-control" formControlName="datejour" [min]="this.date" >
                   <label for="dateheure">Heure</label>
                     <input type="time" id="dateheure" class="form-control" formControlName="dateheure" >
-                    
+
                   </div>
 
 
@@ -34,7 +34,7 @@
 
                 <table width="100%" border="1" cellspacing="1" cellpadding="5">
                   <tr>
-                  
+
                   <td> <div *ngIf="add===false  ">
                     <button  type="button" id = "location-button"  (click)= "add=true;loca=false" class="btn btn-secondary" >Avec votre adress</button>
                   </div>
@@ -44,7 +44,7 @@
                 <label for ="adress" ><h3>Adresse</h3></label>
                 <input type="text" id="adress" class="form-control" formControlName="adress">
                   </div>
-                  
+
                   </td>
                   <td>
                     <span class="badge badge-secondary">OU</span>
@@ -57,27 +57,27 @@
                       <label for ="location" ><h3>Votre localisation</h3></label>
                   <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyer</button>
 
-                  
+
                     </div>
                   </td>
-                  
-                  
+
+
                   </tr>
                   <td></td>
                   <td></td>
                   <td>
                     <div *ngIf="map"> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" ></app-mini-map></div>
                   </td>
-            
+
                   </table>
-              
-                
-                
-                  
-                
-            
-                
-                
+
+
+
+
+
+
+
+
 
                   <div class= "form-group">
                     <label for="type_plat"><h2>Quel type de plat souhaitez vous que la personne prepare ?</h2></label>

@@ -30,6 +30,7 @@ export class ServiceComponent implements OnInit {
     console.log("#IMAGE : " + this.serviceImage);
     this.latitude=this.serviceLatitude;
     this.longitude=this.serviceLongitude;
+
   }
 
   getUser(){

@@ -30,6 +30,7 @@
     "bootstrap": "^4.5.0",
     "google-maps": "^4.2.3",
     "ng-recaptcha": "^5.0.0",
+    "ngx-image-compress": "^8.0.4",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.5",

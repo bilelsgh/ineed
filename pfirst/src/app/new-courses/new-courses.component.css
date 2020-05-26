@@ -10,3 +10,7 @@
 td {
     border: 0px solid #333;
 }
+:host-context(.theme-dark) #jumb{
+  background-color: grey;
+}
+

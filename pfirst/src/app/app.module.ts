@@ -37,7 +37,7 @@ import { AccompagnerSingleComponent } from './accompagner-single/accompagner-sin
 import { ServiceService } from './services/service.service';
 import { NewCoursesComponent } from './new-courses/new-courses.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {NgxImageCompressService} from 'ngx-image-compress';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -54,6 +54,11 @@ import { GeolocComponent } from './geoloc/geoloc.component';
 import { GeolocService } from './services/geoloc.service';
 import { MiniMapComponent } from './mini-map/mini-map.component';
 import { DateService } from './services/date.service';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {ImageCompressorService} from "./services/image-compressor.service";
+import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -90,7 +95,8 @@ import { DateService } from './services/date.service';
     DisplayProfilComponent,
     FiltreProposeComponent,
     GeolocComponent,
-    MiniMapComponent
+    MiniMapComponent,
+    MatSnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +111,9 @@ import { DateService } from './services/date.service';
     MatProgressSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey:'AIzaSyBIh9TYl-xIbSabypO5hkQyNcZjRWSd0VI'}),
+    MatToolbarModule,
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [ // on ajoute ici tous les services
     AuthService,
@@ -112,9 +121,11 @@ import { DateService } from './services/date.service';
     InscriptionService,
     UserService,
     ServiceService,
-    Location,
     GeolocService,
-    DateService,
+    NgxImageCompressService,
+    ImageCompressorService,
+    MatSnackBarComponent,
+    Location
      // necessaire ?
   ],
   bootstrap: [AppComponent],

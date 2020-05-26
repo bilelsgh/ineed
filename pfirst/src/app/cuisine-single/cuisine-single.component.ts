@@ -21,7 +21,6 @@ export class CuisineSingleComponent implements OnInit {
   DispoJour : string = 'oui';
   DispoHeure : string = 'oui';
   Type_de_plat : string = "pas ouf";
-
   City : string;
 
   Id : number;
@@ -44,6 +43,7 @@ export class CuisineSingleComponent implements OnInit {
     this.City=this.service_descriptor.content.city;
 
     this.View = this.service_descriptor['viewNumber'];
+
   }
     //GESTION DU NOMBRE DE VUS
     //this.updateView();

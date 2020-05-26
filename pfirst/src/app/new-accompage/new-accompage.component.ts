@@ -47,8 +47,10 @@ ngOnInit(): void {
 
     onSubmitForm() {
     const f = this.accompagneForm;
-    const content=  {id: 5, type:'service4', name:"Accompagner quelqu'un", user:'',description: '', kind:'',quand1:'',quand2 : '', local:'', datejour: '', viewNumber : 0, image: '../../assets/data/accompagner.png', city:'',latitude:0, longitude:0 }
+    const content=  {id: 5, type:'service4', name:"Accompagner quelqu'un", user:'',description: '', kind:'',quand1:'',quand2 : '',
+      local:'', datejour: '', viewNumber : 0, image: '../../assets/data/accompagner.png', city:'',latitude:0, longitude:0 }
     content.datejour=this.dateService.getDate(f);
+
     content.kind= f.value['kind'];
     content.quand1= f.value['quand1'];
     content.quand2= f.value['quand2'];
@@ -57,14 +59,14 @@ ngOnInit(): void {
     content.user=f.value['user'];
     content.latitude=this.info.latitude;
     content.longitude=this.info.longitude;
-    
-    
+
+
     if(this.loca==false){
       this.geolocService.getLatLong(f.value['city']+f.value['adress'])
   .catch((value)=> {console.log(value)})
   .then((e)=>{
     content.latitude=this.info.latitude;
-    content.longitude=this.info.longitude; 
+    content.longitude=this.info.longitude;
     content.city=f.value['city'];
     const newAccompage = new Accompage( JSON.parse(localStorage.getItem('user'))["idUser"], content,8,
     0, 0, false);
@@ -87,7 +89,7 @@ ngOnInit(): void {
 
 getLocation(){
   if(this.info.latitude==0){
-  
+
   this.geolocService.setCurrentLocation();
   }
   console.log(this.info);

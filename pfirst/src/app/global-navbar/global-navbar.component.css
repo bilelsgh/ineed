@@ -1,3 +1,13 @@
+#globalNavbar {
+  width: 100%;
+}
+#theme_lune{
+  width: 30px;
+}
+#theme_soleil{
+  width: 50px;
+}
+
 #logo
 {
   width: 150px;
@@ -12,11 +22,23 @@
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  background-image: url("../../assets/data/photo_undefined.png");
   background-size: cover;
 }
 
 #roundNotifIcon
+{
+  position: absolute;
+  top:20px;
+  left: 250px;
+  text-align: center;
+  color: white;
+  min-width: 20px;
+  border-radius: 10%;
+  background-color: red;
+  z-index: 2;
+}
+
+.roundNotifIcon
 {
   position: absolute;
   top:20px;

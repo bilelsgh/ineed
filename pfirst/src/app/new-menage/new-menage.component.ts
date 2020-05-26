@@ -39,13 +39,13 @@ ngOnInit(): void {
 
   this.info=this.geolocService.info;
   this.date=this.dateService.actu;
-  
+
 
     this.initForm();
   }
 
   initForm(){
-    
+
     this.menageForm=this.formBuilder.group({
       user: ['', Validators.required],
       description:['', Validators.required],
@@ -66,12 +66,12 @@ ngOnInit(): void {
       content.salle= f.value['salle'];
       content.surface=f.value['surface'];
       content.description=f.value['description'];
-      
+
       content.latitude=this.info.latitude;
       content.longitude=this.info.longitude;
-      
+
       content.user=f.value['user'];
-      
+
       content.materiel=this.liste_materiel;
 
       if(this.loca==false){
@@ -94,31 +94,31 @@ ngOnInit(): void {
         const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
 
     0,0, false);
-    
+
 
       this.serviceService.addMenage(newMenage);
       this.router.navigate(['']);
 
       }
 
-      
-    
+
+
     }
 
-  
 
-  
+
+
     getLocation(){
       if(this.info.latitude==0){
-      
+
       this.geolocService.setCurrentLocation();
       this.loca=true;
       this.map=true;
       console.log(this.info.latitude);
       }
-      
+
     }
-    
+
 
     ajouterListe(f : NgForm) {
     const new_element = f.value['liste_materiel'];
@@ -136,7 +136,7 @@ ngOnInit(): void {
     }
    }
 
-  
+
 
 }
 
