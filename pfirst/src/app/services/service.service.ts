@@ -6,6 +6,8 @@ import {Injectable} from '@angular/core';
 import { Menage } from '../models/Menage.model';
 import { Cuisine } from '../models/Cuisine.model';
 import { Accompage } from '../models/Accompage.model';
+import {NotificationService} from "./notification.service";
+import {Notif, NotifContext} from "../models/notification.model";
 
 @Injectable()
 export class ServiceService{
@@ -180,7 +182,9 @@ export class ServiceService{
     }
   ];
 
-  constructor(private httpClient : HttpClient, private auth : AuthService){
+  constructor(private httpClient : HttpClient,
+              private auth : AuthService,
+              private notificationService: NotificationService){
   }
 
   //Récupérer une annonce par ID depuis firebase
@@ -213,7 +217,7 @@ export class ServiceService{
   }
 
   //Ajoute un service dans services_provided de helper & dans services_asked de helped
-  applyService(announceID : number){
+  applyService(announceID : number, authorId: number) {
     let message = {helperID: JSON.parse(localStorage.getItem('user'))['idUser']};
 
     this.httpClient //checker si on met le helperID dans la route
@@ -221,7 +225,10 @@ export class ServiceService{
         JSON.parse(localStorage.getItem('token')), message)
       .subscribe(
         (response) => {
-
+          this.notificationService.uploadNotif(
+            new Notif('Vous avez une nouvelle proposition d\'aide', 'infos', '', 'activity'),
+            new NotifContext('helpProposed', JSON.parse(localStorage.getItem('user')).idUser, announceID),
+            authorId);
           },
         (error) => {
           if(error['status'] === 401){

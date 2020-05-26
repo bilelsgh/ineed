@@ -49,6 +49,7 @@ export class CoursesSingleComponent implements OnInit {
     this.View = this.service_descriptor['viewNumber'];
 
 
+    console.log('servDescriptor :', this.service_descriptor);
     console.log("BUDGET : " + this.Budget);
   }
 
@@ -84,7 +85,7 @@ export class CoursesSingleComponent implements OnInit {
 
   applyCourses() {
     if (!this.applied) {
-      this.serviceService.applyService(this.service_descriptor.id)
+      this.serviceService.applyService(this.service_descriptor.id, this.service_descriptor.idUser);
       this.appliedOrNot();
     }
   }

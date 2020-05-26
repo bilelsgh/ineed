@@ -53,7 +53,7 @@ export class CuisineSingleComponent implements OnInit {
 
   applyCuisine() {
     if (!this.applied) {
-      this.serviceService.applyService(this.service_descriptor.id)
+      this.serviceService.applyService(this.service_descriptor.id, this.service_descriptor.idUser);
       this.appliedOrNot();
     }
   }

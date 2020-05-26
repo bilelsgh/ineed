@@ -55,7 +55,7 @@ export class AccompagnerSingleComponent implements OnInit {
 
   applyAccompagne() {
     if (!this.applied) {
-      this.serviceService.applyService(this.service_descriptor.id)
+      this.serviceService.applyService(this.service_descriptor.id, this.service_descriptor.idUser);
       this.appliedOrNot();
     }
   }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/users.service";
@@ -7,13 +7,14 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {Router} from "@angular/router";
 import {SuiviService} from '../services/suivi.service';
+import {NotificationService} from "../services/notification.service";
 
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.css']
 })
-export class ActivityComponent implements OnInit {
+export class ActivityComponent implements OnInit, OnDestroy {
 
   public isCollapsedDemande: boolean = true;
   public isCollapsedProposition : boolean = true;
@@ -38,6 +39,7 @@ export class ActivityComponent implements OnInit {
       view: '2'
     }
   ];
+  updaterRefusedToDelete: string[];
 
 
 
@@ -47,7 +49,8 @@ export class ActivityComponent implements OnInit {
               private userService: UserService,
               public router: Router,
               private auth : AuthService,
-              private suiviServ : SuiviService
+              private suiviServ : SuiviService,
+              private notificationService: NotificationService
   ) {
   }
 
@@ -55,6 +58,7 @@ export class ActivityComponent implements OnInit {
     this.getProposedAnnounce();
     this.myID = JSON.parse(localStorage.getItem('user'))['idUser'];
     this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
+    this.updaterRefusedToDelete = this.notificationService.updaterRefused;
 
     console.log('ID : ', JSON.parse(localStorage.getItem('user'))['idUser']);
     this.userService.getPostedAnnounces(JSON.parse(localStorage.getItem('user'))['idUser'])
@@ -82,6 +86,12 @@ export class ActivityComponent implements OnInit {
         (e) => {
           console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
         });
+  }
+
+  ngOnDestroy() {
+    this.updaterRefusedToDelete.forEach( (toDelete) => {
+      this.notificationService.updateToTreated(toDelete);
+    });
   }
 
   getHelpers(announceIndex: number = this.selectedAnnounce) {

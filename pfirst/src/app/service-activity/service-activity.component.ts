@@ -7,6 +7,8 @@ import {SuiviService} from '../services/suivi.service';
 import {Subscription} from 'rxjs';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ModalAreYouSureComponent} from '../modal-are-you-sure/modal-are-you-sure.component';
+import {Notif, NotifContext} from "../models/notification.model";
+import {NotificationService} from "../services/notification.service";
 
 @Component({
   selector: 'app-service-activity',
@@ -38,8 +40,12 @@ export class ServiceActivityComponent implements OnInit {
   public deleted : number;
   deleteSubscription : Subscription;
 
-  constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
-              public userService: UserService, private suiviServ: SuiviService,public dialog: MatDialog) {
+  constructor(private httpClient: HttpClient,
+              private auth: AuthService, public router: Router,
+              public userService: UserService,
+              private suiviServ: SuiviService,
+              public dialog: MatDialog,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -96,6 +102,17 @@ export class ServiceActivityComponent implements OnInit {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
           this.getAssignees(this.id);
           console.log("Acceptation ok!");
+          const proposedUpdater = this.notificationService.buildUpdater(
+            new Notif('Vous avez une nouvelle proposition d\'aide', 'infos', '', 'activity'),
+            new NotifContext('helpProposed', helperID, this.id),
+            JSON.parse(localStorage.getItem('user')).idUser
+          );
+          this.notificationService.updateToTreated(proposedUpdater);
+          this.notificationService.uploadNotif(
+            new Notif('Votre proposition d\'aide a été acceptée', 'infos', '', 'activity'),
+            new NotifContext('helpAccepted', JSON.parse(localStorage.getItem('user')).idUser, this.id),
+            helperID
+          );
         },
         (error) => {
           if (error['status'] === 401) {
@@ -170,8 +187,25 @@ export class ServiceActivityComponent implements OnInit {
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-
-
+          this.notificationService.updaterProposed.forEach( (oneUp) => {
+            this.notificationService.updateToTreated(oneUp);
+          });
+          this.assignees.forEach( (oneAssignee) => {
+            /*On supprime toutes les notifs d'acceptation des utilisateurs pour laisser celles de service en cours*/
+            // -> suppression de l'acceptation
+            const oneAcceptUpdater = this.notificationService.buildUpdater(
+              new Notif('Votre proposition d\'aide a été acceptée', 'info', '','activity'),
+              new NotifContext('helpAccepted', JSON.parse(localStorage.getItem('user')).idUser, this.id),
+              oneAssignee
+            );
+            this.notificationService.updateToTreated(oneAcceptUpdater);
+            //envoi de la notif de service en cours
+            this.notificationService.uploadNotif(
+              new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
+              new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')),this.id),
+              oneAssignee
+            );
+          });
           //mise à jour du statut de cette annonce
           this.status = response["announce"].status;
         },
@@ -195,6 +229,28 @@ export class ServiceActivityComponent implements OnInit {
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          this.assignees.forEach( (oneAssignee) => {
+            /*On supprime la notif de service en cours et on prévient d'une demande de review*/
+            // -> suppression de notif de service en cours
+            const updaterStart = this.notificationService.buildUpdater(
+              new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
+              new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')).idUser, this.id),
+              oneAssignee
+            );
+            this.notificationService.updateToTreated(updaterStart);
+            //on envoie la notif de review
+            this.notificationService.uploadNotif(
+              new Notif('Un service terminé attend votre évaluation, dirigez vous dans activity !', 'info', '', 'activity'),
+              new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')), this.id),
+              oneAssignee
+            );
+          });
+          //L'auteur de l'annonce doit aussi entrer une review
+          this.notificationService.uploadNotif(
+            new Notif('Un service terminé attend votre évaluation, dirigez vous dans activity !', 'info', '', 'activity'),
+            new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')), this.id),
+            JSON.parse(localStorage.getItem('user')).idUser
+          );
 
           //mise à jour du statut de cette annonce
           this.status = 2;
@@ -236,6 +292,17 @@ export class ServiceActivityComponent implements OnInit {
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
           console.log("ID : ", id, " refusé !");
+          const proposedUpdater = this.notificationService.buildUpdater(
+            new Notif('Vous avez une nouvelle proposition d\'aide', 'infos', '', 'activity'),
+            new NotifContext('helpProposed', id, this.id),
+            JSON.parse(localStorage.getItem('user')).idUser
+          );
+          this.notificationService.updateToTreated(proposedUpdater);
+          this.notificationService.uploadNotif(
+            new Notif('Votre proposition d\'aide a été refusée', 'infos', '', 'activity'),
+            new NotifContext('helpRefused', JSON.parse(localStorage.getItem('user')).idUser, this.id),
+            id
+          );
         },
         (error) => {
           if (error['status'] === 401) {

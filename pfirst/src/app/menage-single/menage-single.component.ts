@@ -97,7 +97,7 @@ export class MenageSingleComponent implements OnInit {
 
   applyMenage() {
     if (!this.applied) {
-      this.serviceService.applyService(this.service_descriptor.id)
+      this.serviceService.applyService(this.service_descriptor.id, this.service_descriptor.idUser);
       this.appliedOrNot();
     }
   }

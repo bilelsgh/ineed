@@ -17,6 +17,8 @@ export class NotificationService {
   lastNotifIndex: number = 0;
   watcher: any;
   reviewNeededIds: number[];
+  updaterRefused: string[] = new Array();
+  updaterProposed: string[] = new Array();
 
   constructor(private httpClient: HttpClient,
               private notifierService: NotifierService,
@@ -92,7 +94,7 @@ export class NotificationService {
     res += idUsr;
     res += 'announce';
     res += notContext.announceId;
-    console.log('Constructed updater with not =', not, '; notContext = ', notContext, '; idUsr = ', idUsr);
+    //console.log('Constructed updater with not =', not, '; notContext = ', notContext, '; idUsr = ', idUsr);
     console.log('Resulting updater = ', res);
     return res;
   }
@@ -122,10 +124,21 @@ export class NotificationService {
             this.authService.setUserInfo(JSON.stringify(got['token']), 'token');
             const backNotifs = got['notifications'];
             this.notifList.length = 0; //on vide les notifs pour faciliter l'adaptation des formats de notif back et front
+            this.updaterProposed.length = 0;
             backNotifs.forEach( (oneBackNotif) => {
               const notifToPush = <Notif> JSON.parse(oneBackNotif.content);
               console.log('notifToPush', notifToPush);
               this.handleReviews(this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser));
+              if (JSON.parse(oneBackNotif.context).detail == 'helpRefused'){
+                const updaterRefToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
+                if (!this.updaterRefused.includes(updaterRefToPush)){
+                  this.updaterRefused.push(updaterRefToPush);
+                }
+              }
+              if (JSON.parse(oneBackNotif.context).detail == 'helpProposed'){
+                const updaterPropToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
+                  this.updaterProposed.push(updaterPropToPush);
+              }
               notifToPush.idNot = oneBackNotif['idNotification'];
               // const oneBackContext = <NotifContext> JSON.parse(oneBackNotif.context); // sera utilisé si on veut
               // améliorer en ayant une approche plus modulaire
