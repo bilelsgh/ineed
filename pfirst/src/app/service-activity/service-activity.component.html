@@ -66,7 +66,8 @@
     </span>
     <span>
       <div id="Proposition" *ngFor="let helper of helpers">
-        <mat-toolbar color="#ffffff" *ngIf="!noHelper"> <!-- color ne marche pas-->
+        <!--<mat-toolbar color="#ffffff" *ngIf="!noHelper"> <!-- color ne marche pas-->-->
+        <mat-toolbar color="#ffffff">
         <mat-toolbar-row *ngIf="!amIanAssignee(helper.idUser) && !amIrejected(helper.idUser)">
             <span>{{helper.firstName}} {{helper.lastName}} vous a proposé son aide.</span>
             <span class="spacer"></span>
@@ -94,7 +95,7 @@
           <td><img src="../../assets/data/profil_icone.png" (click)="router.navigate(['profil/'+ assignee])"
                    id="profil_icone" alt=""></td>
           <td>
-      <span style="font-size: large"><b>{{name_assignees[assignee]}}</b></span>
+            <span style="font-size: large"><b>{{name_assignees[assignee]}}</b></span>
           </td>
           <td><img (click)="this.userService.getMailByID(assignee)" id="icone-mail"
                    src="../../assets/data/mail_icone.png" alt=""></td>

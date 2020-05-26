@@ -19,10 +19,8 @@ export class NotificationService {
   reviewNeededIds: number[];
   updaterRefused: string[] = new Array();
   updaterProposed: string[] = new Array();
-  /* a voir si necessaire
-  notifDelayed: any[] = new Array(); // des opérations sont faites sur la liste de notif telles qu'elle peut ne pas
+  notifsDelayed: any[] = new Array(); // des opérations sont faites sur la liste de notif telles qu'elle peut ne pas
                                       // etre a jour au moment de l'appel à certaines fonctions
-   */
 
   constructor(private httpClient: HttpClient,
               private notifierService: NotifierService,
@@ -88,7 +86,7 @@ export class NotificationService {
   }
 
   buildUpdater(not: Notif, notContext: NotifContext, idUsr: number){
-    /* Méthode de construction de l'updater (identie une notif de manière):
+    /* Méthode de construction de l'updater (identifie une notif de manière):
       <emitterId> + <detail> + <idUser> + announce + <announceId>
      */
     let res: string;
@@ -127,12 +125,16 @@ export class NotificationService {
           (got) => {
             this.authService.setUserInfo(JSON.stringify(got['token']), 'token');
             const backNotifs = got['notifications'];
+            this.notifsDelayed = this.notifList;
             this.notifList.length = 0; //on vide les notifs pour faciliter l'adaptation des formats de notif back et front
             this.updaterProposed.length = 0;
             backNotifs.forEach( (oneBackNotif) => {
-              const notifToPush = <Notif> JSON.parse(oneBackNotif.content);
+              const notifToPush = JSON.parse(oneBackNotif.content);
               console.log('notifToPush', notifToPush);
-              this.handleReviews(this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser));
+              console.log('oneBackNotif :', oneBackNotif);
+              const revUpdater = this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), 18);
+              this.handleReviews(revUpdater);
+              console.log('Dépassé hangdleReviews');
               if (JSON.parse(oneBackNotif.context).detail == 'helpRefused'){
                 const updaterRefToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
                 if (!this.updaterRefused.includes(updaterRefToPush)){
@@ -148,6 +150,7 @@ export class NotificationService {
               // améliorer en ayant une approche plus modulaire
               this.notifList.push(notifToPush);
             });
+            this.notifsDelayed = this.notifList;
             this.emitNotifSubject();
             /* firebase
             let notifIds = Object.keys(got);
@@ -167,7 +170,8 @@ export class NotificationService {
     });
   }
 
-  handleReviews(myUpdater: string){
+  handleReviews(myUpdater: string) {
+    console.log("In HandleReviews");
     if (myUpdater.includes('reviewExpected')) {
       let separated: string[] = myUpdater.split('reviewExpected');
       let sepAgain = separated[1].split('announce');
@@ -192,7 +196,7 @@ export class NotificationService {
 
   resetDisplay() {
     this.notifierService.hideAll();
-    this.alreadyNotified.forEach( (oneNot) => {
+    this.notifsDelayed.forEach( (oneNot) => {
       this.notifierService.show(oneNot);
     });
   }

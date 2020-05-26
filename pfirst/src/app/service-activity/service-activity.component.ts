@@ -202,13 +202,13 @@ export class ServiceActivityComponent implements OnInit {
             //envoi de la notif de service en cours
             this.notificationService.uploadNotif(
               new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
-              new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')),this.id),
+              new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')).idUser,this.id),
               oneAssignee
             );
           });
           this.notificationService.uploadNotif(
             new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
-            new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')),this.id),
+            new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')).idUser,this.id),
             JSON.parse(localStorage.getItem('user')).idUser
           );
           //mise à jour du statut de cette annonce
