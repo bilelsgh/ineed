@@ -16,7 +16,8 @@
     </mat-expansion-panel-header>
 
     <div *ngFor="let id of this.reviewNeededIds">
-      <app-service-review *ngIf="this.reviewNeededName[id] != undefined"
+      <app-service-review
+        *ngIf="this.reviewNeededName[id] != undefined"
         [service] = "this.reviewNeededName[id]"
       ></app-service-review>
     </div>

@@ -130,6 +130,7 @@ export class NotificationService {
           (got) => {
             this.authService.setUserInfo(JSON.stringify(got['token']), 'token');
             const backNotifs = got['notifications'];
+            this.reviewNeededIds.length = 0;
             this.notifsDelayed = this.notifList;
             this.notifList.length = 0; //on vide les notifs pour faciliter l'adaptation des formats de notif back et front
             this.updaterProposed.length = 0;
