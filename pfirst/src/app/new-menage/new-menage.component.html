@@ -51,18 +51,23 @@
                   
                   </td>
                   <td>
+                    <span class="badge badge-secondary">OU</span>
+                  </td>
+                  <td>
                     <div *ngIf="loca ===false ">
                       <button  type="button" id = "location-button"  (click)= "loca=true; add=false" class="btn btn-secondary" >Avec votre geolocalisation</button>
                     </div>
                     <div *ngIf="add===false && loca ===true ">
                       <label for ="location" ><h3>Votre localisation</h3></label>
                   <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyer</button>
-                      <p> Vous etes en {{this.info.latitude}} -- {{this.info.longitude}}</p>
+
                   
                     </div>
                   </td>
                   
+                  
                   </tr>
+                  <td></td>
                   <td></td>
                   <td>
                     <div *ngIf="map"> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" ></app-mini-map></div>

@@ -96,17 +96,54 @@
               </form>
             </div>
           </div>
-          <div class="jumbotron" id="formulaire">
-          <div class="form-group">
-            <label for ="city" ><h2>Ville</h2></label>
-            <input type="text" id="city" class="form-control" formControlName="city">
-            
-              <label for ="adress" ><h2>Votre adresse</h2></label>
-              <input type="text" id="adress" class="form-control" formControlName="adress">
-              <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Get your POSITION</button>
+          <label for ="ou" ><h2>Ou se ferra le service ? </h2></label>
+              <div class="col-sm-8 col-sm-offset-2">
+              <div class="form-group">
+                <table width="100%" border="1" cellspacing="1" cellpadding="5">
+                  <tr>
+                  
+                  <td> <div *ngIf="add===false  ">
+                    <button  type="button" id = "location-button"  (click)= "add=true;loca=false" class="btn btn-secondary" >Avec votre adress</button>
+                  </div>
+                  <div *ngIf="add===true && loca ===false ">
+                    <label for ="city" ><h3>Ville</h3></label>
+                <input type="text" id="city" class="form-control" formControlName="city">
+                <label for ="adress" ><h3>Adresse</h3></label>
+                <input type="text" id="adress" class="form-control" formControlName="adress">
+                  </div>
+                  
+                  </td>
+                  <td>
+                    <span class="badge badge-secondary">OU</span>
+                  </td>
+                  <td>
+                    <div *ngIf="loca ===false ">
+                      <button  type="button" id = "location-button"  (click)= "loca=true; add=false" class="btn btn-secondary" >Avec votre geolocalisation</button>
+                    </div>
+                    <div *ngIf="add===false && loca ===true ">
+                      <label for ="location" ><h3>Votre localisation</h3></label>
+                  <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyer</button>
 
-            </div>
-          </div>
+                  
+                    </div>
+                  </td>
+                  
+                  
+                  </tr>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <div *ngIf="map"> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" ></app-mini-map></div>
+                  </td>
+            
+                  </table>
+              
+                
+                
+                  
+                
+              </div>
+              </div>
 
           <!--#############COMMENTAIRES######################-->
           <div class="jumbotron" id="formulaire">

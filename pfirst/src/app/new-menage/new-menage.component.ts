@@ -27,8 +27,7 @@ export class NewMenageComponent implements OnInit {
   loca= false;
   add=false;
   map=false;
-  latitude : number=0;
-  longitude : number;
+
 
   liste_materiel= []; //A ENVOYER DANS LA DB
   menageForm: FormGroup;
@@ -108,19 +107,7 @@ ngOnInit(): void {
 
   
 
-    
-
-    getLatLng(){
-      const f = this.menageForm;
-      this.geolocService.getLatLong(f.value['city']+f.value['adress'])
-      .catch((value)=> {console.log(value)})
-      .then((e)=>{console.log(this.info);
-        this.latitude=this.info.latitude;
-        this.longitude=this.info.longitude;
-        });
-        console.log(this.latitude);
   
-      }
     getLocation(){
       if(this.info.latitude==0){
       

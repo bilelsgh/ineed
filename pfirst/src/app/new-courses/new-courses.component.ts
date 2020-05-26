@@ -24,6 +24,8 @@ export class NewCoursesComponent implements OnInit {
   city:string;
   date:string;
   loca= false;
+  add=false;
+  map=false;
   /*content= new Array<{ jour: string, accompagner: any,budget: string, liste :any,
   name: string, description: any, id: number, type: string, user: any, image : string }>();*/
 
@@ -118,6 +120,7 @@ export class NewCoursesComponent implements OnInit {
     this.geolocService.setCurrentLocation();
     }
     this.loca=true;
+    this.map=true;
     console.log(this.info);
   }
 }

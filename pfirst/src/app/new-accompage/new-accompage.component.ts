@@ -21,6 +21,8 @@ export class NewAccompageComponent implements OnInit {
   city:string;
   date:string;
   loca= false;
+  add=false;
+  map=false;
 
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
              private httpClient : HttpClient, private auth : AuthService, private geolocService:GeolocService, private dateService: DateService) { }
@@ -90,5 +92,6 @@ getLocation(){
   }
   console.log(this.info);
   this.loca=true;
+  this.map=true;
 }
 }
