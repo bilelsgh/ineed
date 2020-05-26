@@ -19,6 +19,10 @@ export class NotificationService {
   reviewNeededIds: number[];
   updaterRefused: string[] = new Array();
   updaterProposed: string[] = new Array();
+  /* a voir si necessaire
+  notifDelayed: any[] = new Array(); // des opérations sont faites sur la liste de notif telles qu'elle peut ne pas
+                                      // etre a jour au moment de l'appel à certaines fonctions
+   */
 
   constructor(private httpClient: HttpClient,
               private notifierService: NotifierService,
@@ -186,9 +190,9 @@ export class NotificationService {
       );
   }
 
-  resetDisplay(){
+  resetDisplay() {
     this.notifierService.hideAll();
-    this.notifList.forEach( (oneNot) => {
+    this.alreadyNotified.forEach( (oneNot) => {
       this.notifierService.show(oneNot);
     });
   }
