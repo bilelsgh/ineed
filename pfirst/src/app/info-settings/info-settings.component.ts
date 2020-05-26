@@ -8,6 +8,8 @@ import {error} from "@angular/compiler/src/util";
 import {Observable} from "rxjs";
 import {NgxImageCompressService} from "ngx-image-compress";
 import {ImageCompressorService} from "../services/image-compressor.service";
+import {NotificationService} from "../services/notification.service";
+import {Notif, NotifContext} from "../models/notification.model";
 
 @Component({
   selector: 'app-info-settings',
@@ -45,7 +47,8 @@ export class InfoSettingsComponent implements OnInit {
               private authService: AuthService,
               private router: Router,
               private imageCompress: NgxImageCompressService,
-              private compressorService: ImageCompressorService) {
+              private compressorService: ImageCompressorService,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -69,9 +72,10 @@ export class InfoSettingsComponent implements OnInit {
   }
 
   // ----------------------DEBUG------------------
-  showStatus(){
-    console.log("same_password :", this.same_password,"small_password :", this.small_password, "!same||small =", !this.same_password || this.small_password);
+  showStatus() {
+    console.log("same_password :", this.same_password, "small_password :", this.small_password, "!same||small =", !this.same_password || this.small_password);
   }
+
   //-------------------------------------------------
   // Recuperation de la photo selectionnee
   onFileSelected(event) {
@@ -84,7 +88,6 @@ export class InfoSettingsComponent implements OnInit {
     const formerMdp = form.value['formerPassword'];
     const newPassword = form.value['newPassword'];
     console.log('modif mdp form.value', formerMdp);
-
 
     this.httpClient
       .post(this.authService.backend + 'api/user/login', {
@@ -161,8 +164,15 @@ export class InfoSettingsComponent implements OnInit {
       })
       .subscribe(
         (response) => {
-          console.log("Nouvelles infos acceptées, new user :", response['user']);
           this.authService.setUserInfo(JSON.stringify(response['token']), 'token'); // stocke le token dans le session/localStorage
+          if (form_value['bio'] != undefined && form_value['bio'].length > 0) {
+            const bioUpdater = this.notificationService.buildUpdater(
+              new Notif('Complétez votre profil avec une courte bio !', 'warning', '', 'infos'),
+              new NotifContext('bioUpload'),
+              JSON.parse(localStorage.getItem('user')).idUser);
+            this.notificationService.updateToTreated(bioUpdater);
+          }
+          console.log("Nouvelles infos acceptées, new user :", response['user']);
           //localStorage.setItem('token', JSON.stringify(response['token']));
           this.authService.setUserInfo(JSON.stringify(response['user']), 'user');
           this.info_user = response['user'];
@@ -171,12 +181,17 @@ export class InfoSettingsComponent implements OnInit {
 
           if (this.profil_pic != undefined) {
             this.onSubmitNewPicture(form).then(() => {
+                const pdpUpdater = this.notificationService.buildUpdater(
+                  new Notif('Chargez votre première photo de profil !', 'warning', '', 'infos'),
+                  new NotifContext('pdpUpload'),
+                  JSON.parse(localStorage.getItem('user')).idUser);
+                this.notificationService.updateToTreated(pdpUpdater);
                 form.reset();
               }
             ).catch(() => {
               console.log("Impossible d'envoyer la photo");
             });
-          }else {
+          } else {
             form.reset();
           }
         },
@@ -233,7 +248,7 @@ export class InfoSettingsComponent implements OnInit {
   }
 
   passwordComplexity(text: string) {
-    console.log('#PASSWORD COMPLEXITY, former_sp =',this.small_password, "text =", text,'text.length < 6 = ', text.length<6);
+    console.log('#PASSWORD COMPLEXITY, former_sp =', this.small_password, "text =", text, 'text.length < 6 = ', text.length < 6);
     if (text.length < 8) {
       this.small_password = true;
       this.bad_password = false;
