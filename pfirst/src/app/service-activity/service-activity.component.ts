@@ -206,6 +206,11 @@ export class ServiceActivityComponent implements OnInit {
               oneAssignee
             );
           });
+          this.notificationService.uploadNotif(
+            new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
+            new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')),this.id),
+            JSON.parse(localStorage.getItem('user')).idUser
+          );
           //mise à jour du statut de cette annonce
           this.status = response["announce"].status;
         },
@@ -245,7 +250,13 @@ export class ServiceActivityComponent implements OnInit {
               oneAssignee
             );
           });
-          //L'auteur de l'annonce doit aussi entrer une review
+          //Meme chose pour l'aueur de l'annonce
+          const updaterStart = this.notificationService.buildUpdater(
+            new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
+            new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')).idUser, this.id),
+            JSON.parse(localStorage.getItem('user')).idUser
+          );
+          this.notificationService.updateToTreated(updaterStart);
           this.notificationService.uploadNotif(
             new Notif('Un service terminé attend votre évaluation, dirigez vous dans activity !', 'info', '', 'activity'),
             new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')), this.id),
