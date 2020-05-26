@@ -306,6 +306,6 @@ export class UserService {
           console.log("Erreur de chargement du mail : " + error);
         }
       );
-  }s
+  }
 
 }
