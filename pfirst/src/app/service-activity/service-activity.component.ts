@@ -35,14 +35,24 @@ export class ServiceActivityComponent implements OnInit {
   public noAssignees: boolean;
   public finished : boolean;
   name_assignees  = {};
+  public deleted : number;
+  deleteSubscription : Subscription;
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
-              private userService: UserService, private suiviServ: SuiviService,public dialog: MatDialog) {
+              public userService: UserService, private suiviServ: SuiviService,public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    this.deleted = -1;
     this.getAssignees(this.id);
     this.getHelpers(this.id);
+    this.deleteSubscription = this.suiviServ.deleteSubject.subscribe(
+      (response: number) => {
+        this.deleted = response;
+      }
+    );
+    this.suiviServ.emiteDeleteSubject();
+
   }
 
   getHelpers(announceId: number = 0) {
@@ -52,14 +62,16 @@ export class ServiceActivityComponent implements OnInit {
         this.helpers = this.suiviServ.helpers;
         console.table(this.helpers);
         this.noHelper = this.suiviServ.noHelper;
-        let nb_assignees = 0;
+        let nb_noHelpers = 0;
         for(let helper of this.helpers){
-          if(!this.amIanAssignee(helper.idUser)){
-            nb_assignees++;
+          console.log("#ID: ", helper.idUser, " -> amIassigne : ", this.amIanAssignee(helper.idUser) , ", amIrejected : ", this.amIrejected(helper.idUser));
+          if(this.amIanAssignee(helper.idUser) || this.amIrejected(helper.idUser)){
+            nb_noHelpers++;
           }
+
         }
-        console.log("Nb assignees : ", nb_assignees);
-        if(nb_assignees === 0){
+        console.log("Nb no helpers : ", nb_noHelpers);
+        if(nb_noHelpers != 0){
           this.noHelper = true;
         }
 
@@ -206,6 +218,43 @@ export class ServiceActivityComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  refuse(id : number){
+    let content = this.service_descriptor.content;
+    content["rejected"].push(id);
+    console.log(this.deleted);
+
+    //L'annonce est terminée, le statut passe à 2
+    let message = {token: JSON.parse(localStorage.getItem('token')),
+      announce: {idUser: this.service_descriptor.idUser , content: JSON.stringify(content), id: this.service_descriptor.id,
+        price: this.service_descriptor.price, viewNumber: this.service_descriptor.viewNumber, status: this.service_descriptor.status} };
+
+    this.httpClient
+      .put(this.auth.backend + 'api/announce/' + this.id, message )
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+          console.log("ID : ", id, " refusé !");
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            this.auth.removeUserInfo();
+            console.log(' #TOKEN EXPIRED');
+          }
+        }
+      );
+  }
+
+  amIrejected(id : number) : boolean{
+    let rejected = this.service_descriptor.content['rejected'];
+
+    for(let elt of rejected){
+      if(elt === id){
+        return true;
+      }
+    }
+    return false;
   }
 
 }

@@ -26,6 +26,7 @@ export class ActivityComponent implements OnInit {
   proposed_services: any[] = [];
   public asked_services: any[] = [];
   assignees : any[];
+  public myID : number;
 
   indexes: any[] = [
     {
@@ -52,7 +53,7 @@ export class ActivityComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProposedAnnounce();
-
+    this.myID = JSON.parse(localStorage.getItem('user'))['idUser'];
     this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
 
     console.log('ID : ', JSON.parse(localStorage.getItem('user'))['idUser']);
@@ -121,5 +122,14 @@ export class ActivityComponent implements OnInit {
           console.log('#DEBUG : Erreur lors de la récupération de mes propositions [service-proposed] ' + error);
         }
       );
+  }
+
+  amIrejected(idUser : number, rejected: any) : boolean{
+    for(let elt of rejected){
+      if(elt === idUser){
+        return true;
+      }
+    }
+    return false;
   }
 }

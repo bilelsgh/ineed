@@ -6,3 +6,17 @@
   top: 5px;
   cursor: pointer;
 }
+
+#icone-mail{
+  width: 15px;
+  cursor: pointer;
+}
+
+#profil_icone{
+  width: 30px;
+  cursor: pointer;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

@@ -228,8 +228,11 @@ this.stateNotif = 'placed';
     this.notificationService.sleepWatcher();
   }
 
-  hideAllNotifs(){
+  hideAllNotifs() {
     this.notificationService.hideEachAndEveryNotif();
+  }
+  getFirstName(){
+    return JSON.parse(localStorage.getItem('user')).firstName;
   }
 
   openUserModal() {

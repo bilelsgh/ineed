@@ -287,4 +287,46 @@ export class UserService {
     }));
   }
 
+  getServiceProposedAndFinished(){
+    return new Promise(((resolve, reject) => {
+      this.httpClient //checker si on met le helperID dans la route
+        .get<any[]>(this.auth.backend + 'api/announce/historique?token=' +
+          JSON.parse(localStorage.getItem('token'))) //route à vérifier
+        .subscribe(
+          (response) => {
+            console.log('Service proposed & finished');
+            console.table(response);
+            this.services_proposed_finished = response;
+            resolve(true);
+          },
+          (error) => {
+            reject(true);
+            if (error['status'] === 401) {
+              this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
+            console.log("Erreur récupération des services proposés #user.service");
+          }
+        );
+    }));
+  }
+
+  getMailByID(id : number){
+    this.httpClient
+      .get<any[]>(this.auth.backend + 'api/user/' + id +
+        '?token=' + JSON.parse(localStorage.getItem('token')))
+      .subscribe(
+        (response) => {
+          this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
+          window.open('mailto:' + response['user'].mail);
+        },
+        (error) => {
+          if (error['status'] === 401) {
+            this.auth.removeUserInfo();
+            console.log("#TOKEN EXPIRED");
+          }
+          console.log("Erreur de chargement du mail : " + error);
+        }
+      );
+  }
 }

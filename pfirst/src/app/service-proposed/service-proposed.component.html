@@ -7,7 +7,7 @@
       <div class="card-body">
         <div class="text-left">
           <h2 class="card-title">{{serviceName}} pour {{serviceUser}}<img *ngIf="accepted || enCours"
-                                                                          (click)="getMailByID(myID)"
+                                                                          (click)="this.userService.getMailByID(idAuthor)"
                                                                           id="icone-mail"
                                                                           src="../../assets/data/icone-mail.png" alt="">
           </h2>
@@ -17,7 +17,7 @@
         <div class="row no-gutters">
           <div class="col-md-10">
             <div class="text-right">
-              <a href="#" class="btn btn-primary" [routerLink]="[id]">Voir l'annonce</a>
+              <button  class="btn btn-primary" (click)="router.navigate(['propose/'+id])">Voir l'annonce</button>
             </div>
           </div>
         </div>
