@@ -1,9 +1,12 @@
+<div class="card mb-3 rounded-lg rounded-lg" style="width:100%;">
 <div class="row no-gutters">
-
+  <div class="col-md-2">
+    <img [src]="image" class="card-img-top" alt="...">
+  </div>
   <div class="col-md-10">
     <div class="card-body">
       <div class="text-left">
-        <h2 class="card-title">{{service.content.type}} pour {{service.content.user}}
+        <h2 class="card-title">{{type}} pour {{name}}
         </h2>
 
       </div>
@@ -11,7 +14,7 @@
       <div class="row no-gutters">
         <div class="col-md-10">
           <div class="text-right">
-            <button  class="btn btn-primary" (click)="router.navigate(['propose/'+service.idAnnounce])">Voir l'annonce</button>
+            <button  class="btn btn-secondary" (click)="router.navigate(['review/'+id])">Évaluer</button>
 
           </div>
         </div>
@@ -26,3 +29,4 @@
       </table>
     </div>
   </div>
+</div>

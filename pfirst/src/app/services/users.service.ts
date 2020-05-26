@@ -61,7 +61,7 @@ export class UserService {
             histFor.forEach( (serv) => {
               serv.content = JSON.parse(serv.content);
             });
-            console.log("HISTORIQUE : ", typeof got['historique'][0]['content']);
+            //console.log("HISTORIQUE : ", typeof got['historique'][0]['content']);
             this.services_history_for = histFor;
             this.auth.setUserInfo(JSON.stringify(got['token']), 'token');
 

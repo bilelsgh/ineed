@@ -126,6 +126,10 @@ export class ActivityComponent implements OnInit, OnDestroy {
       });
   }
 
+  print(){
+    console.table("DICOOOO : " , this.reviewNeededName);
+  }
+
   getProposedAnnounce(){
     console.log("DANS GET PROPOSED");
     this.httpClient

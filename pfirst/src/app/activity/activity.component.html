@@ -4,8 +4,8 @@
   <h2 class="text-white">Retrouvez le suivi de vos demandes de services et de vos propositions d'aide</h2>
 </div>
 
-<mat-accordion>
-  <mat-expansion-panel>
+<mat-accordion *ngIf="this.reviewNeededIds.length != 0">
+  <mat-expansion-panel id="eval">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <b>Évaluations</b> <img style="width: 15px; height: 15px;" src="../../assets/data/cercle_orange.png" alt="">
@@ -15,9 +15,9 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div *ngFor="let id of this.reviewNeededIds,  let i =index">
-      <app-service-review
-        [service] = "this.reviewNeededName[143]"
+    <div *ngFor="let id of this.reviewNeededIds">
+      <app-service-review *ngIf="this.reviewNeededName[id] != undefined"
+        [service] = "this.reviewNeededName[id]"
       ></app-service-review>
     </div>
 
