@@ -12,7 +12,7 @@ export class ServiceReviewComponent implements OnInit {
 
   name : string;
   type : string;
-  image : string
+  image : string;
   id : number;
 
 

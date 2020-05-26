@@ -103,13 +103,13 @@ export class ActivityComponent implements OnInit, OnDestroy {
         }
       }
     );
-
   }
 
   ngOnDestroy() {
     this.updaterRefusedToDelete.forEach( (toDelete) => {
       this.notificationService.updateToTreated(toDelete);
     });
+    this.reviewNeedIdsSubscription.unsubscribe();
   }
 
   getHelpers(announceIndex: number = this.selectedAnnounce) {
