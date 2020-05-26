@@ -18,10 +18,10 @@
               <input type="date" id="datejour" class="form-control" formControlName="datejour" [min]="this.date" >
               <label for="dateheure">Heure</label>
                 <input type="time" id="dateheure" class="form-control" formControlName="dateheure" >
-                
+
               </div>
-              
-              
+
+
               <div class="input-group mb-3">
                 <label for="surface"><h2>Quel est la surface de l'endroit qu'il faut nettoyer ?</h2></label>
                 <input type="text" id="surface" class="form-control" formControlName="surface">
@@ -38,7 +38,7 @@
               <div class="form-group">
                 <table width="100%" border="1" cellspacing="1" cellpadding="5">
                   <tr>
-                  
+
                   <td> <div *ngIf="add===false  ">
                     <button  type="button" id = "location-button"  (click)= "add=true;loca=false" class="btn btn-secondary" >Avec votre adress</button>
                   </div>
@@ -48,7 +48,7 @@
                 <label for ="adress" ><h3>Adresse</h3></label>
                 <input type="text" id="adress" class="form-control" formControlName="adress">
                   </div>
-                  
+
                   </td>
                   <td>
                     <span class="badge badge-secondary">OU</span>
@@ -61,24 +61,24 @@
                       <label for ="location" ><h3>Votre localisation</h3></label>
                   <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyer</button>
 
-                  
+
                     </div>
                   </td>
-                  
-                  
+
+
                   </tr>
                   <td></td>
                   <td></td>
                   <td>
                     <div *ngIf="map"> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" ></app-mini-map></div>
                   </td>
-            
+
                   </table>
-              
-                
-                
-                  
-                
+
+
+
+
+
               </div>
               </div>
 
@@ -139,15 +139,5 @@
 
         </table>
     </div>
-<<<<<<< HEAD
-
-
-  
-  
-  
-=======
-  </div>
-
-
->>>>>>> master
+</div>
 
