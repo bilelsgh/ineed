@@ -13,8 +13,8 @@ export class SuiviService {
   public assignees: number[] = [];
   public status : number;
   public serviceId_selected : number;
-  public delete: boolean;
-  deleteSubject = new Subject<boolean>();
+  public delete: number;
+  deleteSubject = new Subject<number>();
 
   constructor(private httpClient: HttpClient, private auth: AuthService, private userService : UserService) {}
 
@@ -91,8 +91,8 @@ export class SuiviService {
       )
   }
 
-  deleted(){
-    this.delete = true;
+  deleted(id : number){
+    this.delete = id;
     this.emiteDeleteSubject();
   }
 

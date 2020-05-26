@@ -57,7 +57,7 @@
   <!-- STATUT DE L'ANNONCE -->
   <a *ngIf="this.status === 1" href="#" class="badge badge-pill badge-warning">En cours</a>
   <a *ngIf="this.status === 2" href="#" class="badge badge-pill badge-secondary">Terminée</a>
-  <a *ngIf="this.deleted" href="#" class="badge badge-pill badge-danger">Supprimée</a>
+  <a *ngIf="this.deleted == this.id" href="#" class="badge badge-pill badge-danger">Supprimée</a>
 
 
   <div id="collapseExample" [ngbCollapse]="isCollapsed">

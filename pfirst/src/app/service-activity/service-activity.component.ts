@@ -35,7 +35,7 @@ export class ServiceActivityComponent implements OnInit {
   public noAssignees: boolean;
   public finished : boolean;
   name_assignees  = {};
-  public deleted : boolean;
+  public deleted : number;
   deleteSubscription : Subscription;
 
   constructor(private httpClient: HttpClient, private auth: AuthService, public router: Router,
@@ -43,11 +43,11 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.deleted = false;
+    this.deleted = -1;
     this.getAssignees(this.id);
     this.getHelpers(this.id);
     this.deleteSubscription = this.suiviServ.deleteSubject.subscribe(
-      (response: boolean) => {
+      (response: number) => {
         this.deleted = response;
       }
     );
@@ -65,12 +65,12 @@ export class ServiceActivityComponent implements OnInit {
         let nb_noHelpers = 0;
         for(let helper of this.helpers){
           console.log("#ID: ", helper.idUser, " -> amIassigne : ", this.amIanAssignee(helper.idUser) , ", amIrejected : ", this.amIrejected(helper.idUser));
-          if(this.amIanAssignee(helper.idUser) || this.amIrejected(helper.id)){
+          if(this.amIanAssignee(helper.idUser) || this.amIrejected(helper.idUser)){
             nb_noHelpers++;
           }
 
         }
-        console.log("Nb assignees : ", nb_noHelpers);
+        console.log("Nb no helpers : ", nb_noHelpers);
         if(nb_noHelpers != 0){
           this.noHelper = true;
         }
