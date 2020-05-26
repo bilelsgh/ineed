@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
@@ -12,7 +12,7 @@ import {Notif, NotifContext} from "../models/notification.model";
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.css']
 })
-export class ReviewComponent implements OnInit {
+export class ReviewComponent implements OnInit, OnDestroy {
 
   announceId: number;
   rate = 0;
@@ -23,6 +23,7 @@ export class ReviewComponent implements OnInit {
   idToName = {};
   idToImageNames = {};
   announceAuthorId: number;
+  alreadyRated = {};
 
   constructor(private httpClient: HttpClient,
               private route: ActivatedRoute,
@@ -41,6 +42,7 @@ export class ReviewComponent implements OnInit {
               this.participants = this.suiviService.assignees;
               this.participants.forEach((part) => {
                 this.getName(part);
+                this.alreadyRated[part] = false;
               });
             }).catch((e) => {
             console.log('Erreur getAssignees', e);
@@ -52,6 +54,26 @@ export class ReviewComponent implements OnInit {
       .catch((e) => {
         console.log(e);
       });
+  }
+
+  ngOnDestroy() {
+    let allRated = true;
+    Object.keys(this.successfullySended).forEach( (oneToRate) => {
+      if (!this.successfullySended[oneToRate]) {
+        if (!this.alreadyRated[oneToRate]){
+          allRated = false;
+        }
+      }
+    });
+    if (allRated){
+      const revUpdater = this.notificationService.buildUpdater(
+        new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
+        new NotifContext('reviewExpected', this.announceAuthorId, this.announceId),
+        JSON.parse(localStorage.getItem('user')).idUser
+      );
+      this.notificationService.updateToTreated(revUpdater);
+    }
+
   }
 
   getName(idUsr: number) {
@@ -103,14 +125,13 @@ export class ReviewComponent implements OnInit {
         console.log('SUCCESS REVIEW', resp);
         form.reset();
         this.successfullySended[idRated] = true;
-        const revUpdater = this.notificationService.buildUpdater(
-          new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
-          new NotifContext('reviewExpected', this.announceAuthorId, this.announceId),
-          JSON.parse(localStorage.getItem('user')).idUser
-        );
-        this.notificationService.updateToTreated(revUpdater);
       },
       (e) => {
+        if (e.status === 401){
+          this.authService.removeUserInfo();
+        }else if (e.status === 500){
+          this.alreadyRated[idRated] = true;
+        }
         console.log('FAILURE REVIEW', e);
       }
     );

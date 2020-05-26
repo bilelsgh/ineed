@@ -39,7 +39,7 @@ export class AuthComponent implements OnInit {
 
           this.authService.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.authService.setUserInfo( JSON.stringify(response['user']), 'user');
-          //this.notificationService.wakeWatcher(10000);
+          this.notificationService.wakeWatcher(10000);
           this.snackBar.openSnackBar('Vous êtes connecté','', "blue-snackbar", 'top', 'center');
           this.router.navigate(['']);
         },

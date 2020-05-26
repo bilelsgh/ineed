@@ -139,10 +139,10 @@ export class InscriptionComponent implements OnInit {
             new NotifContext('pdpUpload'),
             JSON.parse(localStorage.getItem('user')).idUser);
           this.notificationService.uploadNotif(
-            new Notif('Complétez votre profil avec une courte bio !', 'warning', '','infos'),
+            new Notif('Dites-en plus avec une courte bio !', 'warning', '','infos'),
             new NotifContext('bioUpload'),
             JSON.parse(localStorage.getItem('user')).idUser);
-          //this.notificationService.wakeWatcher(10000);
+          this.notificationService.wakeWatcher(10000);
           this.router.navigate(['']);
         },
         (error) => {

@@ -1,8 +1,25 @@
 <div *ngFor="let oneParticipant of participants">
   <div *ngIf="successfullySended[oneParticipant]" class="alert alert-dismissable alert-success">
-    <table align="center">
-      Votre retour sur {{ratedNames[oneParticipant]}} a bien été envoyé ! Rendez vous sur votre profil pour voir si le retour
-      de {{ratedNames[oneParticipant]}} dès que possible !
+    <table align="center" width="80%">
+      <td width="75%" align="right">
+        Votre retour sur {{idToName[oneParticipant]}} a bien été envoyé ! Rendez vous sur votre profil pour voir si le
+        retour
+        de {{idToName[oneParticipant]}} dès que possible !
+      </td>
+      <td width="25%" align="right">
+        <button class="btn btn-outline-success" routerLink="">Accueil</button>
+      </td>
+    </table>
+  </div>
+  <div *ngIf="alreadyRated[oneParticipant]" class="alert alert-dismissable alert-danger">
+    <table align="center" cellpadding="30" width="80%">
+      <td width="75%" align="right">
+        Votre retour sur {{idToName[oneParticipant]}} a déjà été envoyé ! Rendez vous sur votre profil pour voir si le
+        retour de {{idToName[oneParticipant]}} dès que possible !
+      </td>
+      <td width="25%" align="center">
+        <button class="btn btn-outline-danger" routerLink="">Accueil</button>
+      </td>
     </table>
   </div>
   <div id="infoContainer">

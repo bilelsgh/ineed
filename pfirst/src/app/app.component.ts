@@ -19,8 +19,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
   dark_theme_sub : Subscription;
   title = 'INEED';
   myTheme : string ;
-  notifSubscription: Subscription;
-  notifList: Notif[];
+  //notifSubscription: Subscription;
+  //notifList: Notif[];
 
   constructor(private userServ : UserService,
               private elementRef: ElementRef,
@@ -29,13 +29,14 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
 
   ngOnInit(){
     this.setTheme();
+    /*
     this.notifList = this.notificationService.notifList;
     this.notifSubscription = this.notificationService.notifSubject.subscribe(
       (notifs) => {
         this.notifList = this.notificationService.notifList;
         //console.log(this.notifList);
       }
-    );
+    );*/
   }
 
   ngAfterViewInit() {
@@ -65,7 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   ngOnDestroy() {
-    this.notifSubscription.unsubscribe();
+    //this.notifSubscription.unsubscribe();
   }
 
   setTheme() {
@@ -89,7 +90,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
     );
     this.userServ.emitDarkThemeSubject();
   }
-
+/*
   uploadTestNotif(){
     const myNot: Notif = new Notif('notif de test 1', 'info', '', 'infos');
     const myContext: NotifContext = new NotifContext('TESTING1');
@@ -116,5 +117,5 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
     let myContext: NotifContext = new NotifContext('pdpUpload');
     let myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
     this.notificationService.buildUpdater(myNot, myContext, myUSRID);
-  }
+  }*/
 }

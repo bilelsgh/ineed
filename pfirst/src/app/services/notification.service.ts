@@ -26,6 +26,9 @@ export class NotificationService {
   constructor(private httpClient: HttpClient,
               private notifierService: NotifierService,
               private authService: AuthService) {
+    if (this.authService.isAuthenticated()) {
+      this.wakeWatcher(10000); // si l'utilisateur est toujours connecté, on lance le watcher
+    }
     //trigger périodique de la fonction de récupération des notifs -> provoqué à la connexion
     //this.wakeWatcher(5000);
 
@@ -75,6 +78,10 @@ export class NotificationService {
           console.log("#Successfully added a new notif :", not);
         },
         (e) => {
+          if (e['status'] === 401) {
+            this.authService.removeUserInfo();
+            console.log('#TOKEN EXPIRED');
+          }
           console.log('#Unable to add a new notif', e);
         }
       );
@@ -117,6 +124,10 @@ export class NotificationService {
         this.authService.setUserInfo(JSON.stringify(resp['token']), 'token');
       },
       (e) => {
+        if (e['status'] === 401) {
+          this.authService.removeUserInfo();
+          console.log('#TOKEN EXPIRED');
+        }
         console.log('couldnt update notif', e);
       }
     );
@@ -170,6 +181,10 @@ export class NotificationService {
             resolve('Got the notifications');
           },
           (err) => {
+            if (err['status'] === 401) {
+              this.authService.removeUserInfo();
+              console.log('#TOKEN EXPIRED');
+            }
             reject('Cannot get the notifications');
           }
         );
@@ -198,6 +213,10 @@ export class NotificationService {
           console.log('#Successfully set the cache', resp);
         },
         (err) => {
+          if (err['status'] === 401) {
+            this.authService.removeUserInfo();
+            console.log('#TOKEN EXPIRED');
+          }
           console.log('#Unable to set the cache', err);
         }
       );

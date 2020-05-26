@@ -72,9 +72,6 @@
         <img alt="Activer le thème sombre." style="cursor: pointer" id="theme_lune" *ngIf="!this.userService.dark_theme && this.userService.light_theme" src="../../assets/data/dark.png" (click)="this.userService.darkTheme()" alt="">
       </td>
 
-      <td>
-        <button *ngIf="this.authService.isAuthenticated()" class=" btn btn-primary" (click)="resetNotifDisplay()">Reset Display</button>
-      </td>
       <!-- BOUTONS DE CONNEXION -->
 
       <td>
@@ -88,6 +85,10 @@
       <td>
         <button (click)="this.authService.removeUserInfo(); stopWatcher(); hideAllNotifs()" *ngIf="this.authService.isAuthenticated()" class="btn btn-outline-danger" type="button">Se déconnecter
         </button>
+      </td>
+      <!-- BOUTTON QUI PERMET A L'UTILISATEUR DE REAFFICHER LES NOTIFS PUISQUE PAS D'HISTORIQUE NOTIF ENCORE -->
+      <td>
+        <button *ngIf="this.authService.isAuthenticated()" class=" btn btn-outline-light" (click)="resetNotifDisplay()">Notifications</button>
       </td>
       <td>
         <button routerLink="contact" class="btn btn-outline-secondary" type="button">Contact</button>

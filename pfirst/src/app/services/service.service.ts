@@ -226,7 +226,7 @@ export class ServiceService{
       .subscribe(
         (response) => {
           this.notificationService.uploadNotif(
-            new Notif('Vous avez une nouvelle proposition d\'aide', 'info', '', 'activity'),
+            new Notif(JSON.parse(localStorage.getItem('user')).firstName + 'vous propose son aide, répondez lui !', 'info', '', 'activity'),
             new NotifContext('helpProposed', JSON.parse(localStorage.getItem('user')).idUser, announceID),
             authorId);
           },

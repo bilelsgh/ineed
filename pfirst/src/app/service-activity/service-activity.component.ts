@@ -103,13 +103,13 @@ export class ServiceActivityComponent implements OnInit {
           this.getAssignees(this.id);
           console.log("Acceptation ok!");
           const proposedUpdater = this.notificationService.buildUpdater(
-            new Notif('Vous avez une nouvelle proposition d\'aide', 'info', '', 'activity'),
+            new Notif('proposition d\'aide', 'info', '', 'activity'),
             new NotifContext('helpProposed', helperID, this.id),
             JSON.parse(localStorage.getItem('user')).idUser
           );
           this.notificationService.updateToTreated(proposedUpdater);
           this.notificationService.uploadNotif(
-            new Notif('Votre proposition d\'aide a été acceptée', 'info', '', 'activity'),
+            new Notif(JSON.parse(localStorage.getItem('user')).firstName + 'a acceptée votre aide !', 'success', '', 'activity'),
             new NotifContext('helpAccepted', JSON.parse(localStorage.getItem('user')).idUser, this.id),
             helperID
           );
@@ -201,7 +201,7 @@ export class ServiceActivityComponent implements OnInit {
             this.notificationService.updateToTreated(oneAcceptUpdater);
             //envoi de la notif de service en cours
             this.notificationService.uploadNotif(
-              new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
+              new Notif(JSON.parse(localStorage.getItem('user')).firstName + ' a lancé son service !', 'warning', '', 'activity'),
               new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')).idUser,this.id),
               oneAssignee
             );
@@ -245,12 +245,12 @@ export class ServiceActivityComponent implements OnInit {
             this.notificationService.updateToTreated(updaterStart);
             //on envoie la notif de review
             this.notificationService.uploadNotif(
-              new Notif('Un service terminé attend votre évaluation, dirigez vous dans activity !', 'info', '', 'activity'),
+              new Notif(JSON.parse(localStorage.getItem('user')).firstName + ' attend votre évaluation, dirigez vous dans activity !', 'info', '', 'activity'),
               new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')).idUser, this.id),
               oneAssignee
             );
           });
-          //Meme chose pour l'aueur de l'annonce
+          //Meme chose pour l'auteur de l'annonce
           const updaterStart = this.notificationService.buildUpdater(
             new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
             new NotifContext('serviceStart', JSON.parse(localStorage.getItem('user')).idUser, this.id),
@@ -310,7 +310,7 @@ export class ServiceActivityComponent implements OnInit {
           );
           this.notificationService.updateToTreated(proposedUpdater);
           this.notificationService.uploadNotif(
-            new Notif('Votre proposition d\'aide a été refusée', 'info', '', 'activity'),
+            new Notif('Votre proposition d\'aide a été refusée', 'warning', '', 'activity'),
             new NotifContext('helpRefused', JSON.parse(localStorage.getItem('user')).idUser, this.id),
             id
           );
