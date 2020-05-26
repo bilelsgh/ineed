@@ -129,7 +129,8 @@ import { ReviewComponent } from './review/review.component';
         }
       },
       behaviour:{
-        autoHide: false
+        autoHide: false,
+        stacking: 10
       }
     }),
     MatSelectModule,
