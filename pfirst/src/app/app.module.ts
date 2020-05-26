@@ -125,6 +125,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     NgxImageCompressService,
     ImageCompressorService,
     MatSnackBarComponent,
+    DateService,
     Location
      // necessaire ?
   ],
