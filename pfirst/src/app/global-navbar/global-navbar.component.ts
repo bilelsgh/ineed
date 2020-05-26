@@ -235,6 +235,10 @@ this.stateNotif = 'placed';
     return JSON.parse(localStorage.getItem('user')).firstName;
   }
 
+  resetNotifDisplay(){
+    this.notificationService.resetDisplay();
+  }
+
   openUserModal() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;

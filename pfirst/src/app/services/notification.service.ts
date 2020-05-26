@@ -186,6 +186,13 @@ export class NotificationService {
       );
   }
 
+  resetDisplay(){
+    this.notifierService.hideAll();
+    this.notifList.forEach( (oneNot) => {
+      this.notifierService.show(oneNot);
+    });
+  }
+
   // approche plus modulaire, pas utilisée pour l'instant
   handleContext(not: Notif, myContext: NotifContext): Notif {
     let res: Notif = not;

@@ -72,6 +72,9 @@
         <img alt="Activer le thème sombre." style="cursor: pointer" id="theme_lune" *ngIf="!this.userService.dark_theme && this.userService.light_theme" src="../../assets/data/dark.png" (click)="this.userService.darkTheme()" alt="">
       </td>
 
+      <td>
+        <button *ngIf="this.authService.isAuthenticated()" class=" btn btn-primary" (click)="resetNotifDisplay()">Reset Display</button>
+      </td>
       <!-- BOUTONS DE CONNEXION -->
 
       <td>
