@@ -246,7 +246,7 @@ export class ServiceActivityComponent implements OnInit {
             //on envoie la notif de review
             this.notificationService.uploadNotif(
               new Notif('Un service terminé attend votre évaluation, dirigez vous dans activity !', 'info', '', 'activity'),
-              new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')), this.id),
+              new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')).idUser, this.id),
               oneAssignee
             );
           });
@@ -259,7 +259,7 @@ export class ServiceActivityComponent implements OnInit {
           this.notificationService.updateToTreated(updaterStart);
           this.notificationService.uploadNotif(
             new Notif('Un service terminé attend votre évaluation, dirigez vous dans activity !', 'info', '', 'activity'),
-            new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')), this.id),
+            new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')).idUser, this.id),
             JSON.parse(localStorage.getItem('user')).idUser
           );
 

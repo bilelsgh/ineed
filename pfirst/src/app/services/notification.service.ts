@@ -134,7 +134,7 @@ export class NotificationService {
               console.log('oneBackNotif :', oneBackNotif);
               const revUpdater = this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), 18);
               this.handleReviews(revUpdater);
-              console.log('Dépassé hangdleReviews');
+              console.log('Dépassé handleReviews');
               if (JSON.parse(oneBackNotif.context).detail == 'helpRefused'){
                 const updaterRefToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
                 if (!this.updaterRefused.includes(updaterRefToPush)){
