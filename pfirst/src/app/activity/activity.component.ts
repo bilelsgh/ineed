@@ -8,6 +8,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {Router} from "@angular/router";
 import {SuiviService} from '../services/suivi.service';
 import {NotificationService} from "../services/notification.service";
+import {ServiceService} from '../services/service.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-activity',
@@ -16,6 +18,7 @@ import {NotificationService} from "../services/notification.service";
 })
 export class ActivityComponent implements OnInit, OnDestroy {
 
+  panelOpenState = false;
   public isCollapsedDemande: boolean = true;
   public isCollapsedProposition : boolean = true;
   public isCollapsedEnCours : boolean = true;
@@ -28,6 +31,9 @@ export class ActivityComponent implements OnInit, OnDestroy {
   public asked_services: any[] = [];
   assignees : any[];
   public myID : number;
+  reviewNeededIds : any[] = new Array();
+  reviewNeedIdsSubscription : Subscription;
+  reviewNeededName = {};
 
   indexes: any[] = [
     {
@@ -50,6 +56,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
               public router: Router,
               private auth : AuthService,
               private suiviServ : SuiviService,
+              public notifServ : NotificationService,
+              private servserv : ServiceService,
               private notificationService: NotificationService
   ) {
   }
@@ -79,13 +87,23 @@ export class ActivityComponent implements OnInit, OnDestroy {
           if (this.selectedAnnounce != -1) {
             this.getHelpers(this.selectedAnnounce);
             //getHelpers(this.asked_services[this.selectedAnnounce]['idAnnounce']);
-
           }
         })
       .catch(
         (e) => {
           console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
         });
+
+    //Récupération des services qui ont besoin d'être évalués
+    this.reviewNeedIdsSubscription = this.notifServ.reviewNeededIdsSubject.subscribe(
+      (response: any[]) => {
+        this.reviewNeededIds = response;
+        for(let id of response){
+          this.getServiceById(id);
+        }
+      }
+    );
+
   }
 
   ngOnDestroy() {
@@ -141,5 +159,26 @@ export class ActivityComponent implements OnInit, OnDestroy {
       }
     }
     return false;
+  }
+
+  getServiceById(id: number) {
+      this.httpClient
+        .get(this.auth.backend+'api/announce/' + id + '?token=' + JSON.parse(localStorage.getItem('token')))
+        .subscribe(
+          (response) => {
+            this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
+            this.reviewNeededName[id] = response["announce"];
+            console.log("SERVICE NEED : ", this.reviewNeededName[id]);
+
+
+          },
+          (error) => {
+            if(error['status'] === 401){
+              this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
+            console.log("Erreur de chargement : " + error);
+          }
+        );
   }
 }

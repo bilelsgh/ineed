@@ -16,7 +16,8 @@ export class NotificationService {
   notifSubject = new Subject<Notif[]>();
   lastNotifIndex: number = 0;
   watcher: any;
-  reviewNeededIds: number[];
+  reviewNeededIds: number[] = new Array();
+  reviewNeededIdsSubject = new Subject<any[]>();
   updaterRefused: string[] = new Array();
   updaterProposed: string[] = new Array();
   notifsDelayed: any[] = new Array(); // des opérations sont faites sur la liste de notif telles qu'elle peut ne pas
@@ -50,6 +51,10 @@ export class NotificationService {
 
   sleepWatcher() {
     clearInterval(this.watcher);
+  }
+
+  emitReviewNeededIds(){
+    this.reviewNeededIdsSubject.next(this.reviewNeededIds.slice());
   }
 
   uploadNotif(not: Notif, context: NotifContext, userId: number) {
@@ -176,6 +181,7 @@ export class NotificationService {
       let separated: string[] = myUpdater.split('reviewExpected');
       let sepAgain = separated[1].split('announce');
       this.reviewNeededIds.push(+sepAgain[1]);
+      this.emitReviewNeededIds();
     }
   }
 

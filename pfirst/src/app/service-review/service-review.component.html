@@ -1,0 +1,28 @@
+<div class="row no-gutters">
+
+  <div class="col-md-10">
+    <div class="card-body">
+      <div class="text-left">
+        <h2 class="card-title">{{service.content.type}} pour {{service.content.user}}
+        </h2>
+
+      </div>
+
+      <div class="row no-gutters">
+        <div class="col-md-10">
+          <div class="text-right">
+            <button  class="btn btn-primary" (click)="router.navigate(['propose/'+service.idAnnounce])">Voir l'annonce</button>
+
+          </div>
+        </div>
+      </div>
+      <table>
+        <tr>
+          <!-- STATUS -->
+          <td align="left">
+
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
