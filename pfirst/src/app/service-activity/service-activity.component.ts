@@ -103,13 +103,13 @@ export class ServiceActivityComponent implements OnInit {
           this.getAssignees(this.id);
           console.log("Acceptation ok!");
           const proposedUpdater = this.notificationService.buildUpdater(
-            new Notif('Vous avez une nouvelle proposition d\'aide', 'infos', '', 'activity'),
+            new Notif('Vous avez une nouvelle proposition d\'aide', 'info', '', 'activity'),
             new NotifContext('helpProposed', helperID, this.id),
             JSON.parse(localStorage.getItem('user')).idUser
           );
           this.notificationService.updateToTreated(proposedUpdater);
           this.notificationService.uploadNotif(
-            new Notif('Votre proposition d\'aide a été acceptée', 'infos', '', 'activity'),
+            new Notif('Votre proposition d\'aide a été acceptée', 'info', '', 'activity'),
             new NotifContext('helpAccepted', JSON.parse(localStorage.getItem('user')).idUser, this.id),
             helperID
           );
@@ -304,13 +304,13 @@ export class ServiceActivityComponent implements OnInit {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
           console.log("ID : ", id, " refusé !");
           const proposedUpdater = this.notificationService.buildUpdater(
-            new Notif('Vous avez une nouvelle proposition d\'aide', 'infos', '', 'activity'),
+            new Notif('Vous avez une nouvelle proposition d\'aide', 'info', '', 'activity'),
             new NotifContext('helpProposed', id, this.id),
             JSON.parse(localStorage.getItem('user')).idUser
           );
           this.notificationService.updateToTreated(proposedUpdater);
           this.notificationService.uploadNotif(
-            new Notif('Votre proposition d\'aide a été refusée', 'infos', '', 'activity'),
+            new Notif('Votre proposition d\'aide a été refusée', 'info', '', 'activity'),
             new NotifContext('helpRefused', JSON.parse(localStorage.getItem('user')).idUser, this.id),
             id
           );
