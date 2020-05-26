@@ -108,6 +108,7 @@ export class ReviewComponent implements OnInit {
           new NotifContext('reviewExpected', this.announceAuthorId, this.announceId),
           JSON.parse(localStorage.getItem('user')).idUser
         );
+        this.notificationService.updateToTreated(revUpdater);
       },
       (e) => {
         console.log('FAILURE REVIEW', e);

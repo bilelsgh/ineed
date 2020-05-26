@@ -226,7 +226,7 @@ export class ServiceService{
       .subscribe(
         (response) => {
           this.notificationService.uploadNotif(
-            new Notif('Vous avez une nouvelle proposition d\'aide', 'infos', '', 'activity'),
+            new Notif('Vous avez une nouvelle proposition d\'aide', 'info', '', 'activity'),
             new NotifContext('helpProposed', JSON.parse(localStorage.getItem('user')).idUser, announceID),
             authorId);
           },
@@ -240,9 +240,8 @@ export class ServiceService{
       );
   }
 
-  getLastAnnounces(number : number){
-
-    return new Promise((resolve,reject)=> {
+  getLastAnnounces(number: number){
+    return new Promise((resolve,reject) => {
       this.httpClient
         .get<any[]>(this.auth.backend+'api/announce/home/' + number )
         .subscribe(

@@ -16,7 +16,7 @@ export class NotificationService {
   notifSubject = new Subject<Notif[]>();
   lastNotifIndex: number = 0;
   watcher: any;
-  reviewNeededIds: number[];
+  reviewNeededIds: number[] = new Array();
   updaterRefused: string[] = new Array();
   updaterProposed: string[] = new Array();
   notifsDelayed: any[] = new Array(); // des opérations sont faites sur la liste de notif telles qu'elle peut ne pas
@@ -134,7 +134,6 @@ export class NotificationService {
               console.log('oneBackNotif :', oneBackNotif);
               const revUpdater = this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), 18);
               this.handleReviews(revUpdater);
-              console.log('Dépassé handleReviews');
               if (JSON.parse(oneBackNotif.context).detail == 'helpRefused'){
                 const updaterRefToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
                 if (!this.updaterRefused.includes(updaterRefToPush)){
@@ -151,6 +150,7 @@ export class NotificationService {
               this.notifList.push(notifToPush);
             });
             this.notifsDelayed = this.notifList;
+            console.log('REVIEWSID', this.reviewNeededIds);
             this.emitNotifSubject();
             /* firebase
             let notifIds = Object.keys(got);
@@ -175,7 +175,9 @@ export class NotificationService {
     if (myUpdater.includes('reviewExpected')) {
       let separated: string[] = myUpdater.split('reviewExpected');
       let sepAgain = separated[1].split('announce');
-      this.reviewNeededIds.push(+sepAgain[1]);
+      if (!this.reviewNeededIds.includes(+sepAgain[1])){
+        this.reviewNeededIds.push(+sepAgain[1]);
+      }
     }
   }
 
