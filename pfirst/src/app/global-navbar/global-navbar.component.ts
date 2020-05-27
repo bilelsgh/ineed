@@ -188,6 +188,7 @@ export class GlobalNavbarComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.notifSubscription.unsubscribe();
+    this.notificationService.sleepWatcher();
   }
   getPdpName(): string {
     return JSON.parse(localStorage.getItem('user')).photo;
