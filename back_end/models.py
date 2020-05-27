@@ -72,6 +72,7 @@ class Announce(db.Model):
         }
         return announce
 
+
 class Comment(db.Model):
     __tablename__ = 'Comment'
 
@@ -113,6 +114,7 @@ class Review(db.Model):
             'idReview' : self.idReview,
             'author' : self.author,
             'receiver' : self.receiver,
+
             'announce' : self.announce,
             'content' : self.content,
             'creationDate' : self.creationDate,
@@ -164,5 +166,6 @@ class Notification(db.Model):
             'content' : self.content
         }
         return notification
+
 
 

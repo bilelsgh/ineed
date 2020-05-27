@@ -1,9 +1,9 @@
-
 export class Courses{
   constructor(
     public idUser: number,
     public content: { datejour: string, dateheure:string, accompagner: any, budget : string, liste: { produit: string, quantite: string }[],
-    name: string, description: any,type: string, user: any, image : string, rejected : number[] },
+    name: string, description: any,type: string, user: any, image : string, city: string, latitude:number,longitude:number, rejected : number[]},
+
     public id : number,
     public price: number = 0,
     public viewNumber : number,

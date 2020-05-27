@@ -1,8 +1,8 @@
 export class Menage{
   constructor(public idUser : number,
-              public content : { type : string, name : string, user : string, description : string,
-                salle : string, localisation : string, surface : string, datejour : string, dateheure: string,
-                materiel : string[], image : string, rejected : number[]},
+              public content : {type : string, name : string, user : string, description : string,
+                salle : string, surface : string, datejour : string, dateheure: string,
+                materiel : string[], image : string, city:string,latitude: number, longitude:number, rejected : number[]},
               public id : number,
               public price : number = 0,
               public viewNumber : number,

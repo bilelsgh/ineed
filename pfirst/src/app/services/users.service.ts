@@ -174,7 +174,8 @@ export class UserService {
             console.log("#GETPROFILBYID");
             console.log(response);
             this.info_user = response['user'];
-            //this.auth.setUserInfo(JSON.stringify(response['user']), 'current_profil'); //on stocke les infos de l'utilisateur récupérée dans le local storage
+            //this.auth.setUserInfo(JSON.stringify(response['user']), 'current_profil'); //on stocke les infos de
+            // l'utilisateur récupérée dans le local storage
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token');
             /*this.info_user = response;
             console.log("#OK");

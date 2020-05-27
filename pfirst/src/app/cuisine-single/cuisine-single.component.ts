@@ -19,10 +19,12 @@ export class CuisineSingleComponent implements OnInit {
   Name: string = 'Courses';
   User: string = 'Utilisateur';
   Description: string = 'Description';
-  Sur_place: string = 'oui';
-  DispoJour: string = 'oui';
-  DispoHeure: string = 'oui';
-  Type_de_plat: string = "pas ouf";
+  Sur_place:string = 'oui';
+  DispoJour : string = 'oui';
+  DispoHeure : string = 'oui';
+  Type_de_plat : string = "pas ouf";
+
+  City : string;
   Id : number;
 
   @Input() service_descriptor: Cuisine;
@@ -42,13 +44,17 @@ export class CuisineSingleComponent implements OnInit {
     this.DispoJour=this.service_descriptor.content.datejour;
     this.DispoHeure=this.service_descriptor.content.dateheure;
     this.Type_de_plat=this.service_descriptor.content.type_de_plat;
+
     this.View = this.service_descriptor['viewNumber'];
+    this.City=this.service_descriptor.content.city;
 
   }
 
-
   goProfil(where : string) {
     this.router.navigate([where]);
+    //GESTION DU NOMBRE DE VUS
+    //this.updateView();
+
   }
 
   applyCuisine() {

@@ -24,10 +24,12 @@ export class MenageSingleComponent implements OnInit {
   Date : any;
   Heure: string ="";
   Salle: string ="";
-  Localisation: string;
+  City: string;
   Surface : number;
   liste_a_copier : string;
   copied = false;
+  Latitude: number;
+  Longitude : number;
   @Input() service_descriptor: Menage;
 
 
@@ -40,29 +42,19 @@ export class MenageSingleComponent implements OnInit {
     this.User=this.service_descriptor.content.user;
     this.Description = this.service_descriptor.content.description;
     this.Materiel= this.service_descriptor.content.materiel;
-    this.Date=new Date(this.service_descriptor.content.datejour);
+    this.Date=this.service_descriptor.content.datejour;
     this.Heure = this.service_descriptor.content.dateheure;
     this.Surface=parseInt(this.service_descriptor.content.surface);
     this.View= this.service_descriptor['viewNumber'];
+    this.Longitude=this.service_descriptor.content.longitude;
+    this.Latitude= this.service_descriptor.content.latitude;
+    this.City=this.service_descriptor.content.city;
+
 
     this.Salle=this.service_descriptor.content.salle;
-    this.Localisation=this.service_descriptor.content.localisation;
+
     this.writeList();
     this.copied = false;
-    /*
-    const id = this.route.snapshot.params['id'];
-    this.Name = this.serviceService.getServiceById(+id).name;
-    this.User=this.serviceService.getServiceById(+id).user;
-    this.Description = this.serviceService.getServiceById(+id).description;
-    this.Materiel= this.serviceService.getServiceById(+id).materiel;
-    this.Date=this.serviceService.getServiceById(+id).date;
-    this.Surface=this.serviceService.getServiceById(+id).surface;
-    this.Heure=this.serviceService.getServiceById(+id).heure;
-    this.Salle=this.serviceService.getServiceById(+id).salle;
-    this.Localisation=this.serviceService.getServiceById(+id).localisation;
-    this.writeList();
-    this.copied = false;
-     */
   }
 
   writeList(){

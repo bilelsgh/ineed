@@ -96,6 +96,7 @@
 /*AIDER QLQ */
 
 #tuveux{
+
   width: 500px;
 }
 #jetCourse, #jetAccompagne, #jetCuisine, #jetMenage{
@@ -109,6 +110,7 @@
   width: 300px;
   text-align: right;
 }
+
 
 #iNeedExplainedContainer
 {

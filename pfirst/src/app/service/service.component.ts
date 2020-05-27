@@ -16,13 +16,19 @@ export class ServiceComponent implements OnInit {
   @Input() index : number;
   @Input() id : number;
   @Input() status : number;
-
-
+  @Input() serviceLatitude: number;
+  @Input() serviceLongitude: number;
+  @Input() map =false;
+  latitude:number;
+  longitude: number;
 
   constructor() { }
 
   ngOnInit(): void {
     console.log("#IMAGE : " + this.serviceImage);
+    this.latitude=this.serviceLatitude;
+    this.longitude=this.serviceLongitude;
+
   }
 
   getUser(){
@@ -33,5 +39,13 @@ export class ServiceComponent implements OnInit {
     return this.serviceDescription;
   }
 
+  maps(){
+    if (this.map==false){
+      this.map=true;
+    }
+    else{
+      this.map=false;
+    }
+  }
 
 }

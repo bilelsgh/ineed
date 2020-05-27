@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import{AgmCoreModule} from '@agm/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -54,6 +55,10 @@ import {NotifierModule} from 'angular-notifier';
 import {ImageCompressorService} from "./services/image-compressor.service";
 import { ActivityComponent } from './activity/activity.component';
 import {MatSelectModule} from "@angular/material/select";
+import { GeolocComponent } from './geoloc/geoloc.component';
+import { GeolocService } from './services/geoloc.service';
+import { MiniMapComponent } from './mini-map/mini-map.component';
+import { DateService } from './services/date.service';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import { ServiceActivityComponent } from './service-activity/service-activity.component';
@@ -140,7 +145,10 @@ import { ServiceReviewComponent } from './service-review/service-review.componen
     ModalAreYouSureComponent,
     MatSnackBarComponent,
     ReviewComponent,
-    ServiceReviewComponent
+    ServiceReviewComponent,
+    GeolocComponent,
+    MiniMapComponent,
+    MatSnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -171,6 +179,8 @@ import { ServiceReviewComponent } from './service-review/service-review.componen
       }
     }),
     MatSelectModule,
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyBIh9TYl-xIbSabypO5hkQyNcZjRWSd0VI'}),
     MatToolbarModule,
     MatIconModule,
     MatSnackBarModule,
@@ -225,10 +235,12 @@ import { ServiceReviewComponent } from './service-review/service-review.componen
     UserService,
     ServiceService,
     NotificationService,
+    GeolocService,
     NgxImageCompressService,
     ImageCompressorService,
     SuiviService,
     MatSnackBarComponent,
+    DateService,
     Location
      // necessaire ?
   ],
