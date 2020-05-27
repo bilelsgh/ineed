@@ -7,10 +7,10 @@
 <mat-accordion *ngIf="this.reviewNeededIds.length != 0">
   <mat-expansion-panel id="eval">
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <mat-panel-title id="text">
         <b>Évaluations</b> <img style="width: 15px; height: 15px;" src="../../assets/data/cercle_orange.png" alt="">
       </mat-panel-title>
-      <mat-panel-description>
+      <mat-panel-description id="text">
         Évaluez vos derniers services
       </mat-panel-description>
     </mat-expansion-panel-header>
@@ -30,13 +30,13 @@
 <mat-accordion>
 
   <!-- ## EN COURS ## -->
-  <mat-expansion-panel>
+  <mat-expansion-panel id="en_cours_panel">
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <mat-panel-title id="text">
         <b>En cours</b> <img style="width: 15px;height:15px;" src="../../assets/data/cercle_bleu.png" *ngIf="en_cours_proposed.length != 0 ||
         en_cours_asked.length != 0" alt="">
       </mat-panel-title>
-      <mat-panel-description>
+      <mat-panel-description id="text">
         Demandes et propositions d'aide en cours de réalisation
       </mat-panel-description>
     </mat-expansion-panel-header>
@@ -87,12 +87,12 @@
   </mat-expansion-panel>
 
 <!-- ## DEMANDES ## -->
-  <mat-expansion-panel>
+  <mat-expansion-panel id="demande_panel">
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <mat-panel-title id="text">
         <b>Demandes</b> <img style="width: 15px;height:15px;" src="../../assets/data/cercle_bleu.png" *ngIf="asked_services.length !=0" alt="">
       </mat-panel-title>
-      <mat-panel-description>
+      <mat-panel-description id="text">
         Demandes d'aide pas encore réalisées
       </mat-panel-description>
     </mat-expansion-panel-header>
@@ -123,12 +123,12 @@
   </mat-expansion-panel>
 
   <!-- ## PROPOSITIONS ## -->
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
+  <mat-expansion-panel id="prop_panel">
+    <mat-expansion-panel-header >
+      <mat-panel-title id="text">
         <b>Propositions</b> <img style="width: 15px;height:15px;" src="../../assets/data/cercle_bleu.png" *ngIf="proposed_services.length !=0" alt="">
       </mat-panel-title>
-      <mat-panel-description>
+      <mat-panel-description id="text">
         Propositions d'aide pas encore réalisées
       </mat-panel-description>
     </mat-expansion-panel-header>

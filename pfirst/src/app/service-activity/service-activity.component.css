@@ -1,3 +1,8 @@
+:host-context(.theme-dark) #card{
+  background-color: #d2d2d2;
+
+}
+
 #delete{
   font-size: larger;
   color: #aaaaaa;

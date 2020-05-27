@@ -1,3 +1,21 @@
+:host-context(.theme-dark) #basic{
+  background-color: #d2d2d2;
+
+}
+
+:host-context(.theme-dark) #refused {
+  background-color: #6d0000;
+}
+
+:host-context(.theme-dark) #accepted {
+  background-color: #006d05;
+
+}
+
+:host-context(.theme-dark) #encours {
+  background-color: #a34e00;
+}
+
 #refused{
   background-color: #ffc3c3;
 }

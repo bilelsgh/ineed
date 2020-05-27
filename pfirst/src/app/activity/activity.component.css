@@ -1,6 +1,47 @@
-#eval{
+/* ### MODE NUIT ### */
+:host-context(.theme-dark) body{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: white;
+  box-sizing: border-box;
+  background-color: #2e2e2e;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:host-context(.theme-light) body{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:host-context(.theme-dark) #en_cours_panel{
+  background-color: gray;
+  color: white;
+}
+:host-context(.theme-dark) #demande_panel{
+  background-color: gray;
+  color: white;
+}
+:host-context(.theme-dark) #prop_panel{
+  background-color: gray;
+  color: white;
+}
+:host-context(.theme-dark) #text{
+  color: white;
+}
+:host-context(.theme-light) #eval{
   background-color: #ffe5b9;
 }
+:host-context(.theme-dark) #eval{
+  background-color: #995c00;
+}
+/* ################################################### */
+
 
 #services-list
 {
