@@ -7,7 +7,7 @@
 
 <div *ngIf="myService" class="alert alert-dismissable alert-warning">
   <table align="center">
-    Il s'agit de <b>votre annonce</b>. <button class="btn btn-warning" (click)="router.navigate([''])">
+    Il s'agit de <b>votre annonce</b>. <button class="btn btn-warning" (click)="router.navigate(['activite'])">
     Voir</button>
   </table>
 </div>
@@ -46,7 +46,7 @@
         <td><h2>A faire chez lui ?</h2></td>
         <td>{{Sur_place}}</td>
       </tr>
-     
+
       <tr>
         <td><h2>Quand ?</h2></td>
         <td>{{DispoJour}} a {{DispoHeure}}</td>
