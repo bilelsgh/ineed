@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
@@ -15,7 +15,7 @@ import {NotificationService} from "../services/notification.service";
   templateUrl: './service-activity.component.html',
   styleUrls: ['./service-activity.component.css']
 })
-export class ServiceActivityComponent implements OnInit {
+export class ServiceActivityComponent implements OnInit, OnDestroy {
 
   @Input() serviceName: string;
   @Input() ServiceType: string;
@@ -59,6 +59,22 @@ export class ServiceActivityComponent implements OnInit {
     );
     this.suiviServ.emiteDeleteSubject();
 
+  }
+
+  ngOnDestroy() {
+    //On supprime les notifications de proposition d'aide si le service a été lancé
+    if (this.status > 0) {
+      this.notificationService.updaterProposed.forEach( (oneUp) => {
+        if (+oneUp.split('announce')[1] == this.id){
+          this.notificationService.updateToTreated(oneUp);
+          this.notificationService.uploadNotif(
+            new Notif(JSON.parse(localStorage.getItem('user')).firstName + ' a lancé son service, votre aide a été refusée...','error', '', 'activity'),
+            new NotifContext('helpRefused', JSON.parse(localStorage.getItem('user')).idUser, this.id),
+            +oneUp.split('helpProposed')[0]
+          );
+        }
+      });
+    }
   }
 
   getHelpers(announceId: number = 0) {
@@ -187,18 +203,9 @@ export class ServiceActivityComponent implements OnInit {
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-          this.notificationService.updaterProposed.forEach( (oneUp) => {
-            this.notificationService.updateToTreated(oneUp);
-          });
           this.assignees.forEach( (oneAssignee) => {
             /*On supprime toutes les notifs d'acceptation des utilisateurs pour laisser celles de service en cours*/
             // -> suppression de l'acceptation
-            const oneAcceptUpdater = this.notificationService.buildUpdater(
-              new Notif('Votre proposition d\'aide a été acceptée', 'info', '','activity'),
-              new NotifContext('helpAccepted', JSON.parse(localStorage.getItem('user')).idUser, this.id),
-              oneAssignee
-            );
-            this.notificationService.updateToTreated(oneAcceptUpdater);
             //envoi de la notif de service en cours
             this.notificationService.uploadNotif(
               new Notif(JSON.parse(localStorage.getItem('user')).firstName + ' a lancé son service !', 'warning', '', 'activity'),

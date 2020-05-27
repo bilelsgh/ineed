@@ -23,7 +23,7 @@ export class FormerServiceComponent implements OnInit, OnChanges {
   cuisine: boolean;
   course: boolean;
   img_paths: any;
-  dateIfUndefined = new Date();
+  //dateIfUndefined = new Date();
 
   descriptCategorie =
     {

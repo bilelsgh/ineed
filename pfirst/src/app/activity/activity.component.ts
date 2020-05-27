@@ -66,7 +66,6 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.getProposedAnnounce();
     this.myID = JSON.parse(localStorage.getItem('user'))['idUser'];
     this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
-    this.updaterRefusedToDelete = this.notificationService.updaterRefused;
 
     console.log('ID : ', JSON.parse(localStorage.getItem('user'))['idUser']);
     this.userService.getPostedAnnounces(JSON.parse(localStorage.getItem('user'))['idUser'])
@@ -107,8 +106,12 @@ export class ActivityComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.updaterRefusedToDelete.forEach( (toDelete) => {
+    //les réponses aux demandes d'aides ont été vues
+    this.notificationService.updaterRefused.forEach( (toDelete) => {
       this.notificationService.updateToTreated(toDelete);
+    });
+    this.notificationService.updaterAccepted.forEach( (toDel) => {
+      this.notificationService.updateToTreated(toDel);
     });
     this.reviewNeedIdsSubscription.unsubscribe();
   }

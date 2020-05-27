@@ -36,8 +36,9 @@
       </div>
     </td>
     <td align="center">
-      <p class="dateFormat">{{datepipe.transform(date, 'yyyy/MM/dd')}}</p>
-      <p *ngIf="date==undefined || date==''" class="dateFormat">{{datepipe.transform(dateIfUndefined, 'yyyy/MM/dd')}}</p>
+      <!--<p class="dateFormat">{{datepipe.transform(date, 'yyyy/MM/dd')}}</p> a remettre si correction date-->
+      <p class="dateFormat">{{date}}</p>
+
       <img class="icone-cat" [src]="imgSrc">
     </td>
   </tr>

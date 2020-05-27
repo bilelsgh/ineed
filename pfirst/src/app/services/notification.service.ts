@@ -18,7 +18,8 @@ export class NotificationService {
   reviewNeededIdsSubject = new Subject<any[]>();
   /* On récupère les updaters des notifs à supprimer une fois qu'elles sont 'lues' */
   updaterRefused: string[] = new Array(); //updaters des Notifs d'aide refusée
-  updaterProposed: string[] = new Array(); //updaters des notifs d'aide acceptée
+  updaterAccepted: string[] = new Array(); //updaters des notifs d'aide acceptée
+  updaterProposed: string[] = new Array(); //updaters des notifs d'aide proposée
 
 
   constructor(private httpClient: HttpClient,
@@ -140,10 +141,17 @@ export class NotificationService {
               const notifToPush = JSON.parse(oneBackNotif.content);
               const revUpdater = this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), 18);
               this.handleReviews(revUpdater);
+              console.log('------------------',JSON.parse(oneBackNotif.context));
               if (JSON.parse(oneBackNotif.context).detail == 'helpRefused'){
                 const updaterRefToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
                 if (!this.updaterRefused.includes(updaterRefToPush)){
                   this.updaterRefused.push(updaterRefToPush);
+                }
+              }
+              if (JSON.parse(oneBackNotif.context).detail == 'helpAccepted'){
+                const updaterAccToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
+                if (!this.updaterAccepted.includes(updaterAccToPush)){
+                  this.updaterAccepted.push(updaterAccToPush);
                 }
               }
               if (JSON.parse(oneBackNotif.context).detail == 'helpProposed'){
