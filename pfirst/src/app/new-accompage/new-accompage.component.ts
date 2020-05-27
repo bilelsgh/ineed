@@ -30,6 +30,7 @@ ngOnInit(): void {
     this.initForm();
     this.info=this.geolocService.info;
   this.date=this.dateService.actu;
+  this.loca=false;
   }
 
   initForm(){

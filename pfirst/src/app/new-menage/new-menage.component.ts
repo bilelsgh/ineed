@@ -6,8 +6,6 @@ import { AuthService } from '../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Menage } from '../models/Menage.model';
 import { GeolocService } from '../services/geoloc.service';
-import { GeolocComponent } from '../geoloc/geoloc.component';
-import { Observable } from 'rxjs';
 
 import {  DateService } from '../services/date.service';
 import { AgmGeocoder } from '@agm/core';
@@ -39,6 +37,7 @@ ngOnInit(): void {
 
   this.info=this.geolocService.info;
   this.date=this.dateService.actu;
+  this.loca=false;
 
 
     this.initForm();

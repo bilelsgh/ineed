@@ -31,11 +31,13 @@ export class GeolocService  {
 
 
   setCurrentLocation() {
-    if ('geolocation' in navigator) {
+    //if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         
         this.info.latitude=position.coords.latitude;
         this.info.longitude=position.coords.longitude;
+        console.log("Je suis la ");
+        console.log(position);
         this.geoCoder = new google.maps.Geocoder;
         this.geoCoder.geocode({ 'location': { lat: this.info.latitude, lng: this.info.longitude } }, (results, status) => {
           console.log(results);
@@ -47,14 +49,20 @@ export class GeolocService  {
             }}
             
         });
+        
         console.log(this.info.latitude);
         
-      });
+      },
+      (eror)=> {console.log("wait wtf");
+       console.log(eror)},
+       {timeout:10000});
+      
       
 
       
       
-    }
+    //
+    console.log("geoloc is not in navigator");
   }
 
  

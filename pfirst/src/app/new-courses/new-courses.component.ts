@@ -40,6 +40,7 @@ export class NewCoursesComponent implements OnInit {
     this.info = this.geolocService.info;
     this.date = this.dateService.actu;
     this.initForm();
+    this.loca=false;
   }
 
   initForm() {

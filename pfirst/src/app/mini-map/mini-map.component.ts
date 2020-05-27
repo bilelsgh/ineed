@@ -10,6 +10,7 @@ export class MiniMapComponent implements OnInit {
 
   @Input() latitude:number;
   @Input() longitude:number;
+  @Input() zoom:number;
   service_descriptor: Menage;
   constructor() { } 
 
