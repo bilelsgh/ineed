@@ -3,6 +3,7 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
+import {MatSnackBarComponent} from '../mat-snack-bar/mat-snack-bar.component';
 
 @Component({
   selector: 'app-auth',
@@ -12,7 +13,7 @@ import {HttpClient} from '@angular/common/http';
 export class AuthComponent implements OnInit {
 
 
-  constructor(public authService: AuthService, private router: Router, private httpClient: HttpClient) {}
+  constructor(public authService: AuthService, private router: Router, private httpClient: HttpClient, public snackBar: MatSnackBarComponent) {}
   field_non_valid : boolean = false;
   bad_mail_password : boolean = false;
 
@@ -30,6 +31,7 @@ export class AuthComponent implements OnInit {
           console.log("#Connexion réussie : " + response);
           this.authService.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.authService.setUserInfo( JSON.stringify(response['user']), 'user');
+          this.snackBar.openSnackBar('Vous êtes connecté','', "blue-snackbar", 'top', 'center');
           //localStorage.setItem('login-token', JSON.stringify(response['token']));
           this.router.navigate(['']);
         },

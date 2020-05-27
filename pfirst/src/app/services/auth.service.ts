@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
+import {MatSnackBarComponent} from '../mat-snack-bar/mat-snack-bar.component';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class AuthService {
   backend = "https://rpicloud.ddns.net/";
   backend_test = "https://ineed-1ce51.firebaseio.com/";
   loggedInUserInfo : {};
-  constructor(private http : HttpClient, private router : Router) { }
+  constructor(private http : HttpClient, private router : Router, private snackBar: MatSnackBarComponent) { }
 
   public isAuthenticated() : Boolean {
 
@@ -27,9 +28,7 @@ export class AuthService {
     localStorage.removeItem('token');
     this.router.navigate(['']);
     this.disconnected_message = true;
-    setTimeout(
-      () => {
-        this.disconnected_message = false;},3000);
+    this.snackBar.openSnackBar('Vous avez été déconnecté','OK', "red-snackbar", 'top', 'center');
   }
 
   //Permet de stocker dans le localStorage : /!\  'data' doit être JSON.stringify avant d'être placé en paramètre

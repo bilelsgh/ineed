@@ -72,8 +72,6 @@ class Announce(db.Model):
         }
         return announce
 
-
-
 class Comment(db.Model):
     __tablename__ = 'Comment'
 
@@ -101,6 +99,7 @@ class Review(db.Model):
 
     idReview = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey('Users.idUser'))
+    receiver = db.Column(db.Integer, db.ForeignKey('Users.idUser'))
     announce = db.Column(db.Integer, db.ForeignKey('Announce.idAnnounce'))
     creationDate = db.Column(db.Date)
     content = db.Column(db.String(200))
@@ -113,6 +112,7 @@ class Review(db.Model):
         review = {
             'idReview' : self.idReview,
             'author' : self.author,
+            'receiver' : self.receiver,
             'announce' : self.announce,
             'content' : self.content,
             'creationDate' : self.creationDate,
@@ -140,5 +140,29 @@ class Answer(db.Model):
         }
         return answers
 
-    
+class Notification(db.Model):
+
+    __tablename__ = 'Notification'
+
+    idNotification = db.Column(db.Integer, primary_key=True)
+    userId = db.Column(db.Integer, db.ForeignKey('Users.idUser'))
+    creationDate = db.Column(db.Date)
+    content = db.Column(db.String(600))
+    context = db.Column(db.String(100))
+    treated = db.Column(db.Boolean)
+    updater = db.Column(db.String(50))
+
+    def __repr__(self):
+        return '<Notification {}>'.format(self.idNotification)
+
+    def to_json(self):
+        notification = {
+            'idNotification' : self.idNotification,
+            'userId' : self.userId,
+            'creationDate' : self.creationDate,
+            'context' : self.context,
+            'content' : self.content
+        }
+        return notification
+
 

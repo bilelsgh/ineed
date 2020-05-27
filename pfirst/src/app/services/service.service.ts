@@ -19,6 +19,7 @@ export class ServiceService{
   menageSubject = new Subject<Menage[]>();
   cuisineSubject = new Subject<Cuisine[]>();
   accompageSubject = new Subject<Accompage[]>();
+  lastAnnounces : any[];
 
   addCuisine(cuisine : Cuisine){
     cuisine.id=this.services[(this.services.length - 1)].id + 1
@@ -239,4 +240,29 @@ export class ServiceService{
     });
   }*/
 
+  getLastAnnounces(number : number){
+
+    return new Promise((resolve,reject)=> {
+      this.httpClient
+        .get<any[]>(this.auth.backend+'api/announce/home/' + number )
+        .subscribe(
+          (response) => {
+            for(let annonce of response["announces"]){
+              annonce.content = JSON.parse(annonce.content);
+            }
+            this.lastAnnounces = response;
+            resolve(true);
+          },
+          (error) => {
+            if(error['status'] === 401){
+              this.auth.removeUserInfo();
+              console.log("#TOKEN EXPIRED");
+            }
+            console.log("Erreur de récupération des X dernières annonces : " + error);
+            reject(true);
+          }
+        );
+    });
+
+  }
 }
