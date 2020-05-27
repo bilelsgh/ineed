@@ -8,18 +8,9 @@
       <!--#############PRENOM######################-->
       <form [formGroup]="coursesForm" (ngSubmit)="onSubmitForm()" id="form">
 
-        <div class="jumbotron" id="formulaire">
-
-          <div class="form-group">
-            <label for="user"><h2>Prénom</h2></label>
-            <input type="text" id="user" class="form-control" formControlName="user" placeholder="ex: Dupont">
-          </div>
-
-        </div>
 
         <!--#############DATE######################-->
         <div class="form-group">
-          <div class="jumbotron" id="formulaire">
             <div class="form-group">
               <label for="datejour"><h2>Selectionnez une Date et une Heure <span style="color:red">*</span></h2>
               </label>
@@ -30,9 +21,7 @@
 
             </div>
 
-          </div>
           <!--#############ACCOMPAGNE######################-->
-          <div class="jumbotron" id="formulaire">
             <div class="form-group">
               <label for="accompagne"><h2>Souhaitez vous que l'on vous accompagne ? <span style="color:red">*</span></h2></label>
               <select id="accompagne" class="form-control" formControlName="accompagne">
@@ -40,11 +29,9 @@
                 <option value="Non">Non !</option>
               </select>
             </div>
-          </div>
 
 
           <!--#############BUDGET######################-->
-          <div class="jumbotron" id="formulaire">
             <div class="input-group mb-3">
               <label for="budget"><h2>Quel est le montant de votre budget ?<span style="color:red">*</span></h2></label>
 
@@ -52,11 +39,9 @@
               <input type="text" id="budget" class="form-control" formControlName="budget">
               <span class="input-group-text">,00</span>
             </div>
-          </div>
 
 
           <!--#############LISTE DE COURSES######################-->
-          <div class="jumbotron" id="formulaire">
             <div class="form-group">
               <label for="liste"><h2>Ajoutez un élément à la liste de course<span style="color:red">*</span></h2></label>
 
@@ -79,7 +64,7 @@
                         <table cellpadding="10">
                           <tr>
                             <td>
-                              <li class="list-group-item d-flex justify-content-between align-items-center">
+                              <li id="liste_items" class="list-group-item d-flex justify-content-between align-items-center">
                                 {{element.produit}}
                                 <span class="badge badge-primary">{{element.quantite}}</span>
                               </li>
@@ -95,18 +80,17 @@
                 </table>
               </form>
             </div>
-          </div>
           <div class="form-group">
-              
-              
-               
+
+
+
             <label for ="ou" ><h2>Ou se ferra le service ? <span style="color:red">*</span></h2></label>
-          
+
 
               <table width="100%" border="1" cellspacing="1" cellpadding="5" class="geoloc">
-                
+
                 <tr>
-                
+
                 <td> <div *ngIf="add===false  ">
                   <button  type="button" id = "location-button"  (click)= "add=true;loca=false; map=false" class="btn btn-secondary" style= "width:100px;height: 100px;" >Avec votre adress</button>
                 </div>
@@ -119,7 +103,7 @@
               <br>
               <input type="text" id="adress" class="form-control" formControlName="adress" placeholder="ex: avenue des Champs Elysee" style= "width:200px;height: 100%;">
                 </div>
-                
+
                 </td>
                 <td>
                   <span class="badge badge-secondary" style= "width:50px;height: 50px; text-align:center" ><br> <br>OU</span>
@@ -132,31 +116,29 @@
                     <label for ="location" ><h3>Votre localisation</h3></label>
                 <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyer</button>
 
-                
+
                   </div>
                 </td>
-                
-                
+
+
                 </tr>
                 <td></td>
                 <td></td>
                 <td>
                   <div *ngIf="map" style= "width:250px;height: 250px"> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" [zoom]="12" ></app-mini-map></div>
                 </td>
-              
+
                 </table>
           </div>
 
 
           <!--#############COMMENTAIRES######################-->
-          <div class="jumbotron" id="formulaire">
             <div class="form group">
               <label for="description"><h2>Commentaires ? <span style="color:red">*</span></h2></label>
               <!--<input type="text" id="description" class="form-control" formControlName="description"> -->
               <textarea class="form-control" aria-label="With textarea" id="description" class="form-control"
                         formControlName="description" placeholder="ex: Vous pourrez venir chez moi"></textarea>
             </div>
-          </div>
           <br>
 
           <button type="submit" class="btn btn-primary" [disabled]="coursesForm.invalid">Soumettre</button>

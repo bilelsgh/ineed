@@ -90,7 +90,7 @@
   <mat-expansion-panel id="demande_panel">
     <mat-expansion-panel-header>
       <mat-panel-title id="text">
-        <b>Demandes</b> <img style="width: 15px;height:15px;" src="../../assets/data/cercle_bleu.png" *ngIf="asked_services.length !=0" alt="">
+        <b>Demandes</b> <img style="width: 15px;height:15px;" src="../../assets/data/cercle_bleu.png" *ngIf="thereAreAskedServices()" alt="">
       </mat-panel-title>
       <mat-panel-description id="text">
         Demandes d'aide pas encore réalisées
@@ -126,7 +126,7 @@
   <mat-expansion-panel id="prop_panel">
     <mat-expansion-panel-header >
       <mat-panel-title id="text">
-        <b>Propositions</b> <img style="width: 15px;height:15px;" src="../../assets/data/cercle_bleu.png" *ngIf="proposed_services.length !=0" alt="">
+        <b>Propositions</b> <img style="width: 15px;height:15px;" src="../../assets/data/cercle_bleu.png" *ngIf="thereAreProposedServices()" alt="">
       </mat-panel-title>
       <mat-panel-description id="text">
         Propositions d'aide pas encore réalisées

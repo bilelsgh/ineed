@@ -14,3 +14,6 @@ td {
   background-color: grey;
 }
 
+:host-context(.theme-dark) #liste_items{
+  background-color: #9e9c9c;
+}

@@ -25,6 +25,11 @@ mat-dialog-container#modal-user-component{
   color: white;
 }
 
+.green-snackbar{
+  background-color: forestgreen;
+  color: white;
+}
+
 .light-mode{
   background-color: #aaaaaa;
   color: black;

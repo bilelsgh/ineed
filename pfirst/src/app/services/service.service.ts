@@ -8,10 +8,16 @@ import { Cuisine } from '../models/Cuisine.model';
 import { Accompage } from '../models/Accompage.model';
 import {NotificationService} from "./notification.service";
 import {Notif, NotifContext} from "../models/notification.model";
+import {MatSnackBarComponent} from '../mat-snack-bar/mat-snack-bar.component';
 
 @Injectable()
 export class ServiceService{
 
+  constructor(private httpClient : HttpClient,
+              private auth : AuthService,
+              private notificationService: NotificationService,
+              private snackBar : MatSnackBarComponent){
+  }
   current_service: any;
   private courses:Courses[]= [];
   private menage:Menage[] =[];
@@ -41,6 +47,7 @@ export class ServiceService{
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
           console.log("#DEBUG : Envoie de cuisine vers le BACK réussi");
+          this.snackBar.openSnackBar('Votre demande de service a bien été effectuée','', "green-snackbar", 'top', 'center');
           console.table(response);
         },
         (error) => {
@@ -76,6 +83,7 @@ export class ServiceService{
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
           console.log("#DEBUG : Envoie de accompagne vers le BACK réussi");
+          this.snackBar.openSnackBar('Votre demande de service a bien été effectuée','', "green-snackbar", 'top', 'center');
           console.table(response);
         },
         (error) => {
@@ -114,6 +122,7 @@ export class ServiceService{
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
           console.log("#DEBUG : Envoie des courses vers le BACK réussi");
+          this.snackBar.openSnackBar('Votre demande de service a bien été effectuée','', "green-snackbar", 'top', 'center');
           console.table(response);
         },
         (error) => {
@@ -147,6 +156,7 @@ export class ServiceService{
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
           console.log("#DEBUG : Envoie de ménage vers le BACK réussi");
+          this.snackBar.openSnackBar('Votre demande de service a bien été effectuée','', "green-snackbar", 'top', 'center');
           console.table(response);
         },
         (error) => {
@@ -181,10 +191,7 @@ export class ServiceService{
     }
   ];
 
-  constructor(private httpClient : HttpClient,
-              private auth : AuthService,
-              private notificationService: NotificationService){
-  }
+
 
   //Récupérer une annonce par ID depuis firebase
   getServiceById(id: number) {
@@ -228,7 +235,7 @@ export class ServiceService{
             new Notif(JSON.parse(localStorage.getItem('user')).firstName + ' vous propose son aide, répondez lui !', 'info', '', 'activity'),
             new NotifContext('helpProposed', JSON.parse(localStorage.getItem('user')).idUser, announceID),
             authorId);
-          },
+        },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();

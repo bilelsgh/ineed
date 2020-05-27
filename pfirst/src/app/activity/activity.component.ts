@@ -186,4 +186,36 @@ export class ActivityComponent implements OnInit, OnDestroy {
           }
         );
   }
+
+  thereAreAskedServices(): boolean{
+    if(this.asked_services.length === 0){
+      return false;
+    }
+    else{
+      for(let elt of this.asked_services){
+        if(elt.status === 0){
+          return true;
+        }
+      }
+      return false;
+    }
+
+  }
+
+
+  thereAreProposedServices(): boolean{
+    if(this.proposed_services.length === 0){
+      return false;
+    }
+    else{
+      for(let elt of this.proposed_services){
+        if(elt.status === 0){
+          return true;
+        }
+      }
+      return false;
+    }
+
+  }
+
 }

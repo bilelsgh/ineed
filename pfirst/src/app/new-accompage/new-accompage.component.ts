@@ -35,7 +35,6 @@ ngOnInit(): void {
 
   initForm(){
     this.accompagneForm=this.formBuilder.group({
-      user: ['', Validators.required],
       description:['', Validators.required],
       kind:['', Validators.required],
       quand1 :['', Validators.required],
@@ -57,7 +56,7 @@ ngOnInit(): void {
     content.quand2= f.value['quand2'];
     content.local=f.value['local'];
     content.description=f.value['description'];
-    content.user=f.value['user'];
+    content.user=JSON.parse(localStorage.getItem("user"))['firstName'];
     content.latitude=this.info.latitude;
     content.longitude=this.info.longitude;
 

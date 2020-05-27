@@ -8,6 +8,7 @@ import {Menage} from '../models/Menage.model';
 import {GeolocService} from '../services/geoloc.service';
 import {DateService} from '../services/date.service';
 import {AgmGeocoder} from '@agm/core';
+import {MatSnackBarComponent} from '../mat-snack-bar/mat-snack-bar.component';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class NewMenageComponent implements OnInit {
   menageForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
-              private httpClient: HttpClient, private auth: AuthService, private geolocService: GeolocService, private dateService: DateService, private geocodeService: AgmGeocoder) {
+              private httpClient: HttpClient, private auth: AuthService, private geolocService: GeolocService, private dateService: DateService,
+              private geocodeService: AgmGeocoder) {
   }
 
   ngOnInit(): void {
@@ -45,7 +47,6 @@ export class NewMenageComponent implements OnInit {
   initForm() {
 
     this.menageForm = this.formBuilder.group({
-      user: ['', Validators.required],
       description: ['', Validators.required],
       //materiel:[[], Validators.required],
       surface: ['', Validators.required],
@@ -84,7 +85,7 @@ export class NewMenageComponent implements OnInit {
     content.latitude = this.info.latitude;
     content.longitude = this.info.longitude;
 
-    content.user = f.value['user'];
+    content.user = JSON.parse(localStorage.getItem("user"))['firstName'];
 
     content.materiel = this.liste_materiel;
 

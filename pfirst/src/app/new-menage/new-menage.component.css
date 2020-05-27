@@ -3,8 +3,8 @@ table,
 td {
   border: 0px solid #333;
   width:  50%;
-  
-  
+
+
 }
 
 
@@ -13,4 +13,8 @@ td {
 :host-context(.theme-dark) #jumb{
   background-color: grey;
 
+}
+
+:host-context(.theme-dark) #liste_items{
+  background-color: #9e9c9c;
 }

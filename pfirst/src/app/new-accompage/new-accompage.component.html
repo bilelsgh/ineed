@@ -6,10 +6,6 @@
           <!--#############PRENOM######################-->
           <div class="col-sm-8 col-sm-offset-2">
             <form [formGroup]="accompagneForm" (ngSubmit)="onSubmitForm()" id="form" >
-              <div class="form-group">
-                <label for ="user" ><h2>Prénom</h2></label>
-                <input type="text" id="user" class="form-control" formControlName="user" placeholder="ex: Dupont">
-              </div>
 
               <div class= "form-group">
                 <label for="kind"><h2>Ce sera pontuel ou regulier ?<span style="color:red">*</span> </h2></label>
@@ -34,18 +30,18 @@
               <input type="date" id="datejour" class="form-control" formControlName="datejour" [min]="this.date" >
               </div>
 
-              
+
                 <div class="form-group">
-              
-              
-               
+
+
+
                 <label for ="ou" ><h2>Ou se ferra le service ? <span style="color:red">*</span></h2></label>
-              
+
 
                   <table width="100%" border="1" cellspacing="1" cellpadding="5" class="geoloc">
-                    
+
                     <tr>
-                    
+
                     <td> <div *ngIf="add===false  ">
                       <button  type="button" id = "location-button"  (click)= "add=true;loca=false;map=false" class="btn btn-secondary" style= "width:100px;height: 100px;" >Avec votre adress</button>
                     </div>
@@ -58,7 +54,7 @@
                   <br>
                   <input type="text" id="adress" class="form-control" formControlName="adress" placeholder="ex: avenue des Champs Elysee" style= "width:200px;height: 100%;">
                     </div>
-                    
+
                     </td>
                     <td>
                       <span class="badge badge-secondary" style= "width:50px;height: 50px; text-align:center" ><br> <br>OU</span>
@@ -70,23 +66,23 @@
                       <div *ngIf="add===false && loca ===true ">
                         <label for ="location" ><h3>Votre localisation</h3></label>
                     <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyer</button>
-  
-                    
+
+
                       </div>
                     </td>
-                    
-                    
+
+
                     </tr>
                     <td></td>
                     <td></td>
                     <td>
                       <div *ngIf="map" style= "width:250px;height: 250px"> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" [zoom]="12" ></app-mini-map></div>
                     </td>
-                  
+
                     </table>
               </div>
 
-      
+
 
               <div class="form group">
                 <label for ="description"> <h2>Commentaires ? <span style="color:red">*</span></h2></label>

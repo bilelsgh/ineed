@@ -37,7 +37,6 @@ export class NewCuisineComponent implements OnInit {
 
   initForm() {
     this.cuisineForm = this.formBuilder.group({
-      user: ['', Validators.required],
       description: ['', Validators.required],
       sur_place: ['', Validators.required],
       type_plat: ['', Validators.required],
@@ -80,7 +79,7 @@ export class NewCuisineComponent implements OnInit {
     content.latitude = this.info.latitude;
     content.longitude = this.info.longitude;
 
-    content.user = f.value['user'];
+    content.user = JSON.parse(localStorage.getItem("user"))['firstName'];
 
 
     if (this.loca == false) {

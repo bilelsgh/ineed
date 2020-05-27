@@ -45,7 +45,6 @@ export class NewCoursesComponent implements OnInit {
 
   initForm() {
     this.coursesForm = this.formBuilder.group({
-      user: ['', Validators.required],
       description: ['', Validators.required],
       //liste: [[], Validators.required],
       accompagne: ['', Validators.required],
@@ -73,7 +72,7 @@ export class NewCoursesComponent implements OnInit {
     content.latitude = this.info.latitude;
     content.longitude = this.info.longitude;
 
-    content.user = f.value['user'];
+    content.user = JSON.parse(localStorage.getItem("user"))['firstName'];
     content.city = f.value['city'];
     if (this.loca == false) {
       this.geolocService.getLatLong(f.value['city'] + f.value['adress'])

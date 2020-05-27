@@ -6,10 +6,7 @@
           <!--#############PRENOM######################-->
           <div class="col-sm-8 ">
             <form [formGroup]="menageForm" (ngSubmit)="onSubmitForm()" id="form">
-              <div class="form-group">
-                <label for ="user" ><h2>Prénom</h2></label>
-                <input type="text" id="user" class="form-control" formControlName="user" placeholder="ex: Dupont">
-              </div>
+
 
               <!--#############DISPO######################-->
               <div class= "form-group">
@@ -102,7 +99,7 @@
                             <table cellpadding="10">
                               <tr>
                                 <td>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                                  <li id="liste_items" class="list-group-item d-flex justify-content-between align-items-center">
                                     {{element}}
                                   </li>
                                 </td>

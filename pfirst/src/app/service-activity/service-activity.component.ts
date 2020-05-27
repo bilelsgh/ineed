@@ -37,7 +37,7 @@ export class ServiceActivityComponent implements OnInit {
   public noAssignees: boolean;
   public finished : boolean;
   name_assignees  = {};
-  public deleted : number;
+  public deleted : number[];
   deleteSubscription : Subscription;
 
   constructor(private httpClient: HttpClient,
@@ -49,11 +49,11 @@ export class ServiceActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.deleted = -1;
+    this.deleted = [];
     this.getAssignees(this.id);
     this.getHelpers(this.id);
     this.deleteSubscription = this.suiviServ.deleteSubject.subscribe(
-      (response: number) => {
+      (response: number[]) => {
         this.deleted = response;
       }
     );
