@@ -18,10 +18,10 @@
               <input type="date" id="datejour" class="form-control" formControlName="datejour" [min]="this.date" >
               <label for="dateheure">Heure</label>
                 <input type="time" id="dateheure" class="form-control" formControlName="dateheure" >
-                
+
               </div>
-              
-              
+
+
               <div class="input-group mb-3">
                 <label for="surface"><h2>Surface a nettoyer ? <span style="color:red">*</span></h2>
                   </label>
@@ -40,7 +40,7 @@
                 <table width="100%" border="1" cellspacing="1" cellpadding="5" class="geoloc">
                   
                   <tr>
-                  
+
                   <td> <div *ngIf="add===false  ">
                     <button  type="button" id = "location-button"  (click)= "add=true;loca=false" class="btn btn-secondary" style= "width:100px;height: 100px;" >Avec votre adress</button>
                   </div>
@@ -53,7 +53,7 @@
                 <br>
                 <input type="text" id="adress" class="form-control" formControlName="adress" placeholder="ex: avenue des Champs Elysee" style= "width:200px;height: 100%;">
                   </div>
-                  
+
                   </td>
                   <td>
                     <span class="badge badge-secondary" style= "width:50px;height: 50px; text-align:center" ><br> <br>OU</span>
@@ -66,11 +66,11 @@
                       <label for ="location" ><h3>Votre localisation</h3></label>
                   <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyer</button>
 
-                  
+
                     </div>
                   </td>
-                  
-                  
+
+
                   </tr>
                   <td></td>
                   <td></td>
@@ -79,12 +79,7 @@
                   </td>
                 
                   </table>
-              
-                
-                
-                  
-                
-              
+
               </div>
 
 
@@ -146,4 +141,5 @@
 
         </table>
     </div>
+
 
