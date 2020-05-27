@@ -1,4 +1,5 @@
 <div class="main-body">
+
   <div class="jumbotron text-center">
     <h2 class="display-4 text-white">"Un peu d'aide fait grand bien"</h2>
     <h3 class="text-white">Dès maintenant, aide les personnes dans le besoin près de toi.</h3>
@@ -15,61 +16,68 @@
             <span id="text_rendre">
               Rendre service
             </span></button>
+          </td>
+        </tr>
+      </div>
+    </table>
+  </div>
+
+  <div id="iNeedExplainedContainer">
+    <!-- INEED C'EST QUOI ?-->
+    <table align="center" cellpadding="80" width="70%">
+      <tr>
+        <td valign="top">
+          <table>
+            <tr>
+              <td><img id="IneedCQ" src="../../assets/data/ACCUEIL/ineedCQ.png" alt=""></td>
+            </tr>
+            <tr>
+              <p id="textIn"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie.
+                Sapristi, en voilà déjà un de mort. Chouette journée pour une petite gueuse ; et quant à ce que je compris
+                que j'avais remarquée.</p>
+            </tr>
+          </table>
+        </td>
+        <td align="right">
+          <img style="cursor:pointer" id="pile" src="../../assets/data/ACCUEIL/pile.png" alt="">
         </td>
       </tr>
-    </div>
-  </table>
-</div>
+    </table>
 
-<div id="iNeedExplainedContainer">
-  <!-- INEED C'EST QUOI ?-->
-  <table align="center" cellpadding="80" width="70%">
-    <tr>
-      <td valign="top">
-        <table>
-          <tr>
-            <td><img id="IneedCQ" src="../../assets/data/ACCUEIL/ineedCQ.png" alt=""></td>
-          </tr>
-          <tr>
-            <p id="textIn"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie.
-              Sapristi, en voilà déjà un de mort. Chouette journée pour une petite gueuse ; et quant à ce que je compris
-              que j'avais remarquée.</p>
-          </tr>
-        </table>
-      </td>
-      <td align="right">
-        <img style="cursor:pointer" id="pile" src="../../assets/data/ACCUEIL/pile.png" alt="">
-      </td>
-    </tr>
-  </table>
+    <!-- SEPARATE-->
+    <table align="center">
+      <tr>
+        <img id="sep" src="../../assets/data/ACCUEIL/separ.png" alt="">
+      </tr>
+    </table>
 
-
-<!-- SEPARATE-->
-<table align="center">
-  <tr>
-    <img id="sep" src="../../assets/data/ACCUEIL/separ.png" alt="">
-  </tr>
-</table>
-
-<!-- AIDER QUELQUUN ?-->
-<table align="center" cellpadding="80">
-  <tr>
-    <td align="right">
-      <img id="jetCourse" src="../../assets/data/ACCUEIL/jetonCourse.png" alt="">
-    </td>
-    <td valign="top">
-      <table>
-        <tr>
-          <td><img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt=""></td>
-        </tr>
-        <tr>
-          <p id="textTV"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie. Sapristi, en voilà déjà un de mort. Chouette journée pour une petite gueuse ; et quant à ce que je compris que j'avais remarquée.</p>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-
-
+    <!-- AIDER QUELQUUN ?-->
+    <table align="center" cellpadding="80" width="70%">
+      <tr>
+        <td align="right">
+          <img style="cursor:pointer" id="jetCourse" src="../../assets/data/ACCUEIL/jetonCourse.png" alt=""
+               (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service1'">
+          <img style="cursor:pointer" id="jetMenage" src="../../assets/data/ACCUEIL/jetonMenage.png" alt=""
+               (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service2'">
+          <img style="cursor:pointer" id="jetCuisine" src="../../assets/data/ACCUEIL/jetonCuisine.png" alt=""
+               (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service3'">
+          <img style="cursor:pointer" id="jetAccompagne" src="../../assets/data/ACCUEIL/jetonAcc.png" alt=""
+               (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service4'">
+        </td>
+        <td valign="top">
+          <table>
+            <tr>
+              <td><img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt="" ></td>
+            </tr>
+            <tr>
+              <p id="textTV"> Autre absurdité, renouvelée du stoïcisme, et tous deux perpétuaient leur plaisanterie.
+                Sapristi, en voilà déjà un de mort. Chouette journée pour une petite gueuse ; et quant à ce que je compris
+                que j'avais remarquée.</p>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
 
 
