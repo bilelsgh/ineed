@@ -35,9 +35,6 @@ export class InfoSettingsComponent implements OnInit {
   phone: string;
   info_user: any = JSON.parse(localStorage.getItem('user'));
 
-  notifs: any = {
-    profilPic: 'Veuillez entrer une nouvelle pdp'
-  };
 
   undefinedPicURL: string;
 

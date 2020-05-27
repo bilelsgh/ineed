@@ -64,8 +64,7 @@
 
                 <div class="jumbotron" id="formulaire">
                   <label for="profil-pic">
-                    <span *ngIf="this.notifs.profilPic == ''">Votre photo de profil</span>
-                    <span style="color: red" *ngIf="this.notifs.profilPic != ''">{{this.notifs.profilPic}}</span>
+                    <span>Votre photo de profil</span>
                   </label>
                   <input type="file" class="form-control" id="profil-pic" name="profil-pic"
                          (change)="onFileSelected($event)"
