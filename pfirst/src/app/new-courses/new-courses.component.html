@@ -159,7 +159,9 @@
           </div>
           <br>
 
-          <button type="submit" class="btn btn-primary">Soumettre</button>
+          <button type="submit" class="btn btn-primary" [disabled]="coursesForm.invalid">Soumettre</button>
+          <i><p *ngIf="!coursesForm.valid" style="color:gray">Veuillez remplir tout les champs <span style="color:red">*</span>
+          </p></i>
         </div>
       </form>
 

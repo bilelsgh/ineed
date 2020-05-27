@@ -8,12 +8,12 @@
             <form [formGroup]="accompagneForm" (ngSubmit)="onSubmitForm()" id="form" >
               <div class="form-group">
                 <label for ="user" ><h2>Prénom</h2></label>
-                <input type="text" id="user" class="form-control" formControlName="user">
+                <input type="text" id="user" class="form-control" formControlName="user" placeholder="ex: Dupont">
               </div>
 
               <div class= "form-group">
                 <label for="kind"><h2>Ce sera pontuel ou regulier ?<span style="color:red">*</span> </h2></label>
-                <select id="kind" class="form-control" formControlName="kind" required>
+                <select id="kind" class="form-control" formControlName="kind" required >
                   <option value="ponctuel">Ponctuel</option>
                   <option value="regulier">Regulier si c' est possible</option>
                 </select>
@@ -24,7 +24,7 @@
                 <label for="quand"><h2>Quand se deroulera votre demande ? <span style="color:red">*</span></h2>
                 </label>
                 <label for="quand1">Debut</label>
-                <input type="time" id="quand1" class="form-control" formControlName="quand1" required>
+                <input type="time" id="quand1" class="form-control" formControlName="quand1" required >
                 <label for="quand2">Fin</label>
                 <input type="time" id="quand2" class="form-control" formControlName="quand2"required >
               </div>
@@ -91,11 +91,13 @@
               <div class="form group">
                 <label for ="description"> <h2>Commentaires ? <span style="color:red">*</span></h2></label>
                 <!--<input type="text" id="description" class="form-control" formControlName="description"> -->
-                <textarea class="form-control" aria-label="With textarea" id="description" class="form-control" formControlName="description" required></textarea>
+                <textarea class="form-control" aria-label="With textarea" id="description" class="form-control" formControlName="description" required placeholder="ex: Vous pourrez venir chez moi"></textarea>
               </div>
               <br>
 
-              <button type="submit" class="btn btn-primary" >Soumettre</button>
+              <button type="submit" class="btn btn-primary"[disabled]="accompagneForm.invalid" >Soumettre</button>
+              <i><p *ngIf="!accompagneForm.valid" style="color:gray">Veuillez remplir tout les champs <span style="color:red">*</span>
+              </p></i>
             </form>
 
           </div>

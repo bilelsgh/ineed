@@ -92,13 +92,13 @@
             <div class= "form-group">
                 <label for="liste"><h2>Liste du materiel qui est a votre disposition </h2></label>
 
-                <form (ngSubmit)="ajouterListe(liste)" #liste="ngForm">
+                <form (ngSubmit)="ajouterListe(liste)" #liste="ngForm" >
                   <table>
                     <tr>
                       <td>Materiel</td>
                     </tr>
                     <tr>
-                      <td><input type="text" id="liste" name="liste_materiel" ngModel></td>
+                      <td><input type="text" id="liste" name="liste_materiel" ngModel ></td>
                       <td><button  class="btn btn-secondary" >Ajouter</button></td>
                     </tr>
                     <tr>
@@ -136,7 +136,9 @@
               </div>
               <br>
 
-              <button type="submit" class="btn btn-primary"  >Soumettre</button>
+              <button type="submit" class="btn btn-primary" [disabled]="menageForm.invalid" >Soumettre</button>
+              <i><p *ngIf="!menageForm.valid" style="color:gray">Veuillez remplir tout les champs <span style="color:red">*</span>
+              </p></i>
             </form>
 
           </div>

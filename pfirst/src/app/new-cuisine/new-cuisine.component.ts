@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -36,13 +36,12 @@ ngOnInit(): void {
 
   initForm(){
     this.cuisineForm=this.formBuilder.group({
-      user: "",
-      description:"" ,
-      sur_place:"",
-      type_plat : "",
-      lieu : "",
-      datejour: "",
-      dateheure:'',
+      user: ['', Validators.required],
+      description:['', Validators.required],
+      sur_place:['', Validators.required],
+      type_plat : ['', Validators.required],
+      datejour: ['', Validators.required],
+      dateheure:['', Validators.required],
       city:'',
       adress:'',
     });}

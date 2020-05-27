@@ -47,13 +47,13 @@ export class NewCoursesComponent implements OnInit {
     this.coursesForm = this.formBuilder.group({
       user: ['', Validators.required],
       description: ['', Validators.required],
-      liste: [[], Validators.required],
+      //liste: [[], Validators.required],
       accompagne: ['', Validators.required],
       budget: ['', Validators.required],
       datejour: ['', Validators.required],
       dateheure: ['', Validators.required],
-      city: ['', Validators.required],
-      adress: ['', Validators.required],
+      city: '',
+      adress: '',
     });
   }
 

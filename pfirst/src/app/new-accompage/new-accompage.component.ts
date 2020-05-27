@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -35,13 +35,12 @@ ngOnInit(): void {
 
   initForm(){
     this.accompagneForm=this.formBuilder.group({
-      user: "",
-      description:"" ,
-      kind:"",
-      quand1 : "",
-      quand2:"",
-      local : "",
-      datejour: "",
+      user: ['', Validators.required],
+      description:['', Validators.required],
+      kind:['', Validators.required],
+      quand1 :['', Validators.required],
+      quand2:['', Validators.required],
+      datejour: ['', Validators.required],
       city:"",
       adress:"",
     });}

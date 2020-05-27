@@ -48,12 +48,12 @@ ngOnInit(): void {
     this.menageForm=this.formBuilder.group({
       user: ['', Validators.required],
       description:['', Validators.required],
-      materiel:['', Validators.required],
+      //materiel:[[], Validators.required],
       surface :['', Validators.required],
-      datejour : '',
+      datejour : ['', Validators.required],
       dateheure:['', Validators.required],
-      city: ['', Validators.required],
-      adress: ['', Validators.required],
+      city: '',
+      adress:'',
       salle: ['', Validators.required],
     });}
 
