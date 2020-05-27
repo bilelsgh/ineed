@@ -21,7 +21,7 @@
                 <a href="#" class="btn btn-primary"[routerLink]="[id]" >Voir l'annonce</a>
               </div>
               <div class="text-right">
-                <a type="button"  class="btn btn-primary" (click)="map=true">Map</a>
+                <a type="button"  class="btn btn-primary" (click)="maps()">Map</a>
                 <div *ngIf="map"> <app-mini-map [latitude]="this.latitude" [longitude]="this.longitude" ></app-mini-map></div>
               </div>
             </div>

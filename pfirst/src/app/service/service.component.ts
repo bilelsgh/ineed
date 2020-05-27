@@ -41,5 +41,13 @@ export class ServiceComponent implements OnInit {
     return this.serviceDescription;
   }
 
+  maps(){
+    if (this.map==false){
+      this.map=true;
+    }
+    else{
+      this.map=false;
+    }
+  }
 
 }
