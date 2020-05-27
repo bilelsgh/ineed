@@ -8,64 +8,69 @@ import {AuthService} from "./auth.service";
 @Injectable()
 export class NotificationService {
 
-  //hasNew: boolean = true;
-  notifList: Notif[] = new Array();
-  alreadyNotified: Notif[] = new Array();
-  userId: string = '-1';
-  //listObservable = from(this.notifList);
+  notifList: Notif[] = new Array(); // contient les notifs de l'user
+  notifsDelayed: any[] = new Array(); // des opérations sont faites sur la liste de notif telles qu'elle peut ne pas etre a
+                                      // jour au moment de l'appel à certaines fonctions, on sauvegarde donc un état valide
+  alreadyNotified: Notif[] = new Array(); // pour ne pas afficher plusieurs fois la même notif
   notifSubject = new Subject<Notif[]>();
-  lastNotifIndex: number = 0;
-  watcher: any;
-  reviewNeededIds: number[] = new Array();
+  watcher: any; // id retourné par la fonction setInterval() qui permet de stoper celle-ci après
+  reviewNeededIds: number[] = new Array(); // Id des annonces qui ont besoin de review
   reviewNeededIdsSubject = new Subject<any[]>();
-  updaterRefused: string[] = new Array();
-  updaterProposed: string[] = new Array();
-  notifsDelayed: any[] = new Array(); // des opérations sont faites sur la liste de notif telles qu'elle peut ne pas
-                                      // etre a jour au moment de l'appel à certaines fonctions
+  /* On récupère les updaters des notifs à supprimer une fois qu'elles sont 'lues' */
+  updaterRefused: string[] = new Array(); //updaters des Notifs d'aide refusée
+  updaterProposed: string[] = new Array(); //updaters des notifs d'aide acceptée
+
 
   constructor(private httpClient: HttpClient,
               private notifierService: NotifierService,
               private authService: AuthService) {
     if (this.authService.isAuthenticated()) {
+      //trigger périodique de la fonction de récupération des notifs -> provoqué à la connexion
       this.wakeWatcher(10000); // si l'utilisateur est toujours connecté, on lance le watcher
     }
-    //trigger périodique de la fonction de récupération des notifs -> provoqué à la connexion
-    //this.wakeWatcher(5000);
 
-    //installation des notifs firebase
-    /*  upload auto pour tests
-    this.uploadNotif(
-      new Notif("Notification de test", "warning"),
-      new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
-      JSON.parse(localStorage.getItem('user')).idUser);
-    //this.updateNotifCache(true);
-    this.uploadNotif(
-      new Notif("Notif test 2", "info"),
-      new NotifContext(JSON.parse(localStorage.getItem('user')).idUser),
-        JSON.parse(localStorage.getItem('user')).idUser);
-     */
   }
 
   wakeWatcher(freq: number) {
+    // la fonction watchNotifs() est appelée toutes les <freq> ms
     this.watcher = setInterval(() => {
       this.watchNotifs();
     }, freq);
   }
 
   sleepWatcher() {
+    // stop l'execution periodique de watchNotifs()
     clearInterval(this.watcher);
   }
 
-  emitReviewNeededIds(){
+  watchNotifs() {
+    this.getNoticationFromBack()
+      .then((secondMsg) => {
+        console.log('notifList :', this.notifList);
+        for (let i in this.notifList) {
+          if (!this.alreadyNotified.some(notif => notif.idNot === this.notifList[i].idNot)) {
+            this.triggerNotif(this.notifList[i]);
+          }
+        }
+        console.log(secondMsg);
+      })
+      .catch((secondMsg) => {
+        console.log(secondMsg);
+      });
+  }
+
+  emitReviewNeededIds() {
     this.reviewNeededIdsSubject.next(this.reviewNeededIds.slice());
   }
 
   uploadNotif(not: Notif, context: NotifContext, userId: number) {
     /* params :
         not -> la notification à ajouter
-        context -> spécifie l'id de celui qui emet la notification et l'id de l'annonce si ca en concerne une
+        context -> spécifie l'id de celui qui emet la notification, l'id de l'annonce si ca en concerne une et l'action
+                   associée à la notif
         userId -> l'id de l'user à qui s'adresse la notif
-        notUpdater -> une string unique pour chaque notif permettant de l'identifier dans la db
+        notUpdater -> une string unique pour chaque notif permettant de l'identifier dans la db, utilisée pour
+                      désactivation d'une notif
      */
     this.httpClient.post(this.authService.backend + 'api/notification?token=' + JSON.parse(localStorage.getItem('token')),{
       'userId':userId,
@@ -75,7 +80,7 @@ export class NotificationService {
     })
       .subscribe(
         (resp) => {
-          console.log("#Successfully added a new notif :", not);
+          //notif bien insérée
         },
         (e) => {
           if (e['status'] === 401) {
@@ -85,42 +90,25 @@ export class NotificationService {
           console.log('#Unable to add a new notif', e);
         }
       );
-    /* version firebase
-    this.httpClient.post<Notif>(this.authService.backend_test + 'notifications.json', not)
-      .subscribe(
-        (resp) => {
-          console.log('#Successfully added a new notif : ', not);
-        },
-        (err) => {
-          console.log('#Unable to add a new notif', err);
-        }
-      );*/
   }
 
-  buildUpdater(not: Notif, notContext: NotifContext, idUsr: number){
-    /* Méthode de construction de l'updater (identifie une notif de manière):
+  buildUpdater(not: Notif, notContext: NotifContext, idUsr: number) {
+    /* Méthode de construction de l'updater (identifie une notif de manière unique):
       <emitterId> + <detail> + <idUser> + announce + <announceId>
      */
     let res: string;
     res = '';
-    res += notContext.emitterId;
-    res += notContext.detail;
-    res += idUsr;
-    res += 'announce';
-    res += notContext.announceId;
-    //console.log('Constructed updater with not =', not, '; notContext = ', notContext, '; idUsr = ', idUsr);
-    console.log('Resulting updater = ', res);
+    res += notContext.emitterId + notContext.detail + idUsr + 'announce' + notContext.announceId;
     return res;
   }
 
   updateToTreated(notUpdater: string){
-    console.log('ABOUT TO UPDATE WIH NOTUPDATER =', notUpdater);
+    // met a jour les notifs qui ont le meme updater comme 'traitée' (une seule notif en théorie)
     this.httpClient.put(this.authService.backend + 'api/notification/update', {
       'token': JSON.parse(localStorage.getItem('token')),
       'updater': notUpdater
     }).subscribe(
       (resp) => {
-        console.log("Successfully updated notif",resp);
         this.authService.setUserInfo(JSON.stringify(resp['token']), 'token');
       },
       (e) => {
@@ -134,21 +122,22 @@ export class NotificationService {
   }
 
   getNoticationFromBack() {
+    /*
+    Récupère les notifs de la base de données pour l'user courant et met à jour les attributs de classe
+    */
     return new Promise((resolve, reject) => {
-      //this.httpClient.get<Notif[]>(this.authService.backend_test + 'notifications.json')
       this.httpClient.get(this.authService.backend + 'api/notification/user?token=' + JSON.parse(localStorage.getItem('token')))
         .subscribe(
           (got) => {
             this.authService.setUserInfo(JSON.stringify(got['token']), 'token');
             const backNotifs = got['notifications'];
-            this.reviewNeededIds.length = 0;
+            this.reviewNeededIds.length = 0; //Si une notif de review a été désactivée, la liste doit etre mise a jour
             this.notifsDelayed = this.notifList;
             this.notifList.length = 0; //on vide les notifs pour faciliter l'adaptation des formats de notif back et front
-            this.updaterProposed.length = 0;
+            this.updaterProposed.length = 0; //Si une notif de review a été désactivée, la liste doit etre mise a jour
+            this.updaterRefused.length = 0;
             backNotifs.forEach( (oneBackNotif) => {
               const notifToPush = JSON.parse(oneBackNotif.content);
-              console.log('notifToPush', notifToPush);
-              console.log('oneBackNotif :', oneBackNotif);
               const revUpdater = this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), 18);
               this.handleReviews(revUpdater);
               if (JSON.parse(oneBackNotif.context).detail == 'helpRefused'){
@@ -167,23 +156,12 @@ export class NotificationService {
               this.notifList.push(notifToPush);
             });
             this.notifsDelayed = this.notifList;
-            console.log('REVIEWSID', this.reviewNeededIds);
             this.emitNotifSubject();
-            /* firebase
-            let notifIds = Object.keys(got);
-            this.notifList = notifIds.map(key => got[key]);
-            this.notifList.forEach((elt, idx) => {
-              elt.idNot = notifIds[idx];
-            });
-            this.emitNotifSubject();
-            console.log("GOT :", got);*/
-
             resolve('Got the notifications');
           },
           (err) => {
             if (err['status'] === 401) {
               this.authService.removeUserInfo();
-              console.log('#TOKEN EXPIRED');
             }
             reject('Cannot get the notifications');
           }
@@ -192,7 +170,7 @@ export class NotificationService {
   }
 
   handleReviews(myUpdater: string) {
-    console.log("In HandleReviews");
+    //ajoute l'id de l'annonce qui a besoin d'une review a partir de l'updater
     if (myUpdater.includes('reviewExpected')) {
       let separated: string[] = myUpdater.split('reviewExpected');
       let sepAgain = separated[1].split('announce');
@@ -205,21 +183,6 @@ export class NotificationService {
 
   hideEachAndEveryNotif(){
     this.notifierService.hideAll();
-  }
-  updateNotifCache(toCheck: boolean) {
-    this.httpClient.put(this.authService.backend_test + 'cacheNotif.json', toCheck)
-      .subscribe(
-        (resp) => {
-          console.log('#Successfully set the cache', resp);
-        },
-        (err) => {
-          if (err['status'] === 401) {
-            this.authService.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
-          }
-          console.log('#Unable to set the cache', err);
-        }
-      );
   }
 
   resetDisplay() {
@@ -245,55 +208,17 @@ export class NotificationService {
     return not;
   }
 
-  /*
-    checkNotifCache() {
-      return new Promise(((resolve, reject) => {
-        this.httpClient.get<boolean>(this.authService.backend_test + 'cacheNotif.json')
-          .subscribe(
-            (result) => {
-              this.hasNew = result;
-              resolve('Checked the cache');
-            },
-            (err) => {
-              reject('Unable to check the cache');
-            }
-          );
-      }));
-    }*/
-
   emitNotifSubject() {
     this.notifSubject.next(this.notifList);
   }
 
   triggerNotif(not: Notif) {
+    // affiche une notification
     this.notifierService.show({
       type: not.type,
       message: not.message,
       id: not.idNot
     });
-    console.log("Triggered notif because ", this.alreadyNotified, "doesnt contains ", not);
-    console.log("Proof this.alreadyNotified.some(notif => notif.id === not.id ):", this.alreadyNotified.some(notif => notif.idNot === not.idNot));
-    if (this.alreadyNotified.length > 0) {
-      console.log("Indeed indexable : this.alreadyNotified[0].id = ", this.alreadyNotified[0].idNot == not.idNot);
-    }
     this.alreadyNotified.push(not);
-  }
-
-  watchNotifs() {
-    //this.addNotif(new Notifx('Chargez une photo de profil', 'info', 'profilPic'));
-    //this.hasNew = false;
-    this.getNoticationFromBack()
-      .then((secondMsg) => {
-        console.log('notifList :', this.notifList);
-        for (let i in this.notifList) {
-          if (!this.alreadyNotified.some(notif => notif.idNot === this.notifList[i].idNot)) {
-            this.triggerNotif(this.notifList[i]);
-          }
-        }
-        console.log(secondMsg);
-      })
-      .catch((secondMsg) => {
-        console.log(secondMsg);
-      });
   }
 }
