@@ -162,6 +162,7 @@ export class NotificationService {
           (err) => {
             if (err['status'] === 401) {
               this.authService.removeUserInfo();
+              this.sleepWatcher();
             }
             reject('Cannot get the notifications');
           }
