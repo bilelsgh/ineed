@@ -35,10 +35,10 @@
               </div>
 
               <label for ="ou" ><h2>Ou se ferra le service ? <span style="color:red">*</span></h2></label>
-              
+
               <div class="form-group">
                 <table width="100%" border="1" cellspacing="1" cellpadding="5" class="geoloc">
-                  
+
                   <tr>
 
                   <td> <div *ngIf="add===false  ">
@@ -77,7 +77,7 @@
                   <td>
                     <div *ngIf="map" style= "width:250px;height: 250px"> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" [zoom]="13"  ></app-mini-map></div>
                   </td>
-                
+
                   </table>
 
               </div>
@@ -141,5 +141,3 @@
 
         </table>
     </div>
-
-
