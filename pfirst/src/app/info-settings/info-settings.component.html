@@ -82,8 +82,8 @@
     </div>
   </div>
   <div id="infoHeader">
-    <mat-toolbar color="#ffffff" id="infoToolbar">
-      <mat-toolbar-row>
+    <mat-toolbar style="background-color: black" id="infoToolbar">
+      <mat-toolbar-row style="color:white">
         <span>Modifiez vos informations</span>
         <span class="spacer"></span>
         <mat-icon class="icon" (click)="f.reset()" title="vider le formulaire">restore_page</mat-icon>
@@ -159,8 +159,8 @@
   </div>
 
   <div id="showMdpContainer">
-    <mat-toolbar color="#ffffff" id="changePassword">
-      <mat-toolbar-row>
+    <mat-toolbar style="background-color: black" id="infoToolbar" id="changePassword">
+      <mat-toolbar-row style="color:white">
         <span>Changez votre mot de passe</span>
         <span class="spacer"></span>
         <mat-icon (click)="changePassword=true" *ngIf="!changePassword" class="icon"> menu</mat-icon>
