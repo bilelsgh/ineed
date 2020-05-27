@@ -49,6 +49,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
           });
         } else {
           this.getName(this.participants[0]);
+          this.alreadyRated[this.participants[0]] = false;
         }
       })
       .catch((e) => {
@@ -60,14 +61,14 @@ export class ReviewComponent implements OnInit, OnDestroy {
     let allRated = true;
     Object.keys(this.successfullySended).forEach( (oneToRate) => {
       if (!this.successfullySended[oneToRate]) {
-        if (!this.alreadyRated[oneToRate]){
+        if (!this.alreadyRated[+oneToRate]) {
           allRated = false;
         }
       }
     });
-    if (allRated){
+    if (allRated) {
       const revUpdater = this.notificationService.buildUpdater(
-        new Notif('Vous avez actuellement un service en cours !', 'warning', '', 'activity'),
+        new Notif('donnez une évaluation !', 'warning', '', 'activity'),
         new NotifContext('reviewExpected', this.announceAuthorId, this.announceId),
         JSON.parse(localStorage.getItem('user')).idUser
       );
@@ -90,7 +91,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.authService.backend + 'api/announce/' + annId + "?token=" + JSON.parse(localStorage.getItem('token')))
         .subscribe((resp) => {
-            this.announceAuthor = resp['announce'].idUser;
+            this.announceAuthorId = resp['announce'].idUser;
             this.announceAuthor = JSON.parse(localStorage.getItem('user')).idUser == resp['announce'].idUser;
             if (!this.announceAuthor) {
               this.participants.push(resp['announce'].idUser);

@@ -109,7 +109,7 @@ export class ServiceActivityComponent implements OnInit {
           );
           this.notificationService.updateToTreated(proposedUpdater);
           this.notificationService.uploadNotif(
-            new Notif(JSON.parse(localStorage.getItem('user')).firstName + 'a acceptée votre aide !', 'success', '', 'activity'),
+            new Notif(JSON.parse(localStorage.getItem('user')).firstName + ' a acceptée votre aide !', 'success', '', 'activity'),
             new NotifContext('helpAccepted', JSON.parse(localStorage.getItem('user')).idUser, this.id),
             helperID
           );
@@ -176,7 +176,7 @@ export class ServiceActivityComponent implements OnInit {
     return res;
   }
 
-  startService(){
+  startService() {
     //L'annonce est en cours, le statut passe à 1
     let message = {token: JSON.parse(localStorage.getItem('token')),
       announce: {idUser: this.service_descriptor.idUser , content: JSON.stringify(this.service_descriptor.content), id: this.service_descriptor.id,
@@ -245,7 +245,7 @@ export class ServiceActivityComponent implements OnInit {
             this.notificationService.updateToTreated(updaterStart);
             //on envoie la notif de review
             this.notificationService.uploadNotif(
-              new Notif(JSON.parse(localStorage.getItem('user')).firstName + ' attend votre évaluation, dirigez vous dans activity !', 'info', '', 'activity'),
+              new Notif(JSON.parse(localStorage.getItem('user')).firstName + ' attend votre évaluation, dirigez vous dans votre activité !', 'info', '', 'activity'),
               new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')).idUser, this.id),
               oneAssignee
             );
@@ -258,7 +258,7 @@ export class ServiceActivityComponent implements OnInit {
           );
           this.notificationService.updateToTreated(updaterStart);
           this.notificationService.uploadNotif(
-            new Notif('Un service terminé attend votre évaluation, dirigez vous dans activity !', 'info', '', 'activity'),
+            new Notif('Un service terminé attend votre évaluation, dirigez vous dans votre activité !', 'info', '', 'activity'),
             new NotifContext('reviewExpected', JSON.parse(localStorage.getItem('user')).idUser, this.id),
             JSON.parse(localStorage.getItem('user')).idUser
           );
