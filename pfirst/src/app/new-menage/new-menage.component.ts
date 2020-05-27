@@ -6,7 +6,6 @@ import {AuthService} from '../services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {Menage} from '../models/Menage.model';
 import {GeolocService} from '../services/geoloc.service';
-
 import {DateService} from '../services/date.service';
 import {AgmGeocoder} from '@agm/core';
 
@@ -75,7 +74,7 @@ export class NewMenageComponent implements OnInit {
       city: '',
       latitude: 0,
       longitude: 0
-    }
+    };
     content.datejour = this.dateService.getDate(f);
     content.dateheure = f.value['dateheure'];
     content.salle = f.value['salle'];
