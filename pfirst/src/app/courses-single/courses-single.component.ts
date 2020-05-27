@@ -23,6 +23,9 @@ export class CoursesSingleComponent implements OnInit {
   DispoHeure: any;
   liste_a_copier : string = "LISTE : \n ";
   copied = false;
+
+  City: string;
+
   View: string;
 
   @Input() service_descriptor: Courses;
@@ -38,9 +41,10 @@ export class CoursesSingleComponent implements OnInit {
     this.Liste= this.service_descriptor.content.liste;
     this.Accompagne=this.service_descriptor.content.accompagner;
     this.Budget=parseInt(this.service_descriptor.content.budget);
-    const dispo=this.service_descriptor.content.datejour;
-    this.DispoJour=new Date(dispo);
-    this.DispoHeure= this.service_descriptor.content.dateheure
+    this.DispoJour=this.service_descriptor.content.datejour;
+    this.DispoHeure= this.service_descriptor.content.dateheure;
+    this.City=this.service_descriptor.content.city;
+
     this.writeList();
     this.copied = false;
     this.View = this.service_descriptor['viewNumber'];

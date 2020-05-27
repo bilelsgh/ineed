@@ -22,6 +22,7 @@ export class CuisineSingleComponent implements OnInit {
   DispoHeure : string = 'oui';
   Type_de_plat : string = "pas ouf";
 
+  City : string;
   Id : number;
 
   @Input() service_descriptor: Cuisine;
@@ -40,12 +41,13 @@ export class CuisineSingleComponent implements OnInit {
     this.Type_de_plat=this.service_descriptor.content.type_de_plat;
 
     this.View = this.service_descriptor['viewNumber'];
+    this.City=this.service_descriptor.content.city;
 
 
+  }
     //GESTION DU NOMBRE DE VUS
     //this.updateView();
 
-  }
 
   /*ENVOIE L'ID DE CELUI QUI A FAIT L'ANNONCE POUR ALLER CHERCHER UN TOKEN ET DONC INFO DE L'UTILISATEUR
    EN QUESTION.

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import{AgmCoreModule} from '@agm/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -49,6 +50,10 @@ import { NewAccompageComponent } from './new-accompage/new-accompage.component';
 import { InfoSettingsComponent } from './info-settings/info-settings.component';
 import { DisplayProfilComponent } from './display-profil/display-profil.component';
 import { FiltreProposeComponent } from './filtre-propose/filtre-propose.component';
+import { GeolocComponent } from './geoloc/geoloc.component';
+import { GeolocService } from './services/geoloc.service';
+import { MiniMapComponent } from './mini-map/mini-map.component';
+import { DateService } from './services/date.service';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {ImageCompressorService} from "./services/image-compressor.service";
@@ -89,6 +94,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     InfoSettingsComponent,
     DisplayProfilComponent,
     FiltreProposeComponent,
+    GeolocComponent,
+    MiniMapComponent,
     MatSnackBarComponent
   ],
   imports: [
@@ -102,6 +109,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatDialogModule,
     NgbModule,
     MatProgressSpinnerModule,
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyBIh9TYl-xIbSabypO5hkQyNcZjRWSd0VI'}),
     MatToolbarModule,
     MatIconModule,
     MatSnackBarModule
@@ -112,9 +121,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     InscriptionService,
     UserService,
     ServiceService,
+    GeolocService,
     NgxImageCompressService,
     ImageCompressorService,
     MatSnackBarComponent,
+    DateService,
     Location
      // necessaire ?
   ],

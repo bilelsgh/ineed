@@ -19,15 +19,21 @@
 }
 
 .card-img-top{
+    height: 100 px ;
+
+}
+
+.card{
+    width: 100%;
     height: 100%;
 
 }
 
 :host-context(.theme-light) .card{
-    width: 300px;
+    width: 100%;
   }
 :host-context(.theme-dark) .card{
-  width: 300px;
+  width: 100%;
   background-color: grey;
 }
 

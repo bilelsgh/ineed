@@ -6,6 +6,11 @@
    box-shadow: 1px 1px 5px #c0c0c0;
  }
 
+ table,
+td {
+    border: 0px solid #333;
+}
 :host-context(.theme-dark) #jumb{
   background-color: grey;
 }
+

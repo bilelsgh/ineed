@@ -9,6 +9,7 @@ import bcrypt
 import random
 import string
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/ineed'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -18,6 +19,7 @@ app.config['UPLOAD_FOLDER'] = './static/images'
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 from models import User, Announce, Comment, Review, Answer, Notification
+
 
 @app.route('/api/hello', methods=['GET'])
 def hello():
@@ -133,6 +135,7 @@ def change_password(id):
     else:
         abort(403)
 
+
 @app.route('/api/user/<int:id>/photo', methods=['POST'])
 def upload_photo(id):
     # check if the post request has the file part
@@ -152,6 +155,7 @@ def upload_photo(id):
     if file:
         filename_random = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
         filename = secure_filename(filename_random + os.path.splitext(file.filename)[1])
+
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         user.photo = filename
         db.session.commit()
@@ -175,6 +179,7 @@ def create_announce():
         created_announce = Announce.query.filter_by(idAnnounce=announce.idAnnounce).first()
         return jsonify({'announce' : created_announce.to_json(), 'token' : user.generate_auth_token()}), 201
     abort(403) # Forbidden
+
 
 @app.route('/api/announce/<int:id>', methods=['GET'])
 def get_announce(id):
@@ -210,16 +215,21 @@ def update_announce(id):
     user = User.verify_auth_token(request.json['token'])
     if user is None:
         abort(401) # Non authorized
+
     announce = Announce.query.filter_by(idAnnounce=id).first()
+
     if announce:
         if announce.idUser != user.idUser:
             abort(403) # Forbidden
         announce.content = request.json['announce']['content']
         announce.price = float(request.json['announce']['price'])
+
         announce.status = request.json['announce']['status']
+
         db.session.commit()
         return jsonify({'announce' : announce.to_json(), 'token' : user.generate_auth_token()}), 200
     abort(404) #Not Found
+
 
 @app.route('/api/announce/<int:id>', methods=['DELETE'])
 def delete_announce(id):
@@ -297,6 +307,7 @@ def create_review():
     user = User.verify_auth_token(request.json['token'])
     if user is None:
         abort(401) # Non authorized
+
     if user.idUser == request.json['review']['author']:
         review = Review(author=request.json['review']['author'], \
             receiver=request.json['review']['receiver'], \
@@ -310,6 +321,7 @@ def create_review():
         return jsonify({'review' : created_review.to_json(), 'token' : user.generate_auth_token()}), 201
     abort(403) # Forbidden
 
+
 @app.route('/api/review/user/<int:id>', methods=['GET'])
 def get_reviews(id):
     if not 'token' in request.args:
@@ -319,6 +331,7 @@ def get_reviews(id):
         abort(401)
     reviews = Review.query.filter_by(receiver=id).all()
     return jsonify({'token': user.generate_auth_token(), 'reviews': [review.to_json() for review in reviews]}), 200
+
 
 @app.route('/api/announce/<int:id>/apply', methods=['POST'])
 def apply_to_announce(id):
@@ -361,6 +374,7 @@ def get_announce_helpers(id):
     helpers = User.query.join(Answer, Answer.userID==User.idUser).\
         filter(Answer.announceid==id).\
         all()
+
     return jsonify({'token' : user.generate_auth_token(), 'helpers' : [helper.to_json() for helper in helpers]}), 200
 
 @app.route('/api/announce/<int:id>/helper', methods=['POST'])
@@ -482,3 +496,4 @@ def update_notif():
         notif.treated = True
     db.session.commit()
     return jsonify({'token': user.generate_auth_token(), 'updated_notifications': [notif.to_json() for notif in notifications]}), 200
+

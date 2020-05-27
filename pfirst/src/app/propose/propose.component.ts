@@ -23,8 +23,7 @@ export class ServiceViewComponent implements OnInit {
   public shownaccompagne = false;
   public all = true;
 
-  constructor (private serviceService : ServiceService, private auth: AuthService, private httpClient : HttpClient){
-  }
+  constructor (private serviceService : ServiceService, private auth: AuthService, private httpClient : HttpClient){}
 
 
   ngOnInit(){
@@ -51,10 +50,8 @@ export class ServiceViewComponent implements OnInit {
         }
 
       );
-
-
-
   }
+
   lireService(){
     console.log("##SERVICE DB##\n");
     for(let service of this.services_db){

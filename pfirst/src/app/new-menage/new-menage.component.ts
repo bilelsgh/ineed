@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Menage } from '../models/Menage.model';
+import { GeolocService } from '../services/geoloc.service';
+
+import {  DateService } from '../services/date.service';
+import { AgmGeocoder } from '@agm/core';
+
+
 
 @Component({
   selector: 'app-new-menage',
@@ -12,14 +18,28 @@ import { Menage } from '../models/Menage.model';
   styleUrls: ['./new-menage.component.css']
 })
 export class NewMenageComponent implements OnInit {
-  menageForm: FormGroup;
+  info : any;
+  adress:string;
+  city:string;
+  date:string;
+  loca= false;
+  add=false;
+  map=false;
+
 
   liste_materiel= []; //A ENVOYER DANS LA DB
+  menageForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private serviceService: ServiceService, private router: Router,
-             private httpClient : HttpClient, private auth : AuthService) { }
+             private httpClient : HttpClient, private auth : AuthService ,private geolocService:GeolocService, private dateService: DateService,private geocodeService: AgmGeocoder) { }
 
 ngOnInit(): void {
+
+  this.info=this.geolocService.info;
+  this.date=this.dateService.actu;
+  this.loca=false;
+
+
     this.initForm();
   }
 
@@ -28,36 +48,76 @@ ngOnInit(): void {
     this.menageForm=this.formBuilder.group({
       user: ['', Validators.required],
       description:['', Validators.required],
-      materiel:['', Validators.required],
+      //materiel:[[], Validators.required],
       surface :['', Validators.required],
       datejour : ['', Validators.required],
       dateheure:['', Validators.required],
-      localisation: ['', Validators.required],
+      city: '',
+      adress:'',
       salle: ['', Validators.required],
     });}
 
     onSubmitForm() {
       const f = this.menageForm;
-      const content=  { type:'service2', name:"Faire le menage", user:'',description: '', salle:'',localisation:'',
-        surface: '', datejour: '',dateheure:'', materiel:[], viewNumber: 0,  image: '../../assets/data/menage.png' }
-      content.datejour=f.value['datejour'];
+      const content=  {type:'service2', name:"Faire le menage", user:'',description: '', salle:'', surface: '', datejour: '',dateheure:'', materiel:[],  image: '../../assets/data/menage.png', city:'', latitude:0, longitude:0  }
+      content.datejour=this.dateService.getDate(f);
       content.dateheure=f.value['dateheure'];
       content.salle= f.value['salle'];
-      content.localisation= f.value['localisation'];
       content.surface=f.value['surface'];
       content.description=f.value['description'];
 
+      content.latitude=this.info.latitude;
+      content.longitude=this.info.longitude;
+
       content.user=f.value['user'];
-      content.materiel=this.liste_materiel
-    const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
-    0, 0,false);
 
+      content.materiel=this.liste_materiel;
 
+      if(this.loca==false){
+        this.geolocService.getLatLong(f.value['city']+f.value['adress'])
+    .catch((value)=> {console.log(value)})
+    .then((e)=>{
+      content.latitude=this.info.latitude;
+      content.longitude=this.info.longitude;
+      content.city=f.value['city'];
+      const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
+
+    0,0, false);
+    this.serviceService.addMenage(newMenage);
+    this.router.navigate(['']);
+    });
+
+      }
+      else{
+        content.city=this.info.city;
+        const newMenage= new Menage( JSON.parse(localStorage.getItem('user'))["idUser"], content, 93,
+
+    0,0, false);
 
 
       this.serviceService.addMenage(newMenage);
       this.router.navigate(['']);
+
+      }
+
+
+
     }
+
+
+
+
+    getLocation(){
+      if(this.info.latitude==0){
+
+      this.geolocService.setCurrentLocation();
+      this.loca=true;
+      this.map=true;
+      console.log(this.info.latitude);
+      }
+
+    }
+
 
     ajouterListe(f : NgForm) {
     const new_element = f.value['liste_materiel'];
@@ -74,6 +134,8 @@ ngOnInit(): void {
       compteur++;
     }
    }
-}
 
+
+
+}
 
