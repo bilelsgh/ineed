@@ -50,7 +50,6 @@ export class AuthComponent implements OnInit {
                 this.bad_mail_password = true;
               }, 4000
             );
-            this.bad_mail_password = false;
           }
         }
       );
