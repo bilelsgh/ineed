@@ -21,7 +21,7 @@ export class SuiviService {
   getHelpers(announceId: number = 0) {
     return new Promise((resolve, reject) => {
 
-      //console.log("HELPERS : " + announceId);
+      ////console.log("HELPERS : " + announceId);
       if (announceId === 0) {
         this.helpers = [];
       } else {
@@ -33,7 +33,7 @@ export class SuiviService {
             resolve(true);
           })
           .catch((e) => {
-            console.log('#getHelpers : erreur de recupération ', e);
+            //console.log('#getHelpers : erreur de recupération ', e);
             this.helpers = [];
             reject(true);
           });
@@ -55,16 +55,16 @@ export class SuiviService {
               this.assignees = response['accepted'];
               this.status = response['status'];
               this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-            //  console.log("GET ASSIGNEES : " + id);
+            //  //console.log("GET ASSIGNEES : " + id);
               //console.table(response['accepted']);
               resolve(true);
             },
             (error) => {
               if (error['status'] === 401) {
                 this.auth.removeUserInfo();
-                console.log('#TOKEN EXPIRED');
+                //console.log('#TOKEN EXPIRED');
               }
-              console.log('#DEBUG : Erreur lors de la récupération des assignees [service-activity] ' + error);
+              //console.log('#DEBUG : Erreur lors de la récupération des assignees [service-activity] ' + error);
               reject(true);
             }
           );
@@ -83,7 +83,7 @@ export class SuiviService {
         (error) => {
           if (error['status'] === 401) {
             this.auth.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
+            //console.log('#TOKEN EXPIRED');
           }
         }
       )

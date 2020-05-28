@@ -63,7 +63,8 @@ ngOnInit(): void {
 
     if(this.loca==false){
       this.geolocService.getLatLong(f.value['city']+f.value['adress'])
-  .catch((value)=> {console.log(value)})
+  .catch((value)=> {////console.log(value)
+  })
   .then((e)=>{
     content.latitude=this.info.latitude;
     content.longitude=this.info.longitude;
@@ -92,7 +93,7 @@ getLocation(){
 
   this.geolocService.setCurrentLocation();
   }
-  console.log(this.info);
+  //console.log(this.info);
   this.loca=true;
   this.map=true;
 }

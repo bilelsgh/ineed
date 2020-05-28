@@ -151,11 +151,9 @@ export class GlobalNavbarComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-    //this.undefinedURL = this.compressorService.undefinedPicCompressedURL;
     this.showProfilMenu = false;
     this.actRoute.url.subscribe(value => {
       this.path = value;
-      console.log("oninit ext" + this.path);
     });
     this.notifList = this.notificationService.notifList;
     this.hasNotif = this.notifList.length > 0; // to see later
@@ -168,22 +166,9 @@ export class GlobalNavbarComponent implements OnInit, OnDestroy{
       );
 
     this.triggerNotifAppeareance(1000); //delay in ms
-    /*
-    this.route = this.actRoute.url.pipe(
-      switchMap((params) => {
-        this.path = url.get();
-        this.hasUrl=params.has('url');
-        console.log(this.hasUrl);
-        return this.actRoute.url;
-      })
-    );
-    */
 
-    console.log("oninit ext" + this.path);
     this.path = this.actRoute.snapshot.url;
-    console.log("oninit fin ", this.path);
     const url: string = this.actRoute.snapshot.url.join('');
-    console.log("url ", url);
   }
 
   ngOnDestroy() {

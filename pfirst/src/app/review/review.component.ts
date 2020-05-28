@@ -45,7 +45,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
                 this.alreadyRated[part] = false;
               });
             }).catch((e) => {
-            console.log('Erreur getAssignees', e);
           });
         } else {
           this.getName(this.participants[0]);
@@ -53,7 +52,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
         }
       })
       .catch((e) => {
-        console.log(e);
+        ////console.log(e);
       });
   }
 
@@ -123,7 +122,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
       }
     }).subscribe(
       (resp) => {
-        console.log('SUCCESS REVIEW', resp);
+        //console.log('SUCCESS REVIEW', resp);
         form.reset();
         this.successfullySended[idRated] = true;
       },
@@ -133,7 +132,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
         }else if (e.status === 500){
           this.alreadyRated[idRated] = true;
         }
-        console.log('FAILURE REVIEW', e);
+        //console.log('FAILURE REVIEW', e);
       }
     );
   }

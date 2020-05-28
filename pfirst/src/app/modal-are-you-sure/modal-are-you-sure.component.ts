@@ -29,7 +29,7 @@ export class ModalAreYouSureComponent implements OnInit {
     this.httpClient.delete(this.auth.backend + "api/announce/" + this.idAnnounce + "?token=" + JSON.parse(localStorage.getItem('token')))
       .subscribe(
         (response) => {
-          console.log("suppression ok");
+          //console.log("suppression ok");
           console.table(response);
           this.suiviServ.deleted(this.idAnnounce);
           this.notificationService.updaterProposed.forEach( (oneHelpUpdater) => {
@@ -48,7 +48,7 @@ export class ModalAreYouSureComponent implements OnInit {
         (error) => {
           if (error['status'] === 401) {
             this.auth.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
+            //console.log('#TOKEN EXPIRED');
           }
         }
       )

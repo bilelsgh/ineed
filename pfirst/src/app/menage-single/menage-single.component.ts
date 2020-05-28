@@ -113,7 +113,7 @@ export class MenageSingleComponent implements OnInit {
             this.myService = true : this.myService = false;
         },
         (error) => {
-          console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
+          //console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
         }
       );
   }

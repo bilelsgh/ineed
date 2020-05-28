@@ -41,16 +41,16 @@ export class ServicesExperienceComponent implements OnInit {
             this.id_user = pars['id'];
             this.history_for = this.usr_service.services_history_for;
             this.history_by = this.usr_service.services_history_by;
-            console.log('history for: ', this.history_for);
-            console.log('history_by :', this.history_by);
+            //console.log('history for: ', this.history_for);
+            //console.log('history_by :', this.history_by);
             this.last_for = this.history_for.length - 1;
             this.last_by = this.history_by.length - 1;
-            //console.log('ANNOUNCEAUTHORID', this.history_for[this.last_for].idUser);
+            ////console.log('ANNOUNCEAUTHORID', this.history_for[this.last_for].idUser);
             this.idx = this.usr_service.idx;
             this.showAllComments = this.usr_service.showAllComments;
           })
           .catch( (e) => {
-            console.log('ERREUR RECUP HISTORY DANS SERV EXP',e);
+            //console.log('ERREUR RECUP HISTORY DANS SERV EXP',e);
           });
         this.myName = JSON.parse(localStorage.getItem('user')).firstName;
       }
@@ -60,12 +60,12 @@ this.historySub = this.usr_service.history_subject.subscribe(
   (newVal) => {
     this.history_for = this.usr_service.services_history_for;
     this.history_by = this.usr_service.services_history_by;
-    console.log('history for: ', this.history_for);
+    //console.log('history for: ', this.history_for);
     this.last_for = this.history_for.length - 1;
     this.last_by = this.history_by.length - 1;
     this.idx = this.usr_service.idx;
     this.showAllComments = this.usr_service.showAllComments;
-    console.log(newVal);
+    //console.log(newVal);
   }
 );*/
   }
@@ -78,7 +78,7 @@ this.historySub = this.usr_service.history_subject.subscribe(
     this.showAllComments = true;*/
     this.usr_service.setShowAllComments();
     this.showAllComments = true;
-    console.log('servExp : showAll set a true');
+    //console.log('servExp : showAll set a true');
   }
 
   resetAllComments() {
@@ -88,7 +88,7 @@ this.historySub = this.usr_service.history_subject.subscribe(
     this.showAllComments = false;*/
     this.usr_service.resetShowAllComments();
     this.showAllComments = false;
-    console.log('servExp : showAll reset a false');
+    //console.log('servExp : showAll reset a false');
   }
 
   openHistoryModal() {
