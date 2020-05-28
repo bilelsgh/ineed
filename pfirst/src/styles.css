@@ -48,3 +48,14 @@ mat-dialog-container#modal-user-component{
 #text_footer{
   color: lightgrey;
 }
+
+html{
+  height: 100%;
+}
+body{
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+

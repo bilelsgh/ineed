@@ -7,6 +7,11 @@
   background-color: #2e2e2e;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
 }
 
 :host-context(.theme-light) body{
@@ -17,6 +22,11 @@
   background-color: whitesmoke;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
 }
 
 :host-context(.theme-dark) #en_cours_panel{
