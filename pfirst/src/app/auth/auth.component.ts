@@ -48,9 +48,12 @@ export class AuthComponent implements OnInit {
             setTimeout(
               () => {
                 this.bad_mail_password = true;
-              }, 4000
+              }, 2000
             );
-            this.bad_mail_password = false;
+            setTimeout( ()=> {
+              this.bad_mail_password = false;
+
+            }, 6000);
           }
         }
       );
