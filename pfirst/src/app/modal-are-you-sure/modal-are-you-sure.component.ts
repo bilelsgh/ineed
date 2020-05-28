@@ -35,9 +35,8 @@ export class ModalAreYouSureComponent implements OnInit {
           this.notificationService.updaterProposed.forEach( (oneHelpUpdater) => {
             if ( +(oneHelpUpdater.split('announce')[1]) == this.idAnnounce){
               this.notificationService.updateToTreated(oneHelpUpdater);
-              // @ts-ignore
               this.notificationService.uploadNotif(
-                  new Notif(`${JSON.parse(localStorage.getItem('user')).firstName}a cpmmencé un service sans vous, votre aide a donc été refusée...`, 'error', '', 'activity'),
+                  new Notif(`${JSON.parse(localStorage.getItem('user')).firstName}a supprimé son service sans vous, votre aide a donc été refusée...`, 'error', '', 'activity'),
                   new NotifContext('helpRefused', JSON.parse(localStorage.getItem('user')).idUser, this.idAnnounce),
                   +(oneHelpUpdater.split('helpProposed')[0])
               );
@@ -51,7 +50,7 @@ export class ModalAreYouSureComponent implements OnInit {
             //console.log('#TOKEN EXPIRED');
           }
         }
-      )
+      );
   }
 
   }
