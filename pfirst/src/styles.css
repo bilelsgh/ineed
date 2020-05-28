@@ -39,3 +39,12 @@ mat-dialog-container#modal-user-component{
   background-color: #2e2e2e;
   color: white;
 }
+
+#copyright{
+  background-color: #515a63;
+  color: white;
+}
+
+#text_footer{
+  color: lightgrey;
+}
