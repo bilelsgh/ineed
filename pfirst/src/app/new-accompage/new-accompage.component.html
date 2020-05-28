@@ -1,6 +1,6 @@
 <div id="jumb" class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4" align="center">Se faire accompagne</h1>
+      <h1 class="display-4" align="center"> Pour se faire accompagner !</h1>
         <table align="center">
 
           <!--#############PRENOM######################-->
@@ -8,25 +8,25 @@
             <form [formGroup]="accompagneForm" (ngSubmit)="onSubmitForm()" id="form" >
 
               <div class= "form-group">
-                <label for="kind"><h2>Ce sera pontuel ou regulier ?<span style="color:red">*</span> </h2></label>
+                <label for="kind"><h2>Ce sera pontuel ou régulier ?<span style="color:red">*</span> </h2></label>
                 <select id="kind" class="form-control" formControlName="kind" required >
-                  <option value="ponctuel">Ponctuel</option>
-                  <option value="regulier">Regulier si c' est possible</option>
+                  <option value="ponctuel">Ponctuel.</option>
+                  <option value="regulier">Régulier, si c'est possible.</option>
                 </select>
               </div>
 
               <!--#############DISPO######################-->
               <div class= "form-group">
-                <label for="quand"><h2>Quand se deroulera votre demande ? <span style="color:red">*</span></h2>
+                <label for="quand"><h2>Indiquez la plage horaire du service : <span style="color:red">*</span></h2>
                 </label>
-                <label for="quand1">Debut</label>
+                <label for="quand1">Début:</label>
                 <input type="time" id="quand1" class="form-control" formControlName="quand1" required >
-                <label for="quand2">Fin</label>
+                <label for="quand2">Fin:</label>
                 <input type="time" id="quand2" class="form-control" formControlName="quand2"required >
               </div>
 
               <div class= "form-group">
-                <p>Quel jour ? <span style="color:red">*</span></p>
+                <h2>Quel jour ? <span style="color:red">*</span></h2>
               <input type="date" id="datejour" class="form-control" formControlName="datejour" [min]="this.date" >
               </div>
 
@@ -35,7 +35,7 @@
 
 
 
-                <label for ="ou" ><h2>Ou se ferra le service ? <span style="color:red">*</span></h2></label>
+                <label for ="ou" ><h2>Où se fera le service ? <span style="color:red">*</span></h2></label>
 
 
                   <table width="100%" border="1" cellspacing="1" cellpadding="5" class="geoloc">
@@ -43,16 +43,16 @@
                     <tr>
 
                     <td> <div *ngIf="add===false  ">
-                      <button  type="button" id = "location-button"  (click)= "add=true;loca=false;map=false" class="btn btn-secondary" style= "width:100px;height: 100px;" >Avec votre adress</button>
+                      <button  type="button" id = "location-button"  (click)= "add=true;loca=false;map=false" class="btn btn-secondary" style= "width:100px;height: 100px;" >Avec votre adresse</button>
                     </div>
                     <div *ngIf="add===true && loca ===false ">
-                      <label for ="city" ><h3>Ville</h3></label>
+                      <label for ="city" ><h3>Ville :</h3></label>
                     <br>
                   <input type="text" id="city" class="form-control" formControlName="city" placeholder="ex: Paris" >
                   <br>
-                  <label for ="adress" ><h3>Adresse</h3></label>
+                  <label for ="adress" ><h3>Adresse :</h3></label>
                   <br>
-                  <input type="text" id="adress" class="form-control" formControlName="adress" placeholder="ex: avenue des Champs Elysee" style= "width:200px;height: 100%;">
+                  <input type="text" id="adress" class="form-control" formControlName="adress" placeholder="ex: avenue des Champs Elysées" style= "width:200px;height: 100%;">
                     </div>
 
                     </td>
@@ -61,10 +61,10 @@
                     </td>
                     <td>
                       <div *ngIf="loca ===false ">
-                        <button  type="button" id = "location-button"  (click)= "loca=true; add=false" class="btn btn-secondary" >Avec votre geolocalisation</button>
+                        <button  type="button" id = "location-button"  (click)= "loca=true; add=false" class="btn btn-secondary" >Avec votre géolocalisation</button>
                       </div>
                       <div *ngIf="add===false && loca ===true ">
-                        <label for ="location" ><h3>Votre localisation</h3></label>
+                    
                     <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyer</button>
 
 
@@ -76,16 +76,17 @@
                     <td></td>
                     <td></td>
                     <td>
-                      <div *ngIf="map" style= "width:250px;height: 250px"> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" [zoom]="12" ></app-mini-map></div>
+                      <div *ngIf="map" style= "width:250px;height: 250px">
+                        <label for ="location" ><h3>Vous visualisez ce qui sera affiché sur l'annonce, cela vous convient ? <br> Sinon, écrivez votre adresse.</h3></label> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" [zoom]="12" ></app-mini-map>  </div>
                     </td>
-
+            
                     </table>
               </div>
-
+              
 
 
               <div class="form group">
-                <label for ="description"> <h2>Commentaires ? <span style="color:red">*</span></h2></label>
+                <label for ="description"> <h2>Commentaire(s) ? <span style="color:red">*</span></h2></label>
                 <!--<input type="text" id="description" class="form-control" formControlName="description"> -->
                 <textarea class="form-control" aria-label="With textarea" id="description" class="form-control" formControlName="description" required placeholder="ex: Vous pourrez venir chez moi"></textarea>
               </div>
