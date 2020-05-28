@@ -26,25 +26,27 @@
     <!-- INEED C'EST QUOI ?-->
     <table align="center" cellpadding="80" width="70%">
       <tr>
-        <td valign="top">
-          <table>
+        <td valign="top" width="50%">
+          <table width="100%">
             <tr>
-              <td><img id="IneedCQ" src="../../assets/data/ACCUEIL/ineedCQ.png" alt=""></td>
+              <td width="50%"><img id="IneedCQ" src="../../assets/data/ACCUEIL/ineedCQ.png" alt=""></td>
             </tr>
             <tr>
+              <td width="50%">
               <p id="textIn" style="text-align: justify;font-size: larger;"> INeed est une plateforme de gestion de services ayant pour objectif de démocratiser l'entre aide et promouvoir la solidarité. Que vous
               ayez besoin d'aide ou que vous souhaitiez rendre un service INeed est là pour vous accompagner.</p>
+              </td>
             </tr>
           </table>
         </td>
-        <td align="right">
+        <td align="right" width="50%">
           <img style="cursor:pointer" id="pile" src="../../assets/data/ACCUEIL/pile.png" alt="">
         </td>
       </tr>
     </table>
 
     <!-- SEPARATE-->
-    <table align="center">
+    <table align="center" width="100%">
       <tr>
         <img id="sep" src="../../assets/data/ACCUEIL/separ.png" alt="">
       </tr>
@@ -53,7 +55,7 @@
     <!-- AIDER QUELQUUN ?-->
     <table align="center" cellpadding="80" width="70%">
       <tr>
-        <td align="right">
+        <td align="right" width="50%">
           <img style="cursor:pointer" id="jetCourse" src="../../assets/data/ACCUEIL/jetonCourse.png" alt=""
                (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service1'">
           <img style="cursor:pointer" id="jetMenage" src="../../assets/data/ACCUEIL/jetonMenage.png" alt=""
@@ -63,19 +65,21 @@
           <img style="cursor:pointer" id="jetAccompagne" src="../../assets/data/ACCUEIL/jetonAcc.png" alt=""
                (click) = "router.navigate(['propose/' + annonceAccueil['idAnnounce'] ])" *ngIf="annonceAccueil_type == 'service4'">
         </td>
-        <td valign="top">
-          <table>
+        <td valign="top" width="50%">
+          <table width="100%">
             <tr>
-              <td><img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt="" ></td>
+              <td width="50%"><img id="tuveux" src="../../assets/data/ACCUEIL/tuVeux.png" alt="" ></td>
             </tr>
             <tr>
-              <p id="textTV" style="text-align: justify; font-size: larger; width: 500px;"> De nombreuses personnes ont besoin d'aide en ce moment, tu veux les aider ? Clique sur le
+              <td width="50%">
+              <p id="textTV" style="text-align: justify; font-size: larger;"> De nombreuses personnes ont besoin d'aide en ce moment, tu veux les aider ? Clique sur le
                 jeton et découvre la dernière demande d'aide postée.</p>
+              </td>
             </tr>
           </table>
         </td>
       </tr>
     </table>
   </div>
-
+</div>
 
