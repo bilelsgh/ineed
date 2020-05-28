@@ -73,9 +73,9 @@ export class NotificationService {
         notUpdater -> une string unique pour chaque notif permettant de l'identifier dans la db, utilisée pour
                       désactivation d'une notif
      */
-    this.httpClient.post(this.authService.backend + 'api/notification?token=' + JSON.parse(localStorage.getItem('token')),{
-      'userId':userId,
-      'content':JSON.stringify(not),
+    this.httpClient.post(this.authService.backend + 'api/notification?token=' + JSON.parse(localStorage.getItem('token')), {
+      'userId': userId,
+      'content': JSON.stringify(not),
       'context': JSON.stringify(context),
       'updater': this.buildUpdater(not, context, userId)
     })
@@ -103,7 +103,7 @@ export class NotificationService {
     return res;
   }
 
-  updateToTreated(notUpdater: string){
+  updateToTreated(notUpdater: string) {
     // met a jour les notifs qui ont le meme updater comme 'traitée' (une seule notif en théorie)
     this.httpClient.put(this.authService.backend + 'api/notification/update', {
       'token': JSON.parse(localStorage.getItem('token')),
@@ -127,54 +127,59 @@ export class NotificationService {
     Récupère les notifs de la base de données pour l'user courant et met à jour les attributs de classe
     */
     return new Promise((resolve, reject) => {
-      this.httpClient.get(this.authService.backend + 'api/notification/user?token=' + JSON.parse(localStorage.getItem('token')))
-        .subscribe(
-          (got) => {
-            this.authService.setUserInfo(JSON.stringify(got['token']), 'token');
-            const backNotifs = got['notifications'];
-            this.reviewNeededIds.length = 0; //Si une notif de review a été désactivée, la liste doit etre mise a jour
-            this.notifsDelayed = this.notifList;
-            this.notifList.length = 0; //on vide les notifs pour faciliter l'adaptation des formats de notif back et front
-            this.updaterProposed.length = 0; //Si une notif de review a été désactivée, la liste doit etre mise a jour
-            this.updaterRefused.length = 0;
-            backNotifs.forEach( (oneBackNotif) => {
-              const notifToPush = JSON.parse(oneBackNotif.content);
-              const revUpdater = this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), 18);
-              this.handleReviews(revUpdater);
-              console.log('------------------',JSON.parse(oneBackNotif.context));
-              if (JSON.parse(oneBackNotif.context).detail == 'helpRefused'){
-                const updaterRefToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
-                if (!this.updaterRefused.includes(updaterRefToPush)){
-                  this.updaterRefused.push(updaterRefToPush);
+      if (this.authService.isAuthenticated()) {
+        this.httpClient.get(this.authService.backend + 'api/notification/user?token=' + JSON.parse(localStorage.getItem('token')))
+          .subscribe(
+            (got) => {
+              this.authService.setUserInfo(JSON.stringify(got['token']), 'token');
+              const backNotifs = got['notifications'];
+              this.reviewNeededIds.length = 0; //Si une notif de review a été désactivée, la liste doit etre mise a jour
+              this.notifsDelayed = this.notifList;
+              this.notifList.length = 0; //on vide les notifs pour faciliter l'adaptation des formats de notif back et front
+              this.updaterProposed.length = 0; //Si une notif de review a été désactivée, la liste doit etre mise a jour
+              this.updaterRefused.length = 0;
+              backNotifs.forEach((oneBackNotif) => {
+                const notifToPush = JSON.parse(oneBackNotif.content);
+                const revUpdater = this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), 18);
+                this.handleReviews(revUpdater);
+                console.log('------------------', JSON.parse(oneBackNotif.context));
+                if (JSON.parse(oneBackNotif.context).detail == 'helpRefused') {
+                  const updaterRefToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
+                  if (!this.updaterRefused.includes(updaterRefToPush)) {
+                    this.updaterRefused.push(updaterRefToPush);
+                  }
                 }
-              }
-              if (JSON.parse(oneBackNotif.context).detail == 'helpAccepted'){
-                const updaterAccToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
-                if (!this.updaterAccepted.includes(updaterAccToPush)){
-                  this.updaterAccepted.push(updaterAccToPush);
+                if (JSON.parse(oneBackNotif.context).detail == 'helpAccepted') {
+                  const updaterAccToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
+                  if (!this.updaterAccepted.includes(updaterAccToPush)) {
+                    this.updaterAccepted.push(updaterAccToPush);
+                  }
                 }
-              }
-              if (JSON.parse(oneBackNotif.context).detail == 'helpProposed'){
-                const updaterPropToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
+                if (JSON.parse(oneBackNotif.context).detail == 'helpProposed') {
+                  const updaterPropToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
                   this.updaterProposed.push(updaterPropToPush);
+                }
+                notifToPush.idNot = oneBackNotif['idNotification'];
+                // const oneBackContext = <NotifContext> JSON.parse(oneBackNotif.context); // sera utilisé si on veut
+                // améliorer en ayant une approche plus modulaire
+                this.notifList.push(notifToPush);
+              });
+              this.notifsDelayed = this.notifList;
+              this.emitNotifSubject();
+              resolve('Got the notifications');
+            },
+            (err) => {
+              if (err['status'] === 401) {
+                this.authService.removeUserInfo();
+                this.sleepWatcher();
               }
-              notifToPush.idNot = oneBackNotif['idNotification'];
-              // const oneBackContext = <NotifContext> JSON.parse(oneBackNotif.context); // sera utilisé si on veut
-              // améliorer en ayant une approche plus modulaire
-              this.notifList.push(notifToPush);
-            });
-            this.notifsDelayed = this.notifList;
-            this.emitNotifSubject();
-            resolve('Got the notifications');
-          },
-          (err) => {
-            if (err['status'] === 401) {
-              this.authService.removeUserInfo();
-              this.sleepWatcher();
+              reject('Cannot get the notifications');
             }
-            reject('Cannot get the notifications');
-          }
-        );
+          );
+      } else {
+        this.sleepWatcher();
+        reject('Cannot get the notifications');
+      }
     });
   }
 
@@ -183,20 +188,20 @@ export class NotificationService {
     if (myUpdater.includes('reviewExpected')) {
       let separated: string[] = myUpdater.split('reviewExpected');
       let sepAgain = separated[1].split('announce');
-      if (!this.reviewNeededIds.includes(+sepAgain[1])){
+      if (!this.reviewNeededIds.includes(+sepAgain[1])) {
         this.reviewNeededIds.push(+sepAgain[1]);
         this.emitReviewNeededIds();
       }
     }
   }
 
-  hideEachAndEveryNotif(){
+  hideEachAndEveryNotif() {
     this.notifierService.hideAll();
   }
 
   resetDisplay() {
     this.notifierService.hideAll();
-    this.notifsDelayed.forEach( (oneNot) => {
+    this.notifsDelayed.forEach((oneNot) => {
       this.notifierService.show(oneNot);
     });
   }
@@ -204,11 +209,11 @@ export class NotificationService {
   // approche plus modulaire, pas utilisée pour l'instant
   handleContext(not: Notif, myContext: NotifContext): Notif {
     let res: Notif = not;
-    if ( myContext.emitterId != JSON.parse(localStorage.getItem('user')).idUser) {
+    if (myContext.emitterId != JSON.parse(localStorage.getItem('user')).idUser) {
       //the notif has been uploaded by another user
       if (myContext.announceId != -1) {
         //the notif is indeed about an announce
-        if (myContext.detail.split('By')[0] === 'helpProposed'){
+        if (myContext.detail.split('By')[0] === 'helpProposed') {
           //when proposing help, the notif detail is set to helpProposedBy<user.firstName>
           res.message = myContext.detail.split('By')[1] + 'vous propose son aide !';
         }

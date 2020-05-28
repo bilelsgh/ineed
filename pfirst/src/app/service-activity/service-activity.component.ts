@@ -65,7 +65,7 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
     //On supprime les notifications de proposition d'aide si le service a été lancé
     if (this.status > 0) {
       this.notificationService.updaterProposed.forEach( (oneUp) => {
-        if (+oneUp.split('announce')[1] == this.id){
+        if (+(oneUp.split('announce')[1]) == this.id) {
           this.notificationService.updateToTreated(oneUp);
           this.notificationService.uploadNotif(
             new Notif(JSON.parse(localStorage.getItem('user')).firstName + ' a lancé son service, votre aide a été refusée...','error', '', 'activity'),

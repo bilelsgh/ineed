@@ -96,7 +96,6 @@ export class ActivityComponent implements OnInit, OnDestroy {
     //Récupération des services qui ont besoin d'être évalués
     this.reviewNeedIdsSubscription = this.notifServ.reviewNeededIdsSubject.subscribe(
       (response: any[]) => {
-        console.log('REACTIONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN');
         this.reviewNeededIds = response;
         for(let id of response){
           this.getServiceById(id);
