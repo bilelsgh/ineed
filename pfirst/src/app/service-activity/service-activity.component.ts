@@ -80,26 +80,26 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
   getHelpers(announceId: number = 0) {
     this.suiviServ.getHelpers(this.id)
       .then( () => {
-        console.log("Récupération des helpers dans service-activity OK - " , announceId);
+        //console.log("Récupération des helpers dans service-activity OK - " , announceId);
         this.helpers = this.suiviServ.helpers;
         console.table(this.helpers);
         this.noHelper = this.suiviServ.noHelper;
         let nb_noHelpers = 0;
         for(let helper of this.helpers){
-          console.log("#ID: ", helper.idUser, " -> amIassigne : ", this.amIanAssignee(helper.idUser) , ", amIrejected : ", this.amIrejected(helper.idUser));
+          //console.log("#ID: ", helper.idUser, " -> amIassigne : ", this.amIanAssignee(helper.idUser) , ", amIrejected : ", this.amIrejected(helper.idUser));
           if(this.amIanAssignee(helper.idUser) || this.amIrejected(helper.idUser)){
             nb_noHelpers++;
           }
 
         }
-        console.log("Nb no helpers : ", nb_noHelpers);
+        //console.log("Nb no helpers : ", nb_noHelpers);
         if(nb_noHelpers != 0){
           this.noHelper = true;
         }
 
       })
       .catch((e) => {
-        console.log('#getHelpers - service-activity: erreur de recupération ', e);
+        //console.log('#getHelpers - service-activity: erreur de recupération ', e);
         this.helpers = [];
       });
   }
@@ -117,7 +117,7 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
           this.getAssignees(this.id);
-          console.log("Acceptation ok!");
+          //console.log("Acceptation ok!");
           const proposedUpdater = this.notificationService.buildUpdater(
             new Notif('proposition d\'aide', 'info', '', 'activity'),
             new NotifContext('helpProposed', helperID, this.id),
@@ -133,9 +133,9 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
         (error) => {
           if (error['status'] === 401) {
             this.auth.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
+            //console.log('#TOKEN EXPIRED');
           }
-          console.log('#DEBUG : Erreur lors de l\'acceptation du helper [service-activity] ' + error);
+          //console.log('#DEBUG : Erreur lors de l\'acceptation du helper [service-activity] ' + error);
         }
       );
   }
@@ -169,14 +169,15 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
               (error) => {
                 if (error['status'] === 401) {
                   this.auth.removeUserInfo();
-                  console.log("# TOKEN EXPIRED");
+                  //console.log("# TOKEN EXPIRED");
                 }
-                console.log("#getNameById : Erreur de chargement [service activity] : " + error);}
+                //console.log("#getNameById : Erreur de chargement [service activity] : " + error);
+                }
             );
         }
       })
       .catch((e) => {
-        console.log('#getAssignees - service-activity: erreur de recupération ', e);
+        //console.log('#getAssignees - service-activity: erreur de recupération ', e);
         this.assignees = [];
       });
   }
@@ -184,7 +185,7 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
   amIanAssignee(id: number): boolean {
     let res = false;
     for (let assignee of this.assignees) {
-      //console.log(assignee, " == ", id, " : ", assignee === id );
+      ////console.log(assignee, " == ", id, " : ", assignee === id );
       if (assignee === id ) {
         res = true;
       }
@@ -224,7 +225,7 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
         (error) => {
           if (error['status'] === 401) {
             this.auth.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
+            //console.log('#TOKEN EXPIRED');
           }
         }
       );
@@ -276,7 +277,7 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
         (error) => {
           if (error['status'] === 401) {
             this.auth.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
+            //console.log('#TOKEN EXPIRED');
           }
         }
       );
@@ -290,14 +291,14 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
 
   refuse(id : number){
     let content = this.service_descriptor.content;
     content["rejected"].push(id);
-    console.log(this.deleted);
+    //console.log(this.deleted);
 
     //L'annonce est terminée, le statut passe à 2
     let message = {token: JSON.parse(localStorage.getItem('token')),
@@ -309,7 +310,7 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-          console.log("ID : ", id, " refusé !");
+          //console.log("ID : ", id, " refusé !");
           const proposedUpdater = this.notificationService.buildUpdater(
             new Notif('Vous avez une nouvelle proposition d\'aide', 'info', '', 'activity'),
             new NotifContext('helpProposed', id, this.id),
@@ -325,7 +326,7 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
         (error) => {
           if (error['status'] === 401) {
             this.auth.removeUserInfo();
-            console.log(' #TOKEN EXPIRED');
+            //console.log(' #TOKEN EXPIRED');
           }
         }
       );

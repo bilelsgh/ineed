@@ -13,23 +13,6 @@ export class InscriptionService{
   constructor(private httpClient: HttpClient, private auth : AuthService, private router : Router) {}
 
 
-
-
-
-
-  getFromServer(){
-    this.httpClient
-      .get<any[]>(this.auth.backend+"users.json")
-      .subscribe(
-        (response) => {
-          this.users = response;
-        },
-        (error) => {
-          console.log("Erreur de chargement : " + error);
-        }
-      );
-  }
-
 }
 
 

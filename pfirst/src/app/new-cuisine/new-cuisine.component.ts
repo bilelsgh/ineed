@@ -85,7 +85,7 @@ export class NewCuisineComponent implements OnInit {
     if (this.loca == false) {
       this.geolocService.getLatLong(f.value['city'] + f.value['adress'])
         .catch((value) => {
-          console.log(value)
+          //console.log(value)
         })
         .then((e) => {
           content.latitude = this.info.latitude;
@@ -114,7 +114,7 @@ export class NewCuisineComponent implements OnInit {
       this.loca = true;
       this.map = true;
     }
-    console.log(this.info);
+    //console.log(this.info);
   }
 
 }

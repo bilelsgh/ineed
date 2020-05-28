@@ -22,16 +22,15 @@ export class DateService{
       }
 
       getDate(f:FormGroup){
-        
+
         var year=f.value['datejour'].slice(0,4);;
-  
+
         var month = f.value['datejour'].slice(5,7);
         var day=f.value['datejour'].slice(8,10);
-        console.log(day+"/"+month+"/"+year);
-  
+        //console.log(day+"/"+month+"/"+year);
+
         return(day+"/"+month+"/"+year);
 
     }
   }
 
-    

@@ -17,7 +17,7 @@ import { Location } from '../models/location.model';
 @Injectable()
 
 export class GeolocService  {
-  
+
   info ={latitude: 0, longitude:0,city:"" };
   google: any;
   private geoCoder: any;
@@ -33,39 +33,26 @@ export class GeolocService  {
   setCurrentLocation() {
     //if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        
+
         this.info.latitude=position.coords.latitude;
         this.info.longitude=position.coords.longitude;
-        console.log("Je suis la ");
-        console.log(position);
         this.geoCoder = new google.maps.Geocoder;
         this.geoCoder.geocode({ 'location': { lat: this.info.latitude, lng: this.info.longitude } }, (results, status) => {
-          console.log(results);
-          console.log(status);
           if (status === 'OK') {
             if (results[0]) {
               const adrr = results[4].formatted_address;
               this.info.city= adrr.split(",")[0].split(" ")[1];
             }}
-            
-        });
-        
-        console.log(this.info.latitude);
-        
-      },
-      (eror)=> {console.log("wait wtf");
-       console.log(eror)},
-       {timeout:10000});
-      
-      
 
-      
-      
-    //
-    console.log("geoloc is not in navigator");
+        });
+
+      },
+      (eror)=> {},
+       {timeout:10000});
+
   }
 
- 
+
   getLatLong(address :string){
     return new Promise((resolve,reject)=>{
     const geocodeRequest = {
@@ -78,19 +65,17 @@ export class GeolocService  {
       resolve(true);
     },
     (error)=>{
-      console.log('Uh-oh, an error occurred! : ' + error);
-      reject(true)
+      reject(true);
     },
     () => {
-      console.log('Observable complete!');
     }
     );
   });
-  
-}  
-  
- 
 
-  
+}
+
+
+
+
 
 }

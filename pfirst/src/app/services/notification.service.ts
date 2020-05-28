@@ -47,16 +47,16 @@ export class NotificationService {
   watchNotifs() {
     this.getNoticationFromBack()
       .then((secondMsg) => {
-        console.log('notifList :', this.notifList);
+        //console.log('notifList :', this.notifList);
         for (let i in this.notifList) {
           if (!this.alreadyNotified.some(notif => notif.idNot === this.notifList[i].idNot)) {
             this.triggerNotif(this.notifList[i]);
           }
         }
-        console.log(secondMsg);
+        //console.log(secondMsg);
       })
       .catch((secondMsg) => {
-        console.log(secondMsg);
+        //console.log(secondMsg);
       });
   }
 
@@ -86,9 +86,9 @@ export class NotificationService {
         (e) => {
           if (e['status'] === 401) {
             this.authService.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
+            //console.log('#TOKEN EXPIRED');
           }
-          console.log('#Unable to add a new notif', e);
+          //console.log('#Unable to add a new notif', e);
         }
       );
   }
@@ -115,9 +115,9 @@ export class NotificationService {
       (e) => {
         if (e['status'] === 401) {
           this.authService.removeUserInfo();
-          console.log('#TOKEN EXPIRED');
+          //console.log('#TOKEN EXPIRED');
         }
-        console.log('couldnt update notif', e);
+        //console.log('couldnt update notif', e);
       }
     );
   }
@@ -142,7 +142,7 @@ export class NotificationService {
                 const notifToPush = JSON.parse(oneBackNotif.content);
                 const revUpdater = this.buildUpdater(notifToPush, JSON.parse(oneBackNotif.context), 18);
                 this.handleReviews(revUpdater);
-                console.log('------------------', JSON.parse(oneBackNotif.context));
+                //console.log('------------------', JSON.parse(oneBackNotif.context));
                 if (JSON.parse(oneBackNotif.context).detail == 'helpRefused') {
                   const updaterRefToPush = this.buildUpdater(JSON.parse(oneBackNotif.content), JSON.parse(oneBackNotif.context), JSON.parse(localStorage.getItem('user')).idUser);
                   if (!this.updaterRefused.includes(updaterRefToPush)) {

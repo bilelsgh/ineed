@@ -28,13 +28,11 @@ export class AppViewComponent implements OnInit {
   getLastAnnounce(){
     this.serv.getLastAnnounces(1)
       .then(() => {
-        console.log("success");
-        console.table(this.serv.lastAnnounces["announces"]);
         this.annonceAccueil = this.serv.lastAnnounces["announces"][0];
         this.annonceAccueil_type = this.serv.lastAnnounces["announces"][0].content['type'];
       })
       .catch((e) => {
-        console.log("Erreur lors de la récupération du dernier service ", e);
+        ////console.log("Erreur lors de la récupération du dernier service ", e);
       });
   }
 

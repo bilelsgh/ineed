@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
     this.notifSubscription = this.notificationService.notifSubject.subscribe(
       (notifs) => {
         this.notifList = this.notificationService.notifList;
-        //console.log(this.notifList);
+        ////console.log(this.notifList);
       }
     );*/
   }
@@ -49,7 +49,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
             this.light_theme = response_bis;
           }
         );
-        console.log('ok dark = ' + this.dark_theme + 'light = ' + this.light_theme);
         this.dark_theme == true ? this.myTheme = 'theme-dark' : this.myTheme = 'theme-light';
         if(this.dark_theme && !this.light_theme){
           this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#2e2e2e';
@@ -81,7 +80,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
             this.light_theme = response_bis;
           }
         );
-        console.log('ok dark = ' + this.dark_theme + 'light = ' + this.light_theme);
         this.dark_theme == true ? this.myTheme = 'theme-dark' : this.myTheme = 'theme-light';
         this.userServ.emitLightThemeSubject();
 
@@ -90,32 +88,4 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
     );
     this.userServ.emitDarkThemeSubject();
   }
-/*
-  uploadTestNotif(){
-    const myNot: Notif = new Notif('notif de test 1', 'info', '', 'infos');
-    const myContext: NotifContext = new NotifContext('TESTING1');
-    const myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
-    this.notificationService.uploadNotif(
-      myNot,
-      myContext,
-      myUSRID
-    );
-  }
-
-  handleRev(){
-    console.log(this.notificationService.handleReviews('12reviewExpected13announce10'));
-  }
-  updateNot(){
-    let myNot: Notif = new Notif('notif de test 1', 'info', '', 'infos');
-    let myContext: NotifContext = new NotifContext('TESTING1');
-    let myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
-    this.notificationService.updateToTreated(this.notificationService.buildUpdater(myNot, myContext, myUSRID));
-  }
-
-  buildUp() {
-    let myNot: Notif = new Notif('Chargez votre première photo de profil !', 'info', '', 'infos');
-    let myContext: NotifContext = new NotifContext('pdpUpload');
-    let myUSRID = JSON.parse(localStorage.getItem('user')).idUser;
-    this.notificationService.buildUpdater(myNot, myContext, myUSRID);
-  }*/
 }
