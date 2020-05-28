@@ -25,7 +25,6 @@ const routes : Routes = [ //Racine de toutes les routes de l'applications
   {path:'mes-infos', canActivate: [AuthGuard], component: InfoSettingsComponent},
   {path: 'demande', canActivate:[AuthGuard], component: DemandeComponent},
   {path:'not-found', component: FourOhFourComponent},
-  {path:'contact', component: ContactComponent},
   {path:'inscription', component: InscriptionComponent},
   {path: 'review/:idAnnounce', canActivate: [AuthGuard], component: ReviewComponent},
   {path: '', component: AppViewComponent}, //indique la page "d'accueil"

@@ -26,7 +26,7 @@ export class AuthComponent implements OnInit {
 
 
   ngOnInit() {
-    this.field_non_valid = false;
+    this.bad_mail_password = false;
   }
 
   onSignIn(mail: string, password: string) {
@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit {
       .post(this.authService.backend + 'api/user/login', {mail: mail, password: password})
       .subscribe(
         (response) => {
-          console.log("#Connexion réussie : " + response);
+          console.log("#Connexion réussie :  " + response);
 
           this.authService.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.authService.setUserInfo( JSON.stringify(response['user']), 'user');
@@ -44,8 +44,16 @@ export class AuthComponent implements OnInit {
           this.router.navigate(['']);
         },
         (error) => {
-          if (error['status'] === 401) {
-            this.bad_mail_password = true;
+          if (error['status'] === 401 || error['status'] === 400) {
+            setTimeout(
+              () => {
+                this.bad_mail_password = true;
+              }, 2000
+            );
+            setTimeout( ()=> {
+              this.bad_mail_password = false;
+
+            }, 6000);
           }
         }
       );
