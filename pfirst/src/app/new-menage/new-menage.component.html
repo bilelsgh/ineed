@@ -1,6 +1,6 @@
 <div id="jumb" class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4" align="center">Menage !</h1>
+      <h1 class="display-4" align="center">Pour le ménage !</h1>
         <table align="center">
 
           <!--#############PRENOM######################-->
@@ -10,17 +10,17 @@
 
               <!--#############DISPO######################-->
               <div class= "form-group">
-                <label for="datejour"> <h2>Date et heure <span style="color:red">*</span></h2></label>
-                <p>Jour</p>
+                <label for="datejour"><h2>Sélectionnez une date et une heure <span style="color:red">*</span></h2></label>
+                <p>Jour :</p>
               <input type="date" id="datejour" class="form-control" formControlName="datejour" [min]="this.date" >
-              <label for="dateheure">Heure</label>
+              <label for="dateheure">Heure :</label>
                 <input type="time" id="dateheure" class="form-control" formControlName="dateheure" >
 
               </div>
 
 
               <div class="input-group mb-3">
-                <label for="surface"><h2>Surface a nettoyer ? <span style="color:red">*</span></h2>
+                <label for="surface"><h2>Surface à nettoyer ? <span style="color:red">*</span></h2>
                   </label>
                 <input type="text" id="surface" class="form-control" formControlName="surface">
                 <div class="input-group-append"><span class="input-group-text" style= "height:38px">m²</span></div>
@@ -31,63 +31,14 @@
                 <input type="text" id="salle"  class="form-control" formControlName="salle" placeholder="ex: Cuisine">
               </div>
 
-              <label for ="ou" ><h2>Ou se ferra le service ? <span style="color:red">*</span></h2></label>
-
-              <div class="form-group">
-                <table width="100%" border="1" cellspacing="1" cellpadding="5" class="geoloc">
-
-                  <tr>
-
-                  <td> <div *ngIf="add===false  ">
-                    <button  type="button" id = "location-button"  (click)= "add=true;loca=false;map=false" class="btn btn-secondary" style= "width:100px;height: 100px;" >Avec votre adress</button>
-                  </div>
-                  <div *ngIf="add===true && loca ===false ">
-                    <label for ="city" ><h3>Ville</h3></label>
-                  <br>
-                <input type="text" id="city" class="form-control" formControlName="city" placeholder="ex: Paris" >
-                <br>
-                <label for ="adress" ><h3>Adresse</h3></label>
-                <br>
-                <input type="text" id="adress" class="form-control" formControlName="adress" placeholder="ex: avenue des Champs Elysee" style= "width:200px;height: 100%;">
-                  </div>
-
-                  </td>
-                  <td>
-                    <span class="badge badge-secondary" style= "width:50px;height: 50px; text-align:center" ><br> <br>OU</span>
-                  </td>
-                  <td>
-                    <div *ngIf="loca ===false ">
-                      <button  type="button" id = "location-button"  (click)= "loca=true; add=false" class="btn btn-secondary" >Avec votre geolocalisation</button>
-                    </div>
-                    <div *ngIf="add===false && loca ===true ">
-                      <label for ="location" ><h3>Votre localisation</h3></label>
-                  <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyer</button>
-
-
-                    </div>
-                  </td>
-
-
-                  </tr>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <div *ngIf="map" style= "width:250px;height: 250px"> <app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" [zoom]="13"  ></app-mini-map></div>
-                  </td>
-
-                  </table>
-
-              </div>
-
-
               <!--#############LISTE DE MATERIEL######################-->
-            <div class= "form-group">
-                <label for="liste"><h2>Liste du materiel qui est a votre disposition </h2></label>
+              <div class= "form-group">
+                <label for="liste"><h2>Liste du materiel qui est à votre disposition : </h2></label>
 
                 <form (ngSubmit)="ajouterListe(liste)" #liste="ngForm" >
                   <table>
                     <tr>
-                      <td>Materiel</td>
+                      <td>Matériel</td>
                     </tr>
                     <tr>
                       <td><input type="text" id="liste" name="liste_materiel" ngModel ></td>
@@ -119,9 +70,64 @@
 
 
 
+              <label for ="ou" ><h2>Où se fera le service ? <span style="color:red">*</span></h2></label>
+
+              <div class="form-group">
+                <table width="100%" border="1" cellspacing="1" cellpadding="5" class="geoloc">
+
+                  <tr>
+
+                  <td> <div *ngIf="add===false  ">
+                    <button  type="button" id = "location-button"  (click)= "add=true;loca=false;map=false" class="btn btn-secondary" style= "width:100px;height: 100px;" >Avec votre adresse</button>
+                  </div>
+                  <div *ngIf="add===true && loca ===false ">
+                    <label for ="city" ><h3>Ville :</h3></label>
+                  <br>
+                <input type="text" id="city" class="form-control" formControlName="city" placeholder="ex: Paris" >
+                <br>
+                <label for ="adress" ><h3>Adresse : </h3></label>
+                <br>
+                <input type="text" id="adress" class="form-control" formControlName="adress" placeholder="ex: avenue des Champs Elyseés" style= "width:200px;height: 100%;">
+                  </div>
+
+                  </td>
+                  <td>
+                    <span class="badge badge-secondary" style= "width:50px;height: 50px; text-align:center" ><br> <br>OU</span>
+                  </td>
+                  <td>
+                    <div *ngIf="loca ===false ">
+                      <button  type="button" id = "location-button"  (click)= "loca=true; add=false" class="btn btn-secondary" >Avec votre géolocalisation</button>
+                    </div>
+                    <div *ngIf="add===false && loca ===true ">
+              
+                  <button  type="button" id = "location-button"  (click)= "getLocation()" class="btn btn-secondary" >Appuyez</button>
+
+
+                    </div>
+                  </td>
+
+
+                  </tr>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <div *ngIf="map" style= "width:250px;height: 250px"> <h3>Vous visualisez ce qui sera affiché sur l'annonce, cela vous convient ? <br> Sinon, écrivez votre adresse.</h3><app-mini-map [latitude]="this.info.latitude" [longitude]="this.info.longitude" [zoom]="13"  ></app-mini-map></div>
+                  </td>
+
+                  </table>
+
+              </div>
+
+
+              
+
+
+
+
+
 
               <div class="form group">
-                <label for ="description"> <h2>Commentaires ? <span style="color:red">*</span></h2></label>
+                <label for ="description"> <h2>Commentaire(s) ? <span style="color:red">*</span></h2></label>
                 <!--<input type="text" id="description" class="form-control" formControlName="description"> -->
                 <textarea class="form-control" aria-label="With textarea" id="description" class="form-control"
                         formControlName="description" placeholder="ex: Vous pourrez venir chez moi"></textarea>
