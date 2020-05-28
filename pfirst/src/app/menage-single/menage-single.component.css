@@ -26,3 +26,7 @@
 :host-context(.theme-dark) #jumb{
   background-color: gray;
 }
+
+:host-context(.theme-dark) #liste{
+  background-color: dimgray;
+}

@@ -33,7 +33,6 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
   public helpers: any[] = [];
   public response: number[];
   public assignees: number[] = [];
-  assigneesSubscription: Subscription;
   public noAssignees: boolean;
   public finished : boolean;
   name_assignees  = {};
@@ -75,6 +74,7 @@ export class ServiceActivityComponent implements OnInit, OnDestroy {
         }
       });
     }
+    this.deleteSubscription.unsubscribe();
   }
 
   getHelpers(announceId: number = 0) {

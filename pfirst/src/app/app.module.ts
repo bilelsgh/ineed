@@ -174,7 +174,8 @@ import { ServiceReviewComponent } from './service-review/service-review.componen
         }
       },
       behaviour:{
-        autoHide: false,
+        autoHide: 5000,
+        onMouseover: 'pauseAutoHide',
         stacking: 10
       }
     }),

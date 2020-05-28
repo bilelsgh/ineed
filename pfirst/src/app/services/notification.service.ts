@@ -201,9 +201,13 @@ export class NotificationService {
 
   resetDisplay() {
     this.notifierService.hideAll();
-    this.notifsDelayed.forEach((oneNot) => {
-      this.notifierService.show(oneNot);
-    });
+    if (this.notifsDelayed.length === 0){
+      this.notifierService.notify('default', 'Vous n\'avez aucune notification !');
+    } else {
+      this.notifsDelayed.forEach((oneNot) => {
+        this.notifierService.show(oneNot);
+      });
+    }
   }
 
   // approche plus modulaire, pas utilisée pour l'instant
