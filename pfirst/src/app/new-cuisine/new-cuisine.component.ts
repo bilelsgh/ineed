@@ -71,7 +71,7 @@ export class NewCuisineComponent implements OnInit {
       longitude: 0
     };
 
-    content.datejour = f.value['datejour'];
+    content.datejour = this.dateService.getDate(f);
     content.lieu = f.value['lieu'];
     content.sur_place = f.value['sur_place'];
     content.type_de_plat = f.value['type_plat'];

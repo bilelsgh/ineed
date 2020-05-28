@@ -66,7 +66,7 @@
     </span>
     <span>
       <div id="Proposition" *ngFor="let helper of helpers">
-        <!--<mat-toolbar color="#ffffff" *ngIf="!noHelper"> <!-- color ne marche pas-->-->
+        <!--<mat-toolbar color="#ffffff" *ngIf="!noHelper"> -->
         <mat-toolbar color="#ffffff">
         <mat-toolbar-row *ngIf="!amIanAssignee(helper.idUser) && !amIrejected(helper.idUser)">
             <span>{{helper.firstName}} {{helper.lastName}} vous a proposé son aide.</span>
