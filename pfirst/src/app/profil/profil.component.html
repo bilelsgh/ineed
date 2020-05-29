@@ -16,7 +16,7 @@
           ></div></td>
           <td><span class="user_identifier" *ngIf="info_user != undefined">{{info_user['firstName']}} {{info_user['lastName']}}</span></td>
           <td *ngIf="averageGrade != undefined"><img style="width:50px" src="../../assets/data/star.png" alt=""> <span
-            style="font-size: large;color: dimgray">{{averageGrade}} <b>/5</b></span><i></i>
+            style="font-size: large;">{{averageGrade}} <b>/5</b></span><i></i>
           </td>
           <td *ngIf="averageGrade === undefined">
             <span>Pas encore d'évaluation.</span>
