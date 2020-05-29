@@ -72,7 +72,7 @@ export class FormerServiceComponent implements OnInit, OnChanges {
               });
             })
             .catch((e) => {
-              console.log(e);
+              //console.log(e);
             });
         } else {
           /*
@@ -84,12 +84,12 @@ export class FormerServiceComponent implements OnInit, OnChanges {
               });
             })
             .catch((e) => {
-              console.log(e);
+              //console.log(e);
             });*/
           /*
-          console.log("FORMER ----");
-          console.log('ANNOUNCEID', this.announceId);
-          console.log('ANNOUNCEAUTHORID', this.announceAuthorId);*/
+          //console.log("FORMER ----");
+          //console.log('ANNOUNCEID', this.announceId);
+          //console.log('ANNOUNCEAUTHORID', this.announceAuthorId);*/
           this.participants.length = 0;
           this.participants.push(this.announceAuthorId);
           this.getAssigneeName(this.participants[0]);
@@ -100,7 +100,7 @@ export class FormerServiceComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('REACTION TO MODAL EMISSION');
+    //console.log('REACTION TO MODAL EMISSION');
     this.idToShowReview = {};
     this.idToNames = {};
     if (!this.helperLook) {
@@ -112,7 +112,7 @@ export class FormerServiceComponent implements OnInit, OnChanges {
           });
         })
         .catch((e) => {
-          console.log(e);
+          //console.log(e);
         });
     } else {
       this.participants.length = 0;
@@ -156,24 +156,24 @@ export class FormerServiceComponent implements OnInit, OnChanges {
           .subscribe(
             (response) => {
               this.participants = response['accepted'];
-              console.log('ASSIGNEES FOR ANNOUNCE', this.announceId, ' : ', response['accepted']);
-              console.log('FORMER INFO USER', this.usr_serv.info_user);
-              //console.log(this.usr_serv.info_user.idUser);
+              //console.log('ASSIGNEES FOR ANNOUNCE', this.announceId, ' : ', response['accepted']);
+              //console.log('FORMER INFO USER', this.usr_serv.info_user);
+              ////console.log(this.usr_serv.info_user.idUser);
               /*
               if (!this.participants.includes(this.usr_serv.info_user.idUser)){
                 this.participants.push(this.usr_serv.info_user.idUser);
               }*/
               this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-              //  console.log("GET ASSIGNEES : " + id);
+              //  //console.log("GET ASSIGNEES : " + id);
               //console.table(response['accepted']);
               resolve(true);
             },
             (error) => {
               if (error['status'] === 401) {
                 this.auth.removeUserInfo();
-                console.log('#TOKEN EXPIRED');
+                //console.log('#TOKEN EXPIRED');
               }
-              console.log('#DEBUG : Erreur lors de la récupération des assignees [service-activity] ' + error);
+              //console.log('#DEBUG : Erreur lors de la récupération des assignees [service-activity] ' + error);
               reject(error);
             }
           );
@@ -192,7 +192,7 @@ export class FormerServiceComponent implements OnInit, OnChanges {
           this.auth.setUserInfo(JSON.stringify(resp['token']), 'token');
         },
         (e) => {
-          console.log("CANT GET ASSIGNEE NAME", e);
+          //console.log("CANT GET ASSIGNEE NAME", e);
         }
       );
   }

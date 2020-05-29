@@ -51,10 +51,6 @@ export class CoursesSingleComponent implements OnInit {
     this.writeList();
     this.copied = false;
     this.View = this.service_descriptor['viewNumber'];
-
-
-    console.log('servDescriptor :', this.service_descriptor);
-    console.log("BUDGET : " + this.Budget);
   }
 
   writeList(){
@@ -113,7 +109,6 @@ export class CoursesSingleComponent implements OnInit {
             this.myService = true : this.myService = false;
         },
         (error) => {
-          console.log("Erreur de récupération des helpers dans cuisine-single : " + error);
         }
       );
   }

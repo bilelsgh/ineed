@@ -46,16 +46,16 @@ export class ServiceService{
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-          console.log("#DEBUG : Envoie de cuisine vers le BACK réussi");
+          //console.log("#DEBUG : Envoie de cuisine vers le BACK réussi");
           this.snackBar.openSnackBar('Votre demande de service a bien été effectuée','', "green-snackbar", 'top', 'center');
           console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
-            console.log("#TOKEN EXPIRED");
+            //console.log("#TOKEN EXPIRED");
           }
-          console.log("#DEBUG : Erreur lors de l'envoie de cuisine vers le BACK : "+ error);
+          //console.log("#DEBUG : Erreur lors de l'envoie de cuisine vers le BACK : "+ error);
         }
       );
   }
@@ -82,16 +82,16 @@ export class ServiceService{
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-          console.log("#DEBUG : Envoie de accompagne vers le BACK réussi");
+          //console.log("#DEBUG : Envoie de accompagne vers le BACK réussi");
           this.snackBar.openSnackBar('Votre demande de service a bien été effectuée','', "green-snackbar", 'top', 'center');
           console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
-            console.log("#TOKEN EXPIRED");
+            //console.log("#TOKEN EXPIRED");
           }
-          console.log("#DEBUG : Erreur lors de l'envoie de accompagne vers le BACK : "+ error);
+          //console.log("#DEBUG : Erreur lors de l'envoie de accompagne vers le BACK : "+ error);
         }
       );
   }
@@ -121,16 +121,16 @@ export class ServiceService{
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-          console.log("#DEBUG : Envoie des courses vers le BACK réussi");
+          //console.log("#DEBUG : Envoie des courses vers le BACK réussi");
           this.snackBar.openSnackBar('Votre demande de service a bien été effectuée','', "green-snackbar", 'top', 'center');
           console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
-            console.log("#TOKEN EXPIRED");
+            //console.log("#TOKEN EXPIRED");
           }
-          console.log("#DEBUG : Erreur lors de l'envoie des courses vers le BACK: "+ error);
+          //console.log("#DEBUG : Erreur lors de l'envoie des courses vers le BACK: "+ error);
         }
       );
   }
@@ -155,16 +155,16 @@ export class ServiceService{
       .subscribe(
         (response) => {
           this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
-          console.log("#DEBUG : Envoie de ménage vers le BACK réussi");
+          //console.log("#DEBUG : Envoie de ménage vers le BACK réussi");
           this.snackBar.openSnackBar('Votre demande de service a bien été effectuée','', "green-snackbar", 'top', 'center');
           console.table(response);
         },
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
-            console.log("#TOKEN EXPIRED");
+            //console.log("#TOKEN EXPIRED");
           }
-          console.log("#DEBUG : Erreur lors de l'envoie de ménage vers le BACK : "+ error);
+          //console.log("#DEBUG : Erreur lors de l'envoie de ménage vers le BACK : "+ error);
         }
       );
   }
@@ -195,7 +195,7 @@ export class ServiceService{
 
   //Récupérer une annonce par ID depuis firebase
   getServiceById(id: number) {
-    console.log("#ID : " + id);
+    //console.log("#ID : " + id);
     return new Promise((resolve,reject)=> {
       this.httpClient
         .get(this.auth.backend+'api/announce/' + id + '?token=' + JSON.parse(localStorage.getItem('token')))
@@ -206,16 +206,16 @@ export class ServiceService{
             viewNumber: response['announce']['viewNumber'], status: response['announce']['status']};
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
 
-            console.log("#Récupération de current_service (getById) OK");
+            //console.log("#Récupération de current_service (getById) OK");
             console.table("#SERVICE-SERVICE : current_service :", this.current_service);
             resolve(true);
           },
           (error) => {
             if(error['status'] === 401){
               this.auth.removeUserInfo();
-              console.log("#TOKEN EXPIRED");
+              //console.log("#TOKEN EXPIRED");
             }
-            console.log("Erreur de chargement : " + error);
+            //console.log("Erreur de chargement : " + error);
             reject(true);
           }
         );
@@ -239,9 +239,9 @@ export class ServiceService{
         (error) => {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
-            console.log("#TOKEN EXPIRED");
+            //console.log("#TOKEN EXPIRED");
           }
-          console.log("#Erreur lors de ApplyService");
+          //console.log("#Erreur lors de ApplyService");
         }
       );
   }
@@ -261,9 +261,9 @@ export class ServiceService{
           (error) => {
             if(error['status'] === 401){
               this.auth.removeUserInfo();
-              console.log("#TOKEN EXPIRED");
+              //console.log("#TOKEN EXPIRED");
             }
-            console.log("Erreur de récupération des X dernières annonces : " + error);
+            //console.log("Erreur de récupération des X dernières annonces : " + error);
             reject(true);
           }
         );

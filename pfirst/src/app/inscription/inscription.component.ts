@@ -43,7 +43,6 @@ export class InscriptionComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.checkSamePassword(form)) {
       this.same_password = true;
-      console.log('inscription valide.');
       const name = form.value.lastName;
       const prenom = form.value.firstName;
       const sexe = form.value.sex;
@@ -92,25 +91,21 @@ export class InscriptionComponent implements OnInit {
       this.bad_password = false;
       this.medium_password = false;
       this.strong_password = false;
-      console.log("MOT DE PASSE TAILLE PETITE")
     } else if ( this.badRegex.test(text) ) {
       this.small_password = false;
       this.bad_password = true;
       this.medium_password = false;
       this.strong_password = false;
-      console.log("MDP MAUVAIS");
     } else if ( this.mediumRegex.test(text) ) {
       this.small_password = false;
       this.medium_password = true;
       this.strong_password = false;
       this.bad_password = false;
-      console.log("MDP MOYEN")
     } else if ( this.strongRegex.test(text) ) {
       this.small_password = false;
       this.strong_password = true;
       this.bad_password = false;
       this.medium_password = false;
-      console.log("MDP FORT")
     }
 
   }
@@ -122,15 +117,13 @@ export class InscriptionComponent implements OnInit {
     newUser.sex = sexe;
     newUser.mail = mail;
     newUser.password = password;
-    //this.users.push(newUser);
-    console.log(newUser + "#");
 
     this.httpClient
       .post(this.auth.backend + 'api/user', newUser)
       .subscribe(
         (response) => {
           //RÉCEPTION DU TOKEN PAR LE BACKEND ET LE METTRE DANS LOCAL
-          console.log("#Inscription réussie : " + response);
+          //console.log("#Inscription réussie : " + response);
           this.alreadyExist = false;
           this.auth.setUserInfo( JSON.stringify(response['token']), 'token'); //stocke le token dans le session/localStorage
           this.auth.setUserInfo( JSON.stringify(response['user']), 'user');
@@ -149,7 +142,7 @@ export class InscriptionComponent implements OnInit {
           if(error['status'] === 400){
             this.alreadyExist = true;
           }
-          console.log('Erreur lors de linscription: ' + error);
+          //console.log('Erreur lors de linscription: ' + error);
         }
       );
   }
@@ -157,7 +150,7 @@ export class InscriptionComponent implements OnInit {
   /*
   onFileSelected(event) {
     this.picture_profil_file = event.target.files[0] as File
-    console.log("PROFIL PIC :", this.picture_profil_file);
+    //console.log("PROFIL PIC :", this.picture_profil_file);
   }
 
   onUpload() {
@@ -165,7 +158,7 @@ export class InscriptionComponent implements OnInit {
     fd.append('image', this.picture_profil_file, this.picture_profil_file.name);
     this.httpClient.post('gs://ineed-1ce51.appspot.com/', fd)
       .subscribe(res => {
-        console.log(res);
+        //console.log(res);
       });
   }
    */

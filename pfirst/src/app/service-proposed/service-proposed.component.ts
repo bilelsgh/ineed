@@ -69,13 +69,13 @@ export class ServiceProposedComponent implements OnInit {
   getHelpers(announceId: number = 0) {
     this.suiviServ.getHelpers(this.id)
       .then( () => {
-        console.log("Récupération des helpers dans service-activity OK - " + announceId);
+        //console.log("Récupération des helpers dans service-activity OK - " + announceId);
         this.helpers = this.suiviServ.helpers;
         //console.table(this.helpers);
         this.noHelper = this.suiviServ.noHelper;
       })
       .catch((e) => {
-        console.log('#getHelpers - service-activity: erreur de recupération ', e);
+        //console.log('#getHelpers - service-activity: erreur de recupération ', e);
         this.helpers = [];
       });
   }
@@ -122,7 +122,7 @@ export class ServiceProposedComponent implements OnInit {
         }
       })
       .catch((e) => {
-        console.log('#getAssignees - service-activity: erreur de recupération ', e);
+        //console.log('#getAssignees - service-activity: erreur de recupération ', e);
         this.assignees = [];
       });
   }

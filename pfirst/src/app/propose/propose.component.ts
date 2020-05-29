@@ -33,7 +33,6 @@ export class ServiceViewComponent implements OnInit {
       .get<any[]>(this.auth.backend+'api/announce/home')
       .subscribe(
         (response) => {
-          console.log(response);
           for (let j=0; j< Number(response['announces']['length']) ; j++) {
             //this.services_db.push(response['announces'][j]);
             this.services_db.push(
@@ -47,17 +46,16 @@ export class ServiceViewComponent implements OnInit {
           if(error['status'] === 401){
             this.auth.removeUserInfo();
           }
-          console.log("Erreur lors de la récupération des services [propose.component]: " + error);
         }
 
       );
   }
 
   lireService(){
-    console.log("##SERVICE DB##\n");
+    //console.log("##SERVICE DB##\n");
     for(let service of this.services_db){
-      console.log("NAME : " + service["name"] + " // ");
-      console.log("USER : " + service["user"] + "# \n");
+      //console.log("NAME : " + service["name"] + " // ");
+      //console.log("USER : " + service["user"] + "# \n");
     }
 
 

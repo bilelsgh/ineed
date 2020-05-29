@@ -92,7 +92,6 @@ export class NewMenageComponent implements OnInit {
     if (this.loca == false) {
       this.geolocService.getLatLong(f.value['city'] + f.value['adress'])
         .catch((value) => {
-          console.log(value)
         })
         .then((e) => {
           content.latitude = this.info.latitude;
@@ -127,7 +126,6 @@ export class NewMenageComponent implements OnInit {
       this.geolocService.setCurrentLocation();
       this.loca = true;
       this.map = true;
-      console.log(this.info.latitude);
     }
 
   }

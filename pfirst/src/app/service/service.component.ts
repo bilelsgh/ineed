@@ -25,7 +25,6 @@ export class ServiceComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("#IMAGE : " + this.serviceImage);
     this.latitude=this.serviceLatitude;
     this.longitude=this.serviceLongitude;
 

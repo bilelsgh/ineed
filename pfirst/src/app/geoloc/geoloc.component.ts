@@ -31,10 +31,10 @@ export class GeolocComponent implements OnInit {
     //load Places Autocomplete
     //this.geoCoder = new google.maps.Geocoder;
     this.mapsAPILoader.load().then(() => {
-      
+
       this.geoCoder = new google.maps.Geocoder; }
     )}
-    
+
 
       /*let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
@@ -54,7 +54,7 @@ export class GeolocComponent implements OnInit {
         });
       });
     });*/
-  
+
 
   // Get Current Location Coordinates
    setCurrentLocation() {
@@ -74,8 +74,6 @@ export class GeolocComponent implements OnInit {
   getAddress(latitude, longitude) {
 
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;

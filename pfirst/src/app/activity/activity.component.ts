@@ -67,7 +67,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.myID = JSON.parse(localStorage.getItem('user'))['idUser'];
     this.response = new Array (50); // taille arbitraire (il ne devrait pas y avoir + de 50 services en cours)
 
-    console.log('ID : ', JSON.parse(localStorage.getItem('user'))['idUser']);
+    //console.log('ID : ', JSON.parse(localStorage.getItem('user'))['idUser']);
     this.userService.getPostedAnnounces(JSON.parse(localStorage.getItem('user'))['idUser'])
       .then(() => {
         let response = this.userService.active_announces;
@@ -90,7 +90,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
         })
       .catch(
         (e) => {
-          console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
+          //console.log('#ACTIVITY: Erreur de récupération des services demandés', e);
         });
 
     //Récupération des services qui ont besoin d'être évalués
@@ -119,12 +119,12 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.userService.getAnnounceHelpersById(this.asked_services[announceIndex]['idAnnounce'])
       //this.userService.getAnnounceHelpersById(announceId)
       .then(() => {
-        //console.log("#Got helpers for announce of index = ", this.selectedAnnounce);
-        //console.log("Helpers = ", this.userService.announceHelpers);
+        ////console.log("#Got helpers for announce of index = ", this.selectedAnnounce);
+        ////console.log("Helpers = ", this.userService.announceHelpers);
         this.helpers = this.userService.announceHelpers;
       })
       .catch((e) => {
-        console.log("#getHelpers : erreur de recupération ", e);
+        //console.log("#getHelpers : erreur de recupération ", e);
         this.helpers = [];
       });
   }
@@ -134,7 +134,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
   }
 
   getProposedAnnounce(){
-    console.log("DANS GET PROPOSED");
+    //console.log("DANS GET PROPOSED");
     this.httpClient
       .get<any[]>(this.auth.backend + 'api/announce/undone?token=' + JSON.parse(localStorage.getItem('token')))
       .subscribe(
@@ -152,9 +152,9 @@ export class ActivityComponent implements OnInit, OnDestroy {
         (error) => {
           if (error['status'] === 401) {
             this.auth.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
+            //console.log('#TOKEN EXPIRED');
           }
-          console.log('#DEBUG : Erreur lors de la récupération de mes propositions [service-proposed] ' + error);
+          //console.log('#DEBUG : Erreur lors de la récupération de mes propositions [service-proposed] ' + error);
         }
       );
   }
@@ -175,16 +175,16 @@ export class ActivityComponent implements OnInit, OnDestroy {
           (response) => {
             this.auth.setUserInfo(JSON.stringify(response['token']), 'token'); //mise à jour du token
             this.reviewNeededName[id] = response["announce"];
-            console.log("SERVICE NEED : ", this.reviewNeededName[id]);
+            //console.log("SERVICE NEED : ", this.reviewNeededName[id]);
 
 
           },
           (error) => {
             if(error['status'] === 401){
               this.auth.removeUserInfo();
-              console.log("#TOKEN EXPIRED");
+              //console.log("#TOKEN EXPIRED");
             }
-            console.log("Erreur de chargement : " + error);
+            //console.log("Erreur de chargement : " + error);
           }
         );
   }

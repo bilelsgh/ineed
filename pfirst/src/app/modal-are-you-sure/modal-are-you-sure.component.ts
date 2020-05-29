@@ -29,15 +29,14 @@ export class ModalAreYouSureComponent implements OnInit {
     this.httpClient.delete(this.auth.backend + "api/announce/" + this.idAnnounce + "?token=" + JSON.parse(localStorage.getItem('token')))
       .subscribe(
         (response) => {
-          console.log("suppression ok");
+          //console.log("suppression ok");
           console.table(response);
           this.suiviServ.deleted(this.idAnnounce);
           this.notificationService.updaterProposed.forEach( (oneHelpUpdater) => {
             if ( +(oneHelpUpdater.split('announce')[1]) == this.idAnnounce){
               this.notificationService.updateToTreated(oneHelpUpdater);
-              // @ts-ignore
               this.notificationService.uploadNotif(
-                  new Notif(`${JSON.parse(localStorage.getItem('user')).firstName}a cpmmencé un service sans vous, votre aide a donc été refusée...`, 'error', '', 'activity'),
+                  new Notif(`${JSON.parse(localStorage.getItem('user')).firstName}a supprimé son service sans vous, votre aide a donc été refusée...`, 'error', '', 'activity'),
                   new NotifContext('helpRefused', JSON.parse(localStorage.getItem('user')).idUser, this.idAnnounce),
                   +(oneHelpUpdater.split('helpProposed')[0])
               );
@@ -48,10 +47,10 @@ export class ModalAreYouSureComponent implements OnInit {
         (error) => {
           if (error['status'] === 401) {
             this.auth.removeUserInfo();
-            console.log('#TOKEN EXPIRED');
+            //console.log('#TOKEN EXPIRED');
           }
         }
-      )
+      );
   }
 
   }

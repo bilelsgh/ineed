@@ -36,15 +36,15 @@ export class ModalHistoryComponent implements OnInit{
 
   ngOnInit(): void {
     this.myName = JSON.parse(localStorage.getItem('user')).firstName;
-    console.log("MYNAME : ", this.myName);
+    //console.log("MYNAME : ", this.myName);
     this.history_by = this.userService.services_history_by;
     this.history_for = this.userService.services_history_for;
-    console.log('Modal history : history_by = ', this.history_by);
-    console.log('Modal history : history_for = ', this.history_for);
+    //console.log('Modal history : history_by = ', this.history_by);
+    //console.log('Modal history : history_for = ', this.history_for);
     this.index_by = this.history_by.length - 1;
     this.index_for = this.history_for.length - 1;
-    console.log('Modal history : announceAuthorId', this.history_by[this.index_by].idUser);
-    console.log("datejour : ", this.history_by[this.index_by].content.datejour);
+    //console.log('Modal history : announceAuthorId', this.history_by[this.index_by].idUser);
+    //console.log("datejour : ", this.history_by[this.index_by].content.datejour);
     this.getReview();
     /*
     this.route.params.subscribe( (whatever)=>{
@@ -72,7 +72,7 @@ export class ModalHistoryComponent implements OnInit{
       'note': 5,
       'comment': 'Super'
     };
-    console.log("got review");
+    //console.log("got review");
   }
 
   decIndex() {
