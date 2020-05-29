@@ -42,7 +42,7 @@ export class GeolocService  {
             if (results[0]) {
               const adrr = results[5].formatted_address;
               
-              console.log(adrr.split(",")[0])
+              
               
             }}
 
