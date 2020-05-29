@@ -40,8 +40,10 @@ export class GeolocService  {
         this.geoCoder.geocode({ 'location': { lat: this.info.latitude, lng: this.info.longitude } }, (results, status) => {
           if (status === 'OK') {
             if (results[0]) {
-              const adrr = results[4].formatted_address;
-              this.info.city= adrr.split(",")[0].split(" ")[1];
+              const adrr = results[5].formatted_address;
+              
+              
+              
             }}
 
         });
